@@ -163,6 +163,56 @@ BlankLayout: scheme = 'simple|card';
 PopupLayout: scheme = 'modal|drawer|floating';
 ```
 
+### AuthLayout Split Scheme Customization (NEW)
+The split scheme now supports custom backgrounds via the `splitBackground` prop:
+
+```jsx
+// Solid color
+<AuthLayout scheme="split" splitBackground="bg-blue-600">
+  <LoginForm />
+</AuthLayout>
+
+// Custom gradient
+<AuthLayout scheme="split" splitBackground="bg-gradient-to-br from-purple-600 to-pink-500">
+  <LoginForm />
+</AuthLayout>
+
+// Image (for more complex cases, use splitContent with inline styles)
+<AuthLayout
+  scheme="split"
+  splitContent={
+    <div
+      className="absolute inset-0 bg-cover bg-center"
+      style={{ backgroundImage: "url('/image.jpg')" }}
+    />
+  }
+>
+  <LoginForm />
+</AuthLayout>
+
+// Custom JSX content with full control
+<AuthLayout
+  scheme="split"
+  splitContent={
+    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-indigo-600 to-purple-700 text-white p-12">
+      <div>
+        <h1 className="text-4xl font-bold mb-4">Welcome Back</h1>
+        <p>Sign in to continue to your dashboard</p>
+      </div>
+    </div>
+  }
+>
+  <LoginForm />
+</AuthLayout>
+```
+
+**Priority Order:**
+1. `splitContent` (ReactNode) - Full JSX control (highest priority)
+2. `splitBackground` (string) - Tailwind classes for background
+3. Default - Built-in primary gradient with dot pattern
+
+**Note:** When using `splitContent`, add `absolute inset-0` to fill the entire left side edge-to-edge.
+
 ### Size Configurations (Exact Measurements)
 ```jsx
 size = 'sm'; // Sidebars: 192px, Content: max-w-2xl, Padding: 16px
@@ -2053,3 +2103,42 @@ const columns = [
 - [ ] Verify responsive behavior on mobile/desktop
 
 Following this complete guide ensures 100% successful UIKit implementation with all new enhanced components.
+
+---
+
+## 📚 Live Examples
+
+The UIKit package includes a standalone examples app showcasing all features in action.
+
+### Running the Examples App
+
+```bash
+# Navigate to examples folder
+cd examples
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+The app will open at http://localhost:3000 with:
+- **10 AuthLayout Split Variations** - Interactive demos of all split customization options
+- **Live Navigation** - Switch between examples to see different configurations
+- **Full Source Code** - All examples located in `examples/src/components/`
+
+### What's Included
+
+1. **Default Split** - Built-in primary gradient with dot pattern
+2. **Solid Color** - Simple background colors
+3. **Custom Gradient** - Multi-color gradients
+4. **Background Image** - Local SVG/image backgrounds
+5. **Mesh Gradient** - Complex gradient patterns
+6. **Dark Theme** - Dark mode variations
+7. **Custom Content** - Full JSX control with features list
+8. **Animated Gradient** - Dynamic gradient effects
+9. **Minimal Light** - Clean minimal designs
+10. **Multi-Color** - Rainbow gradient effects
+
+Each example demonstrates different ways to use `splitBackground` and `splitContent` props for maximum customization.

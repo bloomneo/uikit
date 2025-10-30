@@ -85,6 +85,7 @@ const AuthLayoutComponent = forwardRef<HTMLDivElement, AuthLayoutProps>(({
   
   // Split scheme props
   splitContent,
+  splitBackground,
   
   // Hero scheme props
   imageUrl,
@@ -203,7 +204,10 @@ const AuthLayoutComponent = forwardRef<HTMLDivElement, AuthLayoutProps>(({
     return (
       <div ref={ref} className={cn(authVariants({ scheme, tone }), className)}>
         {/* Left side - Content or Image */}
-        <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+        <div className={cn(
+          "hidden lg:flex lg:w-1/2 relative overflow-hidden",
+          splitContent ? '' : (splitBackground || "bg-gradient-to-br from-primary via-primary/90 to-accent")
+        )}>
           {splitContent ? (
             // Custom split content
             <div className="relative z-10 flex flex-col justify-center p-8 lg:p-12 w-full">
@@ -211,18 +215,17 @@ const AuthLayoutComponent = forwardRef<HTMLDivElement, AuthLayoutProps>(({
             </div>
           ) : (
             <>
-              {/* Default gradient background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/90 to-accent"></div>
-              
-              {/* Subtle pattern overlay */}
-              <div className="absolute inset-0 opacity-10">
-                <div 
-                  className="w-full h-full"
-                  style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='7' cy='7' r='1'/%3E%3Ccircle cx='53' cy='7' r='1'/%3E%3Ccircle cx='7' cy='53' r='1'/%3E%3Ccircle cx='53' cy='53' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-                  }}
-                />
-              </div>
+              {/* Subtle pattern overlay (only when using gradient background) */}
+              {!splitBackground && (
+                <div className="absolute inset-0 opacity-10">
+                  <div
+                    className="w-full h-full"
+                    style={{
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='7' cy='7' r='1'/%3E%3Ccircle cx='53' cy='7' r='1'/%3E%3Ccircle cx='7' cy='53' r='1'/%3E%3Ccircle cx='53' cy='53' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+                    }}
+                  />
+                </div>
+              )}
             </>
           )}
         </div>

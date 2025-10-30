@@ -40,3 +40,8 @@ lerna-debug.log*
 
 # Misc
 *.local
+
+# Examples (development only)
+examples/node_modules
+examples/dist
+examples/.vite

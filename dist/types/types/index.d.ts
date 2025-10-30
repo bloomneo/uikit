@@ -344,6 +344,8 @@ export interface AuthLayoutProps extends LayoutSchemeProps<AuthLayoutScheme> {
     containerProps?: HTMLAttributes<HTMLDivElement>;
     /** OPTIONAL: Left side content for split scheme */
     splitContent?: ReactNode;
+    /** OPTIONAL: Custom background classes for split scheme left side (colors, gradients, images, patterns) */
+    splitBackground?: string;
     /** OPTIONAL: Background image URL for hero scheme */
     imageUrl?: string;
     /** OPTIONAL: Image alt text */
