@@ -7,7 +7,7 @@
 
 > AI‑ready React component toolkit for rapid frontend development, powered by Tailwind CSS v4 and ShadCN.
 
-Create visually stunning applications in seconds with 37 components, 5 layouts, and 5 themes — all zero‑configuration and minimal complexity. Build instantly, customize effortlessly, and deploy in seconds.
+Create visually stunning applications in seconds with 37 components, 6 layouts, and 5 themes — all zero‑configuration and minimal complexity. Build instantly, customize effortlessly, and deploy for web, desktop, and mobile in seconds.
 
 ## Why Choose @voilajsx/uikit?
 
@@ -15,7 +15,7 @@ Create visually stunning applications in seconds with 37 components, 5 layouts, 
 
 - **30-second setup**: From `npm install` to running app with routing, themes, and layouts
 - **37 ready-to-use components**: Skip building basic UI - focus on your unique features
-- **5 production layouts**: Admin dashboards, auth flows, marketing pages - all pre-built
+- **6 production layouts**: Admin dashboards, auth flows, marketing pages, mobile apps - all pre-built
 
 **🎨 For Design Consistency**
 
@@ -90,23 +90,26 @@ Build complete interfaces with our three-tier component system - from individual
 | **Data & Table**       | Table, DataTable, Calendar, Toaster                                                    | Data management               |
 | **Motion & Animation** | Motion, LoadingSpinner, Reveal, Hover                                                  | Visual effects                |
 
-### Section Components (3 Standalone)
+### Section Components (5 Standalone)
 
 | Component     | Purpose                    | Usage                       | Props                |
 | ------------- | -------------------------- | --------------------------- | -------------------- |
 | **Header**    | Standalone header sections | Independent navigation bars | tone, size, position |
 | **Footer**    | Standalone footer sections | Independent footer content  | tone, size, position |
 | **Container** | Content with sidebar       | Flexible content containers | tone, size, sidebar  |
+| **SafeArea**  | Mobile safe area wrapper   | iOS notch/Android insets    | edges, tone          |
+| **TabBar**    | Mobile bottom navigation   | Tab-based navigation        | tabs, tone, variant  |
 
-### Layouts (5 Production-Ready)
+### Layouts (6 Production-Ready)
 
-| Layout          | Use Case              | Components                       | Routing            |
-| --------------- | --------------------- | -------------------------------- | ------------------ |
-| **AdminLayout** | Dashboards, SaaS apps | Sidebar, Header, Content, Footer | Built-in nav state |
-| **PageLayout**  | Marketing sites       | Header, Content, Footer          | Static pages       |
-| **AuthLayout**  | Login/signup flows    | Centered forms, hero images      | Auth routing       |
-| **PopupLayout** | Browser extensions    | Compact, focused content         | Extension routing  |
-| **BlankLayout** | Custom pages          | Clean slate                      | Manual routing     |
+| Layout           | Use Case               | Components                       | Routing            |
+| ---------------- | ---------------------- | -------------------------------- | ------------------ |
+| **AdminLayout**  | Dashboards, SaaS apps  | Sidebar, Header, Content, Footer | Built-in nav state |
+| **PageLayout**   | Marketing sites        | Header, Content, Footer          | Static pages       |
+| **AuthLayout**   | Login/signup flows     | Centered forms, hero images      | Auth routing       |
+| **MobileLayout** | Mobile apps (Capacitor)| Header, Content, TabBar          | Tab/Stack nav      |
+| **PopupLayout**  | Browser extensions     | Compact, focused content         | Extension routing  |
+| **BlankLayout**  | Custom pages           | Clean slate                      | Manual routing     |
 
 ## 2. Advanced Theming System
 

@@ -139,6 +139,14 @@ export type BlankLayoutScheme = 'simple' | 'card';
 export type PopupLayoutScheme = 'modal' | 'drawer' | 'floating';
 
 /**
+ * MobileLayout schemes - Mobile navigation patterns
+ * tabbed: Bottom tab navigation (iOS/Android standard)
+ * stack: Stack navigation with back button (detail pages)
+ * drawer: Side drawer navigation (hamburger menu)
+ */
+export type MobileLayoutScheme = 'tabbed' | 'stack' | 'drawer';
+
+/**
  * Standardized navigation interface - SINGLE structure for ALL components
  * @llm-rules Navigation Usage:
  * - key: REQUIRED unique identifier

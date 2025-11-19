@@ -186,12 +186,15 @@ export { AdminLayout } from './components/layouts/admin';
 export { AuthLayout } from './components/layouts/auth';
 export { BlankLayout } from './components/layouts/blank';
 export { PopupLayout } from './components/layouts/popup';
+export { MobileLayout, useMobileLayout } from './components/layouts/mobile';
 export { LayoutWrapper } from './components/layouts/layout-wrapper';
 
 // Section Components
 export { Header, HeaderLogo, HeaderNav } from './components/sections/header';
 export { Footer } from './components/sections/footer';
 export { Container } from './components/sections/container';
+export { SafeArea } from './components/sections/safe-area';
+export { TabBar } from './components/sections/tab-bar';
 
 // Theme System
 export { ThemeProvider, useTheme, type Theme, type Mode } from './themes/theme-provider';

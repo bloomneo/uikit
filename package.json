@@ -1,7 +1,7 @@
 {
   "name": "@voilajsx/uikit",
-  "version": "1.2.16",
-  "description": "Cross-platform React components with beautiful themes and OKLCH color sciences",
+  "version": "1.3.0",
+  "description": "Cross-platform React components with beautiful themes and OKLCH color sciences - Now with mobile (Capacitor) support",
   "type": "module",
   "keywords": [
     "react",
@@ -224,6 +224,10 @@
       "import": "./dist/popup.js",
       "types": "./dist/types/components/layouts/popup.d.ts"
     },
+    "./mobile": {
+      "import": "./dist/mobile.js",
+      "types": "./dist/types/components/layouts/mobile.d.ts"
+    },
     "./container": {
       "import": "./dist/container.js",
       "types": "./dist/types/components/sections/container.d.ts"
@@ -235,6 +239,14 @@
     "./footer": {
       "import": "./dist/footer.js",
       "types": "./dist/types/components/sections/footer.d.ts"
+    },
+    "./safe-area": {
+      "import": "./dist/safe-area.js",
+      "types": "./dist/types/components/sections/safe-area.d.ts"
+    },
+    "./tab-bar": {
+      "import": "./dist/tab-bar.js",
+      "types": "./dist/types/components/sections/tab-bar.d.ts"
     },
     "./theme-provider": {
       "import": "./dist/theme-provider.js",
