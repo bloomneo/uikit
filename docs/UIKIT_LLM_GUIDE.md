@@ -22,6 +22,7 @@ What are you building?
 ├── Dashboard/Admin Panel → AdminLayout
 ├── Company Website → PageLayout
 ├── Login/Signup Page → AuthLayout
+├── Mobile/Capacitor App → MobileLayout
 ├── Error/About Page → BlankLayout
 └── Chrome Extension/Popup → PopupLayout
 ```
@@ -1320,6 +1321,111 @@ function UserManagementPage() {
 }
 ```
 
+### 4. Mobile Capacitor App (NEW MobileLayout)
+```jsx
+import { MobileLayout } from '@voilajsx/uikit/mobile';
+import { SafeArea } from '@voilajsx/uikit/safe-area';
+import { TabBar } from '@voilajsx/uikit/tab-bar';
+import { Card, CardContent } from '@voilajsx/uikit/card';
+import { Button } from '@voilajsx/uikit/button';
+import { ThemeProvider } from '@voilajsx/uikit/theme-provider';
+import { Home, User, Settings, Bell } from 'lucide-react';
+import { useState } from 'react';
+import '@voilajsx/uikit/styles';
+
+const tabs = [
+  { key: 'home', label: 'Home', icon: Home },
+  { key: 'profile', label: 'Profile', icon: User },
+  { key: 'notifications', label: 'Alerts', icon: Bell, badge: '5' },
+  { key: 'settings', label: 'Settings', icon: Settings },
+];
+
+function MobileApp() {
+  const [activeTab, setActiveTab] = useState('home');
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'home':
+        return (
+          <div className="p-4 space-y-4">
+            <h1 className="text-2xl font-bold text-foreground">Welcome Back</h1>
+            <Card className="bg-card border-border">
+              <CardContent className="p-4">
+                <h2 className="text-lg font-semibold text-foreground mb-2">
+                  Quick Actions
+                </h2>
+                <div className="space-y-2">
+                  <Button className="w-full bg-primary text-primary-foreground">
+                    Start New Task
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full border-border text-foreground"
+                  >
+                    View History
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        );
+      case 'profile':
+        return (
+          <div className="p-4">
+            <h1 className="text-2xl font-bold text-foreground">Profile</h1>
+            <p className="text-muted-foreground mt-2">Manage your account</p>
+          </div>
+        );
+      case 'notifications':
+        return (
+          <div className="p-4">
+            <h1 className="text-2xl font-bold text-foreground">Notifications</h1>
+            <p className="text-muted-foreground mt-2">5 unread alerts</p>
+          </div>
+        );
+      case 'settings':
+        return (
+          <div className="p-4">
+            <h1 className="text-2xl font-bold text-foreground">Settings</h1>
+            <p className="text-muted-foreground mt-2">App preferences</p>
+          </div>
+        );
+    }
+  };
+
+  return (
+    <ThemeProvider theme="base" mode="light">
+      <SafeArea edges={['top', 'bottom']} tone="clean">
+        <MobileLayout
+          scheme="tabbed"
+          tone="clean"
+          size="lg"
+          defaultTab="home"
+        >
+          <MobileLayout.Header
+            title={tabs.find((t) => t.key === activeTab)?.label}
+            actions={
+              <Button variant="ghost" size="sm">
+                <Bell className="h-5 w-5 text-foreground" />
+              </Button>
+            }
+          />
+          <MobileLayout.Content>{renderContent()}</MobileLayout.Content>
+          <TabBar
+            tabs={tabs}
+            activeTab={activeTab}
+            onTabClick={setActiveTab}
+            tone="clean"
+            size="md"
+            variant="default"
+          />
+        </MobileLayout>
+      </SafeArea>
+    </ThemeProvider>
+  );
+}
+```
+
 ---
 
 ## 🔧 NEW COMPONENTS INTEGRATION PATTERNS
@@ -1454,6 +1560,40 @@ import { Container } from '@voilajsx/uikit/container';
 </Container>;
 ```
 
+### SafeArea Component (Mobile Safe Areas)
+```jsx
+import { SafeArea } from '@voilajsx/uikit/safe-area';
+
+// Handle iOS notch and Android safe areas
+<SafeArea edges={['top', 'bottom']} tone="clean">
+  <MobileContent />
+</SafeArea>
+
+// With margin instead of padding
+<SafeArea edges={['top', 'bottom']} useMargin>
+  <MobileContent />
+</SafeArea>
+```
+
+### TabBar Component (Mobile Navigation)
+```jsx
+import { TabBar } from '@voilajsx/uikit/tab-bar';
+import { Home, User, Settings } from 'lucide-react';
+
+<TabBar
+  tabs={[
+    { key: 'home', label: 'Home', icon: Home },
+    { key: 'profile', label: 'Profile', icon: User, badge: '3' },
+    { key: 'settings', label: 'Settings', icon: Settings }
+  ]}
+  activeTab="home"
+  onTabClick={(id) => navigate(`/${id}`)}
+  tone="clean"
+  size="md"
+  variant="default"
+/>
+```
+
 ---
 
 ## 📐 COMPOUND COMPONENT PROPS (DETAILED)
@@ -1540,6 +1680,39 @@ import { Container } from '@voilajsx/uikit/container';
 >
   {/* Custom footer content (optional) */}
 </PageLayout.Footer>
+```
+
+### MobileLayout Props
+```jsx
+// MobileLayout Root
+<MobileLayout
+  scheme="tabbed|stack|drawer"         // Mobile navigation pattern (base: 'tabbed')
+  tone="clean|subtle|brand|contrast"   // Visual emphasis (base: 'clean')
+  size="sm|md|lg|xl|full"             // Layout size (base: 'lg')
+  tabs={navigationTabs}               // Tabs for tabbed scheme (optional)
+  defaultTab="home"                   // Default active tab (optional)
+>
+
+// MobileLayout.Header
+<MobileLayout.Header
+  title="Home"                        // Header title (optional)
+  onBack={() => goBack()}            // Back button handler for stack scheme (optional)
+  onMenu={() => toggleMenu()}        // Menu button handler for drawer scheme (optional)
+  actions={<Button>Edit</Button>}    // Header actions (optional)
+/>
+
+// MobileLayout.Content
+<MobileLayout.Content
+  noScroll={false}                   // Disable scroll (optional)
+>
+  {/* Your mobile content here */}
+</MobileLayout.Content>
+
+// MobileLayout.TabBar
+<MobileLayout.TabBar
+  tabs={navigationTabs}              // Navigation tabs (required)
+  onTabClick={handleTabClick}        // Tab click handler (optional)
+/>
 ```
 
 ---

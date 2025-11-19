@@ -23,7 +23,7 @@ UIKit is strategically built on **ShadCN components** and **Tailwind CSS v4** - 
 
 The composite system ensures **design consistency** across your entire application:
 
-**🧩 Components (37 Standard)** → **📐 Section Components (3 Bridging)** → **🏗️ Layouts (5 Production-Ready)**
+**🧩 Components (37 Standard)** → **📐 Section Components (5 Bridging)** → **🏗️ Layouts (6 Production-Ready)**
 
 **Consistency benefits:**
 - **Predictable behavior** - Users know how to interact with your interface
@@ -209,7 +209,7 @@ import { Button, Card } from '@voilajsx/uikit'; // Larger bundle size
 
 ---
 
-## 📐 Tier 2: Section Components (3 Standalone)
+## 📐 Tier 2: Section Components (5 Standalone)
 
 Section components are **standalone layout building blocks** that bridge individual components and complete page layouts. They provide reusable interface sections that can be used independently or combined to create custom layouts.
 
@@ -237,6 +237,16 @@ Section components are **standalone layout building blocks** that bridge individ
 | | `sidebar` | `left\|right\|none` |
 | | `navigation` | `NavigationItem[]` |
 | | `onNavigate` | `function` |
+| **SafeArea** | `edges` | `'top'\|'bottom'\|'left'\|'right'[]` |
+| | `tone` | `clean\|subtle\|brand\|contrast` |
+| | `useMargin` | `boolean` |
+| **TabBar** | `tabs` | `NavigationItem[]` |
+| | `activeTab` | `string` |
+| | `onTabClick` | `function` |
+| | `tone` | `clean\|subtle\|brand\|contrast` |
+| | `size` | `sm\|md\|lg\|xl\|full` |
+| | `variant` | `default\|floating\|minimal` |
+| | `showLabels` | `boolean` |
 
 ### Section Component Examples
 
@@ -282,9 +292,43 @@ import { Container } from '@voilajsx/uikit/container';
 </Container>
 ```
 
+#### SafeArea (Mobile Safe Zones)
+```jsx
+import { SafeArea } from '@voilajsx/uikit/safe-area';
+
+// Handle iOS notch and Android safe areas
+<SafeArea edges={['top', 'bottom']} tone="clean">
+  <MobileContent />
+</SafeArea>
+
+// With margin instead of padding
+<SafeArea edges={['top', 'bottom']} useMargin>
+  <MobileContent />
+</SafeArea>
+```
+
+#### TabBar (Mobile Bottom Navigation)
+```jsx
+import { TabBar } from '@voilajsx/uikit/tab-bar';
+import { Home, User, Settings } from 'lucide-react';
+
+<TabBar
+  tabs={[
+    { key: 'home', label: 'Home', icon: Home },
+    { key: 'profile', label: 'Profile', icon: User, badge: '3' },
+    { key: 'settings', label: 'Settings', icon: Settings }
+  ]}
+  activeTab="home"
+  onTabClick={(id) => navigate(`/${id}`)}
+  tone="clean"
+  size="md"
+  variant="default"
+/>
+```
+
 ---
 
-## 🏗️ Tier 3: Layouts (5 Production-Ready)
+## 🏗️ Tier 3: Layouts (6 Production-Ready)
 
 Layouts are **complete page structures** that provide instant application scaffolding. They include built-in responsive design, routing support, and production-ready patterns used by thousands of applications.
 
@@ -302,6 +346,7 @@ What are you building?
 ├── Admin Dashboard/SaaS App → AdminLayout (compound pattern)
 ├── Marketing Website → PageLayout (compound pattern)
 ├── Authentication Pages → AuthLayout (single pattern)
+├── Mobile/Capacitor App → MobileLayout (compound pattern)
 ├── Error/Simple Pages → BlankLayout (single pattern)
 └── Browser Extensions → PopupLayout (single pattern)
 ```
@@ -355,6 +400,18 @@ What are you building?
 | | | `title` | `string` |
 | | | `showClose` | `boolean` |
 | | | `onClose` | `function` |
+| **MobileLayout** | | `scheme` | `tabbed\|stack\|drawer` |
+| | | `tone` | `clean\|subtle\|brand\|contrast` |
+| | | `size` | `sm\|md\|lg\|xl\|full` |
+| | | `tabs` | `NavigationItem[]` |
+| | | `defaultTab` | `string` |
+| | **MobileLayout.Header** | `title` | `string` |
+| | | `onBack` | `function` |
+| | | `onMenu` | `function` |
+| | | `actions` | `ReactNode` |
+| | **MobileLayout.Content** | `noScroll` | `boolean` |
+| | **MobileLayout.TabBar** | `tabs` | `NavigationItem[]` |
+| | | `onTabClick` | `function` |
 
 ### Layout Examples
 
@@ -424,6 +481,40 @@ import { AuthLayout } from '@voilajsx/uikit/auth';
     Sign In
   </Button>
 </AuthLayout>
+```
+
+#### MobileLayout (Compound Pattern)
+```jsx
+import { MobileLayout } from '@voilajsx/uikit/mobile';
+import { SafeArea } from '@voilajsx/uikit/safe-area';
+import { TabBar } from '@voilajsx/uikit/tab-bar';
+import { Home, User, Settings } from 'lucide-react';
+
+const tabs = [
+  { key: 'home', label: 'Home', icon: Home },
+  { key: 'profile', label: 'Profile', icon: User },
+  { key: 'settings', label: 'Settings', icon: Settings }
+];
+
+// Compound pattern: Use child components
+<SafeArea edges={['top', 'bottom']} tone="clean">
+  <MobileLayout scheme="tabbed" tone="clean" size="lg">
+    <MobileLayout.Header title="Home" />
+    <MobileLayout.Content>
+      <div className="p-4">
+        <h1 className="text-foreground">Mobile App</h1>
+        <p className="text-muted-foreground">Built with Capacitor</p>
+      </div>
+    </MobileLayout.Content>
+    <TabBar
+      tabs={tabs}
+      activeTab="home"
+      onTabClick={(id) => navigate(`/${id}`)}
+      tone="clean"
+      size="md"
+    />
+  </MobileLayout>
+</SafeArea>
 ```
 
 ---
