@@ -102,5 +102,32 @@ program
     await deployProject(options);
   });
 
+// Prerender command
+program
+  .command('prerender')
+  .description('Pre-render SPA routes to static HTML for SEO')
+  .option('--dist <dir>', 'distribution directory', 'dist')
+  .option('--port <number>', 'server port for rendering', '4567')
+  .option('--routes <routes>', 'comma-separated routes or "auto"', '/')
+  .option('--config <file>', 'SEO config JSON file', 'seo.config.json')
+  .option('--baseUrl <url>', 'base URL for canonical links')
+  .action(async (options) => {
+    const { prerenderPages } = await import('./commands/prerender.js');
+    await prerenderPages(options);
+  });
+
+// Optimize command
+program
+  .command('optimize')
+  .description('Optimize images (convert to WebP, compress)')
+  .option('--dir <path>', 'directory to scan', 'public')
+  .option('--quality <number>', 'WebP quality 0-100', '80')
+  .option('--maxWidth <number>', 'max width in pixels', '1200')
+  .option('--webp-only', 'only generate WebP, skip PNG fallback')
+  .action(async (options) => {
+    const { optimizeImages } = await import('./commands/optimize.js');
+    await optimizeImages(options);
+  });
+
 // Parse arguments
 program.parse();

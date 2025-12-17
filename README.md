@@ -210,6 +210,12 @@ uikit serve                           # Start development server
 uikit build                           # Production build
 uikit deploy                          # Static site deployment
 uikit deploy --github                 # Deploy to GitHub Pages
+
+# SEO & Performance (requires: npm install puppeteer sharp)
+uikit prerender                       # Pre-render SPA routes to static HTML for SEO
+uikit prerender --routes "/,/about"   # Pre-render specific routes
+uikit optimize                        # Optimize images (convert to WebP, compress)
+uikit optimize --quality 85           # Set WebP quality (0-100)
 ```
 
 ## Example Codes

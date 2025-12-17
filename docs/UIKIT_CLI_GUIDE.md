@@ -368,6 +368,52 @@ uikit build && npx vercel --prod     # Vercel
 uikit build                          # Then drag dist/ to netlify.com/drop
 ```
 
+### SEO & Performance Optimization
+
+UIKit CLI includes tools for SEO pre-rendering and image optimization.
+
+**Pre-render SPA for SEO:**
+```bash
+# Install puppeteer (one-time)
+npm install puppeteer
+
+# Pre-render routes to static HTML
+uikit prerender                      # Pre-renders routes defined in seo.config.json
+uikit prerender --routes "/,/about,/contact"  # Specify routes manually
+uikit prerender --baseUrl "https://example.com"  # Set canonical URLs
+```
+
+Creates static HTML files for each route, improving SEO for single-page applications.
+Puppeteer renders your React app and saves the HTML output.
+
+**SEO Configuration:**
+Create `seo.config.json` in your project root:
+```json
+{
+  "baseUrl": "https://example.com",
+  "routes": {
+    "/": { "title": "Home - My App", "description": "Welcome to my app" },
+    "/about": { "title": "About - My App", "description": "Learn about us" },
+    "/contact": { "title": "Contact - My App", "description": "Get in touch" }
+  }
+}
+```
+
+**Image Optimization:**
+```bash
+# Install sharp (one-time)
+npm install sharp
+
+# Optimize images in public folder
+uikit optimize                       # Converts to WebP, compresses PNG
+uikit optimize --dir src/assets      # Specify directory
+uikit optimize --quality 85          # Set WebP quality (0-100)
+uikit optimize --maxWidth 1920       # Set max width
+uikit optimize --webp-only           # Skip PNG fallback generation
+```
+
+Converts PNG/JPG images to WebP format and creates optimized PNG fallbacks for older browsers.
+
 ---
 
 ## 🔧 Development Workflow
