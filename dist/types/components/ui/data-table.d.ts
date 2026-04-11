@@ -5,18 +5,27 @@
  */
 import * as React from 'react';
 /**
+ * Cell value type. Defaults to `unknown` so consumers must narrow before use.
+ */
+export type DataTableCellValue = unknown;
+/**
+ * Filter primitive value used by `FilterConfig`.
+ */
+export type DataTableFilterValue = string | number | boolean | Date | null;
+/**
  * Column definition with enhanced features
  */
-export interface DataTableColumn<T = any> {
+export interface DataTableColumn<TRow = unknown, TValue = DataTableCellValue> {
     /** Unique column identifier */
     id: string;
     /** Column header text */
     header: string;
-    /** Data accessor key or function */
-    accessorKey?: keyof T | string;
-    accessor?: (row: T) => any;
+    /** Data accessor key (a property of the row) */
+    accessorKey?: keyof TRow & (string | number);
+    /** Data accessor function (computed value) */
+    accessor?: (row: TRow) => TValue;
     /** Cell renderer function */
-    cell?: (value: any, row: T, index: number) => React.ReactNode;
+    cell?: (value: TValue, row: TRow, index: number) => React.ReactNode;
     /** Column width (px or %) */
     width?: string | number;
     /** Minimum column width */
@@ -32,7 +41,7 @@ export interface DataTableColumn<T = any> {
     /** Filter options for select type */
     filterOptions?: Array<{
         label: string;
-        value: any;
+        value: DataTableFilterValue;
     }>;
     /** Enable column resizing */
     resizable?: boolean;
@@ -43,7 +52,7 @@ export interface DataTableColumn<T = any> {
     /** Data type for sorting */
     dataType?: 'string' | 'number' | 'date' | 'boolean';
     /** Custom sort function */
-    sortFn?: (a: any, b: any) => number;
+    sortFn?: (a: TValue, b: TValue) => number;
     /** Column group */
     group?: string;
     /** Additional CSS classes */
@@ -63,14 +72,14 @@ export type FilterOperator = 'equals' | 'contains' | 'startsWith' | 'endsWith' |
 export interface FilterConfig {
     [key: string]: {
         type: 'text' | 'select' | 'date' | 'number' | 'boolean';
-        value: any;
+        value: DataTableFilterValue;
         operator?: FilterOperator;
     };
 }
 /**
  * Row action definition
  */
-export interface RowAction<T = any> {
+export interface RowAction<TRow = unknown> {
     /** Action identifier */
     id: string;
     /** Action label */
@@ -80,9 +89,9 @@ export interface RowAction<T = any> {
         className?: string;
     }>;
     /** Action handler */
-    onClick: (row: T, index: number) => void;
+    onClick: (row: TRow, index: number) => void;
     /** Conditional visibility */
-    visible?: (row: T, index: number) => boolean;
+    visible?: (row: TRow, index: number) => boolean;
     /** Action variant */
     variant?: 'default' | 'destructive' | 'secondary';
     /** Confirmation required */
@@ -94,7 +103,7 @@ export interface RowAction<T = any> {
 /**
  * DataTable component props
  */
-export interface DataTableProps<T = any> {
+export interface DataTableProps<T = unknown> {
     /** Table data */
     data: T[];
     /** Column definitions */
@@ -197,6 +206,6 @@ export interface DataTableProps<T = any> {
 /**
  * Enhanced DataTable component
  */
-declare const DataTable: React.ForwardRefExoticComponent<DataTableProps<any> & React.RefAttributes<HTMLTableElement>>;
+declare const DataTable: React.ForwardRefExoticComponent<DataTableProps<unknown> & React.RefAttributes<HTMLTableElement>>;
 export { DataTable };
 //# sourceMappingURL=data-table.d.ts.map

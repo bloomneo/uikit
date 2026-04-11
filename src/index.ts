@@ -35,7 +35,10 @@ export {
   Form,
   FormControl,
   FormDescription,
-  FormField,
+  // The react-hook-form `<FormField>` is a controller wrapper. The new
+  // <FormField> below (label/error/helper/a11y) is what most consumers want.
+  // Rename the controller export to avoid the name clash.
+  FormField as FormController,
   FormItem,
   FormLabel,
   FormMessage,
@@ -177,8 +180,79 @@ export {
   TableRow,
 } from './components/ui/table';
 export { DataTable } from './components/ui/data-table';
+export type {
+  DataTableColumn,
+  DataTableProps,
+  DataTableCellValue,
+  DataTableFilterValue,
+  FilterConfig,
+  FilterOperator,
+  RowAction,
+  SortConfig,
+} from './components/ui/data-table';
 export { Calendar } from './components/ui/calendar';
 export { Toaster } from './components/ui/sonner';
+
+// UI Components - App Primitives (Ship 2)
+export { EmptyState } from './components/ui/empty-state';
+export type { EmptyStateProps } from './components/ui/empty-state';
+
+export { PageHeader } from './components/ui/page-header';
+export type { PageHeaderProps, PageHeaderCrumb } from './components/ui/page-header';
+
+export { FormField, PasswordInput } from './components/ui/form-field';
+export type { FormFieldProps, PasswordInputProps } from './components/ui/form-field';
+
+export {
+  ToastProvider,
+  toast,
+  useToast,
+} from './components/ui/toast';
+export type {
+  ToastProviderProps,
+  ToastOptions,
+  ToastAction,
+  ToastPosition,
+} from './components/ui/toast';
+
+export {
+  ConfirmProvider,
+  useConfirm,
+  ConfirmDialog,
+} from './components/ui/confirm-dialog';
+export type {
+  ConfirmOptions,
+  DestructiveConfirmOptions,
+  ConfirmDialogProps,
+  UseConfirmReturn,
+} from './components/ui/confirm-dialog';
+
+// Format utilities
+export {
+  formatCurrency,
+  formatNumber,
+  formatDate,
+  timeAgo,
+  formatBytes,
+  Time,
+} from './lib/format';
+export type {
+  FormatCurrencyOptions,
+  FormatNumberOptions,
+  FormatDateOptions,
+  FormatBytesOptions,
+  TimeAgoOptions,
+  TimeProps,
+  Nullable,
+  DateInput,
+} from './lib/format';
+
+// FOUC prevention helper
+export { foucScript, foucScriptTag } from './lib/fouc';
+export type { FoucScriptOptions } from './lib/fouc';
+
+// Educational error helpers (used by components, also exposed for custom use)
+export { UIKitError, requireProp, requireArrayProp, warnInDev } from './lib/errors';
 
 // Layout System
 export { PageLayout } from './components/layouts/page';
@@ -200,5 +274,24 @@ export { TabBar } from './components/sections/tab-bar';
 export { ThemeProvider, useTheme, type Theme, type Mode } from './themes/theme-provider';
 
 // Hooks
-export { useApi, useBackendStatus } from './hooks';
-export type { ApiResponse, ApiOptions, UseApiReturn } from './hooks';
+export {
+  useApi,
+  useBackendStatus,
+  useLocalStorage,
+  useMediaQuery,
+  useBreakpoint,
+  useActiveBreakpoint,
+  breakpointQuery,
+  BREAKPOINTS,
+  useDataTable,
+} from './hooks';
+export type {
+  ApiResponse,
+  ApiOptions,
+  UseApiReturn,
+  UseLocalStorageReturn,
+  Breakpoint,
+  BreakpointDirection,
+  UseDataTableOptions,
+  UseDataTableReturn,
+} from './hooks';

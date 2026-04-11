@@ -27,12 +27,12 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { Separator } from '@/components/ui/separator';
-import { 
-  ChevronDown, 
-  ChevronUp, 
-  Filter, 
-  Search, 
-  Download, 
+import {
+  ChevronDown,
+  ChevronUp,
+  Filter,
+  Search,
+  Download,
   RefreshCw,
   MoreHorizontal,
   Eye,
@@ -42,20 +42,32 @@ import {
   SortAsc,
   SortDesc
 } from 'lucide-react';
+import { requireArrayProp, warnInDev } from '@/lib/errors';
+
+/**
+ * Cell value type. Defaults to `unknown` so consumers must narrow before use.
+ */
+export type DataTableCellValue = unknown;
+
+/**
+ * Filter primitive value used by `FilterConfig`.
+ */
+export type DataTableFilterValue = string | number | boolean | Date | null;
 
 /**
  * Column definition with enhanced features
  */
-export interface DataTableColumn<T = any> {
+export interface DataTableColumn<TRow = unknown, TValue = DataTableCellValue> {
   /** Unique column identifier */
   id: string;
   /** Column header text */
   header: string;
-  /** Data accessor key or function */
-  accessorKey?: keyof T | string;
-  accessor?: (row: T) => any;
+  /** Data accessor key (a property of the row) */
+  accessorKey?: keyof TRow & (string | number);
+  /** Data accessor function (computed value) */
+  accessor?: (row: TRow) => TValue;
   /** Cell renderer function */
-  cell?: (value: any, row: T, index: number) => React.ReactNode;
+  cell?: (value: TValue, row: TRow, index: number) => React.ReactNode;
   /** Column width (px or %) */
   width?: string | number;
   /** Minimum column width */
@@ -69,7 +81,7 @@ export interface DataTableColumn<T = any> {
   /** Filter type */
   filterType?: 'text' | 'select' | 'date' | 'number' | 'boolean';
   /** Filter options for select type */
-  filterOptions?: Array<{ label: string; value: any }>;
+  filterOptions?: Array<{ label: string; value: DataTableFilterValue }>;
   /** Enable column resizing */
   resizable?: boolean;
   /** Hide column by default */
@@ -79,7 +91,7 @@ export interface DataTableColumn<T = any> {
   /** Data type for sorting */
   dataType?: 'string' | 'number' | 'date' | 'boolean';
   /** Custom sort function */
-  sortFn?: (a: any, b: any) => number;
+  sortFn?: (a: TValue, b: TValue) => number;
   /** Column group */
   group?: string;
   /** Additional CSS classes */
@@ -102,7 +114,7 @@ export type FilterOperator = 'equals' | 'contains' | 'startsWith' | 'endsWith' |
 export interface FilterConfig {
   [key: string]: {
     type: 'text' | 'select' | 'date' | 'number' | 'boolean';
-    value: any;
+    value: DataTableFilterValue;
     operator?: FilterOperator;
   };
 }
@@ -110,7 +122,7 @@ export interface FilterConfig {
 /**
  * Row action definition
  */
-export interface RowAction<T = any> {
+export interface RowAction<TRow = unknown> {
   /** Action identifier */
   id: string;
   /** Action label */
@@ -118,9 +130,9 @@ export interface RowAction<T = any> {
   /** Action icon */
   icon?: React.ComponentType<{ className?: string }>;
   /** Action handler */
-  onClick: (row: T, index: number) => void;
+  onClick: (row: TRow, index: number) => void;
   /** Conditional visibility */
-  visible?: (row: T, index: number) => boolean;
+  visible?: (row: TRow, index: number) => boolean;
   /** Action variant */
   variant?: 'default' | 'destructive' | 'secondary';
   /** Confirmation required */
@@ -133,7 +145,7 @@ export interface RowAction<T = any> {
 /**
  * DataTable component props
  */
-export interface DataTableProps<T = any> {
+export interface DataTableProps<T = unknown> {
   /** Table data */
   data: T[];
   /** Column definitions */
@@ -281,7 +293,20 @@ const cellVariants = cva(
 /**
  * Enhanced DataTable component
  */
-const DataTable = forwardRef<HTMLTableElement, DataTableProps>(({
+const DataTable = forwardRef<HTMLTableElement, DataTableProps>((rawProps, ref) => {
+  // Educational validation: catch the two most common misuses with messages
+  // that name the prop and link to the docs entry, instead of crashing inside
+  // a .map() call ten frames deep.
+  requireArrayProp('DataTable', 'data', rawProps.data,
+    'Pass an array (use [] while loading instead of undefined).');
+  requireArrayProp('DataTable', 'columns', rawProps.columns,
+    'Pass an array of DataTableColumn definitions.');
+  if (rawProps.columns && rawProps.columns.some((c) => !c.id)) {
+    warnInDev('DataTable',
+      'Every column needs a unique `id` (used for sort/filter/render keys).');
+  }
+
+  const {
   data = [],
   columns = [],
   virtualized = false,
@@ -327,7 +352,7 @@ const DataTable = forwardRef<HTMLTableElement, DataTableProps>(({
   hoverable = true,
   className,
   style,
-}, ref) => {
+  } = rawProps;
 
   // Internal state
   const [internalSort, setInternalSort] = useState<SortConfig[]>(sortConfig);
@@ -366,7 +391,7 @@ const DataTable = forwardRef<HTMLTableElement, DataTableProps>(({
   }, [sortable, columns, internalSort, onSortChange]);
 
   // Handle filtering
-  const handleFilter = useCallback((columnId: string, value: any, operator: FilterOperator = 'contains') => {
+  const handleFilter = useCallback((columnId: string, value: DataTableFilterValue, operator: FilterOperator = 'contains') => {
     const newFilters = { ...internalFilters };
     
     if (value === '' || value == null) {
@@ -582,6 +607,9 @@ const DataTable = forwardRef<HTMLTableElement, DataTableProps>(({
   };
 
   // Render table row
+  // Internal: rows pass through as `unknown` and accessors narrow them.
+  // Public consumers see the generic `T` from `DataTableProps<T>`.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const renderRow = (row: any, index: number) => {
     const rowId = getRowId(row, index);
     const isSelected = internalSelection.includes(rowId);

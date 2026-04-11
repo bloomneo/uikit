@@ -517,18 +517,32 @@ export interface ContainerProps extends BaseComponentProps, ToneProps, SizeProps
  */
 
 /**
+ * Cell value extracted from a row by `accessor` / `accessorKey`. Defaults to
+ * `unknown` so consumers must narrow the type before using it — this is the
+ * point of the generic.
+ */
+export type DataTableCellValue = unknown;
+
+/**
+ * Filter primitive value used by `FilterConfig`. Kept narrow enough to round-
+ * trip through URL params and `Intl` formatters without losing information.
+ */
+export type DataTableFilterValue = string | number | boolean | Date | null;
+
+/**
  * DataTable column definition
  */
-export interface DataTableColumn<T = any> {
+export interface DataTableColumn<TRow = unknown, TValue = DataTableCellValue> {
   /** REQUIRED: Unique column identifier */
   id: string;
   /** REQUIRED: Column header text */
   header: string;
-  /** OPTIONAL: Data accessor key or function */
-  accessorKey?: keyof T | string;
-  accessor?: (row: T) => any;
+  /** OPTIONAL: Data accessor key (a property of the row) */
+  accessorKey?: keyof TRow & (string | number);
+  /** OPTIONAL: Data accessor function (computed value) */
+  accessor?: (row: TRow) => TValue;
   /** OPTIONAL: Cell renderer function */
-  cell?: (value: any, row: T, index: number) => React.ReactNode;
+  cell?: (value: TValue, row: TRow, index: number) => React.ReactNode;
   /** OPTIONAL: Column width */
   width?: string | number;
   minWidth?: number;
@@ -538,7 +552,7 @@ export interface DataTableColumn<T = any> {
   /** OPTIONAL: Enable filtering */
   filterable?: boolean;
   filterType?: 'text' | 'select' | 'date' | 'number' | 'boolean';
-  filterOptions?: Array<{ label: string; value: any }>;
+  filterOptions?: Array<{ label: string; value: DataTableFilterValue }>;
   /** OPTIONAL: Enable column resizing */
   resizable?: boolean;
   /** OPTIONAL: Hide column by default */
@@ -548,7 +562,7 @@ export interface DataTableColumn<T = any> {
   /** OPTIONAL: Data type for sorting */
   dataType?: 'string' | 'number' | 'date' | 'boolean';
   /** OPTIONAL: Custom sort function */
-  sortFn?: (a: any, b: any) => number;
+  sortFn?: (a: TValue, b: TValue) => number;
   /** OPTIONAL: Column group */
   group?: string;
   /** OPTIONAL: Additional CSS classes */
@@ -571,7 +585,7 @@ export type FilterOperator = 'equals' | 'contains' | 'startsWith' | 'endsWith' |
 export interface FilterConfig {
   [key: string]: {
     type: 'text' | 'select' | 'date' | 'number' | 'boolean';
-    value: any;
+    value: DataTableFilterValue;
     operator?: FilterOperator;
   };
 }
@@ -579,7 +593,7 @@ export interface FilterConfig {
 /**
  * Row action definition
  */
-export interface RowAction<T = any> {
+export interface RowAction<TRow = unknown> {
   /** REQUIRED: Action identifier */
   id: string;
   /** REQUIRED: Action label */
@@ -587,9 +601,9 @@ export interface RowAction<T = any> {
   /** OPTIONAL: Action icon */
   icon?: React.ComponentType<{ className?: string }>;
   /** REQUIRED: Action handler */
-  onClick: (row: T, index: number) => void;
+  onClick: (row: TRow, index: number) => void;
   /** OPTIONAL: Conditional visibility */
-  visible?: (row: T, index: number) => boolean;
+  visible?: (row: TRow, index: number) => boolean;
   /** OPTIONAL: Action variant */
   variant?: 'default' | 'destructive' | 'secondary';
   /** OPTIONAL: Confirmation required */
@@ -699,8 +713,8 @@ export interface EnhancedFormProps<T extends FieldValues = FieldValues> {
   defaultValues?: Partial<T>;
   /** REQUIRED: Form submission handler */
   onSubmit: (data: T) => void | Promise<void>;
-  /** OPTIONAL: Error handler */
-  onError?: (errors: any) => void;
+  /** OPTIONAL: Error handler — receives react-hook-form's FieldErrors */
+  onError?: (errors: import('react-hook-form').FieldErrors<T>) => void;
   /** OPTIONAL: Loading state */
   loading?: boolean;
   /** OPTIONAL: Form mode */

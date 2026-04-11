@@ -30,9 +30,9 @@ const UIKitShowcase: React.FC = () => {
           </div>
           
           <div className="flex items-center gap-3">
-            <select 
+            <select
               value={theme}
-              onChange={(e) => setTheme(e.target.value as any)}
+              onChange={(e) => setTheme(e.target.value)}
               className="bg-background border border-input rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
             >
               {availableThemes.map(themeId => (

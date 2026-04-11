@@ -45,3 +45,6 @@ lerna-debug.log*
 examples/node_modules
 examples/dist
 examples/.vite
+
+# Unrelated sub-project — not part of @voilajsx/uikit
+pages/

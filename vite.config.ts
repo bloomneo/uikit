@@ -41,10 +41,10 @@ const getComponentEntries = () => {
   entries['utils'] = resolve(__dirname, 'src/lib/utils.ts');
   entries['platform'] = resolve(__dirname, 'src/lib/platform.ts');
   entries['wrapper'] = resolve(__dirname, 'src/components/layouts/layout-wrapper.tsx');
-  
-  // Adapters
-  //entries['adapters'] = resolve(__dirname, 'src/adapters/index.ts');
-  
+  entries['format'] = resolve(__dirname, 'src/lib/format.ts');
+  entries['fouc'] = resolve(__dirname, 'src/lib/fouc.ts');
+  entries['errors'] = resolve(__dirname, 'src/lib/errors.ts');
+
   return entries;
 };
 
@@ -78,14 +78,10 @@ export default defineConfig({
           react: 'React',
           'react-dom': 'ReactDOM',
         },
-        // Ensure CSS is properly named and placed
+        // Vite emits the bundled CSS as `style.css` by default. Rename it to
+        // `styles.css` so it matches the `./styles` export in package.json.
         assetFileNames: (assetInfo) => {
-          // Name the main CSS file as styles.css to match package.json exports
-          if (assetInfo.name === 'style.css' || 
-              assetInfo.name === 'uikit.css' || 
-              assetInfo.name?.endsWith('globals.css')) {
-            return 'styles.css';
-          }
+          if (assetInfo.name === 'style.css') return 'styles.css';
           return assetInfo.name || 'assets/[name].[ext]';
         },
       },

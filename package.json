@@ -1,6 +1,6 @@
 {
   "name": "@voilajsx/uikit",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Cross-platform React components with beautiful themes and OKLCH color sciences - Now with mobile (Capacitor) support",
   "type": "module",
   "keywords": [
@@ -51,6 +51,10 @@
     "./styles": {
       "import": "./dist/styles.css",
       "require": "./dist/styles.css"
+    },
+    "./styles/fonts": {
+      "import": "./dist/styles/fonts.css",
+      "require": "./dist/styles/fonts.css"
     },
     "./accordion": {
       "import": "./dist/accordion.js",
@@ -204,6 +208,22 @@
       "import": "./dist/detail-page.js",
       "types": "./dist/types/components/ui/detail-page.d.ts"
     },
+    "./empty-state": {
+      "import": "./dist/empty-state.js",
+      "types": "./dist/types/components/ui/empty-state.d.ts"
+    },
+    "./page-header": {
+      "import": "./dist/page-header.js",
+      "types": "./dist/types/components/ui/page-header.d.ts"
+    },
+    "./form-field": {
+      "import": "./dist/form-field.js",
+      "types": "./dist/types/components/ui/form-field.d.ts"
+    },
+    "./confirm-dialog": {
+      "import": "./dist/confirm-dialog.js",
+      "types": "./dist/types/components/ui/confirm-dialog.d.ts"
+    },
     "./admin": {
       "import": "./dist/admin.js",
       "types": "./dist/types/components/layouts/admin.d.ts"
@@ -271,20 +291,37 @@
     "./wrapper": {
       "import": "./dist/wrapper.js",
       "types": "./dist/types/lib/layout-wrapper.d.ts"
-    }
+    },
+    "./format": {
+      "import": "./dist/format.js",
+      "types": "./dist/types/lib/format.d.ts"
+    },
+    "./fouc": {
+      "import": "./dist/fouc.js",
+      "types": "./dist/types/lib/fouc.d.ts"
+    },
+    "./errors": {
+      "import": "./dist/errors.js",
+      "types": "./dist/types/lib/errors.d.ts"
+    },
+    "./llms.txt": "./dist/llms.txt"
   },
   "files": [
     "dist",
     "bin",
+    "examples",
+    "cookbook",
+    "llms.txt",
     "README.md",
     "CHANGELOG.md",
     "LICENSE"
   ],
   "scripts": {
     "dev": "vite",
-    "build": "npm run clean && npm run build:lib && npm run build:css && npm run build:fonts && npm run build:types",
+    "build": "npm run clean && npm run build:lib && npm run build:css && npm run build:fonts && npm run build:types && npm run build:llms",
+    "build:llms": "node scripts/build-llms.mjs",
     "build:lib": "vite build",
-    "build:css": "tailwindcss -i src/styles/globals.css -o dist/styles-temp.css --minify && cat src/styles/fonts.css dist/styles-temp.css > dist/styles.css && rm dist/styles-temp.css",
+    "build:css": "node scripts/build-styles.mjs",
     "build:fonts": "cp -r src/fonts dist/",
     "build:types": "tsc --emitDeclarationOnly --outDir dist/types",
     "clean": "rm -rf dist",
@@ -374,7 +411,6 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "tailwindcss": "^4.1.8",
-    "tw-animate-css": "^1.3.4",
     "typescript": "^5.8.3",
     "vite": "^7.1.5",
     "vitest": "^3.2.3"

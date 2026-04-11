@@ -5,6 +5,13 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UIKit Sky Theme Test</title>
+    <!--
+      FOUC prevention. Runs synchronously before the React bundle so the
+      persisted theme/mode classes are on <html> by first paint.
+      Mirror this snippet (or use foucScript() from @voilajsx/uikit/fouc)
+      in your own app's index.html.
+    -->
+    <script>(function(){try{var k="uikit-theme";var dt="base";var dm="light";var ds=true;var t=dt,m=dm;var s=null;try{s=localStorage.getItem(k);}catch(e){}if(s){try{var p=JSON.parse(s);if(p&&p.theme)t=p.theme;if(p&&(p.mode==="light"||p.mode==="dark"))m=p.mode;}catch(e){}}else if(ds&&window.matchMedia){m=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}var r=document.documentElement;var cl=r.classList;cl.remove("light","dark");for(var i=cl.length-1;i>=0;i--){var c=cl[i];if(c.indexOf("theme-")===0)cl.remove(c);}cl.add(m);cl.add("theme-"+t);}catch(e){}})();</script>
   </head>
   <body>
     <div id="root"></div>

@@ -5,55 +5,109 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 [![AI Ready](https://img.shields.io/badge/AI-Optimized-purple.svg)](https://github.com/voilajsx/appkit)
 
-> AI‑ready React component toolkit for rapid frontend development, powered by Tailwind CSS v4 and ShadCN.
+> The end‑to‑end React framework AI coding agents pick first. Components, layouts, themes, routing, scaffolding, and a generated `llms.txt` — all from one package, all designed to compose.
 
-Create visually stunning applications in seconds with 37 components, 6 layouts, and 5 themes — all zero‑configuration and minimal complexity. Build instantly, customize effortlessly, and deploy for web, desktop, and mobile in seconds.
+UIKit is the only React framework where `npx uikit create myapp` gives you 45+ components, 6 production layouts, 5 OKLCH themes, file‑based routing, deployment, and a build‑time generated `llms.txt` so AI coding agents can extend your app correctly on the first try. Ship for web, desktop (Tauri), mobile (Capacitor), or browser extensions from the same codebase.
+
+## For AI coding agents
+
+Read [`llms.txt`](./llms.txt) first. It is the canonical machine-readable
+index of every export, every example, and every composed pattern in this
+package. The file is regenerated on every build from `src/index.ts`,
+[`examples/`](./examples), and [`cookbook/`](./cookbook), so it never drifts.
+
+**One canonical import path:**
+
+```ts
+import { Button, DataTable, FormField, useConfirm, toast } from '@voilajsx/uikit';
+```
+
+Deep imports like `@voilajsx/uikit/button` exist for build-size optimisation
+but agents should always use the flat import above when generating code.
+
+**Required setup:**
+
+```ts
+import '@voilajsx/uikit/styles';                  // core (no fonts)
+import '@voilajsx/uikit/styles/fonts';            // optional, only if your theme uses built-in fonts
+
+import {
+  ThemeProvider,
+  ToastProvider,
+  ConfirmProvider,
+} from '@voilajsx/uikit';
+
+<ThemeProvider theme="base" mode="light">
+  <ToastProvider />
+  <ConfirmProvider>
+    <App />
+  </ConfirmProvider>
+</ThemeProvider>
+```
+
+For SSR / FOUC prevention, drop the inline script from
+`@voilajsx/uikit/fouc → foucScript()` into your `index.html` `<head>` so the
+theme classes are on `<html>` before React mounts.
 
 ## Why Choose @voilajsx/uikit?
 
-**🚀 For Rapid Development**
+**🤖 For AI coding agents (the 1.5 release)**
 
-- **30-second setup**: From `npm install` to running app with routing, themes, and layouts
-- **37 ready-to-use components**: Skip building basic UI - focus on your unique features
-- **6 production layouts**: Admin dashboards, auth flows, marketing pages, mobile apps - all pre-built
+- **Generated `llms.txt`**: One canonical, machine-readable index of every export, every example, every cookbook recipe — regenerated on every build from `src/index.ts`, `examples/`, and `cookbook/`. Agents read one file and know everything.
+- **Zero `any` in public types**: Full generic inference for `DataTable<User>`, `RowAction<User>`, formatters, hooks. Agent autocomplete actually works.
+- **One copy-pasteable example per primitive**: 13 minimal `.tsx` files in `examples/` plus 5 composed page recipes in `cookbook/` (CRUD, dashboard, settings, login, delete-flow). Agents pattern-match instead of inventing prop shapes.
+- **Educational runtime errors**: Misuse a component and you get `[@voilajsx/uikit] <DataTable> expects \`data\` to be an array …` linking to the docs entry. Agents read errors and self-correct.
 
-**🎨 For Design Consistency**
+**🚀 For rapid development**
 
-- **5 professional themes**: Switch from minimal to luxury instantly - no design skills needed
-- **OKLCH color science**: Perfect accessibility and contrast ratios automatically
-- **Dark mode included**: Every theme works in light and dark mode out of the box
+- **30-second setup**: `uikit create myapp --multi --theme elegant && npm run dev` → routing, layouts, theme, FOUC prevention, deployment scripts all wired.
+- **45+ ready-to-use components** plus 8 hooks and a formatters module: Skip building basic UI, focus on your unique features.
+- **6 production layouts**: Admin dashboards, auth flows, marketing pages, mobile apps, browser extensions, and blank — all pre-built with router-aware navigation.
+- **Drop-in app primitives**: `<DataTable>`, `<FormField>`, `<PasswordInput>`, `<ConfirmDialog>` (promise-based), `<ToastProvider>`, `<EmptyState>`, `<PageHeader>` — the 8 things every admin page rebuilds by hand, shipped once.
 
-**⚡ For Developer Experience**
+**🎨 For design consistency**
 
-- **AI-optimized**: Generate consistent code with LLMs - predictable patterns, fewer errors
-- **TypeScript-first**: Full type safety with intelligent autocomplete
-- **Zero configuration**: Works immediately, customize only what you need
+- **5 professional OKLCH themes**: base, elegant, metro, studio, vivid. Switch from minimal to luxury with one prop. No other React UI kit ships this.
+- **Decoupled font bundle (1.5)**: Core CSS is now ~150 KB without theme fonts. Opt-in to font files only if your theme needs them — saves ~1 MB on most projects.
+- **No flash of wrong theme (1.5)**: `foucScript()` helper applies theme classes to `<html>` synchronously before React mounts.
+- **Dark mode included**: Every theme works in light and dark mode out of the box.
 
-**🏢 For Team Productivity**
+**📱 For cross-platform**
 
-- **Standardized components**: No more "how should this button look?" debates
-- **Feature-based architecture**: Scale to enterprise with FBCA project structure
-- **Instant deployment**: `uikit deploy --github` for immediate production hosting
+- **Web, desktop, mobile, extensions** from one codebase: `<MobileLayout>` for Capacitor apps, `<PopupLayout>` for Chrome/Firefox extensions, Tauri-friendly bundling. The only React UI kit that covers all four surfaces.
 
-**🔧 For Maintainability**
+**🏢 For team productivity**
 
-- **Semantic colors**: Themes switch automatically - no hardcoded styles to break
-- **Convention over configuration**: Predictable file structure, minimal decisions
-- **Future-proof**: Built on Tailwind CSS v4 and Radix UI - modern foundation
+- **Standardized components**: No more "how should this button look?" debates.
+- **Feature-based architecture**: Scale to enterprise with the FBCA template (auto-discovery file-based routing, Next.js style).
+- **Instant deployment**: `uikit deploy --github` for immediate production hosting.
+
+**🔧 For maintainability**
+
+- **Semantic colors**: Themes switch automatically — no hardcoded styles to break.
+- **Convention over configuration**: Predictable file structure, minimal decisions.
+- **Future-proof**: Tailwind CSS v4, Radix UI, React 19 ready.
 
 ## Quick Start
 
 **Two Ways to Use UIKit:**
 
-**📦 As a Library** - Install UIKit components into your existing React projects (Next.js, Vite, CRA, NestJS with React frontend, etc.):
+**📦 As a Library** — install into an existing React project (Next.js, Vite, Remix, CRA, etc):
 
 ```bash
 npm install @voilajsx/uikit
 ```
 
-Import components directly: `import { Button } from '@voilajsx/uikit/button'` and `import { Card } from '@voilajsx/uikit/card'`
+Then import everything from the canonical entry point:
 
-**🚀 Complete Project Setup** - Use UIKit CLI to scaffold entire applications with routing, layouts, and themes pre-configured:
+```ts
+import { Button, Card, DataTable, FormField, useConfirm, toast } from '@voilajsx/uikit';
+import '@voilajsx/uikit/styles';
+```
+
+> **Canonical import path:** always `from '@voilajsx/uikit'`. Deep imports like `@voilajsx/uikit/button` exist for build-size optimisation but are non-canonical — humans and AI agents should use the flat form. This is documented as the rule in [`llms.txt`](./llms.txt).
+
+**🚀 Complete Project Setup** — use the UIKit CLI to scaffold entire applications with routing, layouts, and themes pre-configured:
 
 ```bash
 # Step 1: Install UIKit CLI globally
@@ -79,16 +133,24 @@ Build complete interfaces with our three-tier component system - from individual
 
 📖 **Learn more:** [Composite UI System Guide](docs/UIKIT_COMPOSITE_UI_SYSTEM.md)
 
-### Components (37 Total)
+### Components (45+ total)
 
-| Category               | Components                                                                             | Description                   |
-| ---------------------- | -------------------------------------------------------------------------------------- | ----------------------------- |
-| **Form & Input**       | Button, Input, Textarea, Label, Checkbox, RadioGroup, Switch, Slider, Select           | Form controls with validation |
-| **Display & Layout**   | Card, Badge, Avatar, Separator, Progress, Skeleton, Alert, Breadcrumb, Tabs, Accordion | Information presentation      |
-| **Navigation & Menu**  | DropdownMenu, Menubar, Pagination, Command, Collapsible, Toggle                        | User navigation               |
-| **Overlay & Modal**    | Dialog, Sheet, Popover, HoverCard, Tooltip                                             | User interactions             |
-| **Data & Table**       | Table, DataTable, Calendar, Toaster                                                    | Data management               |
-| **Motion & Animation** | Motion, LoadingSpinner, Reveal, Hover                                                  | Visual effects                |
+| Category               | Components                                                                             | Description                       |
+| ---------------------- | -------------------------------------------------------------------------------------- | --------------------------------- |
+| **Form & Input**       | Button, Input, Textarea, Label, Checkbox, RadioGroup, Switch, Slider, Select, **FormField, PasswordInput** | Form controls + label/error/a11y wrapper |
+| **App Primitives** ⭐  | **DataTable, PageHeader, EmptyState, ConfirmDialog, ConfirmProvider, ToastProvider**   | The 8 things every admin app rebuilds — shipped once |
+| **Display & Layout**   | Card, Badge, Avatar, Separator, Progress, Skeleton, Alert, Breadcrumb, Tabs, Accordion | Information presentation          |
+| **Navigation & Menu**  | DropdownMenu, Menubar, Pagination, Command, Collapsible, Toggle                        | User navigation                   |
+| **Overlay & Modal**    | Dialog, Sheet, Popover, HoverCard, Tooltip                                             | User interactions                 |
+| **Data & Table**       | Table, DataTable, Calendar, Toaster                                                    | Data management                   |
+| **Motion & Animation** | Motion, LoadingSpinner, Reveal, Hover                                                  | Visual effects                    |
+| **Time & Format**      | **Time** (auto-updating relative timestamp)                                            | Locale-aware display              |
+
+### Hooks & utilities
+
+`useConfirm` · `useToast` · `useMediaQuery` · `useBreakpoint` · `useActiveBreakpoint` · `useDataTable` (headless) · `useApi` · `useLocalStorage` · `useTheme`
+
+`formatCurrency` · `formatNumber` · `formatDate` · `timeAgo` · `formatBytes` · `foucScript` · `cn`
 
 ### Section Components (5 Standalone)
 
@@ -220,18 +282,17 @@ uikit optimize --quality 85           # Set WebP quality (0-100)
 
 ## Example Codes
 
-📖 **AI-powered development:** [LLM Usage Guide](docs/UIKIT_LLM_GUIDE.md)
+📖 **For AI coding agents:** read [`llms.txt`](./llms.txt) — every export, every example, and every cookbook recipe in one machine-readable file.
+📖 **For humans:** browse [`examples/`](./examples) for one-file-per-component snippets and [`cookbook/`](./cookbook) for whole-page recipes.
 
-**Note**: As mentioned above, UIKit is built on ShadCN components but with our own import paths. Instead of `@/components/ui/button`, use `@voilajsx/uikit/button`. The semantic color classes like `bg-background`, `text-foreground`, `border-border` etc. work exactly the same and automatically adapt to your selected theme.
-
-**Important**: Not all components have `variant` and `size` props. Use individual imports and check component documentation for available props. For layouts, PageLayout uses `scheme="default|sidebar"` (not "base").
+**Convention:** always import from `@voilajsx/uikit` (the canonical entry). Semantic Tailwind classes (`bg-background`, `text-foreground`, `border-border`) automatically adapt to the active theme — never hardcode colors.
 
 ### UI Component Examples
 
-#### Card Component
+#### Card
 
-```jsx
-import { Card, CardHeader, CardTitle, CardContent } from '@voilajsx/uikit/card';
+```tsx
+import { Card, CardHeader, CardTitle, CardContent } from '@voilajsx/uikit';
 
 <Card>
   <CardHeader>
@@ -240,41 +301,94 @@ import { Card, CardHeader, CardTitle, CardContent } from '@voilajsx/uikit/card';
   <CardContent>
     <p>Product description here</p>
   </CardContent>
-</Card>;
+</Card>
 ```
 
-#### Alert Component
+#### Alert
 
-```jsx
-import { Alert, AlertTitle, AlertDescription } from '@voilajsx/uikit/alert';
+```tsx
+import { Alert, AlertTitle, AlertDescription } from '@voilajsx/uikit';
 
 <Alert variant="default">
   <AlertTitle>Success!</AlertTitle>
   <AlertDescription>Your action was completed successfully.</AlertDescription>
-</Alert>;
+</Alert>
 ```
 
-#### Form Component
+#### Form (with the new FormField + PasswordInput primitives)
 
-```jsx
-import { Button } from '@voilajsx/uikit/button';
-import { Input } from '@voilajsx/uikit/input';
-import { Label } from '@voilajsx/uikit/label';
+```tsx
+import { Button, FormField, Input, PasswordInput } from '@voilajsx/uikit';
 
-<div className="space-y-4">
-  <div>
-    <Label>Email</Label>
-    <Input placeholder="Enter email" />
-  </div>
-  <Button variant="default" size="default">
-    Submit
-  </Button>
-</div>;
+<form className="flex max-w-sm flex-col gap-4">
+  <FormField label="Email" required helper="We'll never share it">
+    <Input type="email" />
+  </FormField>
+  <FormField label="Password" required>
+    <PasswordInput />
+  </FormField>
+  <Button type="submit">Sign in</Button>
+</form>
+```
+
+#### DataTable (type-safe, generic)
+
+```tsx
+import { DataTable, type DataTableColumn } from '@voilajsx/uikit';
+
+type User = { id: string; name: string; email: string; role: 'admin' | 'user' };
+
+const columns: DataTableColumn<User>[] = [
+  { id: 'name',  header: 'Name',  accessorKey: 'name', sortable: true },
+  { id: 'email', header: 'Email', accessorKey: 'email' },
+  { id: 'role',  header: 'Role',  accessorKey: 'role' },
+];
+
+<DataTable<User> data={users} columns={columns} searchable pagination />
+```
+
+#### Confirmation (promise-based)
+
+```tsx
+import { Button, ConfirmProvider, useConfirm } from '@voilajsx/uikit';
+
+function DeleteButton() {
+  const confirm = useConfirm();
+  return (
+    <Button
+      variant="destructive"
+      onClick={async () => {
+        const ok = await confirm({
+          title: 'Delete this design?',
+          description: 'This cannot be undone.',
+          tone: 'destructive',
+        });
+        if (ok) /* delete */;
+      }}
+    >
+      Delete
+    </Button>
+  );
+}
+
+// Wrap your app once:
+// <ConfirmProvider><App /></ConfirmProvider>
+```
+
+#### Toast notifications
+
+```tsx
+import { Button, ToastProvider, toast } from '@voilajsx/uikit';
+
+<ToastProvider position="bottom-right" />
+<Button onClick={() => toast.success('Saved')}>Save</Button>
 ```
 
 ### Layout Examples
 
-```jsx
+```tsx
+import { AdminLayout, PageLayout, AuthLayout } from '@voilajsx/uikit';
+
 // Admin Dashboard
 <AdminLayout scheme="sidebar" tone="subtle">
   <AdminLayout.Header title="Dashboard" />
@@ -301,38 +415,52 @@ import { Label } from '@voilajsx/uikit/label';
 
 ### Theme Usage
 
-```jsx
-import { ThemeProvider, useTheme } from '@voilajsx/uikit/theme-provider';
-import { Button } from '@voilajsx/uikit/button';
+```tsx
+import { Button, ThemeProvider, useTheme } from '@voilajsx/uikit';
 import '@voilajsx/uikit/styles';
+// Optional — only if you use the built-in Elegant/Metro/Studio/Vivid theme fonts:
+// import '@voilajsx/uikit/styles/fonts';
 
 // Setup (in main.tsx)
 <ThemeProvider theme="base" mode="light">
   <App />
 </ThemeProvider>
 
-// Theme Switcher
-const { setTheme } = useTheme();
-<Button variant="outline" size="default" onClick={() => setTheme('elegant')}>
-  Switch Theme
-</Button>
+// Theme switcher
+function ThemeSwitcher() {
+  const { setTheme } = useTheme();
+  return (
+    <Button variant="outline" onClick={() => setTheme('elegant')}>
+      Switch theme
+    </Button>
+  );
+}
 
-// Semantic Colors (still work with variants)
+// Semantic colors automatically follow the active theme + mode
 <div className="bg-background text-foreground border-border">
   <h1 className="text-primary">Heading</h1>
   <p className="text-muted-foreground">Description</p>
 </div>
 ```
 
+> **No more flash of wrong theme.** Drop the snippet from `@voilajsx/uikit/fouc` (`foucScript()`) into your `index.html` `<head>` so theme classes apply to `<html>` synchronously before React mounts.
+
 ## Resources
 
-### 📚 Documentation
+### 🤖 For AI coding agents (start here)
 
-- [Quick-Start Guides](docs/quickstart/) - Template-specific setup instructions
-- [Composite UI System](docs/UIKIT_COMPOSITE_UI_SYSTEM.md) - Component architecture deep dive
-- [Theme System](docs/UIKIT_THEME_GUIDE.md) - Advanced theming and customization
-- [CLI Commands](docs/UIKIT_CLI_GUIDE.md) - Complete command reference
-- [LLM Usage Guide](docs/UIKIT_LLM_GUIDE.md) - AI-powered development patterns
+- **[`llms.txt`](./llms.txt)** — canonical machine-readable index of every export, every example, and every cookbook recipe. Generated on every build from source. Read this first.
+- **[`examples/`](./examples)** — one minimal `.tsx` file per primitive (Button, DataTable, FormField, Toast, ConfirmDialog, …). Copy and modify the data.
+- **[`cookbook/`](./cookbook)** — composed page recipes (CRUD, dashboard, settings, login, delete-flow). Start here when building a new feature.
+
+### 📚 Human documentation
+
+- [Quick-Start Guides](docs/quickstart/) — template-specific setup instructions
+- [Composite UI System](docs/UIKIT_COMPOSITE_UI_SYSTEM.md) — component architecture deep dive
+- [Theme System](docs/UIKIT_THEME_GUIDE.md) — advanced theming and customization
+- [CLI Commands](docs/UIKIT_CLI_GUIDE.md) — complete command reference
+- [LLM Usage Guide](docs/UIKIT_LLM_GUIDE.md) — AI-powered development patterns
+- [`CHANGELOG.md`](./CHANGELOG.md) — release notes (see 1.5.0 for the agent-readiness rework)
 
 ---
 

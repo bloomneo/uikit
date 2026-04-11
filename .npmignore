@@ -8,10 +8,17 @@ node_modules/
 coverage/
 .nyc_output/
 docs/
-examples/
 pages/
 demo/
 tests/
+scripts/
 **/*.test.*
 **/*.spec.*
 **/*.stories.*
+
+# IMPORTANT: examples/ and cookbook/ are intentionally NOT excluded.
+# They are part of the agent-readiness story: AI coding agents read
+# `examples/<component>.tsx` and `cookbook/<recipe>.tsx` to learn the
+# canonical usage of every primitive. Excluding them would defeat the
+# purpose of llms.txt. They are also explicitly listed in package.json
+# `files` so they always ship.
