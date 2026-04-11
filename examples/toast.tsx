@@ -1,4 +1,4 @@
-import { Button, ToastProvider, toast } from '@voilajsx/uikit';
+import { Button, ToastProvider, toast } from '@bloomneo/uikit';
 
 // Mount <ToastProvider /> ONCE at the root of your app (inside <ThemeProvider>).
 // Then call `toast.*` from anywhere — no React context plumbing needed.

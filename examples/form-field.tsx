@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, FormField, Input, PasswordInput } from '@voilajsx/uikit';
+import { Button, FormField, Input, PasswordInput } from '@bloomneo/uikit';
 
 export default function FormFieldExample() {
   const [email, setEmail] = useState('');

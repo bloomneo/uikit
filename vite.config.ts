@@ -56,7 +56,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
-      '@voilajsx/uikit': resolve(__dirname, './src'),
+      '@bloomneo/uikit': resolve(__dirname, './src'),
     },
   },
   build: {

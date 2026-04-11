@@ -19,7 +19,7 @@ import {
   useConfirm,
   type DataTableColumn,
   type RowAction,
-} from '@voilajsx/uikit';
+} from '@bloomneo/uikit';
 
 type User = { id: string; name: string; email: string; role: 'admin' | 'user' };
 

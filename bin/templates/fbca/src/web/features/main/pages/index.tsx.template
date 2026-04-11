@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '@voilajsx/uikit/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@voilajsx/uikit/card';
-import { PageLayout } from '@voilajsx/uikit/page';
-import { useTheme } from '@voilajsx/uikit/theme-provider';
+import { Button } from '@bloomneo/uikit/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@bloomneo/uikit/card';
+import { PageLayout } from '@bloomneo/uikit/page';
+import { useTheme } from '@bloomneo/uikit/theme-provider';
 import { ArrowRight, Zap, Images, BookOpen, LogIn, Code2 } from 'lucide-react';
 import { CTASection } from '../components/CTASection';
 import { Header, Footer, SEO } from '../../../shared/components';

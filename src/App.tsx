@@ -24,7 +24,7 @@ const UIKitShowcase: React.FC = () => {
               UI
             </div>
             <div>
-              <h3 className="voila-brand-logo text-xl font-bold">@voilajsx/uikit</h3>
+              <h3 className="voila-brand-logo text-xl font-bold">@bloomneo/uikit</h3>
               <p className="text-xs text-muted-foreground">Professional React UI Components</p>
             </div>
           </div>
@@ -209,7 +209,7 @@ const UIKitShowcase: React.FC = () => {
       <footer className="border-t border-border p-6 mt-8">
         <div className="max-w-6xl mx-auto text-center">
           <p className="text-sm text-muted-foreground">
-            @voilajsx/uikit • {theme.charAt(0).toUpperCase() + theme.slice(1)} theme • {mode.charAt(0).toUpperCase() + mode.slice(1)} mode
+            @bloomneo/uikit • {theme.charAt(0).toUpperCase() + theme.slice(1)} theme • {mode.charAt(0).toUpperCase() + mode.slice(1)} mode
           </p>
         </div>
       </footer>

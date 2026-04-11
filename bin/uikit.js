@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 /**
- * @fileoverview UIKit CLI - Unified command line interface for @voilajsx/uikit
+ * @fileoverview UIKit CLI - Unified command line interface for @bloomneo/uikit
  * @description Main CLI entry point with subcommands: create, bundle, serve, build, deploy
- * @package @voilajsx/uikit
+ * @package @bloomneo/uikit
  * @file /bin/uikit.js
  */
 

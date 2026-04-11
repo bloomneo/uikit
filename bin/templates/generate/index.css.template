@@ -7,4 +7,4 @@
 @import "tailwindcss";
 
 /* UIKit base styles - REQUIRED */
-@import '@voilajsx/uikit/styles';
+@import '@bloomneo/uikit/styles';

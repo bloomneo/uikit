@@ -1,7 +1,7 @@
 /**
- * @fileoverview Platform detection utilities for @voilajsx/uikit
+ * @fileoverview Platform detection utilities for @bloomneo/uikit
  * @description Detects runtime platform for adaptive component rendering with TypeScript support
- * @package @voilajsx/uikit
+ * @package @bloomneo/uikit
  * @file /src/lib/platform.ts
  */
 /**

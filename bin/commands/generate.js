@@ -37,7 +37,7 @@ export async function generateFeature(type, name, options) {
 
     try {
       const packageJson = JSON.parse(await fs.readFile(packageJsonPath, 'utf8'));
-      if (!packageJson.dependencies || !packageJson.dependencies['@voilajsx/uikit']) {
+      if (!packageJson.dependencies || !packageJson.dependencies['@bloomneo/uikit']) {
         console.error('❌ Not in a UIKit project directory. Run this from project root.');
         process.exit(1);
       }
@@ -440,7 +440,7 @@ async function generateThemeFeature(name, options) {
 
   try {
     const packageJson = JSON.parse(await fs.readFile(packageJsonPath, 'utf8'));
-    if (!packageJson.dependencies || !packageJson.dependencies['@voilajsx/uikit']) {
+    if (!packageJson.dependencies || !packageJson.dependencies['@bloomneo/uikit']) {
       console.error('❌ Not in a UIKit project directory. Run this from project root.');
       process.exit(1);
     }
@@ -602,7 +602,7 @@ async function generateThemeFeature(name, options) {
           // Add import
           mainContent = mainContent.replace(
             /(import.*from.*;\n)$/m,
-            `$1import { ThemeProvider } from '@voilajsx/uikit/theme-provider';\n`
+            `$1import { ThemeProvider } from '@bloomneo/uikit/theme-provider';\n`
           );
 
           // Wrap App with ThemeProvider (with forceConfig to override storage)

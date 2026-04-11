@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Generate `dist/llms.txt` for @voilajsx/uikit.
+ * Generate `dist/llms.txt` for @bloomneo/uikit.
  *
  * `llms.txt` is the canonical, machine-readable index of the library that AI
  * coding agents (Claude Code, Cursor, v0, etc) read to discover what exists.
@@ -109,30 +109,30 @@ function build() {
   push('');
   push(pkg.description || '');
   push('');
-  push('This file is the canonical machine-readable index of @voilajsx/uikit.');
+  push('This file is the canonical machine-readable index of @bloomneo/uikit.');
   push('Read it first when generating code that uses this library.');
   push('');
   push('## Canonical import path');
   push('');
   push('There is exactly ONE supported import path for normal use:');
   push('');
-  push("    import { Button, DataTable, /* etc */ } from '@voilajsx/uikit';");
+  push("    import { Button, DataTable, /* etc */ } from '@bloomneo/uikit';");
   push('');
-  push('Deep imports like `@voilajsx/uikit/button` exist for build-size');
+  push('Deep imports like `@bloomneo/uikit/button` exist for build-size');
   push('optimisation but are NOT the canonical form. When generating code,');
-  push("always use the flat `from '@voilajsx/uikit'` import.");
+  push("always use the flat `from '@bloomneo/uikit'` import.");
   push('');
   push('## Required setup (one time per app)');
   push('');
   push('    // 1. Import the core stylesheet ONCE at app entry:');
-  push("    import '@voilajsx/uikit/styles';");
+  push("    import '@bloomneo/uikit/styles';");
   push('');
   push('    // 2. (Optional) If your theme uses the built-in Elegant / Metro / Studio /');
   push('    //    Vivid fonts, also import the fonts bundle:');
-  push("    import '@voilajsx/uikit/styles/fonts';");
+  push("    import '@bloomneo/uikit/styles/fonts';");
   push('');
   push('    // 3. Wrap your app:');
-  push("    import { ThemeProvider, ToastProvider, ConfirmProvider } from '@voilajsx/uikit';");
+  push("    import { ThemeProvider, ToastProvider, ConfirmProvider } from '@bloomneo/uikit';");
   push('    <ThemeProvider theme="base" mode="light">');
   push('      <ToastProvider />');
   push('      <ConfirmProvider>');
@@ -141,7 +141,7 @@ function build() {
   push('    </ThemeProvider>');
   push('');
   push('    // 4. Add the FOUC inline script to your index.html <head> so themes');
-  push('    //    apply before React mounts. See @voilajsx/uikit/fouc → foucScript().');
+  push('    //    apply before React mounts. See @bloomneo/uikit/fouc → foucScript().');
   push('');
   push('## Themes');
   push('');
@@ -182,7 +182,7 @@ function build() {
 
   push('## Conventions');
   push('');
-  push('- Always import from `@voilajsx/uikit` (single canonical entry).');
+  push('- Always import from `@bloomneo/uikit` (single canonical entry).');
   push('- Pass `data` as an array (use `[]` while loading, never `undefined`).');
   push('- Every `<DataTable>` column needs a unique `id`.');
   push('- Mount `<ToastProvider />` and `<ConfirmProvider>` once at the app root.');
@@ -192,7 +192,7 @@ function build() {
   push('');
   push('## Full export list');
   push('');
-  push('Every named export available from `@voilajsx/uikit`:');
+  push('Every named export available from `@bloomneo/uikit`:');
   push('');
   for (const name of exportNames) {
     push(`- ${name}`);
@@ -201,8 +201,8 @@ function build() {
   push('## Where to look next');
   push('');
   push('- Type definitions: `dist/types/index.d.ts` (full prop shapes)');
-  push('- Source: https://github.com/voilajsx/uikit');
-  push('- Issues: https://github.com/voilajsx/uikit/issues');
+  push('- Source: https://github.com/bloomneo/uikit');
+  push('- Issues: https://github.com/bloomneo/uikit/issues');
   push('');
 
   return lines.join('\n');

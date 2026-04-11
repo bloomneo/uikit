@@ -1,7 +1,7 @@
 /**
  * Ultra-Simple Motion Component - 10/10 LLM Rating
  * Pure CSS animations with zero JavaScript complexity
- * @module @voilajsx/uikit
+ * @module @bloomneo/uikit
  * @file src/components/ui/motion.tsx
  */
 import * as React from 'react';

@@ -1,6 +1,6 @@
 /**
  * Page Layout - COMPOUND-ONLY with scheme for consistency
- * @module @voilajsx/uikit
+ * @module @bloomneo/uikit
  * @file src/components/layouts/page.tsx
  */
 import * as React from 'react';

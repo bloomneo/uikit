@@ -1,6 +1,6 @@
 /**
  * Popup Layout with standardized scheme + tone system
- * @module @voilajsx/uikit
+ * @module @bloomneo/uikit
  * @file src/components/layouts/popup.tsx
  */
 import * as React from 'react';

@@ -1,5 +1,5 @@
 /**
- * Toast system for @voilajsx/uikit.
+ * Toast system for @bloomneo/uikit.
  *
  * Thin wrapper over `sonner` (already installed) that exposes a stable,
  * discoverable API:

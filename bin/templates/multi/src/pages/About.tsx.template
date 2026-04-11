@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@voilajsx/uikit/card';
-import { Badge } from '@voilajsx/uikit/badge';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@bloomneo/uikit/card';
+import { Badge } from '@bloomneo/uikit/badge';
 import { 
   FileText, 
   Folder, 

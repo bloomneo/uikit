@@ -1,6 +1,6 @@
 /**
  * Auth Layout with standardized prop naming and scheme system - FIXED & READY
- * @module @voilajsx/uikit
+ * @module @bloomneo/uikit
  * @file src/components/layouts/auth.tsx
  */
 import * as React from 'react';

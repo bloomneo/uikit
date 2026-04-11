@@ -1,7 +1,7 @@
 /**
  * @fileoverview Image optimization command
  * @description Compresses PNG/JPG images and converts to WebP format
- * @package @voilajsx/uikit
+ * @package @bloomneo/uikit
  * @file /bin/commands/optimize.js
  */
 

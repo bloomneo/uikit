@@ -1,7 +1,7 @@
 /**
  * @fileoverview UIKit Deploy Command - Static site generation
  * @description Generate optimized static site for deployment (GitHub Pages ready)
- * @package @voilajsx/uikit
+ * @package @bloomneo/uikit
  */
 
 import { spawn } from 'child_process';
@@ -338,7 +338,7 @@ async function deployToGitHubPages(distPath, options) {
       message: `Deploy UIKit site - ${new Date().toISOString()}`,
       user: {
         name: 'UIKit Deploy',
-        email: 'deploy@voilajsx.com'
+        email: 'deploy@bloomneo.com'
       }
     };
 

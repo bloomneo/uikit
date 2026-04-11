@@ -1,5 +1,5 @@
 /**
- * FOUC (Flash of Unstyled Content) prevention helper for @voilajsx/uikit themes.
+ * FOUC (Flash of Unstyled Content) prevention helper for @bloomneo/uikit themes.
  *
  * The problem: <ThemeProvider> can only apply theme classes once React mounts.
  * On first paint the page briefly renders with the default theme (sky blue),
@@ -13,7 +13,7 @@
  *
  *   // index.html
  *   <head>
- *     <script>{`__VOILAJSX_UIKIT_FOUC__`}</script>
+ *     <script>{`__BLOOMNEO_UIKIT_FOUC__`}</script>
  *   </head>
  *
  *   Or copy the output of `foucScript()` directly into a literal <script> tag.
@@ -21,7 +21,7 @@
  * Usage in Next.js (app router):
  *
  *   // app/layout.tsx
- *   import { foucScript } from '@voilajsx/uikit/fouc';
+ *   import { foucScript } from '@bloomneo/uikit/fouc';
  *
  *   export default function RootLayout({ children }) {
  *     return (

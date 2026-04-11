@@ -1,5 +1,5 @@
 import { Inbox } from 'lucide-react';
-import { Button, EmptyState } from '@voilajsx/uikit';
+import { Button, EmptyState } from '@bloomneo/uikit';
 
 export default function EmptyStateExample() {
   return (

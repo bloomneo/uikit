@@ -1,6 +1,6 @@
 /**
  * Ultra-simple theme provider with pre-bundled themes - CONFIG PRIORITY VERSION
- * @module @voilajsx/uikit
+ * @module @bloomneo/uikit
  * @file src/themes/theme-provider.tsx
  */
 import React, { ReactNode } from 'react';

@@ -1,7 +1,7 @@
 /**
  * Elegant theme preset - Clean professional blue design
  * @description Fresh, minimal sky blue theme perfect for business and professional applications
- * @package @voilajsx/uikit
+ * @package @bloomneo/uikit
  * @file /src/themes/presets/elegant.js
  */
 

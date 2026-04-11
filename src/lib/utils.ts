@@ -1,6 +1,6 @@
 /**
- * Essential utility functions for @voilajsx/uikit
- * @module @voilajsx/uikit
+ * Essential utility functions for @bloomneo/uikit
+ * @module @bloomneo/uikit
  * @file src/lib/utils.ts
  */
 

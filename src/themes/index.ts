@@ -1,6 +1,6 @@
 /**
- * Optimized theme system exports for @voilajsx/uikit
- * @module @voilajsx/uikit
+ * Optimized theme system exports for @bloomneo/uikit
+ * @module @bloomneo/uikit
  * @file src/themes/index.ts
  */
 
@@ -123,7 +123,7 @@ export const ALL_THEME_PRESETS = {
 
 /**
  * @llm-pattern Basic theme usage (same as before)
- * import { ThemeProvider, useTheme } from '@voilajsx/uikit/themes';
+ * import { ThemeProvider, useTheme } from '@bloomneo/uikit/themes';
  * 
  * <ThemeProvider theme="elegant" mode="dark">
  *   <App />
@@ -134,7 +134,7 @@ export const ALL_THEME_PRESETS = {
 
 /**
  * @llm-pattern Build tool usage (same API, smaller files!)
- * import { ALL_THEME_PRESETS } from '@voilajsx/uikit/themes';
+ * import { ALL_THEME_PRESETS } from '@bloomneo/uikit/themes';
  * 
  * // Generate CSS for all themes
  * Object.values(ALL_THEME_PRESETS).forEach(theme => {
@@ -144,7 +144,7 @@ export const ALL_THEME_PRESETS = {
 
 /**
  * @llm-pattern Individual theme access (same as before)
- * import { vivid, studioTheme } from '@voilajsx/uikit/themes';
+ * import { vivid, studioTheme } from '@bloomneo/uikit/themes';
  * 
  * console.log(vivid.name); // "Vivid"
  * console.log(studioTheme.light.primary); // Theme color

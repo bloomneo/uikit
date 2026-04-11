@@ -1,8 +1,8 @@
 import React from 'react';
-import { PageLayout } from '@voilajsx/uikit/page';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@voilajsx/uikit/card';
-import { Button } from '@voilajsx/uikit/button';
-import { Badge } from '@voilajsx/uikit/badge';
+import { PageLayout } from '@bloomneo/uikit/page';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@bloomneo/uikit/card';
+import { Button } from '@bloomneo/uikit/button';
+import { Badge } from '@bloomneo/uikit/badge';
 
 export const {{FeatureName}}Page: React.FC = () => {
   return (

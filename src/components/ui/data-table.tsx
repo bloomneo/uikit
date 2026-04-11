@@ -1,6 +1,6 @@
 /**
  * Enhanced DataTable - Professional grade with virtual scrolling, advanced filtering
- * @module @voilajsx/uikit
+ * @module @bloomneo/uikit
  * @file src/components/ui/data-table.tsx
  */
 

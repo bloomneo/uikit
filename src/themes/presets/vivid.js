@@ -1,7 +1,7 @@
 /**
  * Vivid theme preset - Premium cursive design (OPTIMIZED)
  * @description Sophisticated theme featuring cursive hero fonts perfect for luxury brands and creative portfolios
- * @package @voilajsx/uikit
+ * @package @bloomneo/uikit
  * @file /src/themes/presets/vivid-optimized.js
  */
 

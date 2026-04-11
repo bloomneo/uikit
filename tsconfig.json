@@ -22,7 +22,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@voilajsx/uikit/*": ["./src/*"]
+      "@bloomneo/uikit/*": ["./src/*"]
     }
   },
   "include": ["src/**/*"],                      // ✅ NEW: Clean, only includes src/

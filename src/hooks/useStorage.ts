@@ -1,6 +1,6 @@
 /**
  * useLocalStorage Hook - Persistent state with localStorage
- * @module @voilajsx/uikit
+ * @module @bloomneo/uikit
  * @file src/hooks/useStorage.ts
  */
 

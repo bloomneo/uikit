@@ -1,6 +1,6 @@
 /**
  * UIKit Hooks - Reusable React hooks for common functionality
- * @package @voilajsx/uikit
+ * @package @bloomneo/uikit
  */
 
 export { useApi, useBackendStatus } from './useApi';

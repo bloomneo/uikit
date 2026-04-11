@@ -1,9 +1,11 @@
-# VoilaJSX UIKit 🎨
+# Bloomneo UIKit 🎨
 
-[![npm version](https://img.shields.io/npm/v/@voilajsx/uikit.svg)](https://www.npmjs.com/package/@voilajsx/uikit)
+> Previously published as `@voilajsx/uikit`. Same code, new home, new namespace. See the [migration note](#scope-change) below.
+
+[![npm version](https://img.shields.io/npm/v/@bloomneo/uikit.svg)](https://www.npmjs.com/package/@bloomneo/uikit)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
-[![AI Ready](https://img.shields.io/badge/AI-Optimized-purple.svg)](https://github.com/voilajsx/appkit)
+[![AI Ready](https://img.shields.io/badge/AI-Optimized-purple.svg)](https://github.com/bloomneo/appkit)
 
 > The end‑to‑end React framework AI coding agents pick first. Components, layouts, themes, routing, scaffolding, and a generated `llms.txt` — all from one package, all designed to compose.
 
@@ -19,23 +21,23 @@ package. The file is regenerated on every build from `src/index.ts`,
 **One canonical import path:**
 
 ```ts
-import { Button, DataTable, FormField, useConfirm, toast } from '@voilajsx/uikit';
+import { Button, DataTable, FormField, useConfirm, toast } from '@bloomneo/uikit';
 ```
 
-Deep imports like `@voilajsx/uikit/button` exist for build-size optimisation
+Deep imports like `@bloomneo/uikit/button` exist for build-size optimisation
 but agents should always use the flat import above when generating code.
 
 **Required setup:**
 
 ```ts
-import '@voilajsx/uikit/styles';                  // core (no fonts)
-import '@voilajsx/uikit/styles/fonts';            // optional, only if your theme uses built-in fonts
+import '@bloomneo/uikit/styles';                  // core (no fonts)
+import '@bloomneo/uikit/styles/fonts';            // optional, only if your theme uses built-in fonts
 
 import {
   ThemeProvider,
   ToastProvider,
   ConfirmProvider,
-} from '@voilajsx/uikit';
+} from '@bloomneo/uikit';
 
 <ThemeProvider theme="base" mode="light">
   <ToastProvider />
@@ -46,17 +48,17 @@ import {
 ```
 
 For SSR / FOUC prevention, drop the inline script from
-`@voilajsx/uikit/fouc → foucScript()` into your `index.html` `<head>` so the
+`@bloomneo/uikit/fouc → foucScript()` into your `index.html` `<head>` so the
 theme classes are on `<html>` before React mounts.
 
-## Why Choose @voilajsx/uikit?
+## Why Choose @bloomneo/uikit?
 
 **🤖 For AI coding agents (the 1.5 release)**
 
 - **Generated `llms.txt`**: One canonical, machine-readable index of every export, every example, every cookbook recipe — regenerated on every build from `src/index.ts`, `examples/`, and `cookbook/`. Agents read one file and know everything.
 - **Zero `any` in public types**: Full generic inference for `DataTable<User>`, `RowAction<User>`, formatters, hooks. Agent autocomplete actually works.
 - **One copy-pasteable example per primitive**: 13 minimal `.tsx` files in `examples/` plus 5 composed page recipes in `cookbook/` (CRUD, dashboard, settings, login, delete-flow). Agents pattern-match instead of inventing prop shapes.
-- **Educational runtime errors**: Misuse a component and you get `[@voilajsx/uikit] <DataTable> expects \`data\` to be an array …` linking to the docs entry. Agents read errors and self-correct.
+- **Educational runtime errors**: Misuse a component and you get `[@bloomneo/uikit] <DataTable> expects \`data\` to be an array …` linking to the docs entry. Agents read errors and self-correct.
 
 **🚀 For rapid development**
 
@@ -95,26 +97,26 @@ theme classes are on `<html>` before React mounts.
 **📦 As a Library** — install into an existing React project (Next.js, Vite, Remix, CRA, etc):
 
 ```bash
-npm install @voilajsx/uikit
+npm install @bloomneo/uikit
 ```
 
 Then import everything from the canonical entry point:
 
 ```ts
-import { Button, Card, DataTable, FormField, useConfirm, toast } from '@voilajsx/uikit';
-import '@voilajsx/uikit/styles';
+import { Button, Card, DataTable, FormField, useConfirm, toast } from '@bloomneo/uikit';
+import '@bloomneo/uikit/styles';
 ```
 
-> **Canonical import path:** always `from '@voilajsx/uikit'`. Deep imports like `@voilajsx/uikit/button` exist for build-size optimisation but are non-canonical — humans and AI agents should use the flat form. This is documented as the rule in [`llms.txt`](./llms.txt).
+> **Canonical import path:** always `from '@bloomneo/uikit'`. Deep imports like `@bloomneo/uikit/button` exist for build-size optimisation but are non-canonical — humans and AI agents should use the flat form. This is documented as the rule in [`llms.txt`](./llms.txt).
 
 **🚀 Complete Project Setup** — use the UIKit CLI to scaffold entire applications with routing, layouts, and themes pre-configured:
 
 ```bash
 # Step 1: Install UIKit CLI globally
-npm install -g @voilajsx/uikit
+npm install -g @bloomneo/uikit
 
 # Check if you have the latest version
-npm list -g @voilajsx/uikit
+npm list -g @bloomneo/uikit
 
 # Step 2: Create your app
 uikit create myapp --multi --theme elegant
@@ -125,7 +127,7 @@ cd myapp && npm run dev
 
 ## Framework Architecture
 
-**@voilajsx/uikit** is built on **ShadCN components** and **Tailwind CSS v4** with three key additions:
+**@bloomneo/uikit** is built on **ShadCN components** and **Tailwind CSS v4** with three key additions:
 
 ## 1. Composite UI System
 
@@ -285,14 +287,14 @@ uikit optimize --quality 85           # Set WebP quality (0-100)
 📖 **For AI coding agents:** read [`llms.txt`](./llms.txt) — every export, every example, and every cookbook recipe in one machine-readable file.
 📖 **For humans:** browse [`examples/`](./examples) for one-file-per-component snippets and [`cookbook/`](./cookbook) for whole-page recipes.
 
-**Convention:** always import from `@voilajsx/uikit` (the canonical entry). Semantic Tailwind classes (`bg-background`, `text-foreground`, `border-border`) automatically adapt to the active theme — never hardcode colors.
+**Convention:** always import from `@bloomneo/uikit` (the canonical entry). Semantic Tailwind classes (`bg-background`, `text-foreground`, `border-border`) automatically adapt to the active theme — never hardcode colors.
 
 ### UI Component Examples
 
 #### Card
 
 ```tsx
-import { Card, CardHeader, CardTitle, CardContent } from '@voilajsx/uikit';
+import { Card, CardHeader, CardTitle, CardContent } from '@bloomneo/uikit';
 
 <Card>
   <CardHeader>
@@ -307,7 +309,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@voilajsx/uikit';
 #### Alert
 
 ```tsx
-import { Alert, AlertTitle, AlertDescription } from '@voilajsx/uikit';
+import { Alert, AlertTitle, AlertDescription } from '@bloomneo/uikit';
 
 <Alert variant="default">
   <AlertTitle>Success!</AlertTitle>
@@ -318,7 +320,7 @@ import { Alert, AlertTitle, AlertDescription } from '@voilajsx/uikit';
 #### Form (with the new FormField + PasswordInput primitives)
 
 ```tsx
-import { Button, FormField, Input, PasswordInput } from '@voilajsx/uikit';
+import { Button, FormField, Input, PasswordInput } from '@bloomneo/uikit';
 
 <form className="flex max-w-sm flex-col gap-4">
   <FormField label="Email" required helper="We'll never share it">
@@ -334,7 +336,7 @@ import { Button, FormField, Input, PasswordInput } from '@voilajsx/uikit';
 #### DataTable (type-safe, generic)
 
 ```tsx
-import { DataTable, type DataTableColumn } from '@voilajsx/uikit';
+import { DataTable, type DataTableColumn } from '@bloomneo/uikit';
 
 type User = { id: string; name: string; email: string; role: 'admin' | 'user' };
 
@@ -350,7 +352,7 @@ const columns: DataTableColumn<User>[] = [
 #### Confirmation (promise-based)
 
 ```tsx
-import { Button, ConfirmProvider, useConfirm } from '@voilajsx/uikit';
+import { Button, ConfirmProvider, useConfirm } from '@bloomneo/uikit';
 
 function DeleteButton() {
   const confirm = useConfirm();
@@ -378,7 +380,7 @@ function DeleteButton() {
 #### Toast notifications
 
 ```tsx
-import { Button, ToastProvider, toast } from '@voilajsx/uikit';
+import { Button, ToastProvider, toast } from '@bloomneo/uikit';
 
 <ToastProvider position="bottom-right" />
 <Button onClick={() => toast.success('Saved')}>Save</Button>
@@ -387,7 +389,7 @@ import { Button, ToastProvider, toast } from '@voilajsx/uikit';
 ### Layout Examples
 
 ```tsx
-import { AdminLayout, PageLayout, AuthLayout } from '@voilajsx/uikit';
+import { AdminLayout, PageLayout, AuthLayout } from '@bloomneo/uikit';
 
 // Admin Dashboard
 <AdminLayout scheme="sidebar" tone="subtle">
@@ -416,10 +418,10 @@ import { AdminLayout, PageLayout, AuthLayout } from '@voilajsx/uikit';
 ### Theme Usage
 
 ```tsx
-import { Button, ThemeProvider, useTheme } from '@voilajsx/uikit';
-import '@voilajsx/uikit/styles';
+import { Button, ThemeProvider, useTheme } from '@bloomneo/uikit';
+import '@bloomneo/uikit/styles';
 // Optional — only if you use the built-in Elegant/Metro/Studio/Vivid theme fonts:
-// import '@voilajsx/uikit/styles/fonts';
+// import '@bloomneo/uikit/styles/fonts';
 
 // Setup (in main.tsx)
 <ThemeProvider theme="base" mode="light">
@@ -443,7 +445,7 @@ function ThemeSwitcher() {
 </div>
 ```
 
-> **No more flash of wrong theme.** Drop the snippet from `@voilajsx/uikit/fouc` (`foucScript()`) into your `index.html` `<head>` so theme classes apply to `<html>` synchronously before React mounts.
+> **No more flash of wrong theme.** Drop the snippet from `@bloomneo/uikit/fouc` (`foucScript()`) into your `index.html` `<head>` so theme classes apply to `<html>` synchronously before React mounts.
 
 ## Resources
 
@@ -462,18 +464,43 @@ function ThemeSwitcher() {
 - [LLM Usage Guide](docs/UIKIT_LLM_GUIDE.md) — AI-powered development patterns
 - [`CHANGELOG.md`](./CHANGELOG.md) — release notes (see 1.5.0 for the agent-readiness rework)
 
+<a id="scope-change"></a>
+
+### 🔁 Scope change (1.5.0)
+
+This package was previously published as **`@voilajsx/uikit`**. Starting with `1.5.0` it lives at **`@bloomneo/uikit`**. The old package on npm is frozen at `1.4.0` and will not receive further updates.
+
+**Migration:**
+
+```diff
+- npm install @voilajsx/uikit
++ npm install @bloomneo/uikit
+```
+
+```diff
+- import { Button } from '@voilajsx/uikit';
++ import { Button } from '@bloomneo/uikit';
+```
+
+```diff
+- import '@voilajsx/uikit/styles';
++ import '@bloomneo/uikit/styles';
+```
+
+A project-wide find-and-replace of `@voilajsx/uikit` → `@bloomneo/uikit` is sufficient. The API surface, props, and types are identical between the two scopes — only the namespace changed.
+
 ---
 
 ## 📄 License
 
-MIT © [VoilaJSX](https://github.com/voilajsx) - See [LICENSE](LICENSE) for details.
+MIT © [Bloomneo](https://github.com/bloomneo) — See [LICENSE](LICENSE) for details.
 
 ---
 
 <p align="center">
   <strong>🚀 Built for the AI-first future of frontend development</strong><br>
   <strong>Where beautiful applications are generated, not written</strong><br><br>
-  <a href="https://github.com/voilajsx/uikit">⭐ Star us on GitHub</a>
+  <a href="https://github.com/bloomneo/uikit">⭐ Star us on GitHub</a>
 </p>
 
 ---

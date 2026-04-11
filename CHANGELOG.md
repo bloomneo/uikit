@@ -2,7 +2,14 @@
 
 All notable changes to UIKit will be documented in this file.
 
-## [1.5.0] - 2026-04-10
+## [1.5.0] - 2026-04-11
+
+> **🔁 Scope change.** Starting with this release the package lives at
+> **`@bloomneo/uikit`**. The previous `@voilajsx/uikit` package on npm is
+> frozen at `1.4.0` and will not receive further updates. To migrate, run a
+> project-wide find-and-replace of `@voilajsx/uikit` → `@bloomneo/uikit`.
+> The API surface, props, types, and behavior are identical — only the
+> namespace changed.
 
 This release reworks UIKit around two goals: **shrink consumer codebases** by
 shipping the primitives every app rebuilds by hand, and **make the library
@@ -44,16 +51,16 @@ app. Every primitive is fully typed, theme-aware, and accessible by default.
 
 - **Decoupled font bundle** — fonts are no longer baked into `dist/styles.css`.
   Projects with custom themes save ~66 KB of CSS and ~1 MB of woff files.
-  - `import '@voilajsx/uikit/styles'` → core stylesheet, **no fonts**
-  - `import '@voilajsx/uikit/styles/fonts'` → opt-in `@font-face` declarations
+  - `import '@bloomneo/uikit/styles'` → core stylesheet, **no fonts**
+  - `import '@bloomneo/uikit/styles/fonts'` → opt-in `@font-face` declarations
     for the built-in Elegant / Metro / Studio / Vivid themes
-- **FOUC prevention** — new `@voilajsx/uikit/fouc` module exports `foucScript()`
+- **FOUC prevention** — new `@bloomneo/uikit/fouc` module exports `foucScript()`
   and `foucScriptTag()` helpers. Drop the snippet into your `index.html`
   `<head>` (or via `dangerouslySetInnerHTML` in Next.js) to apply theme
   classes synchronously before React mounts. Eliminates the flash-of-default-theme
   on first paint. The included demo `index.html` ships the snippet as a
   reference.
-- **`@voilajsx/uikit/errors`** — exports `UIKitError`, `requireProp`,
+- **`@bloomneo/uikit/errors`** — exports `UIKitError`, `requireProp`,
   `requireArrayProp`, `warnInDev`. Components throw these instead of generic
   `TypeError`s, so consumers (and AI agents) get an actionable message
   naming the missing prop and linking to the docs entry. Wired into
@@ -65,7 +72,7 @@ app. Every primitive is fully typed, theme-aware, and accessible by default.
   example, and every cookbook pattern. Generated at build time by
   `scripts/build-llms.mjs` from `src/index.ts` + `examples/` + `cookbook/`
   so it never drifts. Shipped at the package root and via the
-  `@voilajsx/uikit/llms.txt` export. AI coding agents (Claude Code, Cursor,
+  `@bloomneo/uikit/llms.txt` export. AI coding agents (Claude Code, Cursor,
   v0, etc) read this file first when generating code that uses the library.
 - **`examples/`** — 13 minimal, copy-pasteable example files (one per
   primitive: button, data-table, form-field, toast, empty-state,
@@ -80,8 +87,8 @@ app. Every primitive is fully typed, theme-aware, and accessible by default.
   - `login.tsx` — centered card with validated email/password form
   - `delete-flow.tsx` — type-to-confirm destructive action
 - **Single canonical import path** — documented at the top of `llms.txt` and
-  in the README: `import { X } from '@voilajsx/uikit'` is the only form
-  agents should generate. Subpaths (`@voilajsx/uikit/button` etc.) remain
+  in the README: `import { X } from '@bloomneo/uikit'` is the only form
+  agents should generate. Subpaths (`@bloomneo/uikit/button` etc.) remain
   available for build-size optimisation but are explicitly marked as
   non-canonical.
 
@@ -130,8 +137,8 @@ Most consumers do not need to change anything. The two breaking changes:
    react-hook-form controller component:
 
    ```diff
-   - import { Form, FormField } from '@voilajsx/uikit';
-   + import { Form, FormController } from '@voilajsx/uikit';
+   - import { Form, FormField } from '@bloomneo/uikit';
+   + import { Form, FormController } from '@bloomneo/uikit';
    ```
 
    The new `<FormField>` is the label/error/helper wrapper documented in
@@ -141,8 +148,8 @@ Most consumers do not need to change anything. The two breaking changes:
    Elegant / Metro / Studio / Vivid themes, add a second import:
 
    ```diff
-     import '@voilajsx/uikit/styles';
-   + import '@voilajsx/uikit/styles/fonts';
+     import '@bloomneo/uikit/styles';
+   + import '@bloomneo/uikit/styles/fonts';
    ```
 
    Projects using the default `base` theme or a custom theme need no change

@@ -1,7 +1,7 @@
 /**
  * @fileoverview UIKit Create Command - Project scaffolding
  * @description Creates new UIKit projects from templates
- * @package @voilajsx/uikit
+ * @package @bloomneo/uikit
  */
 
 import fs from 'fs/promises';

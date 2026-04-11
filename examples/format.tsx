@@ -1,4 +1,4 @@
-import { formatBytes, formatCurrency, formatDate, timeAgo, Time } from '@voilajsx/uikit';
+import { formatBytes, formatCurrency, formatDate, timeAgo, Time } from '@bloomneo/uikit';
 
 export default function FormatExample() {
   const now = new Date();

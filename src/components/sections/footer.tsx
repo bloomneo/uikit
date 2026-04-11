@@ -1,6 +1,6 @@
 /**
  * Footer component with standardized prop naming and tone system
- * @module @voilajsx/uikit
+ * @module @bloomneo/uikit
  * @file src/components/sections/footer.tsx
  */
 

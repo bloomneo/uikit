@@ -1,7 +1,7 @@
 /**
  * Base theme preset - Clean default configuration
  * @description Basic black & white theme showcasing the default base configuration
- * @package @voilajsx/uikit
+ * @package @bloomneo/uikit
  * @file /src/themes/presets/base.js
  */
 

@@ -17,7 +17,7 @@ The Multi template provides intelligent layout switching based on routes. Each p
 
 ### Step 1: Install UIKit CLI Globally
 ```bash
-npm install -g @voilajsx/uikit
+npm install -g @bloomneo/uikit
 ```
 
 ### Step 2: Create Multi Project
@@ -331,4 +331,4 @@ const LayoutWrapper = () => {
 
 ---
 
-**Built with @voilajsx/uikit** ✨
+**Built with @bloomneo/uikit** ✨

@@ -18,7 +18,7 @@ import {
   PasswordInput,
   ToastProvider,
   toast,
-} from '@voilajsx/uikit';
+} from '@bloomneo/uikit';
 
 export default function LoginRecipe() {
   const [email, setEmail] = useState('');

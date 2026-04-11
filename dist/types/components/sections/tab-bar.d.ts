@@ -1,6 +1,6 @@
 /**
  * TabBar Section - Mobile bottom navigation tabs
- * @module @voilajsx/uikit
+ * @module @bloomneo/uikit
  * @file src/components/sections/tab-bar.tsx
  */
 import * as React from 'react';

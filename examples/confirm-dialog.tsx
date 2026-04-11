@@ -1,4 +1,4 @@
-import { Button, ConfirmProvider, useConfirm } from '@voilajsx/uikit';
+import { Button, ConfirmProvider, useConfirm } from '@bloomneo/uikit';
 
 // Wrap your app once in <ConfirmProvider>, then call useConfirm() anywhere.
 // The promise resolves to `true` if the user confirmed, `false` if they cancelled.

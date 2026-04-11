@@ -1,12 +1,12 @@
 /**
- * Educational runtime errors for @voilajsx/uikit.
+ * Educational runtime errors for @bloomneo/uikit.
  *
  * Components throw these instead of generic TypeErrors so that both humans
  * and AI coding agents get an actionable message naming the missing prop and
  * pointing at the canonical doc entry. The format is intentionally consistent:
  *
- *   [@voilajsx/uikit] <Component> requires `<prop>`. <reason>.
- *   See: https://voilajsx.github.io/uikit/llms#<slug>
+ *   [@bloomneo/uikit] <Component> requires `<prop>`. <reason>.
+ *   See: https://bloomneo.github.io/uikit/llms#<slug>
  *
  * The trailing URL is the entry inside the generated `llms.txt`. Agents that
  * read tool errors and self-correct will fetch that link and recover on the

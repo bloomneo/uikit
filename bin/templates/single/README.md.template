@@ -1,6 +1,6 @@
 # {{PROJECT_NAME}}
 
-**A modern React application built with @voilajsx/uikit**
+**A modern React application built with @bloomneo/uikit**
 
 ## 🚀 Quick Start
 
@@ -20,7 +20,7 @@ npm run preview
 
 ## 🎨 UIKit Features
 
-This project is built with [@voilajsx/uikit](https://github.com/voilajsx/uikit) - a complete React UI framework with:
+This project is built with [@bloomneo/uikit](https://github.com/bloomneo/uikit) - a complete React UI framework with:
 
 - **37 UI Components** - Forms, tables, navigation, overlays, and more
 - **5 Professional Themes** - Base, Elegant, Metro, Studio, Vivid
@@ -77,7 +77,7 @@ Available modes: `light` | `dark`
 - **[TypeScript](https://typescriptlang.org)** - Type safety
 - **[Vite](https://vitejs.dev)** - Build tool and dev server
 - **[Tailwind CSS v4+](https://tailwindcss.com)** - Utility-first CSS framework
-- **[@voilajsx/uikit](https://github.com/voilajsx/uikit)** - UI components and layouts
+- **[@bloomneo/uikit](https://github.com/bloomneo/uikit)** - UI components and layouts
 - **[Lucide React](https://lucide.dev)** - Icon library
 
 ## 🎨 Component Usage
@@ -85,8 +85,8 @@ Available modes: `light` | `dark`
 Import UIKit components individually for optimal tree-shaking:
 
 ```jsx
-import { Button } from '@voilajsx/uikit/button';
-import { Card, CardContent, CardHeader } from '@voilajsx/uikit/card';
+import { Button } from '@bloomneo/uikit/button';
+import { Card, CardContent, CardHeader } from '@bloomneo/uikit/card';
 import { asset } from './utils/asset';
 
 function MyComponent() {
@@ -121,11 +121,11 @@ import { asset } from './utils/asset';
 ## 📚 Resources
 
 - **[UIKit Documentation](https://docs.anthropic.com/en/docs/claude-code/claude_code_docs_map.md)** - Complete component reference
-- **[UIKit LLM Guide](https://github.com/voilajsx/uikit/blob/main/docs/UIKIT_LLM_GUIDE.md)** - Comprehensive usage guide
+- **[UIKit LLM Guide](https://github.com/bloomneo/uikit/blob/main/docs/UIKIT_LLM_GUIDE.md)** - Comprehensive usage guide
 - **[React Documentation](https://react.dev)** - React framework guide
 - **[Vite Documentation](https://vitejs.dev)** - Build tool documentation
 - **[Tailwind CSS v4+](https://tailwindcss.com)** - Utility-first CSS framework
 
 ---
 
-**Built with ❤️ using [@voilajsx/uikit](https://github.com/voilajsx/uikit)** ✨
+**Built with ❤️ using [@bloomneo/uikit](https://github.com/bloomneo/uikit)** ✨

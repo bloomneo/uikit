@@ -1,6 +1,6 @@
 /**
- * LLM-optimized type definitions for @voilajsx/uikit - COMPLETE & CONSISTENT
- * @module @voilajsx/uikit
+ * LLM-optimized type definitions for @bloomneo/uikit - COMPLETE & CONSISTENT
+ * @module @bloomneo/uikit
  * @file src/types/index.ts
  */
 import type { ComponentType, ReactNode, HTMLAttributes } from 'react';

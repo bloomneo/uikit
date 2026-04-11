@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
-import { Button } from '@voilajsx/uikit/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@voilajsx/uikit/card';
-import { useTheme } from '@voilajsx/uikit/theme-provider';
-import { PageLayout } from '@voilajsx/uikit/page';
-import type { NavigationItem } from '@voilajsx/uikit';
+import { Button } from '@bloomneo/uikit/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@bloomneo/uikit/card';
+import { useTheme } from '@bloomneo/uikit/theme-provider';
+import { PageLayout } from '@bloomneo/uikit/page';
+import type { NavigationItem } from '@bloomneo/uikit';
 import { Home, Layout, Palette, BookOpen } from 'lucide-react';
 import { SEO } from './components/SEO';
 import { asset } from './utils/asset';
@@ -172,7 +172,7 @@ const HomePage: React.FC = () => {
             Install UIKit in your project and start building beautiful interfaces in minutes
           </p>
           <div className="bg-background border rounded-lg p-4 max-w-md mx-auto">
-            <code className="text-sm">npm install @voilajsx/uikit</code>
+            <code className="text-sm">npm install @bloomneo/uikit</code>
           </div>
           <div className="flex gap-3 justify-center">
             <Button asChild>
@@ -508,25 +508,25 @@ const DocsPage: React.FC = () => {
       <Card>
         <CardHeader>
           <CardTitle>Getting Started</CardTitle>
-          <CardDescription>How to use @voilajsx/uikit in your project</CardDescription>
+          <CardDescription>How to use @bloomneo/uikit in your project</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
             <h3 className="font-semibold mb-2">Installation</h3>
-            <code className="bg-muted p-2 rounded block">npm install @voilajsx/uikit</code>
+            <code className="bg-muted p-2 rounded block">npm install @bloomneo/uikit</code>
           </div>
           
           <div>
             <h3 className="font-semibold mb-2">Import Components</h3>
             <code className="bg-muted p-2 rounded block text-sm">
-              {`import { Button } from '@voilajsx/uikit/button';
-import { Card } from '@voilajsx/uikit/card';`}
+              {`import { Button } from '@bloomneo/uikit/button';
+import { Card } from '@bloomneo/uikit/card';`}
             </code>
           </div>
           
           <div>
             <h3 className="font-semibold mb-2">Import Styles</h3>
-            <code className="bg-muted p-2 rounded block">import '@voilajsx/uikit/styles';</code>
+            <code className="bg-muted p-2 rounded block">import '@bloomneo/uikit/styles';</code>
           </div>
         </CardContent>
       </Card>
@@ -538,7 +538,7 @@ import { Card } from '@voilajsx/uikit/card';`}
         </CardHeader>
         <CardContent>
           <code className="bg-muted p-4 rounded block text-sm">
-            {`import { ThemeProvider } from '@voilajsx/uikit/theme-provider';
+            {`import { ThemeProvider } from '@bloomneo/uikit/theme-provider';
 
 function App() {
   return (
@@ -595,7 +595,7 @@ const Logo: React.FC = () => (
       UI
     </div>
     <div>
-      <h3 className="voila-brand-logo text-xl font-bold">@voilajsx/uikit</h3>
+      <h3 className="voila-brand-logo text-xl font-bold">@bloomneo/uikit</h3>
       <p className="text-xs text-muted-foreground">SPA Template</p>
     </div>
   </div>
@@ -642,7 +642,7 @@ const SPAContent: React.FC = () => {
       </PageLayout.Content>
 
       <PageLayout.Footer 
-        copyright="@voilajsx/uikit SPA Template • React Router Navigation"
+        copyright="@bloomneo/uikit SPA Template • React Router Navigation"
       />
     </PageLayout>
   );

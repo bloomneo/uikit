@@ -1,7 +1,7 @@
 /**
  * @fileoverview Pre-rendering command for generating static HTML pages
  * @description Uses Puppeteer to render SPA routes for SEO optimization
- * @package @voilajsx/uikit
+ * @package @bloomneo/uikit
  * @file /bin/commands/prerender.js
  */
 

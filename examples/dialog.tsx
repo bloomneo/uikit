@@ -7,7 +7,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@voilajsx/uikit';
+} from '@bloomneo/uikit';
 
 export default function DialogExample() {
   const [open, setOpen] = useState(false);

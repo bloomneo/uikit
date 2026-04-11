@@ -1,8 +1,8 @@
-import { Button, ThemeProvider, useTheme } from '@voilajsx/uikit';
-import '@voilajsx/uikit/styles';
+import { Button, ThemeProvider, useTheme } from '@bloomneo/uikit';
+import '@bloomneo/uikit/styles';
 
 // REMEMBER: also drop the FOUC inline script in your <head> so the theme
-// is applied before React mounts. See @voilajsx/uikit/fouc.
+// is applied before React mounts. See @bloomneo/uikit/fouc.
 
 function ThemeSwitcher() {
   const { theme, mode, availableThemes, setTheme, toggleMode } = useTheme();

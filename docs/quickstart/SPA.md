@@ -18,13 +18,13 @@ The SPA template provides a complete single-page application setup with React Ro
 ### Step 1: Install UIKit CLI Globally
 ```bash
 # Install globally
-npm install -g @voilajsx/uikit
+npm install -g @bloomneo/uikit
 
 # Check if you have the latest version
-npm list -g @voilajsx/uikit
+npm list -g @bloomneo/uikit
 
 # Update if needed
-npm update -g @voilajsx/uikit
+npm update -g @bloomneo/uikit
 ```
 
 ### Step 2: Create SPA Project
@@ -60,9 +60,9 @@ The SPA template contains everything in `App.tsx`:
 ```jsx
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
-import { Button } from '@voilajsx/uikit/button';
-import { useTheme } from '@voilajsx/uikit/theme-provider';
-import { PageLayout } from '@voilajsx/uikit/page';
+import { Button } from '@bloomneo/uikit/button';
+import { useTheme } from '@bloomneo/uikit/theme-provider';
+import { PageLayout } from '@bloomneo/uikit/page';
 
 // Page Components are defined in App.tsx
 const HomePage = () => {
@@ -297,4 +297,4 @@ const navigationItems = [
 
 ---
 
-**Built with @voilajsx/uikit** ✨
+**Built with @bloomneo/uikit** ✨

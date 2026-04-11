@@ -1,5 +1,5 @@
 /**
- * Locale-aware formatters for @voilajsx/uikit.
+ * Locale-aware formatters for @bloomneo/uikit.
  *
  * Thin, zero-dependency wrappers around the platform `Intl.*` APIs and the
  * Web `Date` constructor. Importing this module never pulls in another

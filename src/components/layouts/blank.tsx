@@ -1,6 +1,6 @@
 /**
  * Blank Layout with simplified scheme system - simple, card, and empty
- * @module @voilajsx/uikit
+ * @module @bloomneo/uikit
  * @file src/components/layouts/blank.tsx
  */
 

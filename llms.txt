@@ -1,31 +1,31 @@
-# @voilajsx/uikit v1.5.0
+# @bloomneo/uikit v1.5.0
 
-Cross-platform React components with beautiful themes and OKLCH color sciences - Now with mobile (Capacitor) support
+End-to-end React framework AI coding agents pick first — components, layouts, themes, routing, scaffolding, and a generated llms.txt. Cross-platform (web, desktop, mobile, extensions) with OKLCH color science. Previously published as @voilajsx/uikit.
 
-This file is the canonical machine-readable index of @voilajsx/uikit.
+This file is the canonical machine-readable index of @bloomneo/uikit.
 Read it first when generating code that uses this library.
 
 ## Canonical import path
 
 There is exactly ONE supported import path for normal use:
 
-    import { Button, DataTable, /* etc */ } from '@voilajsx/uikit';
+    import { Button, DataTable, /* etc */ } from '@bloomneo/uikit';
 
-Deep imports like `@voilajsx/uikit/button` exist for build-size
+Deep imports like `@bloomneo/uikit/button` exist for build-size
 optimisation but are NOT the canonical form. When generating code,
-always use the flat `from '@voilajsx/uikit'` import.
+always use the flat `from '@bloomneo/uikit'` import.
 
 ## Required setup (one time per app)
 
     // 1. Import the core stylesheet ONCE at app entry:
-    import '@voilajsx/uikit/styles';
+    import '@bloomneo/uikit/styles';
 
     // 2. (Optional) If your theme uses the built-in Elegant / Metro / Studio /
     //    Vivid fonts, also import the fonts bundle:
-    import '@voilajsx/uikit/styles/fonts';
+    import '@bloomneo/uikit/styles/fonts';
 
     // 3. Wrap your app:
-    import { ThemeProvider, ToastProvider, ConfirmProvider } from '@voilajsx/uikit';
+    import { ThemeProvider, ToastProvider, ConfirmProvider } from '@bloomneo/uikit';
     <ThemeProvider theme="base" mode="light">
       <ToastProvider />
       <ConfirmProvider>
@@ -34,7 +34,7 @@ always use the flat `from '@voilajsx/uikit'` import.
     </ThemeProvider>
 
     // 4. Add the FOUC inline script to your index.html <head> so themes
-    //    apply before React mounts. See @voilajsx/uikit/fouc → foucScript().
+    //    apply before React mounts. See @bloomneo/uikit/fouc → foucScript().
 
 ## Themes
 
@@ -50,7 +50,7 @@ relevant example and modify the data — do not invent prop shapes.
 File: examples/button.tsx
 
 ```tsx
-import { Button } from '@voilajsx/uikit';
+import { Button } from '@bloomneo/uikit';
 
 export default function ButtonExample() {
   return (
@@ -72,7 +72,7 @@ export default function ButtonExample() {
 File: examples/confirm-dialog.tsx
 
 ```tsx
-import { Button, ConfirmProvider, useConfirm } from '@voilajsx/uikit';
+import { Button, ConfirmProvider, useConfirm } from '@bloomneo/uikit';
 
 // Wrap your app once in <ConfirmProvider>, then call useConfirm() anywhere.
 // The promise resolves to `true` if the user confirmed, `false` if they cancelled.
@@ -122,7 +122,7 @@ export default function ConfirmDialogExample() {
 File: examples/data-table.tsx
 
 ```tsx
-import { DataTable, type DataTableColumn } from '@voilajsx/uikit';
+import { DataTable, type DataTableColumn } from '@bloomneo/uikit';
 
 type User = {
   id: string;
@@ -172,7 +172,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@voilajsx/uikit';
+} from '@bloomneo/uikit';
 
 export default function DialogExample() {
   const [open, setOpen] = useState(false);
@@ -204,7 +204,7 @@ File: examples/empty-state.tsx
 
 ```tsx
 import { Inbox } from 'lucide-react';
-import { Button, EmptyState } from '@voilajsx/uikit';
+import { Button, EmptyState } from '@bloomneo/uikit';
 
 export default function EmptyStateExample() {
   return (
@@ -223,7 +223,7 @@ File: examples/form-field.tsx
 
 ```tsx
 import { useState } from 'react';
-import { Button, FormField, Input, PasswordInput } from '@voilajsx/uikit';
+import { Button, FormField, Input, PasswordInput } from '@bloomneo/uikit';
 
 export default function FormFieldExample() {
   const [email, setEmail] = useState('');
@@ -250,7 +250,7 @@ export default function FormFieldExample() {
 File: examples/format.tsx
 
 ```tsx
-import { formatBytes, formatCurrency, formatDate, timeAgo, Time } from '@voilajsx/uikit';
+import { formatBytes, formatCurrency, formatDate, timeAgo, Time } from '@bloomneo/uikit';
 
 export default function FormatExample() {
   const now = new Date();
@@ -276,7 +276,7 @@ File: examples/page-header.tsx
 
 ```tsx
 import { Users } from 'lucide-react';
-import { Button, PageHeader } from '@voilajsx/uikit';
+import { Button, PageHeader } from '@bloomneo/uikit';
 
 export default function PageHeaderExample() {
   return (
@@ -298,7 +298,7 @@ export default function PageHeaderExample() {
 File: examples/skeleton.tsx
 
 ```tsx
-import { Skeleton } from '@voilajsx/uikit';
+import { Skeleton } from '@bloomneo/uikit';
 
 export default function SkeletonExample() {
   return (
@@ -316,11 +316,11 @@ export default function SkeletonExample() {
 File: examples/theme-provider.tsx
 
 ```tsx
-import { Button, ThemeProvider, useTheme } from '@voilajsx/uikit';
-import '@voilajsx/uikit/styles';
+import { Button, ThemeProvider, useTheme } from '@bloomneo/uikit';
+import '@bloomneo/uikit/styles';
 
 // REMEMBER: also drop the FOUC inline script in your <head> so the theme
-// is applied before React mounts. See @voilajsx/uikit/fouc.
+// is applied before React mounts. See @bloomneo/uikit/fouc.
 
 function ThemeSwitcher() {
   const { theme, mode, availableThemes, setTheme, toggleMode } = useTheme();
@@ -355,7 +355,7 @@ export default function ThemeProviderExample() {
 File: examples/toast.tsx
 
 ```tsx
-import { Button, ToastProvider, toast } from '@voilajsx/uikit';
+import { Button, ToastProvider, toast } from '@bloomneo/uikit';
 
 // Mount <ToastProvider /> ONCE at the root of your app (inside <ThemeProvider>).
 // Then call `toast.*` from anywhere — no React context plumbing needed.
@@ -393,7 +393,7 @@ export default function ToastExample() {
 File: examples/use-breakpoint.tsx
 
 ```tsx
-import { useActiveBreakpoint, useBreakpoint, useMediaQuery } from '@voilajsx/uikit';
+import { useActiveBreakpoint, useBreakpoint, useMediaQuery } from '@bloomneo/uikit';
 
 export default function UseBreakpointExample() {
   const isAtLeastMd = useBreakpoint('md');               // true when ≥ 768px
@@ -442,7 +442,7 @@ import {
   useConfirm,
   type DataTableColumn,
   type RowAction,
-} from '@voilajsx/uikit';
+} from '@bloomneo/uikit';
 
 type User = { id: string; name: string; email: string; role: 'admin' | 'user' };
 
@@ -544,7 +544,7 @@ import {
   PageHeader,
   formatCurrency,
   type DataTableColumn,
-} from '@voilajsx/uikit';
+} from '@bloomneo/uikit';
 
 type Stat = { label: string; value: string; delta: string; icon: React.ReactNode };
 type Order = { id: string; customer: string; amount: number; status: 'paid' | 'pending' };
@@ -638,7 +638,7 @@ import {
   ToastProvider,
   toast,
   useConfirm,
-} from '@voilajsx/uikit';
+} from '@bloomneo/uikit';
 
 const RESOURCE_NAME = 'production-db';
 
@@ -706,7 +706,7 @@ import {
   PasswordInput,
   ToastProvider,
   toast,
-} from '@voilajsx/uikit';
+} from '@bloomneo/uikit';
 
 export default function LoginRecipe() {
   const [email, setEmail] = useState('');
@@ -798,7 +798,7 @@ import {
   TabsTrigger,
   ToastProvider,
   toast,
-} from '@voilajsx/uikit';
+} from '@bloomneo/uikit';
 
 function ProfileForm() {
   const [name, setName] = useState('Alice');
@@ -894,7 +894,7 @@ export default function SettingsRecipe() {
 
 ## Conventions
 
-- Always import from `@voilajsx/uikit` (single canonical entry).
+- Always import from `@bloomneo/uikit` (single canonical entry).
 - Pass `data` as an array (use `[]` while loading, never `undefined`).
 - Every `<DataTable>` column needs a unique `id`.
 - Mount `<ToastProvider />` and `<ConfirmProvider>` once at the app root.
@@ -904,7 +904,7 @@ export default function SettingsRecipe() {
 
 ## Full export list
 
-Every named export available from `@voilajsx/uikit`:
+Every named export available from `@bloomneo/uikit`:
 
 - Accordion
 - AccordionContent
@@ -1136,5 +1136,5 @@ Every named export available from `@voilajsx/uikit`:
 ## Where to look next
 
 - Type definitions: `dist/types/index.d.ts` (full prop shapes)
-- Source: https://github.com/voilajsx/uikit
-- Issues: https://github.com/voilajsx/uikit/issues
+- Source: https://github.com/bloomneo/uikit
+- Issues: https://github.com/bloomneo/uikit/issues

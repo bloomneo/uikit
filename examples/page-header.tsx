@@ -1,5 +1,5 @@
 import { Users } from 'lucide-react';
-import { Button, PageHeader } from '@voilajsx/uikit';
+import { Button, PageHeader } from '@bloomneo/uikit';
 
 export default function PageHeaderExample() {
   return (

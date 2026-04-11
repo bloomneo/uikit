@@ -7,15 +7,15 @@
     <title>{{PROJECT_NAME}} - UIKit Showcase</title>
 
     <!-- SEO Optimizations -->
-    <meta name="description" content="Professional React UI components with beautiful themes and OKLCH color science. Built with @voilajsx/uikit.">
+    <meta name="description" content="Professional React UI components with beautiful themes and OKLCH color science. Built with @bloomneo/uikit.">
     <meta name="keywords" content="react, ui components, themes, design system, tailwind css, typescript">
-    <meta name="author" content="@voilajsx/uikit">
+    <meta name="author" content="@bloomneo/uikit">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="{{PROJECT_NAME}} - UIKit Showcase">
     <meta property="og:description" content="Professional React UI components with beautiful themes">
-    <meta property="og:site_name" content="@voilajsx/uikit">
+    <meta property="og:site_name" content="@bloomneo/uikit">
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">

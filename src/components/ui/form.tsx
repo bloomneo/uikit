@@ -1,6 +1,6 @@
 /**
  * Unified Form System - Simple Components + React Hook Form Integration
- * @module @voilajsx/uikit
+ * @module @bloomneo/uikit
  * @file src/components/ui/form.tsx
  */
 

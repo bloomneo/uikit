@@ -1,6 +1,6 @@
 /**
  * Admin Layout - FIXED sidebar flash with minimal FOUC prevention
- * @module @voilajsx/uikit
+ * @module @bloomneo/uikit
  * @file src/components/layouts/admin.tsx
  */
 import * as React from 'react';

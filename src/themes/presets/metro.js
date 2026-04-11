@@ -1,7 +1,7 @@
 /**
  * Metro theme preset - Clean, systematic design (OPTIMIZED)
  * @description Modern, systematic theme for dashboards, admin panels, and professional applications
- * @package @voilajsx/uikit
+ * @package @bloomneo/uikit
  * @file /src/themes/presets/metro-optimized.js
  */
 

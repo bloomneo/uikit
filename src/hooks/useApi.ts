@@ -1,7 +1,7 @@
 /**
  * useApi Hook - Generic API client for fullstack applications
  * @description Provides a simple interface for making HTTP requests with error handling
- * @package @voilajsx/uikit
+ * @package @bloomneo/uikit
  */
 
 import { useState, useCallback } from 'react';

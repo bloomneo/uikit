@@ -19,7 +19,7 @@ import {
   TabsTrigger,
   ToastProvider,
   toast,
-} from '@voilajsx/uikit';
+} from '@bloomneo/uikit';
 
 function ProfileForm() {
   const [name, setName] = useState('Alice');

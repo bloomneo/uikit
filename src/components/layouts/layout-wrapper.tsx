@@ -1,7 +1,7 @@
 /**
  * @fileoverview Updated layout wrapper with proper type safety and consistency
  * @description Uses VITE__ environment variables with zero ambiguity
- * @package @voilajsx/uikit
+ * @package @bloomneo/uikit
  * @file /src/components/layouts/layout-wrapper.tsx
  */
 

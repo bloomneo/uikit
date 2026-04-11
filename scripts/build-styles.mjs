@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Cross-platform CSS build for @voilajsx/uikit.
+ * Cross-platform CSS build for @bloomneo/uikit.
  *
  * Replaces the old shell-based pipeline (`tailwindcss ... && cat ... > ... && rm ...`)
  * which broke on Windows. Produces:
@@ -9,8 +9,8 @@
  *   dist/styles/fonts.css   — opt-in @font-face declarations for built-in themes
  *
  * Both files are independently importable via package.json exports:
- *   import '@voilajsx/uikit/styles';
- *   import '@voilajsx/uikit/styles/fonts';
+ *   import '@bloomneo/uikit/styles';
+ *   import '@bloomneo/uikit/styles/fonts';
  */
 
 import { execSync } from 'node:child_process';

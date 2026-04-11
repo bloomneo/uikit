@@ -1,19 +1,19 @@
 /**
- * Educational runtime errors for @voilajsx/uikit.
+ * Educational runtime errors for @bloomneo/uikit.
  *
  * Components throw these instead of generic TypeErrors so that both humans
  * and AI coding agents get an actionable message naming the missing prop and
  * pointing at the canonical doc entry. The format is intentionally consistent:
  *
- *   [@voilajsx/uikit] <Component> requires `<prop>`. <reason>.
- *   See: https://voilajsx.github.io/uikit/llms#<slug>
+ *   [@bloomneo/uikit] <Component> requires `<prop>`. <reason>.
+ *   See: https://bloomneo.github.io/uikit/llms#<slug>
  *
  * The trailing URL is the entry inside the generated `llms.txt`. Agents that
  * read tool errors and self-correct will fetch that link and recover on the
  * next iteration.
  */
 
-const DOCS_BASE = 'https://voilajsx.github.io/uikit/llms#';
+const DOCS_BASE = 'https://bloomneo.github.io/uikit/llms#';
 
 export class UIKitError extends Error {
   readonly component: string;
@@ -21,7 +21,7 @@ export class UIKitError extends Error {
 
   constructor(component: string, message: string, slug?: string) {
     const url = DOCS_BASE + (slug ?? component.toLowerCase());
-    super('[@voilajsx/uikit] <' + component + '> ' + message + '\nSee: ' + url);
+    super('[@bloomneo/uikit] <' + component + '> ' + message + '\nSee: ' + url);
     this.name = 'UIKitError';
     this.component = component;
     this.docsUrl = url;
@@ -79,5 +79,5 @@ export function warnInDev(component: string, message: string, slug?: string): vo
   }
   const url = DOCS_BASE + (slug ?? component.toLowerCase());
   // eslint-disable-next-line no-console
-  console.warn('[@voilajsx/uikit] <' + component + '> ' + message + '\nSee: ' + url);
+  console.warn('[@bloomneo/uikit] <' + component + '> ' + message + '\nSee: ' + url);
 }

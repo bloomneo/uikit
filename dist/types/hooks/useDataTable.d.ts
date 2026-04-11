@@ -1,5 +1,5 @@
 /**
- * `useDataTable` — headless table state for @voilajsx/uikit.
+ * `useDataTable` — headless table state for @bloomneo/uikit.
  *
  * Provides the search / sort / filter / pagination state machine that the
  * built-in `<DataTable>` component uses internally, in case you want to ship

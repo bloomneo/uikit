@@ -1,7 +1,7 @@
 /**
  * @fileoverview UIKit Serve Command - Development server management
  * @description Smart Vite server with port management and process cleanup
- * @package @voilajsx/uikit
+ * @package @bloomneo/uikit
  */
 
 import { spawn, exec } from 'child_process';
@@ -108,11 +108,11 @@ async function validateProject() {
   // Check if it's a UIKit project
   try {
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-    const hasUIKit = packageJson.dependencies?.['@voilajsx/uikit'] || 
-                     packageJson.devDependencies?.['@voilajsx/uikit'];
+    const hasUIKit = packageJson.dependencies?.['@bloomneo/uikit'] || 
+                     packageJson.devDependencies?.['@bloomneo/uikit'];
     
     if (!hasUIKit) {
-      console.log('💡 This project doesn\'t use @voilajsx/uikit. Server will start anyway.');
+      console.log('💡 This project doesn\'t use @bloomneo/uikit. Server will start anyway.');
     }
   } catch (error) {
     // Invalid package.json, but let Vite handle it

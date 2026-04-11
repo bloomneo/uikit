@@ -1,6 +1,6 @@
 /**
  * Container component with FIXED sidebar layout - properly side-by-side
- * @module @voilajsx/uikit
+ * @module @bloomneo/uikit
  * @file src/components/sections/container.tsx
  */
 import * as React from 'react';

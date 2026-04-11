@@ -15,7 +15,7 @@ import {
   ToastProvider,
   toast,
   useConfirm,
-} from '@voilajsx/uikit';
+} from '@bloomneo/uikit';
 
 const RESOURCE_NAME = 'production-db';
 

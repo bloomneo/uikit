@@ -1,6 +1,6 @@
 /**
  * Pure UIKit Detail Page Components - shadcn/ui Compatible
- * @module @voilajsx/uikit
+ * @module @bloomneo/uikit
  * @file src/components/ui/detail-page.tsx
  */
 import React from 'react';

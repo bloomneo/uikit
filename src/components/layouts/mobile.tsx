@@ -1,6 +1,6 @@
 /**
  * Mobile Layout - Native mobile app layout with tabs/stack navigation
- * @module @voilajsx/uikit
+ * @module @bloomneo/uikit
  * @file src/components/layouts/mobile.tsx
  */
 

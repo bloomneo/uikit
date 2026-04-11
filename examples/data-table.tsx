@@ -1,4 +1,4 @@
-import { DataTable, type DataTableColumn } from '@voilajsx/uikit';
+import { DataTable, type DataTableColumn } from '@bloomneo/uikit';
 
 type User = {
   id: string;

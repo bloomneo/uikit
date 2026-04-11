@@ -1,36 +1,36 @@
-const n = "https://voilajsx.github.io/uikit/llms#";
+const s = "https://bloomneo.github.io/uikit/llms#";
 class i extends Error {
   constructor(o, r, e) {
-    const t = n + (e ?? o.toLowerCase());
-    super("[@voilajsx/uikit] <" + o + "> " + r + `
+    const t = s + (e ?? o.toLowerCase());
+    super("[@bloomneo/uikit] <" + o + "> " + r + `
 See: ` + t), this.name = "UIKitError", this.component = o, this.docsUrl = t;
   }
 }
-function c(s, o, r, e) {
+function c(n, o, r, e) {
   if (r == null) {
     const t = e ? "requires `" + o + "` prop. " + e : "requires `" + o + "` prop (missing or null).";
-    throw new i(s, t);
+    throw new i(n, t);
   }
   return r;
 }
-function a(s, o, r, e) {
+function l(n, o, r, e) {
   if (!Array.isArray(r)) {
     const t = r === void 0 ? "undefined" : r === null ? "null" : typeof r, u = e ? "expects `" + o + "` to be an array (got " + t + "). " + e : "expects `" + o + "` to be an array (got " + t + ").";
-    throw new i(s, u);
+    throw new i(n, u);
   }
   return r;
 }
-function l(s, o, r) {
+function a(n, o, r) {
   if (typeof process < "u" && process.env && process.env.NODE_ENV === "production")
     return;
-  const e = n + (r ?? s.toLowerCase());
-  console.warn("[@voilajsx/uikit] <" + s + "> " + o + `
+  const e = s + (r ?? n.toLowerCase());
+  console.warn("[@bloomneo/uikit] <" + n + "> " + o + `
 See: ` + e);
 }
 export {
   i as UIKitError,
-  a as requireArrayProp,
+  l as requireArrayProp,
   c as requireProp,
-  l as warnInDev
+  a as warnInDev
 };
 //# sourceMappingURL=errors.js.map

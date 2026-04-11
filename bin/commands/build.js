@@ -1,7 +1,7 @@
 /**
  * @fileoverview UIKit Build Command - Production build
  * @description Build project for production with theme bundling
- * @package @voilajsx/uikit
+ * @package @bloomneo/uikit
  */
 
 import { spawn } from 'child_process';

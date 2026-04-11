@@ -158,7 +158,7 @@ export function useConfirm(): UseConfirmReturn {
   const ctx = React.useContext(ConfirmContext);
   if (!ctx) {
     throw new Error(
-      '[@voilajsx/uikit] useConfirm() called outside <ConfirmProvider>. Wrap your app root in <ConfirmProvider>.'
+      '[@bloomneo/uikit] useConfirm() called outside <ConfirmProvider>. Wrap your app root in <ConfirmProvider>.'
     );
   }
 

@@ -17,7 +17,7 @@ The Single template creates a component showcase on one page. No routing, no com
 
 ### Step 1: Install UIKit CLI Globally
 ```bash
-npm install -g @voilajsx/uikit
+npm install -g @bloomneo/uikit
 ```
 
 ### Step 2: Create Single Project
@@ -52,7 +52,7 @@ const UIKitShowcase = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-primary rounded">UI</div>
-            <h1 className="voila-brand-logo text-xl font-bold">@voilajsx/uikit</h1>
+            <h1 className="voila-brand-logo text-xl font-bold">@bloomneo/uikit</h1>
           </div>
 
           <div className="flex items-center gap-3">
@@ -83,7 +83,7 @@ const UIKitShowcase = () => {
 **How:** Wraps App with ThemeProvider
 
 ```jsx
-import { ThemeProvider } from '@voilajsx/uikit/theme-provider';
+import { ThemeProvider } from '@bloomneo/uikit/theme-provider';
 import App from './App';
 import './index.css';
 
@@ -256,4 +256,4 @@ const themeDescriptions = {
 
 ---
 
-**Built with @voilajsx/uikit** ✨
+**Built with @bloomneo/uikit** ✨

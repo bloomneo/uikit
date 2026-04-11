@@ -1,4 +1,4 @@
-import { Button } from '@voilajsx/uikit';
+import { Button } from '@bloomneo/uikit';
 
 export default function ButtonExample() {
   return (

@@ -1,6 +1,6 @@
 /**
  * Header component with proper responsive behavior and light hover colors
- * @module @voilajsx/uikit
+ * @module @bloomneo/uikit
  * @file src/components/sections/header.tsx
  */
 

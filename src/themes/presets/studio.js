@@ -1,7 +1,7 @@
 /**
  * Studio theme preset - Sophisticated designer grays (OPTIMIZED)
  * @description Professional creative theme for design tools and portfolios
- * @package @voilajsx/uikit
+ * @package @bloomneo/uikit
  * @file /src/themes/presets/studio-optimized.js
  */
 

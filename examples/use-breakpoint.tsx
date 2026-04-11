@@ -1,4 +1,4 @@
-import { useActiveBreakpoint, useBreakpoint, useMediaQuery } from '@voilajsx/uikit';
+import { useActiveBreakpoint, useBreakpoint, useMediaQuery } from '@bloomneo/uikit';
 
 export default function UseBreakpointExample() {
   const isAtLeastMd = useBreakpoint('md');               // true when ≥ 768px

@@ -1,6 +1,6 @@
 /**
  * SafeArea Section - Safe area wrapper for mobile notch/home indicator
- * @module @voilajsx/uikit
+ * @module @bloomneo/uikit
  * @file src/components/sections/safe-area.tsx
  */
 

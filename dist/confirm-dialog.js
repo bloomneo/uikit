@@ -1,4 +1,4 @@
-import { jsxs as n, jsx as r } from "react/jsx-runtime";
+import { jsxs as o, jsx as r } from "react/jsx-runtime";
 import * as l from "react";
 import { Dialog as h, DialogContent as C, DialogHeader as p, DialogTitle as g, DialogDescription as y, DialogFooter as x } from "./dialog.js";
 import { Button as m } from "./button.js";
@@ -6,20 +6,20 @@ import { Input as b } from "./input.js";
 import { Label as D } from "./label.js";
 const k = l.createContext(null);
 function L({ children: t }) {
-  const [e, c] = l.useState(null), o = l.useRef(null), [f, u] = l.useState(""), v = l.useCallback((i) => (u(""), c(i), new Promise((d) => {
-    o.current = d;
+  const [e, c] = l.useState(null), n = l.useRef(null), [f, u] = l.useState(""), v = l.useCallback((i) => (u(""), c(i), new Promise((d) => {
+    n.current = d;
   })), []), a = (i) => {
-    o.current?.(i), o.current = null, c(null), u("");
+    n.current?.(i), n.current = null, c(null), u("");
   }, s = e?.verifyText ? f !== e.verifyText : !1;
-  return /* @__PURE__ */ n(k.Provider, { value: { open: v }, children: [
+  return /* @__PURE__ */ o(k.Provider, { value: { open: v }, children: [
     t,
-    /* @__PURE__ */ r(h, { open: e !== null, onOpenChange: (i) => !i && a(!1), children: /* @__PURE__ */ n(C, { children: [
-      /* @__PURE__ */ n(p, { children: [
+    /* @__PURE__ */ r(h, { open: e !== null, onOpenChange: (i) => !i && a(!1), children: /* @__PURE__ */ o(C, { children: [
+      /* @__PURE__ */ o(p, { children: [
         /* @__PURE__ */ r(g, { children: e?.title }),
         e?.description && /* @__PURE__ */ r(y, { children: e.description })
       ] }),
-      e?.verifyText && /* @__PURE__ */ n("div", { className: "flex flex-col gap-2 py-2", children: [
-        /* @__PURE__ */ n(D, { htmlFor: "confirm-verify", children: [
+      e?.verifyText && /* @__PURE__ */ o("div", { className: "flex flex-col gap-2 py-2", children: [
+        /* @__PURE__ */ o(D, { htmlFor: "confirm-verify", children: [
           "Type",
           " ",
           /* @__PURE__ */ r("span", { className: "font-mono font-semibold text-foreground", children: e.verifyText }),
@@ -37,7 +37,7 @@ function L({ children: t }) {
           }
         )
       ] }),
-      /* @__PURE__ */ n(x, { children: [
+      /* @__PURE__ */ o(x, { children: [
         /* @__PURE__ */ r(m, { variant: "outline", onClick: () => a(!1), children: e?.cancelLabel ?? "Cancel" }),
         /* @__PURE__ */ r(
           m,
@@ -56,13 +56,13 @@ function M() {
   const t = l.useContext(k);
   if (!t)
     throw new Error(
-      "[@voilajsx/uikit] useConfirm() called outside <ConfirmProvider>. Wrap your app root in <ConfirmProvider>."
+      "[@bloomneo/uikit] useConfirm() called outside <ConfirmProvider>. Wrap your app root in <ConfirmProvider>."
     );
   const e = l.useCallback(
-    (o) => t.open({ ...o, tone: o.tone ?? "default" }),
+    (n) => t.open({ ...n, tone: n.tone ?? "default" }),
     [t]
   ), c = l.useCallback(
-    (o) => t.open({ ...o, tone: "destructive" }),
+    (n) => t.open({ ...n, tone: "destructive" }),
     [t]
   );
   return Object.assign(e, { destructive: c });
@@ -71,7 +71,7 @@ function R({
   open: t,
   onOpenChange: e,
   onConfirm: c,
-  title: o,
+  title: n,
   description: f,
   confirmLabel: u,
   cancelLabel: v,
@@ -81,13 +81,13 @@ function R({
   const [i, d] = l.useState("");
   return l.useEffect(() => {
     t || d("");
-  }, [t]), /* @__PURE__ */ r(h, { open: t, onOpenChange: e, children: /* @__PURE__ */ n(C, { children: [
-    /* @__PURE__ */ n(p, { children: [
-      /* @__PURE__ */ r(g, { children: o }),
+  }, [t]), /* @__PURE__ */ r(h, { open: t, onOpenChange: e, children: /* @__PURE__ */ o(C, { children: [
+    /* @__PURE__ */ o(p, { children: [
+      /* @__PURE__ */ r(g, { children: n }),
       f && /* @__PURE__ */ r(y, { children: f })
     ] }),
-    s && /* @__PURE__ */ n("div", { className: "flex flex-col gap-2 py-2", children: [
-      /* @__PURE__ */ n(D, { htmlFor: "confirm-verify-controlled", children: [
+    s && /* @__PURE__ */ o("div", { className: "flex flex-col gap-2 py-2", children: [
+      /* @__PURE__ */ o(D, { htmlFor: "confirm-verify-controlled", children: [
         "Type",
         " ",
         /* @__PURE__ */ r("span", { className: "font-mono font-semibold text-foreground", children: s }),
@@ -105,7 +105,7 @@ function R({
         }
       )
     ] }),
-    /* @__PURE__ */ n(x, { children: [
+    /* @__PURE__ */ o(x, { children: [
       /* @__PURE__ */ r(m, { variant: "outline", onClick: () => e(!1), children: v ?? "Cancel" }),
       /* @__PURE__ */ r(
         m,

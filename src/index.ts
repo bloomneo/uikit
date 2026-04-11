@@ -1,6 +1,6 @@
 /**
- * Main entry point for @voilajsx/uikit
- * @module @voilajsx/uikit
+ * Main entry point for @bloomneo/uikit
+ * @module @bloomneo/uikit
  * @file src/index.ts
  */
 

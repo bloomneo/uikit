@@ -16,7 +16,7 @@ import {
   PageHeader,
   formatCurrency,
   type DataTableColumn,
-} from '@voilajsx/uikit';
+} from '@bloomneo/uikit';
 
 type Stat = { label: string; value: string; delta: string; icon: React.ReactNode };
 type Order = { id: string; customer: string; amount: number; status: 'paid' | 'pending' };

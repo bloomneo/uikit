@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Button } from '@voilajsx/uikit/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@voilajsx/uikit/card';
-import { Badge } from '@voilajsx/uikit/badge';
+import { Button } from '@bloomneo/uikit/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@bloomneo/uikit/card';
+import { Badge } from '@bloomneo/uikit/badge';
 import { 
   Mail, 
   MessageSquare, 
@@ -275,7 +275,7 @@ export const ContactPage: React.FC = () => {
                   <Mail className="h-5 w-5 text-muted-foreground mt-0.5" />
                   <div>
                     <div className="font-medium">Email Support</div>
-                    <div className="text-sm text-muted-foreground">support@voilajsx.com</div>
+                    <div className="text-sm text-muted-foreground">support@bloomneo.com</div>
                     <Badge variant="secondary" className="mt-1">24-48h response</Badge>
                   </div>
                 </div>

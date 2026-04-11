@@ -1,4 +1,4 @@
-import { Skeleton } from '@voilajsx/uikit';
+import { Skeleton } from '@bloomneo/uikit';
 
 export default function SkeletonExample() {
   return (

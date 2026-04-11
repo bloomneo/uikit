@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Button } from '@voilajsx/uikit/button';
-import { AuthLayout } from '@voilajsx/uikit/auth';
+import { Button } from '@bloomneo/uikit/button';
+import { AuthLayout } from '@bloomneo/uikit/auth';
 import { Eye, EyeOff, Mail, Lock, ArrowRight } from 'lucide-react';
 import { SEO } from '../../../shared/components';
 

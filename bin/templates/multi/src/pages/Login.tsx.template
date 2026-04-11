@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '@voilajsx/uikit/button';
-import { AuthLayout } from '@voilajsx/uikit/auth';
+import { Button } from '@bloomneo/uikit/button';
+import { AuthLayout } from '@bloomneo/uikit/auth';
 import { Eye, EyeOff, Mail, Lock, ArrowRight, Github } from 'lucide-react';
 
 const LoginPage: React.FC = () => {
