@@ -227,6 +227,23 @@ export type {
   UseConfirmReturn,
 } from './components/ui/confirm-dialog';
 
+// UI Components - 1.5.1 additions
+export {
+  PermissionGate,
+  PermissionProvider,
+  usePermission,
+} from './components/ui/permission-gate';
+export type {
+  PermissionGateProps,
+  PermissionProviderProps,
+  PermissionContextValue,
+  PermissionCheck,
+  PermissionWhen,
+} from './components/ui/permission-gate';
+
+export { Combobox } from './components/ui/combobox';
+export type { ComboboxProps, ComboboxOption } from './components/ui/combobox';
+
 // Format utilities
 export {
   formatCurrency,
@@ -284,6 +301,7 @@ export {
   breakpointQuery,
   BREAKPOINTS,
   useDataTable,
+  usePagination,
 } from './hooks';
 export type {
   ApiResponse,
@@ -294,4 +312,7 @@ export type {
   BreakpointDirection,
   UseDataTableOptions,
   UseDataTableReturn,
+  UsePaginationOptions,
+  UsePaginationReturn,
+  PaginationPage,
 } from './hooks';

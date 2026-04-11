@@ -57,7 +57,7 @@ theme classes are on `<html>` before React mounts.
 
 - **Generated `llms.txt`**: One canonical, machine-readable index of every export, every example, every cookbook recipe — regenerated on every build from `src/index.ts`, `examples/`, and `cookbook/`. Agents read one file and know everything.
 - **Zero `any` in public types**: Full generic inference for `DataTable<User>`, `RowAction<User>`, formatters, hooks. Agent autocomplete actually works.
-- **One copy-pasteable example per primitive**: 13 minimal `.tsx` files in `examples/` plus 5 composed page recipes in `cookbook/` (CRUD, dashboard, settings, login, delete-flow). Agents pattern-match instead of inventing prop shapes.
+- **One copy-pasteable example per primitive**: 15 minimal `.tsx` files in `examples/` plus 5 composed page recipes in `cookbook/` (CRUD, dashboard, settings, login, delete-flow). Agents pattern-match instead of inventing prop shapes.
 - **Educational runtime errors**: Misuse a component and you get `[@bloomneo/uikit] <DataTable> expects \`data\` to be an array …` linking to the docs entry. Agents read errors and self-correct.
 
 **🚀 For rapid development**

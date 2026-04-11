@@ -20,3 +20,10 @@ export type { Breakpoint, BreakpointDirection } from './useBreakpoint';
 
 export { useDataTable } from './useDataTable';
 export type { UseDataTableOptions, UseDataTableReturn } from './useDataTable';
+
+export { usePagination } from './usePagination';
+export type {
+  UsePaginationOptions,
+  UsePaginationReturn,
+  PaginationPage,
+} from './usePagination';

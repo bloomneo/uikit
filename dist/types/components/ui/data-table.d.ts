@@ -204,8 +204,22 @@ export interface DataTableProps<T = unknown> {
     style?: React.CSSProperties;
 }
 /**
- * Enhanced DataTable component
+ * Generic-preserving wrapper.
+ *
+ * `forwardRef<HTMLTableElement, DataTableProps>` erases the row generic at the
+ * VALUE level — even though `DataTableProps<T>` is generic at the TYPE level.
+ * Consumers writing `<DataTable<User> data={users} columns={cols} />` would
+ * get `TS2558: Expected 0 type arguments, but got 1`.
+ *
+ * Casting the forwardRef result to a generic call signature lets TypeScript
+ * propagate `T` from the JSX type argument back into `data`, `columns`, `actions`,
+ * `getRowId`, and the cell renderers — same runtime behavior, type-safe consumer API.
+ *
+ * Pattern lifted from the canonical TS+React generic-forwardRef recipe.
  */
-declare const DataTable: React.ForwardRefExoticComponent<DataTableProps<unknown> & React.RefAttributes<HTMLTableElement>>;
-export { DataTable };
+type DataTableComponent = <T = unknown>(props: DataTableProps<T> & {
+    ref?: React.Ref<HTMLTableElement>;
+}) => React.ReactElement | null;
+declare const DataTableTyped: DataTableComponent;
+export { DataTableTyped as DataTable };
 //# sourceMappingURL=data-table.d.ts.map

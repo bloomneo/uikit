@@ -1,6 +1,6 @@
 {
   "name": "@bloomneo/uikit",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "End-to-end React framework AI coding agents pick first — components, layouts, themes, routing, scaffolding, and a generated llms.txt. Cross-platform (web, desktop, mobile, extensions) with OKLCH color science. Previously published as @voilajsx/uikit.",
   "type": "module",
   "keywords": [
@@ -223,6 +223,14 @@
     "./confirm-dialog": {
       "import": "./dist/confirm-dialog.js",
       "types": "./dist/types/components/ui/confirm-dialog.d.ts"
+    },
+    "./permission-gate": {
+      "import": "./dist/permission-gate.js",
+      "types": "./dist/types/components/ui/permission-gate.d.ts"
+    },
+    "./combobox": {
+      "import": "./dist/combobox.js",
+      "types": "./dist/types/components/ui/combobox.d.ts"
     },
     "./admin": {
       "import": "./dist/admin.js",

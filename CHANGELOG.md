@@ -2,6 +2,91 @@
 
 All notable changes to UIKit will be documented in this file.
 
+## [1.5.1] - 2026-04-11
+
+A focused follow-up to 1.5.0. Fixes the one publicly-documented type bug from
+the AI-ready release, plus lands four small "production reliability + missing
+primitives" items from real-world feedback. Pure additive — no breaking
+changes, no migration needed.
+
+### Fixed
+
+- **`<DataTable<T>>` generic erasure** — `DataTable` was exported via
+  `forwardRef<HTMLTableElement, DataTableProps>`, which erases the row
+  generic at the value level. Consumers writing `<DataTable<User> data={...} />`
+  (the exact pattern from `examples/data-table.tsx`) hit
+  `TS2558: Expected 0 type arguments, but got 1`. The fix is the canonical
+  generic-forwardRef recipe: cast the forwardRef result to a generic call
+  signature so `T` propagates from the JSX type argument back into `data`,
+  `columns`, `actions`, `getRowId`, and the cell renderers. Same runtime
+  behavior, type-safe consumer API.
+- **README example count** — README claimed 13 example files; `examples/`
+  actually shipped 12. Updated to match reality (now 15 with the new files
+  added below).
+
+### Added — production reliability (FBCA template)
+
+These three fixes apply to the `bin/templates/fbca/.../page-router.tsx`
+template that gets copied into newly-scaffolded projects. Existing scaffolded
+projects need to either re-scaffold or apply the diff manually.
+
+- **Default branded 404 page** — the old fallback rendered a debug message
+  that **leaked the full route map to end users** (a security smell on every
+  scaffolded site). Replaced with a theme-aware 404 page (logo-friendly, "back
+  to home" CTA, uses CSS variables so it follows the active theme). Pass
+  `<PageRouter notFound={<Custom404 />}>` to override.
+- **Default error boundary** — a single page throwing a runtime error used
+  to white-screen the entire SPA. The router now wraps every route in a
+  default error boundary that shows a branded "Something went wrong / reload"
+  page. Override with `<PageRouter errorBoundary={<MyError />} onError={(err) => sendToSentry(err)} />`.
+- **Code splitting per route by default** — `import.meta.glob` now uses
+  lazy mode (`{ eager: false }`), each page is wrapped in `React.lazy()` +
+  `Suspense`, and the router supplies a default loading fallback. Tiny apps
+  that prefer the old eager behavior can opt out with `<PageRouter eager />`.
+
+### Added — runtime primitives
+
+- **`<PermissionGate>` + `<PermissionProvider>` + `usePermission()`** —
+  unopinionated role-gating primitive for multi-role apps. Bring your own
+  auth source via a `check(permission: string) => boolean` function on the
+  provider; `<PermissionGate when="admin">`, `when={['admin', 'mod']}` (OR),
+  or `when={() => predicate}` are all supported. Replaces the
+  `{user.roles.includes('admin') && <Button />}` pattern that gets repeated
+  dozens of times in any admin app. See `examples/permission-gate.tsx`.
+- **`usePagination()` hook** — pagination state machine. The
+  `<Pagination>` UI component already shipped, but the state (current page,
+  total, hasNext, hasPrev, ellipsis logic, page-link compression) was DIY in
+  every list view. Returns `page`, `pageCount`, `startIndex`, `endIndex`,
+  `hasNext`, `hasPrev`, `pages` (with `'ellipsis-start'` / `'ellipsis-end'`
+  markers), and `goTo` / `next` / `prev` / `first` / `last` callbacks.
+  See `examples/use-pagination.tsx`.
+- **`<Combobox>` searchable Select** — for dropdowns with more than ~20
+  options where typing-to-filter beats scrolling. Built on the existing
+  `Command` (cmdk) + `Popover` primitives so no new dependencies. API is
+  intentionally close to `<Select>`: `value` / `onChange` / `options` with
+  `{ value, label }` shape. Supports `clearable`, `disabled`, custom
+  `renderOption`, and configurable popover width. See `examples/combobox.tsx`.
+
+### Verified, not changed
+
+- **HeaderNav mobile hamburger** (1.5 feedback #17) — verified the existing
+  v1.5.0 implementation already ships a working hamburger menu with body
+  scroll lock, dropdown handling, and a `<md` breakpoint. The original
+  feedback was based on outdated source. A `collapseAt` prop for
+  configurable breakpoints is a nice-to-have for a future release; it's
+  not closing a real production gap today.
+
+### Numbers
+
+| Metric | 1.5.0 | 1.5.1 |
+|---|---|---|
+| Public exports | 236 | ~248 |
+| Example files | 12 | 15 |
+| New UI components | — | 2 (PermissionGate, Combobox) |
+| New hooks | — | 1 (usePagination) |
+| Template fixes | — | 3 (404, error boundary, code splitting) |
+| Type bugs fixed | — | 1 (DataTable generic erasure) |
+
 ## [1.5.0] - 2026-04-11
 
 > **🔁 Scope change.** Starting with this release the package lives at
