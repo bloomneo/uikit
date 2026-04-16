@@ -34,14 +34,8 @@
 ## Required setup (every app)
 
 ```tsx
-// index.html — inside <head>
-import { foucScript } from "@bloomneo/uikit";
-// Inject: <script>{foucScript()}</script>
-
-// app entry (e.g. main.tsx)
+// app entry (main.tsx) — imports styles + mounts providers
 import "@bloomneo/uikit/styles";
-
-// App root
 import {
   ThemeProvider,
   ToastProvider,
@@ -51,13 +45,36 @@ import {
 function App({ children }) {
   return (
     <ThemeProvider theme="base" mode="light">
+      <ConfirmProvider>{children}</ConfirmProvider>
       <ToastProvider />
-      <ConfirmProvider>
-        {children}
-      </ConfirmProvider>
     </ThemeProvider>
   );
 }
+```
+
+FOUC prevention (recommended, prevents theme flash on first paint):
+
+```tsx
+// Next.js (app router) — app/layout.tsx
+import { foucScript } from "@bloomneo/uikit";
+
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: foucScript() }} />
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+```html
+<!-- Vite / static HTML — paste the output of foucScript() once into index.html -->
+<head>
+  <script>/* output of foucScript() pasted here */</script>
+</head>
 ```
 
 ## Component decision tree
