@@ -50,12 +50,11 @@ import {
 
 function App({ children }) {
   return (
-    <ThemeProvider defaultTheme="system">
-      <ToastProvider>
-        <ConfirmProvider>
-          {children}
-        </ConfirmProvider>
-      </ToastProvider>
+    <ThemeProvider theme="base" mode="light">
+      <ToastProvider />
+      <ConfirmProvider>
+        {children}
+      </ConfirmProvider>
     </ThemeProvider>
   );
 }
