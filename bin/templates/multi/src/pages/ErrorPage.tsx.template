@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '@bloomneo/uikit/button';
-import { BlankLayout } from '@bloomneo/uikit/blank';
+import { Button, BlankLayout } from '@bloomneo/uikit';
 import { Home, ArrowLeft } from 'lucide-react';
 
 const ErrorPage: React.FC = () => {

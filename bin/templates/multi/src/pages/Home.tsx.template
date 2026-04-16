@@ -1,8 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '@bloomneo/uikit/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@bloomneo/uikit/card';
-import { useTheme } from '@bloomneo/uikit/theme-provider';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  useTheme,
+} from '@bloomneo/uikit';
 import { ArrowRight, Palette, Layout, BookOpen, Mail } from 'lucide-react';
 import { SEO } from '../components';
 import { asset } from '../utils/asset';

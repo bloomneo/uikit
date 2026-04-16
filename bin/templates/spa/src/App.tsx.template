@@ -1,9 +1,15 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
-import { Button } from '@bloomneo/uikit/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@bloomneo/uikit/card';
-import { useTheme } from '@bloomneo/uikit/theme-provider';
-import { PageLayout } from '@bloomneo/uikit/page';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  useTheme,
+  PageLayout,
+} from '@bloomneo/uikit';
 import type { NavigationItem } from '@bloomneo/uikit';
 import { Home, Layout, Palette, BookOpen } from 'lucide-react';
 import { SEO } from './components/SEO';
@@ -519,8 +525,7 @@ const DocsPage: React.FC = () => {
           <div>
             <h3 className="font-semibold mb-2">Import Components</h3>
             <code className="bg-muted p-2 rounded block text-sm">
-              {`import { Button } from '@bloomneo/uikit/button';
-import { Card } from '@bloomneo/uikit/card';`}
+              {`import { Button, Card } from '@bloomneo/uikit';`}
             </code>
           </div>
           
@@ -538,7 +543,7 @@ import { Card } from '@bloomneo/uikit/card';`}
         </CardHeader>
         <CardContent>
           <code className="bg-muted p-4 rounded block text-sm">
-            {`import { ThemeProvider } from '@bloomneo/uikit/theme-provider';
+            {`import { ThemeProvider } from '@bloomneo/uikit';
 
 function App() {
   return (
@@ -616,7 +621,7 @@ const SPAContent: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleNavigation = (href: string, item: NavigationItem) => {
+  const handleNavigation = (href: string) => {
     navigate(href);
   };
 

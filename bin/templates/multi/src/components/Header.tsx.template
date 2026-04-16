@@ -1,9 +1,13 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Header as UIHeader, HeaderLogo, HeaderNav } from '@bloomneo/uikit/header';
-import { Button } from '@bloomneo/uikit/button';
-import { useTheme } from '@bloomneo/uikit/theme-provider';
-import type { NavigationItem } from '@bloomneo/uikit';
+import {
+  Header as UIHeader,
+  HeaderLogo,
+  HeaderNav,
+  Button,
+  useTheme,
+  type NavigationItem,
+} from '@bloomneo/uikit';
 import { 
   Home, 
   Layout, 

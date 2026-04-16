@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@bloomneo/uikit/button';
+import { Button } from '@bloomneo/uikit';
 import { ArrowRight } from 'lucide-react';
 
 interface CTASectionProps {

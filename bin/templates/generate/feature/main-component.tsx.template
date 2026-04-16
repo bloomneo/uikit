@@ -1,7 +1,5 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@bloomneo/uikit/card';
-import { Button } from '@bloomneo/uikit/button';
-import { Badge } from '@bloomneo/uikit/badge';
+import { Card, CardContent, CardHeader, CardTitle, Button, Badge } from '@bloomneo/uikit';
 
 interface {{FeatureName}}CardProps {
   title?: string;

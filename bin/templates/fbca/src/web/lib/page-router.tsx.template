@@ -147,7 +147,7 @@ class RouteErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryStat
 
   componentDidCatch(error: Error, info: ErrorInfo) {
     this.props.onError?.(error, info);
-    if (process.env.NODE_ENV !== 'production') {
+    if (import.meta.env.DEV) {
       // eslint-disable-next-line no-console
       console.error('[PageRouter] Page threw:', error, info);
     }
@@ -219,7 +219,7 @@ export const PageRouter: React.FC<PageRouterProps> = ({
   const routes = eager ? generateEagerRoutes() : generateLazyRoutes();
 
   // In dev, log discovered routes for visibility (unchanged from previous behavior).
-  if (process.env.NODE_ENV !== 'production') {
+  if (import.meta.env.DEV) {
     // eslint-disable-next-line no-console
     console.log('🚀 Auto-discovered routes:');
     routes.forEach(route => {

@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
-import { Button } from '@bloomneo/uikit/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@bloomneo/uikit/card';
-import { Badge } from '@bloomneo/uikit/badge';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Badge,
+} from '@bloomneo/uikit';
 import { 
   Mail, 
   MessageSquare, 

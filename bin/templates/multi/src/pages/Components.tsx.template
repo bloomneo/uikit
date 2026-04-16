@@ -1,8 +1,17 @@
 import React from 'react';
-import { Button } from '@bloomneo/uikit/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@bloomneo/uikit/card';
-import { Badge } from '@bloomneo/uikit/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@bloomneo/uikit/tabs';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Badge,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@bloomneo/uikit';
 import { SEO } from '../components';
 
 export const ComponentsPage: React.FC = () => {

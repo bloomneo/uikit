@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageLayout } from '@bloomneo/uikit/page';
+import { PageLayout } from '@bloomneo/uikit';
 import { {{FeatureName}}Card } from '../components/{{FeatureName}}Card';
 
 export const {{FeatureName}}Page: React.FC = () => {

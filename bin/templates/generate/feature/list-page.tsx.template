@@ -1,7 +1,5 @@
 import React from 'react';
-import { PageLayout } from '@bloomneo/uikit/page';
-import { Card, CardContent, CardHeader, CardTitle } from '@bloomneo/uikit/card';
-import { Button } from '@bloomneo/uikit/button';
+import { PageLayout, Card, CardContent, CardHeader, CardTitle, Button } from '@bloomneo/uikit';
 
 export const {{FeatureName}}ListPage: React.FC = () => {
   return (

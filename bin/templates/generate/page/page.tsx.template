@@ -1,8 +1,14 @@
 import React from 'react';
-import { PageLayout } from '@bloomneo/uikit/page';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@bloomneo/uikit/card';
-import { Button } from '@bloomneo/uikit/button';
-import { Badge } from '@bloomneo/uikit/badge';
+import {
+  PageLayout,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Button,
+  Badge,
+} from '@bloomneo/uikit';
 
 export const {{FeatureName}}Page: React.FC = () => {
   return (

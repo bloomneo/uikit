@@ -1,6 +1,12 @@
 import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@bloomneo/uikit/card';
-import { Badge } from '@bloomneo/uikit/badge';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Badge,
+} from '@bloomneo/uikit';
 import { 
   FileText, 
   Folder, 

@@ -1,7 +1,13 @@
 import React from 'react';
-import { Button } from '@bloomneo/uikit/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@bloomneo/uikit/card';
-import { useTheme } from '@bloomneo/uikit/theme-provider';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  useTheme,
+} from '@bloomneo/uikit';
 import { Palette, Sun, Moon, Sparkles } from 'lucide-react';
 import { SEO } from '../components';
 

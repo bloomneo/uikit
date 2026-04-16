@@ -1,11 +1,17 @@
 import React from 'react';
-import { Button } from '@bloomneo/uikit/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@bloomneo/uikit/card';
-import { useTheme } from '@bloomneo/uikit/theme-provider';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  useTheme,
+} from '@bloomneo/uikit';
 import { asset } from './utils/asset';
 
 const UIKitShowcase: React.FC = () => {
-  const { theme, mode, setTheme, setMode, availableThemes, toggleMode } = useTheme();
+  const { theme, mode, setTheme, availableThemes, toggleMode } = useTheme();
 
   const themeDescriptions = {
     base: 'Clean default configuration showcasing the base system with Inter typography (default)',

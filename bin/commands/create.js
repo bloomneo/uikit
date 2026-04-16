@@ -168,6 +168,16 @@ async function generateSinglePageTemplate(srcPath, theme = 'base', isCurrentDir 
     // Docs directory doesn't exist, skip copying
   }
 
+  // Copy agent entrypoints (.claude/skills/bloomneo-uikit/*)
+  const claudeSourcePath = path.join(templatesPath, '.claude');
+  const claudeTargetPath = path.join(srcPath, '../.claude');
+  try {
+    await fs.access(claudeSourcePath);
+    await fs.cp(claudeSourcePath, claudeTargetPath, { recursive: true });
+  } catch (error) {
+    // .claude directory doesn't exist, skip copying
+  }
+
   // Copy config files
   const projectPath = path.dirname(srcPath);
 
@@ -281,6 +291,16 @@ async function generateSPATemplate(srcPath, theme = 'base', isCurrentDir = false
     }
   } catch (error) {
     // Docs directory doesn't exist, skip copying
+  }
+
+  // Copy agent entrypoints (.claude/skills/bloomneo-uikit/*)
+  const claudeSourcePath = path.join(templatesPath, '.claude');
+  const claudeTargetPath = path.join(srcPath, '../.claude');
+  try {
+    await fs.access(claudeSourcePath);
+    await fs.cp(claudeSourcePath, claudeTargetPath, { recursive: true });
+  } catch (error) {
+    // .claude directory doesn't exist, skip copying
   }
 
   // Copy hooks directory
@@ -471,6 +491,16 @@ async function generateMultiPageTemplate(srcPath, theme = 'elegant', isCurrentDi
     // Docs directory doesn't exist, skip copying
   }
 
+  // Copy agent entrypoints (.claude/skills/bloomneo-uikit/*)
+  const claudeSourcePath = path.join(templatesPath, '.claude');
+  const claudeTargetPath = path.join(srcPath, '../.claude');
+  try {
+    await fs.access(claudeSourcePath);
+    await fs.cp(claudeSourcePath, claudeTargetPath, { recursive: true });
+  } catch (error) {
+    // .claude directory doesn't exist, skip copying
+  }
+
   // Copy hooks directory
   const hooksSourcePath = path.join(templatesPath, 'hooks');
   const hooksTargetPath = path.join(srcPath, 'hooks');
@@ -645,6 +675,16 @@ async function generateFBCATemplate(srcPath, theme = 'elegant', isCurrentDir = f
     }
   } catch (error) {
     // Docs directory doesn't exist, skip copying
+  }
+
+  // Copy agent entrypoints (.claude/skills/bloomneo-uikit/*) to project root
+  const claudeSourcePath = path.join(templatesPath, '.claude');
+  const claudeTargetPath = path.join(projectPath, '.claude');
+  try {
+    await fs.access(claudeSourcePath);
+    await fs.cp(claudeSourcePath, claudeTargetPath, { recursive: true });
+  } catch (error) {
+    // .claude directory doesn't exist, skip copying
   }
 
   console.log('✅ Generated FBCA template with auto-discovery routing, feature organization, and SEO support');
