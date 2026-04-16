@@ -8,6 +8,7 @@
  * @llm-rule NOTE: `type="single" collapsible` for one-at-a-time (most common). `type="multiple"` for many open at once
  * @llm-rule NOTE: Controlled: `value` + `onValueChange`. Uncontrolled: `defaultValue`
  * @llm-rule NOTE: Nesting: Accordion > AccordionItem(value) > AccordionTrigger + AccordionContent
+ * @llm-rule NOTE: Radix wrapper — props pass through to @radix-ui/react-accordion
  * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 

@@ -9,6 +9,7 @@
  * @llm-rule AVOID: Using for searchable lists — use <Combobox>. For action menus — use <DropdownMenu>
  * @llm-rule NOTE: Controlled: `value` + `onValueChange={(value: string) => ...}`. NOT `onChange`
  * @llm-rule NOTE: Nesting: Select > SelectTrigger(SelectValue) + SelectContent > SelectGroup(SelectLabel) > SelectItem(value)
+ * @llm-rule NOTE: Radix wrapper — props pass through to @radix-ui/react-select
  * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 

@@ -8,6 +8,7 @@
  * @llm-rule NOTE: `mode="single"` for one date, `mode="range"` for start/end, `mode="multiple"` for many
  * @llm-rule NOTE: Controlled: `selected` + `onSelect`. Props pass through to react-day-picker
  * @llm-rule NOTE: `captionLayout="dropdown"` for month/year dropdowns instead of arrows
+ * @llm-rule NOTE: Custom component — wraps react-day-picker (not Radix). Props pass through to DayPicker
  * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 

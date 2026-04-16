@@ -8,12 +8,14 @@
  * @llm-rule NOTE: Mount <ToastProvider /> once at app root. Call `toast.success()`, `toast.error()`, `toast.warning()`, `toast.info()`
  * @llm-rule NOTE: `toast.promise(asyncFn, { loading, success, error })` for async operations
  * @llm-rule NOTE: `useToast()` hook returns the same `toast` object for components that prefer hooks
+ * @llm-rule NOTE: Custom component — wraps sonner library. Do not import from 'sonner' directly
  * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 
 import * as React from 'react';
 import { Toaster as SonnerToaster, toast as sonnerToast, type ToasterProps } from 'sonner';
 import { useTheme } from '@/themes/theme-provider';
+import { warnInDev } from '@/lib/errors';
 
 export type ToastPosition = ToasterProps['position'];
 
@@ -21,6 +23,8 @@ export interface ToastProviderProps extends Omit<ToasterProps, 'theme'> {
   /** Override the auto-detected theme. Default: follows <ThemeProvider mode>. */
   theme?: ToasterProps['theme'];
 }
+
+let toastProviderMounted = false;
 
 /**
  * Drop one of these at the root of your app (inside <ThemeProvider>):
@@ -32,6 +36,13 @@ export function ToastProvider({
   theme,
   ...rest
 }: ToastProviderProps): React.JSX.Element {
+  React.useEffect(() => {
+    if (toastProviderMounted) {
+      warnInDev('ToastProvider', 'mounted more than once. Only mount a single <ToastProvider> at the app root.', 'toast');
+    }
+    toastProviderMounted = true;
+    return () => { toastProviderMounted = false; };
+  }, []);
   // Read mode from UIKit's theme provider when one is mounted; fall back to
   // 'system' so this still works in storybooks / isolated tests.
   let mode: ToasterProps['theme'] = 'system';

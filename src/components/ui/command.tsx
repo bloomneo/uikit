@@ -10,6 +10,7 @@
  * @llm-rule NOTE: CommandDialog wraps Command in a Dialog for the Cmd+K overlay pattern
  * @llm-rule NOTE: Nesting: Command > CommandInput + CommandList > CommandEmpty + CommandGroup > CommandItem
  * @llm-rule NOTE: `showCloseButton` on CommandDialog controls the X button (default: true)
+ * @llm-rule NOTE: Custom component — wraps cmdk library (not Radix). CommandDialog combines Command + Dialog
  * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 

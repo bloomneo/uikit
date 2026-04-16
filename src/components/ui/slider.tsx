@@ -7,6 +7,7 @@
  * @llm-rule AVOID: Using for on/off — use <Switch> instead
  * @llm-rule NOTE: Pass `value={[n]}` for single thumb, `value={[min, max]}` for range
  * @llm-rule NOTE: Controlled: `value` + `onValueChange`. Uncontrolled: `defaultValue`
+ * @llm-rule NOTE: Radix wrapper — props pass through to @radix-ui/react-slider
  * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 

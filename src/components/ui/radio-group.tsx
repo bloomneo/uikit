@@ -7,6 +7,7 @@
  * @llm-rule AVOID: Using for boolean toggles — use <Switch> or <Checkbox>. For many options — use <Select> or <Combobox>
  * @llm-rule NOTE: Controlled: `value` + `onValueChange={(value: string) => ...}`. Uncontrolled: `defaultValue`
  * @llm-rule NOTE: Nesting: RadioGroup > (RadioGroupItem + Label) per option. Each RadioGroupItem needs a unique `value`
+ * @llm-rule NOTE: Radix wrapper — props pass through to @radix-ui/react-radio-group
  * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 

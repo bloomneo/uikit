@@ -9,6 +9,7 @@
  * @llm-rule AVOID: Using for selecting between options — use <RadioGroup> instead
  * @llm-rule NOTE: Controlled: `checked` + `onCheckedChange={(checked: boolean) => ...}`. Uncontrolled: `defaultChecked`
  * @llm-rule NOTE: Renders as `role="switch"` — always pair with a <Label> for accessibility
+ * @llm-rule NOTE: Radix wrapper — props pass through to @radix-ui/react-switch
  * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 

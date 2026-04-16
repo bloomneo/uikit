@@ -22,7 +22,7 @@
  */
 
 import * as React from 'react';
-import { UIKitError } from '@/lib/errors';
+import { UIKitError, warnInDev } from '@/lib/errors';
 import {
   Dialog,
   DialogContent,
@@ -63,10 +63,20 @@ interface ConfirmContextValue {
 
 const ConfirmContext = React.createContext<ConfirmContextValue | null>(null);
 
+let confirmProviderMounted = false;
+
 /**
  * Mount once at the root. All useConfirm() calls inside go through this.
  */
 export function ConfirmProvider({ children }: { children: React.ReactNode }): React.JSX.Element {
+  React.useEffect(() => {
+    if (confirmProviderMounted) {
+      warnInDev('ConfirmProvider', 'mounted more than once. Only mount a single <ConfirmProvider> at the app root.', 'confirm-dialog');
+    }
+    confirmProviderMounted = true;
+    return () => { confirmProviderMounted = false; };
+  }, []);
+
   const [pending, setPending] = React.useState<PendingOptions | null>(null);
   const resolverRef = React.useRef<Resolver | null>(null);
   const [verifyValue, setVerifyValue] = React.useState('');

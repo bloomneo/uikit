@@ -10,6 +10,7 @@
  * @llm-rule NOTE: Controlled: `open` + `onOpenChange`. `side` on SheetContent: 'top' | 'bottom' | 'left' | 'right' (default: 'right')
  * @llm-rule NOTE: Nesting: Sheet > SheetTrigger + SheetContent > SheetHeader(SheetTitle + SheetDescription) + children + SheetFooter
  * @llm-rule NOTE: SheetTitle is required for accessibility — screen readers announce it
+ * @llm-rule NOTE: Radix wrapper — built on @radix-ui/react-dialog with slide-in animation
  * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 

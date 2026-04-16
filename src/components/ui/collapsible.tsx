@@ -9,6 +9,7 @@
  * @llm-rule AVOID: Using for multiple expand/collapse — use <Accordion> instead
  * @llm-rule NOTE: Controlled: `open` + `onOpenChange`. Uncontrolled: `defaultOpen`
  * @llm-rule NOTE: Nesting: Collapsible > CollapsibleTrigger + CollapsibleContent
+ * @llm-rule NOTE: Radix wrapper — props pass through to @radix-ui/react-collapsible
  * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 

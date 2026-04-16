@@ -10,6 +10,7 @@
  * @llm-rule NOTE: Controlled: `checked` + `onCheckedChange={(checked: boolean | 'indeterminate') => ...}`
  * @llm-rule NOTE: Always pair with a <Label htmlFor={id}> for accessibility
  * @llm-rule NOTE: Supports `checked="indeterminate"` for parent checkboxes in hierarchical lists
+ * @llm-rule NOTE: Radix wrapper — props pass through to @radix-ui/react-checkbox
  * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 

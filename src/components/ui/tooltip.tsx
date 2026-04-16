@@ -10,6 +10,7 @@
  * @llm-rule NOTE: Nesting: Tooltip > TooltipTrigger + TooltipContent. Props on content: `side`, `align`, `sideOffset`
  * @llm-rule NOTE: Each Tooltip self-wraps with TooltipProvider — no need to add one manually
  * @llm-rule NOTE: `delayDuration` on TooltipProvider controls hover delay (default: 0ms)
+ * @llm-rule NOTE: Radix wrapper — props pass through to @radix-ui/react-tooltip
  * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 

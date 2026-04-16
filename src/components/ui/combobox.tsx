@@ -7,6 +7,7 @@
  * @llm-rule AVOID: Using for static short lists — use <Select>. For action menus — use <DropdownMenu>
  * @llm-rule NOTE: Controlled: `value` + `onChange` (NOT `onValueChange`). Options: `{ value: string, label: string }[]`
  * @llm-rule NOTE: Props: `clearable`, `disabled`, `searchPlaceholder`, `emptyMessage`, `renderOption`
+ * @llm-rule NOTE: Custom component — built on Command (cmdk) + Popover. Uses `onChange`, NOT Radix `onValueChange`
  * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  *
  * @example

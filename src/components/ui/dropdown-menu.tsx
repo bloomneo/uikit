@@ -10,6 +10,7 @@
  * @llm-rule NOTE: Nesting: DropdownMenu > DropdownMenuTrigger + DropdownMenuContent > DropdownMenuItem
  * @llm-rule NOTE: `variant="destructive"` on DropdownMenuItem for delete/dangerous actions
  * @llm-rule NOTE: Supports checkboxes (DropdownMenuCheckboxItem), radio groups (DropdownMenuRadioGroup > DropdownMenuRadioItem), and submenus (DropdownMenuSub)
+ * @llm-rule NOTE: Radix wrapper — props pass through to @radix-ui/react-dropdown-menu
  * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 

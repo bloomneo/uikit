@@ -8,6 +8,7 @@
  * @llm-rule NOTE: ValidatedInput/ValidatedTextarea/ValidatedSelect include built-in label, error, helper, and required indicator
  * @llm-rule NOTE: PasswordInput has built-in show/hide toggle via `showPasswordToggle` prop
  * @llm-rule NOTE: For react-hook-form, use Form + FormField + FormItem + FormControl + FormMessage
+ * @llm-rule NOTE: Custom component — ValidatedInput/Textarea/Select are standalone. Form/FormField/FormItem integrate react-hook-form
  * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 

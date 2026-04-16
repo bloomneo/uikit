@@ -9,6 +9,7 @@
  * @llm-rule AVOID: Using for text-only hints — use <Tooltip> instead. For click-triggered content — use <Popover>
  * @llm-rule NOTE: Controlled: `open` + `onOpenChange`. Props: `openDelay` (default 700ms), `closeDelay` (default 300ms)
  * @llm-rule NOTE: Nesting: HoverCard > HoverCardTrigger + HoverCardContent
+ * @llm-rule NOTE: Radix wrapper — props pass through to @radix-ui/react-hover-card
  * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 

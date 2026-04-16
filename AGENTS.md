@@ -100,6 +100,21 @@ Standard React: `value` + `onChange`.
 - `className` — accepted for customization.
 - `disabled` — accepted to disable interaction.
 
+## Common mistakes and fixes
+
+| Mistake | Symptom | Fix |
+|---|---|---|
+| `<DataTable data={users}>` where `users` is undefined during loading | Runtime crash: "expects data to be an array" | Always pass `[]` while loading: `data={users ?? []}` |
+| Using `onChange` on `<Select>` | Nothing happens — no error, no update | Select uses `onValueChange`, not `onChange`. See cheat sheet in llms.txt |
+| Using `onValueChange` on `<Combobox>` | Type error or silent failure | Combobox uses `onChange` (custom wrapper, not Radix). See cheat sheet in llms.txt |
+| Mounting `<ToastProvider>` twice | Duplicate toasts appear | Mount exactly once at app root. Dev warning will fire if duplicated |
+| Mounting `<ConfirmProvider>` twice | Confirm dialogs show twice or don't resolve | Mount exactly once at app root. Dev warning will fire if duplicated |
+| Missing `<ThemeProvider>` wrapper | Components render without styles, CSS vars missing | Wrap entire app: `<ThemeProvider>` > `<ToastProvider>` > `<ConfirmProvider>` |
+| Missing FOUC script in `<head>` | Flash of default theme on page load | Add `<script>{foucScript()}</script>` to index.html `<head>` |
+| Using `<Dialog>` for delete confirmation | Works but verbose — managing open state manually | Use `useConfirm()` or `<ConfirmDialog>` instead |
+| Bare `<Input>` without `<FormField>` | No label, no error display, broken a11y | Wrap in `<FormField label="..." error={...}>` |
+| Hardcoded colors like `bg-blue-500` | Breaks when theme changes | Use semantic classes: `bg-primary`, `text-muted-foreground` |
+
 ## Client-only components
 
 These components require `"use client"` at the top of the file in Next.js App Router:

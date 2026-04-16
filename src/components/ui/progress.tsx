@@ -9,6 +9,7 @@
  * @llm-rule AVOID: Using for indeterminate loading — use <Skeleton> or a spinner instead
  * @llm-rule NOTE: `value` is 0–100. Omit value for indeterminate state (no fill shown)
  * @llm-rule NOTE: Accessible: renders with `role="progressbar"` and `aria-valuenow` automatically
+ * @llm-rule NOTE: Radix wrapper — props pass through to @radix-ui/react-progress
  * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 

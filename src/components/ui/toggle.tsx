@@ -9,6 +9,7 @@
  * @llm-rule AVOID: Using for settings persistence — use <Switch> instead (Switch implies "save")
  * @llm-rule NOTE: Controlled: `pressed` + `onPressedChange={(pressed: boolean) => ...}`. Uncontrolled: `defaultPressed`
  * @llm-rule NOTE: Variants: 'default' (no border) | 'outline' (with border). Sizes: 'default' | 'sm' | 'lg'
+ * @llm-rule NOTE: Radix wrapper — props pass through to @radix-ui/react-toggle
  * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 

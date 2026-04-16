@@ -8,6 +8,7 @@
  * @llm-rule NOTE: Every column needs a unique `id`. Pass `data` as `[]` while loading, not `undefined`
  * @llm-rule NOTE: Row actions via `rowActions` prop: `{ label, icon?, onClick, variant? }[]`
  * @llm-rule NOTE: Use `useDataTable()` hook for controlled state, or pass props directly for uncontrolled
+ * @llm-rule NOTE: Custom component — built from scratch using UIKit primitives (Table, Button, Input, Select, Checkbox)
  * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 

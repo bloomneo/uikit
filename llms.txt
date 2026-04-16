@@ -1071,6 +1071,35 @@ export default function SettingsRecipe() {
 - Use the `format*` helpers for currency / dates / bytes — never inline `${val}`.
 - Use `useBreakpoint("md")` to react to viewport changes — do not write resize listeners.
 
+## Controlled prop cheat sheet
+
+Every stateful component's exact control API — do NOT guess or mix these up:
+
+| Component | Value prop | Change handler | Handler signature |
+|---|---|---|---|
+| Input | `value` | `onChange` | `(e: ChangeEvent<HTMLInputElement>) => void` |
+| Textarea | `value` | `onChange` | `(e: ChangeEvent<HTMLTextAreaElement>) => void` |
+| Combobox | `value` | `onChange` | `(value: string \| undefined) => void` |
+| Select | `value` | `onValueChange` | `(value: string) => void` |
+| RadioGroup | `value` | `onValueChange` | `(value: string) => void` |
+| Checkbox | `checked` | `onCheckedChange` | `(checked: boolean \| 'indeterminate') => void` |
+| Switch | `checked` | `onCheckedChange` | `(checked: boolean) => void` |
+| Toggle | `pressed` | `onPressedChange` | `(pressed: boolean) => void` |
+| Slider | `value` | `onValueChange` | `(value: number[]) => void` |
+| Tabs | `value` | `onValueChange` | `(value: string) => void` |
+| Accordion | `value` | `onValueChange` | `(value: string \| string[]) => void` |
+| Dialog | `open` | `onOpenChange` | `(open: boolean) => void` |
+| Sheet | `open` | `onOpenChange` | `(open: boolean) => void` |
+| Popover | `open` | `onOpenChange` | `(open: boolean) => void` |
+| HoverCard | `open` | `onOpenChange` | `(open: boolean) => void` |
+| Collapsible | `open` | `onOpenChange` | `(open: boolean) => void` |
+| DropdownMenu | `open` | `onOpenChange` | `(open: boolean) => void` |
+| Tooltip | `open` | `onOpenChange` | `(open: boolean) => void` |
+
+Key pattern: Radix components use `onValueChange` / `onCheckedChange` / `onOpenChange`.
+Combobox is the exception — it uses `onChange` (like native HTML) because it's a custom wrapper, not a Radix primitive.
+Input/Textarea use standard React `onChange` with event objects.
+
 ## Layouts
 
 Six production-ready layouts. Pick based on what you're building:

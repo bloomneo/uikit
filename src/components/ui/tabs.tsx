@@ -9,6 +9,7 @@
  * @llm-rule AVOID: Using for page-level navigation — use a router or <TabBar> section component
  * @llm-rule NOTE: Controlled: `value` + `onValueChange`. Uncontrolled: `defaultValue`
  * @llm-rule NOTE: Nesting: Tabs > TabsList > TabsTrigger, Tabs > TabsContent (value must match trigger value)
+ * @llm-rule NOTE: Radix wrapper — props pass through to @radix-ui/react-tabs
  * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 

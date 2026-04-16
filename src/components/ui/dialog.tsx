@@ -11,6 +11,7 @@
  * @llm-rule NOTE: Nesting: Dialog > DialogTrigger + DialogContent > DialogHeader(DialogTitle + DialogDescription) + children + DialogFooter
  * @llm-rule NOTE: `showCloseButton={false}` on DialogContent hides the X button
  * @llm-rule NOTE: DialogTitle is required for accessibility — screen readers announce it
+ * @llm-rule NOTE: Radix wrapper — props pass through to @radix-ui/react-dialog
  * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 
