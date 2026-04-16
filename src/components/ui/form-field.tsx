@@ -22,6 +22,7 @@ import * as React from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
+import { warnInDev } from '@/lib/errors';
 
 export interface FormFieldProps {
   /** Required label text. */
@@ -56,6 +57,10 @@ export function FormField({
   labelClassName,
   children,
 }: FormFieldProps): React.JSX.Element {
+  if (!children) {
+    warnInDev('FormField', 'requires a child input element. Pass <Input />, <Textarea />, or <Combobox /> as children.', 'form-field');
+  }
+
   const generatedId = React.useId();
   const id = idProp ?? generatedId;
   const helperId = helper ? id + '-helper' : undefined;
@@ -137,3 +142,4 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
     );
   }
 );
+PasswordInput.displayName = 'PasswordInput';

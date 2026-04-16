@@ -18,6 +18,7 @@
 import * as React from 'react';
 import { ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { requireProp } from '@/lib/errors';
 
 export interface PageHeaderCrumb {
   label: string;
@@ -62,6 +63,8 @@ export function PageHeader({
   className,
   ...rest
 }: PageHeaderProps): React.JSX.Element {
+  requireProp('PageHeader', 'title', title, 'Every page header needs a title.');
+
   return (
     <div
       className={cn('flex flex-col gap-3 border-b border-border pb-4', className)}

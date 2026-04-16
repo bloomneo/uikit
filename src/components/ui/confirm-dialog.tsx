@@ -1,3 +1,5 @@
+"use client"
+
 /**
  * <ConfirmDialog> + useConfirm() — promise-based confirmation prompts.
  *
@@ -29,6 +31,7 @@
  */
 
 import * as React from 'react';
+import { UIKitError } from '@/lib/errors';
 import {
   Dialog,
   DialogContent,
@@ -157,8 +160,10 @@ export interface UseConfirmReturn {
 export function useConfirm(): UseConfirmReturn {
   const ctx = React.useContext(ConfirmContext);
   if (!ctx) {
-    throw new Error(
-      '[@bloomneo/uikit] useConfirm() called outside <ConfirmProvider>. Wrap your app root in <ConfirmProvider>.'
+    throw new UIKitError(
+      'useConfirm',
+      'called outside <ConfirmProvider>. Wrap your app root in <ConfirmProvider>.',
+      'confirm-dialog'
     );
   }
 

@@ -13,10 +13,12 @@ UIKit is the only React framework where `npx uikit create myapp` gives you 45+ c
 
 ## For AI coding agents
 
-Read [`llms.txt`](./llms.txt) first. It is the canonical machine-readable
-index of every export, every example, and every composed pattern in this
-package. The file is regenerated on every build from `src/index.ts`,
-[`examples/`](./examples), and [`cookbook/`](./cookbook), so it never drifts.
+Read [`AGENTS.md`](./AGENTS.md) first (always-do / never-do rules), then
+[`llms.txt`](./llms.txt) for per-component snippets. The llms.txt is the
+canonical machine-readable index of every export, every example, and every
+composed pattern in this package. It is regenerated on every build from
+`src/index.ts`, [`examples/`](./examples), and [`cookbook/`](./cookbook),
+so it never drifts.
 
 **One canonical import path:**
 
@@ -511,3 +513,20 @@ MIT © [Bloomneo](https://github.com/bloomneo) — See [LICENSE](LICENSE) for de
 `components` `layouts` `zero-config` `production-ready`
 `agentic-ai` `llm-optimized` `rapid-development` `design-system`
 `developer-experience`
+
+---
+
+## Agent Clarity Benchmark
+
+**Baseline: 74/100 — 🟡 Agent-friendly**
+*Scored: 2026-04-16 (by Claude) · Rubric: [AGENT_CLARITY_BENCHMARK.md](./docs/AGENT_CLARITY_BENCHMARK.md) v2*
+
+| Stage | Score | Weight |
+|---|---:|---:|
+| A. Discovery | 6.5/10 | 11% |
+| B. Generation | 6.2/10 | 37% |
+| C. Validation | 7.8/10 | 25% |
+| D. Debug | 6.0/10 | 13% |
+| E. Evolution | 7.0/10 | 14% |
+
+**Gaps to reach 90+ (🟢 Agent-native):** see [AGENT_CLARITY_ROADMAP.md](./docs/AGENT_CLARITY_ROADMAP.md)

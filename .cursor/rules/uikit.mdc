@@ -1,0 +1,65 @@
+---
+description: Rules for generating code with @bloomneo/uikit
+globs: ["**/*.tsx", "**/*.ts", "**/*.jsx"]
+---
+
+# @bloomneo/uikit rules
+
+## Import
+- Always: `import { X } from '@bloomneo/uikit'`
+- Never deep-import: `@bloomneo/uikit/button` is for tree-shaking only
+- Types: `import { type DataTableColumn } from '@bloomneo/uikit'`
+
+## Required setup (main.tsx)
+- `import '@bloomneo/uikit/styles'` -- core CSS (no fonts)
+- `import '@bloomneo/uikit/styles/fonts'` -- optional, only if theme uses built-in fonts
+- Wrap app: `<ThemeProvider theme="base" mode="light"><ToastProvider /><ConfirmProvider><App /></ConfirmProvider></ThemeProvider>`
+- FOUC prevention: drop `foucScript()` from `@bloomneo/uikit/fouc` into `index.html` `<head>`
+
+## Component picking
+- Form with labels/errors/a11y: use `<FormField>` wrapper, not raw `<Label>` + `<Input>`
+- Password fields: use `<PasswordInput>`, not `<Input type="password">`
+- Tables with sort/search/pagination: use `<DataTable>`, not raw `<Table>`
+- Confirm before destructive action: use `useConfirm()` (promise-based), not manual `<Dialog>`
+- Toast notifications: use `toast.success()`/`toast.error()`, not custom alerts
+- Empty lists: use `<EmptyState>`, not ad-hoc placeholder divs
+- Page titles with breadcrumbs/actions: use `<PageHeader>`
+
+## Layouts (pick one per route)
+- Dashboard/SaaS: `<AdminLayout>` with `.Header`, `.Sidebar`, `.Content`
+- Marketing/landing: `<PageLayout>` with `.Header`, `.Content`, `.Footer`
+- Login/signup: `<AuthLayout scheme="card">`
+- Mobile (Capacitor): `<MobileLayout>`
+- Browser extension: `<PopupLayout>`
+- Custom/blank: `<BlankLayout>`
+
+## Prop patterns
+- Button variants: `default | destructive | outline | secondary | ghost | link`
+- DataTable is generic: `<DataTable<User> data={users} columns={cols} />`
+- DataTable columns: `{ id, header, accessorKey, sortable?, cell? }`
+- FormField: `<FormField label="X" required helper="hint"><Input /></FormField>`
+- Confirm: `const ok = await confirm({ title, description, tone: 'destructive' })`
+- ThemeProvider themes: `base | elegant | metro | studio | vivid`
+
+## Styling
+- Use semantic Tailwind classes: `bg-background`, `text-foreground`, `border-border`
+- Use `text-primary`, `text-muted-foreground`, `bg-muted`, `bg-card`
+- Use `cn()` from `@bloomneo/uikit` for conditional class merging
+
+## Hooks & utilities
+- `useTheme()` -- get/set theme and mode
+- `useConfirm()` -- promise-based confirmation dialog
+- `useMediaQuery()`, `useBreakpoint()`, `useActiveBreakpoint()` -- responsive
+- `useApi()` -- data fetching
+- `useLocalStorage()` -- persistent state
+- `formatCurrency()`, `formatNumber()`, `formatDate()`, `timeAgo()`, `formatBytes()`
+
+## Never do
+- Never hardcode colors (`bg-white`, `text-black`) -- use semantic tokens
+- Never deep-import in generated code (`@bloomneo/uikit/button`)
+- Never skip `ThemeProvider` -- components break without it
+- Never skip `ToastProvider` if using `toast()`
+- Never skip `ConfirmProvider` if using `useConfirm()`
+- Never use `<Dialog>` for simple yes/no confirms -- use `useConfirm()`
+- Never use `@voilajsx/uikit` -- old scope, frozen at 1.4.0
+- Never create separate CSS files for theming -- use the preset system

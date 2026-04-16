@@ -16,6 +16,7 @@
 
 import * as React from 'react';
 import { cn } from '@/lib/utils';
+import { requireProp } from '@/lib/errors';
 
 export interface EmptyStateProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Icon shown above the title. Pass any ReactNode (a Lucide icon, an svg, …). */
@@ -51,6 +52,8 @@ export function EmptyState({
   className,
   ...rest
 }: EmptyStateProps): React.JSX.Element {
+  requireProp('EmptyState', 'title', title, 'Pass a short headline like "No invoices yet".');
+
   return (
     <div
       role="status"
