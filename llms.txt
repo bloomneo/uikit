@@ -41,6 +41,45 @@ always use the flat `from '@bloomneo/uikit'` import.
 Built-in: base | elegant | metro | studio | vivid
 Switch with `useTheme().setTheme('elegant')`. Custom themes are also allowed.
 
+### Semantic color system
+
+UIKit uses 29 CSS variables. Never hardcode hex — use semantic Tailwind classes:
+
+| Variable | Class example | Purpose |
+|---|---|---|
+| `--background` | `bg-background` | Main page background |
+| `--foreground` | `text-foreground` | Primary text |
+| `--card` / `--card-foreground` | `bg-card` | Elevated content (cards) |
+| `--popover` / `--popover-foreground` | `bg-popover` | Dropdown/popover surfaces |
+| `--primary` / `--primary-foreground` | `bg-primary` | Brand color (buttons, links, badges, charts, focus rings) |
+| `--secondary` / `--secondary-foreground` | `bg-secondary` | Secondary actions |
+| `--muted` / `--muted-foreground` | `bg-muted`, `text-muted-foreground` | Subtle sections, secondary text |
+| `--accent` / `--accent-foreground` | `bg-accent` | Interactive hover states |
+| `--destructive` / `--destructive-foreground` | `bg-destructive` | Error/danger actions |
+| `--border` | `border-border` | Standard borders |
+| `--input` | `border-input` | Form input borders |
+| `--ring` | `ring-ring` | Focus rings |
+| `--chart-1` … `--chart-5` | `var(--chart-1)` | Data visualization colors |
+| `--sidebar` … `--sidebar-ring` | `bg-sidebar` | AdminLayout sidebar (7 vars) |
+
+Background hierarchy: `bg-background` → `bg-card` → `bg-muted` → `bg-accent`
+Text hierarchy: `text-foreground` → `text-muted-foreground` → `text-primary`
+
+### Custom themes
+
+Generate with the CLI, then edit colors:
+
+    npx uikit generate theme brand
+    npx uikit bundle            # compile to CSS
+    npx uikit bundle --watch    # dev mode
+
+Theme file location: `src/themes/presets/theme-{name}.js` (FBCA: `src/web/themes/presets/`).
+
+Color tips:
+- Use your actual brand color as `primary`. Ensure contrast with white text.
+- Dark mode: lighten primary (e.g. `#1E40AF` → `#60A5FA`), avoid pure `#000000`.
+- Light mode: backgrounds should be white or very light gray, not colored.
+
 ## Examples — one canonical snippet per component
 
 Each example is a minimal, runnable file. When generating code, copy the
@@ -1031,6 +1070,119 @@ export default function SettingsRecipe() {
 - Use `useConfirm()` for delete flows — never manage open/close state by hand.
 - Use the `format*` helpers for currency / dates / bytes — never inline `${val}`.
 - Use `useBreakpoint("md")` to react to viewport changes — do not write resize listeners.
+
+## Layouts
+
+Six production-ready layouts. Pick based on what you're building:
+
+| Building | Use | Pattern |
+|---|---|---|
+| Admin dashboard / SaaS | `AdminLayout` | Compound: `.Header`, `.Sidebar`, `.Content` |
+| Marketing / public site | `PageLayout` | Compound: `.Header`, `.Content`, `.Footer` |
+| Login / signup | `AuthLayout` | Single: direct children |
+| Mobile / Capacitor | `MobileLayout` | Compound: `.Header`, `.Content`, `.TabBar` |
+| Error / minimal page | `BlankLayout` | Single: direct children |
+| Browser extension popup | `PopupLayout` | Single: direct children |
+
+### Shared layout props
+
+All layouts accept: `scheme` (structure variant), `tone` (`clean | subtle | brand | contrast`), `size` (`sm | md | lg | xl | full`).
+
+| Size | Layout max-width | Sidebar width |
+|---|---|---|
+| `sm` | 672px | 192px |
+| `md` | 896px | 224px |
+| `lg` | 1152px | 256px |
+| `xl` | 1280px | 288px |
+| `full` | 100% | 320px |
+
+### AdminLayout schemes
+
+`sidebar` (default collapsible sidebar) | `compact` (narrow icon sidebar).
+
+```tsx
+import { AdminLayout, DataTable, Button } from '@bloomneo/uikit';
+
+<AdminLayout scheme="sidebar" tone="subtle" size="lg">
+  <AdminLayout.Header title="Users" actions={<Button>Export</Button>} />
+  <AdminLayout.Sidebar navigation={nav} currentPath="/admin/users" onNavigate={go} logo={<Logo />} />
+  <AdminLayout.Content>
+    <DataTable data={users} columns={cols} />
+  </AdminLayout.Content>
+</AdminLayout>
+```
+
+### AuthLayout schemes
+
+`simple` | `card` | `split` | `hero`. Props: `title`, `subtitle`, `logo`, `imageUrl`.
+
+### NavigationItem interface
+
+Used by AdminLayout.Sidebar, PageLayout.Header, MobileLayout.TabBar, Header, Footer, Container, TabBar:
+
+```ts
+interface NavigationItem {
+  key: string;
+  label: string;
+  href?: string;
+  onClick?: () => void;
+  icon?: ComponentType;
+  badge?: string;
+  isActive?: boolean;
+  items?: NavigationItem[];  // max 2 levels
+}
+```
+
+### Section components
+
+Standalone building blocks for custom layouts (not tied to a Layout):
+
+| Component | Key props |
+|---|---|
+| `Header` | `tone`, `size`, `position` (`sticky | fixed | relative`), `navigation`, `logo`, `actions` |
+| `Footer` | `tone`, `size`, `position`, `navigation`, `copyright` |
+| `Container` | `tone`, `size`, `sidebar` (`left | right | none`), `navigation`, `onNavigate` |
+| `SafeArea` | `edges` (`top | bottom | left | right`[]), `tone`, `useMargin` |
+| `TabBar` | `tabs`, `activeTab`, `onTabClick`, `tone`, `size`, `variant` (`default | floating | minimal`) |
+
+## CLI reference
+
+| Command | Purpose |
+|---|---|
+| `uikit create <name>` | Single-page template |
+| `uikit create <name> --spa` | SPA with React Router |
+| `uikit create <name> --multi` | Multi-layout app |
+| `uikit create <name> --fbca` | Feature-based architecture (enterprise) |
+| `uikit serve` | Dev server with theme bundling |
+| `uikit build` | Production build |
+| `uikit preview` | Preview production build locally |
+| `uikit generate theme <name>` | Create custom theme |
+| `uikit generate feature <name>` | New FBCA feature folder |
+| `uikit generate page <name>` | New page component |
+| `uikit bundle` | Compile themes to CSS |
+| `uikit bundle --watch` | Watch mode for theme dev |
+| `uikit deploy --github` | Deploy to GitHub Pages |
+| `uikit prerender` | Pre-render SPA routes for SEO |
+| `uikit optimize` | Compress images to WebP |
+
+### FBCA auto-routing
+
+File structure maps to URLs:
+
+    /features/main/pages/index.tsx      → /
+    /features/auth/pages/index.tsx      → /auth
+    /features/blog/pages/[id].tsx       → /blog/:id
+    /features/docs/pages/[...slug].tsx  → /docs/*
+
+### Troubleshooting
+
+| Problem | Fix |
+|---|---|
+| `uikit` command not found | `npm install -g @bloomneo/uikit` |
+| Port already in use | `npx kill-port 3000` or `uikit serve --port 3001` |
+| Build fails with module errors | `rm -rf node_modules package-lock.json && npm install` |
+| Theme changes not applying | Run `uikit bundle`, clear browser cache, restart `uikit serve` |
+| GitHub Pages deploy fails | Ensure Pages is enabled in repo settings, check branch permissions |
 
 ## Full export list
 
