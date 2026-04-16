@@ -3,18 +3,19 @@
  *
  * Searchable, sortable user list with row actions and a delete-with-confirm
  * flow. The whole thing is ~80 lines instead of the usual 600 because every
- * piece (PageHeader, DataTable, ConfirmProvider/useConfirm, ToastProvider/toast)
- * is a UIKit primitive.
+ * piece (PageHeader, DataTable, useConfirm, toast) is a UIKit primitive.
+ *
+ * Assumes <ThemeProvider>, <ToastProvider />, and <ConfirmProvider> are
+ * mounted at your app root. `useConfirm()` requires <ConfirmProvider>.
+ * See cookbook/README.md for the setup snippet.
  */
 
 import { useState } from 'react';
 import { Pencil, Trash2, Users } from 'lucide-react';
 import {
   Button,
-  ConfirmProvider,
   DataTable,
   PageHeader,
-  ToastProvider,
   toast,
   useConfirm,
   type DataTableColumn,
@@ -30,7 +31,7 @@ const initialUsers: User[] = [
   { id: '4', name: 'Dawud',  email: 'dawud@example.com',  role: 'user' },
 ];
 
-function UserListInner() {
+export default function CrudPageRecipe() {
   const [users, setUsers] = useState<User[]>(initialUsers);
   const confirm = useConfirm();
 
@@ -86,14 +87,5 @@ function UserListInner() {
         getRowId={(row) => row.id}
       />
     </div>
-  );
-}
-
-export default function CrudPageRecipe() {
-  return (
-    <ConfirmProvider>
-      <ToastProvider />
-      <UserListInner />
-    </ConfirmProvider>
   );
 }

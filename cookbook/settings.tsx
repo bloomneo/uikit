@@ -3,6 +3,9 @@
  *
  * Tabs containing a profile form, a security form, and a notifications form.
  * Each section has its own save handler that fires a toast.
+ *
+ * Assumes <ThemeProvider>, <ToastProvider />, and <ConfirmProvider> are
+ * mounted at your app root. See cookbook/README.md for the setup snippet.
  */
 
 import { useState } from 'react';
@@ -17,7 +20,6 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-  ToastProvider,
   toast,
 } from '@bloomneo/uikit';
 
@@ -87,27 +89,24 @@ function NotificationsForm() {
 
 export default function SettingsRecipe() {
   return (
-    <>
-      <ToastProvider />
-      <div className="flex flex-col gap-6 p-6">
-        <PageHeader title="Settings" description="Manage your account preferences" />
-        <Tabs defaultValue="profile">
-          <TabsList>
-            <TabsTrigger value="profile">Profile</TabsTrigger>
-            <TabsTrigger value="security">Security</TabsTrigger>
-            <TabsTrigger value="notifications">Notifications</TabsTrigger>
-          </TabsList>
-          <TabsContent value="profile" className="pt-4">
-            <ProfileForm />
-          </TabsContent>
-          <TabsContent value="security" className="pt-4">
-            <SecurityForm />
-          </TabsContent>
-          <TabsContent value="notifications" className="pt-4">
-            <NotificationsForm />
-          </TabsContent>
-        </Tabs>
-      </div>
-    </>
+    <div className="flex flex-col gap-6 p-6">
+      <PageHeader title="Settings" description="Manage your account preferences" />
+      <Tabs defaultValue="profile">
+        <TabsList>
+          <TabsTrigger value="profile">Profile</TabsTrigger>
+          <TabsTrigger value="security">Security</TabsTrigger>
+          <TabsTrigger value="notifications">Notifications</TabsTrigger>
+        </TabsList>
+        <TabsContent value="profile" className="pt-4">
+          <ProfileForm />
+        </TabsContent>
+        <TabsContent value="security" className="pt-4">
+          <SecurityForm />
+        </TabsContent>
+        <TabsContent value="notifications" className="pt-4">
+          <NotificationsForm />
+        </TabsContent>
+      </Tabs>
+    </div>
   );
 }

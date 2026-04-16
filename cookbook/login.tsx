@@ -3,6 +3,9 @@
  *
  * Centered card with email + password form, inline validation, and a
  * submit button. No backend — wire your auth call where the comment is.
+ *
+ * Assumes <ThemeProvider>, <ToastProvider />, and <ConfirmProvider> are
+ * mounted at your app root. See cookbook/README.md for the setup snippet.
  */
 
 import { useState } from 'react';
@@ -16,7 +19,6 @@ import {
   FormField,
   Input,
   PasswordInput,
-  ToastProvider,
   toast,
 } from '@bloomneo/uikit';
 
@@ -48,38 +50,35 @@ export default function LoginRecipe() {
   }
 
   return (
-    <>
-      <ToastProvider />
-      <div className="flex min-h-screen items-center justify-center bg-muted/30 p-6">
-        <Card className="w-full max-w-sm">
-          <CardHeader>
-            <CardTitle>Sign in</CardTitle>
-            <CardDescription>Welcome back to your workspace</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form className="flex flex-col gap-4" onSubmit={onSubmit}>
-              <FormField label="Email" required error={emailError}>
-                <Input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  autoComplete="email"
-                />
-              </FormField>
-              <FormField label="Password" required error={passwordError}>
-                <PasswordInput
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  autoComplete="current-password"
-                />
-              </FormField>
-              <Button type="submit" disabled={!canSubmit}>
-                {submitting ? 'Signing in…' : 'Sign in'}
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-      </div>
-    </>
+    <div className="flex min-h-screen items-center justify-center bg-muted/30 p-6">
+      <Card className="w-full max-w-sm">
+        <CardHeader>
+          <CardTitle>Sign in</CardTitle>
+          <CardDescription>Welcome back to your workspace</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form className="flex flex-col gap-4" onSubmit={onSubmit}>
+            <FormField label="Email" required error={emailError}>
+              <Input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                autoComplete="email"
+              />
+            </FormField>
+            <FormField label="Password" required error={passwordError}>
+              <PasswordInput
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete="current-password"
+              />
+            </FormField>
+            <Button type="submit" disabled={!canSubmit}>
+              {submitting ? 'Signing in…' : 'Sign in'}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
   );
 }

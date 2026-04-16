@@ -3,6 +3,10 @@
  *
  * Stats grid + recent activity table inside a standard page shell.
  * Drop into any admin layout — works inside <AdminLayout> or alone.
+ *
+ * Assumes <ThemeProvider> is mounted at your app root. This recipe uses
+ * no toasts or confirms, so <ToastProvider /> and <ConfirmProvider> are
+ * optional for it. See cookbook/README.md for the full setup snippet.
  */
 
 import { Activity, DollarSign, Package, Users } from 'lucide-react';

@@ -7,19 +7,17 @@
  *
  * Use this for irreversible operations: deleting users, dropping databases,
  * cancelling subscriptions, etc.
+ *
+ * Assumes <ThemeProvider>, <ToastProvider />, and <ConfirmProvider> are
+ * mounted at your app root. `useConfirm()` requires <ConfirmProvider>.
+ * See cookbook/README.md for the setup snippet.
  */
 
-import {
-  Button,
-  ConfirmProvider,
-  ToastProvider,
-  toast,
-  useConfirm,
-} from '@bloomneo/uikit';
+import { Button, toast, useConfirm } from '@bloomneo/uikit';
 
 const RESOURCE_NAME = 'production-db';
 
-function DeleteResource() {
+export default function DeleteFlowRecipe() {
   const confirm = useConfirm();
 
   async function onDelete() {
@@ -36,24 +34,15 @@ function DeleteResource() {
   }
 
   return (
-    <Button variant="destructive" onClick={onDelete}>
-      Delete database
-    </Button>
-  );
-}
-
-export default function DeleteFlowRecipe() {
-  return (
-    <ConfirmProvider>
-      <ToastProvider />
-      <div className="flex flex-col items-start gap-4 p-6">
-        <p className="max-w-md text-sm text-muted-foreground">
-          The button below opens a confirmation dialog. The user must type
-          <code className="mx-1 rounded bg-muted px-1">{RESOURCE_NAME}</code>
-          before the delete button enables.
-        </p>
-        <DeleteResource />
-      </div>
-    </ConfirmProvider>
+    <div className="flex flex-col items-start gap-4 p-6">
+      <p className="max-w-md text-sm text-muted-foreground">
+        The button below opens a confirmation dialog. The user must type
+        <code className="mx-1 rounded bg-muted px-1">{RESOURCE_NAME}</code>
+        before the delete button enables.
+      </p>
+      <Button variant="destructive" onClick={onDelete}>
+        Delete database
+      </Button>
+    </div>
   );
 }
