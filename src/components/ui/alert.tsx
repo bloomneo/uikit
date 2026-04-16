@@ -1,3 +1,15 @@
+/**
+ * <Alert> — inline banner for persistent messages (info, warnings, errors).
+ * @module @bloomneo/uikit
+ * @file src/components/ui/alert.tsx
+ *
+ * @llm-rule WHEN: Inline, persistent messages the user needs to see (validation summary, warning banner)
+ * @llm-rule AVOID: Using for transient notifications — use `toast.*` instead
+ * @llm-rule NOTE: Variants: 'default' | 'destructive'. Pass an SVG icon as first child for icon support
+ * @llm-rule NOTE: Nesting: Alert > optional SVG icon + AlertTitle + AlertDescription
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
+ */
+
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 

@@ -1,5 +1,18 @@
 "use client"
 
+/**
+ * <DropdownMenu> — action menu triggered by a button, built on Radix UI.
+ * @module @bloomneo/uikit
+ * @file src/components/ui/dropdown-menu.tsx
+ *
+ * @llm-rule WHEN: Context menus, action menus from buttons (edit/delete/share), user avatar menus
+ * @llm-rule AVOID: Using as a form select — use <Select> or <Combobox> instead
+ * @llm-rule NOTE: Nesting: DropdownMenu > DropdownMenuTrigger + DropdownMenuContent > DropdownMenuItem
+ * @llm-rule NOTE: `variant="destructive"` on DropdownMenuItem for delete/dangerous actions
+ * @llm-rule NOTE: Supports checkboxes (DropdownMenuCheckboxItem), radio groups (DropdownMenuRadioGroup > DropdownMenuRadioItem), and submenus (DropdownMenuSub)
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
+ */
+
 import * as React from "react"
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu"
 import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react"

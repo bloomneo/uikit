@@ -1,7 +1,13 @@
 /**
- * Pure UIKit Detail Page Components - shadcn/ui Compatible
+ * <DetailPage> — pre-built detail/edit page layout with form sections, metadata, and actions.
  * @module @bloomneo/uikit
  * @file src/components/ui/detail-page.tsx
+ *
+ * @llm-rule WHEN: CRUD detail pages (user profile, product detail, settings page with multiple sections)
+ * @llm-rule AVOID: Using for simple forms — use <Card> + <FormField> directly
+ * @llm-rule NOTE: Compound components: DetailPage > DetailPageHeader + DetailPageContent + DetailPageSidebar + DetailPageActions
+ * @llm-rule NOTE: FormSection provides labeled groups of form fields with consistent spacing
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 
 import React from 'react';

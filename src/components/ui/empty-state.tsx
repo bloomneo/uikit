@@ -1,9 +1,13 @@
 /**
  * <EmptyState> — the canonical "no data yet" affordance.
+ * @module @bloomneo/uikit
+ * @file src/components/ui/empty-state.tsx
  *
- * Every list / table / search result needs one. Shipping a primitive prevents
- * each page from rolling its own ad-hoc layout, and gives screen-reader users
- * a consistent landmark.
+ * @llm-rule WHEN: No results, no data, first-time empty state (empty table, search with 0 hits)
+ * @llm-rule AVOID: Using for loading states — use <Skeleton> instead
+ * @llm-rule NOTE: `title` is required. `size`: 'sm' | 'md' | 'lg'. `action` renders below description
+ * @llm-rule NOTE: `icon` accepts any ReactNode (Lucide icon, SVG). Renders with `role="status"` and `aria-live="polite"`
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  *
  * @example
  *   <EmptyState

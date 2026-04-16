@@ -1,5 +1,17 @@
 "use client"
 
+/**
+ * <Progress> — determinate progress bar built on Radix UI.
+ * @module @bloomneo/uikit
+ * @file src/components/ui/progress.tsx
+ *
+ * @llm-rule WHEN: Showing completion progress (file upload, step wizard, loading percentage)
+ * @llm-rule AVOID: Using for indeterminate loading — use <Skeleton> or a spinner instead
+ * @llm-rule NOTE: `value` is 0–100. Omit value for indeterminate state (no fill shown)
+ * @llm-rule NOTE: Accessible: renders with `role="progressbar"` and `aria-valuenow` automatically
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
+ */
+
 import * as React from "react"
 import * as ProgressPrimitive from "@radix-ui/react-progress"
 

@@ -1,5 +1,17 @@
 "use client"
 
+/**
+ * <Select> — static option list dropdown built on Radix UI.
+ * @module @bloomneo/uikit
+ * @file src/components/ui/select.tsx
+ *
+ * @llm-rule WHEN: Choosing from a static list of options in a form (country, role, status)
+ * @llm-rule AVOID: Using for searchable lists — use <Combobox>. For action menus — use <DropdownMenu>
+ * @llm-rule NOTE: Controlled: `value` + `onValueChange={(value: string) => ...}`. NOT `onChange`
+ * @llm-rule NOTE: Nesting: Select > SelectTrigger(SelectValue) + SelectContent > SelectGroup(SelectLabel) > SelectItem(value)
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
+ */
+
 import * as React from "react"
 import * as SelectPrimitive from "@radix-ui/react-select"
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react"

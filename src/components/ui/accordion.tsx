@@ -1,3 +1,16 @@
+/**
+ * <Accordion> — collapsible content sections built on Radix UI.
+ * @module @bloomneo/uikit
+ * @file src/components/ui/accordion.tsx
+ *
+ * @llm-rule WHEN: FAQ lists, settings groups, expandable sections
+ * @llm-rule AVOID: Using for tabbed views — use <Tabs> instead
+ * @llm-rule NOTE: `type="single" collapsible` for one-at-a-time (most common). `type="multiple"` for many open at once
+ * @llm-rule NOTE: Controlled: `value` + `onValueChange`. Uncontrolled: `defaultValue`
+ * @llm-rule NOTE: Nesting: Accordion > AccordionItem(value) > AccordionTrigger + AccordionContent
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
+ */
+
 import * as React from "react"
 import * as AccordionPrimitive from "@radix-ui/react-accordion"
 import { ChevronDownIcon } from "lucide-react"

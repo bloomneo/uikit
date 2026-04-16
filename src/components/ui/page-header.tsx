@@ -1,9 +1,13 @@
 /**
- * <PageHeader> — the standard top-of-page block.
+ * <PageHeader> — the standard top-of-page block with icon, title, breadcrumbs, and actions.
+ * @module @bloomneo/uikit
+ * @file src/components/ui/page-header.tsx
  *
- * Replaces the hand-rolled "icon + title + description + actions" combo that
- * appears on every admin/settings/detail page. Optionally renders a back link
- * and breadcrumbs above the title.
+ * @llm-rule WHEN: Top of admin/settings/detail pages (title + optional description + optional actions)
+ * @llm-rule AVOID: Using for navigation bars — use Layout headers or <Header> section component
+ * @llm-rule NOTE: `title` is required. Optional: `description`, `icon`, `breadcrumbs`, `actions`
+ * @llm-rule NOTE: `renderLink` prop for router-agnostic breadcrumb links (pass Next.js Link or React Router Link)
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  *
  * @example
  *   <PageHeader

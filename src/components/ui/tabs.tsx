@@ -1,5 +1,17 @@
 "use client"
 
+/**
+ * <Tabs> — tabbed content navigation built on Radix UI.
+ * @module @bloomneo/uikit
+ * @file src/components/ui/tabs.tsx
+ *
+ * @llm-rule WHEN: Switching between content panels on the same page
+ * @llm-rule AVOID: Using for page-level navigation — use a router or <TabBar> section component
+ * @llm-rule NOTE: Controlled: `value` + `onValueChange`. Uncontrolled: `defaultValue`
+ * @llm-rule NOTE: Nesting: Tabs > TabsList > TabsTrigger, Tabs > TabsContent (value must match trigger value)
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
+ */
+
 import * as React from "react"
 import * as TabsPrimitive from "@radix-ui/react-tabs"
 

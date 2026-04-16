@@ -1,5 +1,19 @@
 "use client"
 
+/**
+ * <Dialog> — centered modal overlay built on Radix UI.
+ * @module @bloomneo/uikit
+ * @file src/components/ui/dialog.tsx
+ *
+ * @llm-rule WHEN: Centered modal for forms, confirmations, detail views
+ * @llm-rule AVOID: Using for side panels — use <Sheet> instead. For delete confirmations — use <ConfirmDialog> or `useConfirm()`
+ * @llm-rule NOTE: Controlled: `open` + `onOpenChange`. Trigger-based: wrap trigger element in <DialogTrigger>
+ * @llm-rule NOTE: Nesting: Dialog > DialogTrigger + DialogContent > DialogHeader(DialogTitle + DialogDescription) + children + DialogFooter
+ * @llm-rule NOTE: `showCloseButton={false}` on DialogContent hides the X button
+ * @llm-rule NOTE: DialogTitle is required for accessibility — screen readers announce it
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
+ */
+
 import * as React from "react"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { XIcon } from "lucide-react"

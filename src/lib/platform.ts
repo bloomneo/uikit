@@ -1,8 +1,13 @@
 /**
- * @fileoverview Platform detection utilities for @bloomneo/uikit
- * @description Detects runtime platform for adaptive component rendering with TypeScript support
- * @package @bloomneo/uikit
- * @file /src/lib/platform.ts
+ * Platform detection utilities — detect web, Electron, Tauri, Capacitor, extension environments.
+ * @module @bloomneo/uikit
+ * @file src/lib/platform.ts
+ *
+ * @llm-rule WHEN: Writing platform-specific code (Capacitor safe area, Electron window controls, extension popup)
+ * @llm-rule AVOID: Manual `navigator.userAgent` parsing — use `detectPlatform()` or `useBreakpoint()` instead
+ * @llm-rule NOTE: `detectPlatform()` returns Platform enum. `useBreakpoint()` / `useMediaQuery()` for responsive logic
+ * @llm-rule NOTE: Exports: `detectPlatform`, `useBreakpoint`, `useActiveBreakpoint`, `useMediaQuery`, `breakpointQuery`, `BREAKPOINTS`
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 
 /**

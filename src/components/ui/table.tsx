@@ -1,3 +1,15 @@
+/**
+ * <Table> — raw HTML table primitives with UIKit styling.
+ * @module @bloomneo/uikit
+ * @file src/components/ui/table.tsx
+ *
+ * @llm-rule WHEN: Custom table layouts where you control every cell
+ * @llm-rule AVOID: Using for sortable/filterable data — use <DataTable> instead
+ * @llm-rule NOTE: Nesting order: Table > TableHeader > TableRow > TableHead, Table > TableBody > TableRow > TableCell
+ * @llm-rule NOTE: Wraps in a scrollable container automatically — no need for overflow wrappers
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
+ */
+
 import * as React from "react"
 
 import { cn } from "@/lib/utils"

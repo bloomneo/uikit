@@ -1,13 +1,16 @@
 /**
  * FOUC (Flash of Unstyled Content) prevention helper for @bloomneo/uikit themes.
+ * @module @bloomneo/uikit
+ * @file src/lib/fouc.ts
  *
- * The problem: <ThemeProvider> can only apply theme classes once React mounts.
- * On first paint the page briefly renders with the default theme (sky blue),
- * then snaps to the user's theme. Visible flash on every load.
+ * @llm-rule WHEN: Setting up a new app — ALWAYS add the FOUC script to index.html <head>
+ * @llm-rule AVOID: Skipping this step — users will see a flash of default theme on every page load
+ * @llm-rule NOTE: `foucScript()` returns a string to inject into a <script> tag in <head>
+ * @llm-rule NOTE: `foucScriptTag()` returns the full `<script>...</script>` HTML string
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  *
- * The fix: run a tiny script BEFORE the React bundle parses, reading the
- * persisted theme out of localStorage and writing the matching classes onto
- * <html> synchronously. By the time React mounts, the DOM is already correct.
+ * Reads persisted theme from localStorage and applies classes to <html>
+ * synchronously before React mounts, preventing the flash.
  *
  * Usage in plain Vite / CRA:
  *

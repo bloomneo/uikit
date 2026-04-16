@@ -1,5 +1,18 @@
 "use client"
 
+/**
+ * <Tooltip> — text-only hint shown on hover, built on Radix UI.
+ * @module @bloomneo/uikit
+ * @file src/components/ui/tooltip.tsx
+ *
+ * @llm-rule WHEN: Short text hint on hover (icon button label, truncated text explanation)
+ * @llm-rule AVOID: Using for rich/interactive content — use <HoverCard> or <Popover> instead
+ * @llm-rule NOTE: Nesting: Tooltip > TooltipTrigger + TooltipContent. Props on content: `side`, `align`, `sideOffset`
+ * @llm-rule NOTE: Each Tooltip self-wraps with TooltipProvider — no need to add one manually
+ * @llm-rule NOTE: `delayDuration` on TooltipProvider controls hover delay (default: 0ms)
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
+ */
+
 import * as React from "react"
 import * as TooltipPrimitive from "@radix-ui/react-tooltip"
 

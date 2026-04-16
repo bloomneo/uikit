@@ -1,3 +1,15 @@
+/**
+ * <RadioGroup> — mutually exclusive option selection built on Radix UI.
+ * @module @bloomneo/uikit
+ * @file src/components/ui/radio-group.tsx
+ *
+ * @llm-rule WHEN: Choosing exactly one option from a small set (payment method, plan, priority)
+ * @llm-rule AVOID: Using for boolean toggles — use <Switch> or <Checkbox>. For many options — use <Select> or <Combobox>
+ * @llm-rule NOTE: Controlled: `value` + `onValueChange={(value: string) => ...}`. Uncontrolled: `defaultValue`
+ * @llm-rule NOTE: Nesting: RadioGroup > (RadioGroupItem + Label) per option. Each RadioGroupItem needs a unique `value`
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
+ */
+
 import * as React from "react"
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group"
 import { CircleIcon } from "lucide-react"

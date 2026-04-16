@@ -1,3 +1,15 @@
+/**
+ * <Slider> — numeric range input built on Radix UI.
+ * @module @bloomneo/uikit
+ * @file src/components/ui/slider.tsx
+ *
+ * @llm-rule WHEN: Numeric value selection (volume, price range, percentage)
+ * @llm-rule AVOID: Using for on/off — use <Switch> instead
+ * @llm-rule NOTE: Pass `value={[n]}` for single thumb, `value={[min, max]}` for range
+ * @llm-rule NOTE: Controlled: `value` + `onValueChange`. Uncontrolled: `defaultValue`
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
+ */
+
 import * as React from "react"
 import * as SliderPrimitive from "@radix-ui/react-slider"
 

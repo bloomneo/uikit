@@ -1,5 +1,17 @@
 "use client"
 
+/**
+ * <Avatar> — user profile image with automatic fallback.
+ * @module @bloomneo/uikit
+ * @file src/components/ui/avatar.tsx
+ *
+ * @llm-rule WHEN: Displaying user/entity profile pictures
+ * @llm-rule AVOID: Using for decorative images — use a plain <img> instead
+ * @llm-rule NOTE: Nesting: Avatar > AvatarImage(src, alt) + AvatarFallback (shown while loading or on error)
+ * @llm-rule NOTE: AvatarFallback children are typically initials: `<AvatarFallback>JD</AvatarFallback>`
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
+ */
+
 import * as React from "react"
 import * as AvatarPrimitive from "@radix-ui/react-avatar"
 

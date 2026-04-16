@@ -1,5 +1,17 @@
 "use client"
 
+/**
+ * <Menubar> — horizontal menu bar with dropdown menus, built on Radix UI.
+ * @module @bloomneo/uikit
+ * @file src/components/ui/menubar.tsx
+ *
+ * @llm-rule WHEN: Application menu bar (File/Edit/View pattern), toolbar with dropdown actions
+ * @llm-rule AVOID: Using for navigation — use router links. For single dropdown — use <DropdownMenu>
+ * @llm-rule NOTE: Nesting: Menubar > MenubarMenu > MenubarTrigger + MenubarContent > MenubarItem
+ * @llm-rule NOTE: Supports checkboxes (MenubarCheckboxItem), radio groups (MenubarRadioGroup), and submenus (MenubarSub)
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
+ */
+
 import * as React from "react"
 import * as MenubarPrimitive from "@radix-ui/react-menubar"
 import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react"

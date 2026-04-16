@@ -1,5 +1,18 @@
 "use client"
 
+/**
+ * <Checkbox> — boolean checkbox built on Radix UI.
+ * @module @bloomneo/uikit
+ * @file src/components/ui/checkbox.tsx
+ *
+ * @llm-rule WHEN: Boolean selection in forms (terms acceptance, feature toggles, multi-select lists)
+ * @llm-rule AVOID: Using for mutually exclusive options — use <RadioGroup> instead
+ * @llm-rule NOTE: Controlled: `checked` + `onCheckedChange={(checked: boolean | 'indeterminate') => ...}`
+ * @llm-rule NOTE: Always pair with a <Label htmlFor={id}> for accessibility
+ * @llm-rule NOTE: Supports `checked="indeterminate"` for parent checkboxes in hierarchical lists
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
+ */
+
 import * as React from "react"
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox"
 import { CheckIcon } from "lucide-react"

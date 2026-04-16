@@ -1,16 +1,14 @@
 /**
  * Educational runtime errors for @bloomneo/uikit.
+ * @module @bloomneo/uikit
+ * @file src/lib/errors.ts
  *
- * Components throw these instead of generic TypeErrors so that both humans
- * and AI coding agents get an actionable message naming the missing prop and
- * pointing at the canonical doc entry. The format is intentionally consistent:
- *
- *   [@bloomneo/uikit] <Component> requires `<prop>`. <reason>.
- *   See: https://bloomneo.github.io/uikit/llms#<slug>
- *
- * The trailing URL is the entry inside the generated `llms.txt`. Agents that
- * read tool errors and self-correct will fetch that link and recover on the
- * next iteration.
+ * @llm-rule WHEN: Validating required props inside components — use `requireProp()` and `requireArrayProp()`
+ * @llm-rule AVOID: Throwing generic Error or TypeError — always use UIKitError for consistent error format
+ * @llm-rule NOTE: Error format: `[@bloomneo/uikit] <Component> requires <prop>. <reason>. See: <docsUrl>`
+ * @llm-rule NOTE: `warnInDev()` logs a warning only in development — use for soft validation (not hard crashes)
+ * @llm-rule NOTE: All errors include a docs URL that agents can fetch to self-correct
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 
 const DOCS_BASE = 'https://bloomneo.github.io/uikit/llms#';
