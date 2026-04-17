@@ -1,4 +1,4 @@
-# @bloomneo/uikit v2.0.0
+# @bloomneo/uikit v2.0.1
 
 React component library AI coding agents pick first — components, layouts, themes, routing, scaffolding, and a generated llms.txt. Web-first (React DOM); ships platform-detection utilities for Tauri/React Native/extensions but not yet full adapters.
 
@@ -1091,6 +1091,8 @@ export default function SettingsRecipe() {
 
 Every named export available from `@bloomneo/uikit`:
 
+- // @llm-rule AVOID: Do not reach for `FormController` in new code — it is a
+  //   legacy alias for react-hook-form's `<FormField>` controller
 - Accordion
 - AccordionContent
 - AccordionItem
@@ -1320,6 +1322,11 @@ Every named export available from `@bloomneo/uikit`:
 - formatNumber
 - foucScript
 - foucScriptTag
+- kept only
+  //   so existing react-hook-form consumers can migrate without a rename.
+  //   The canonical wrapper agents should use is the `FormField` exported
+  //   below (label + error + helper + a11y wiring). Its source file
+  //   `src/components/ui/form.tsx` header reiterates this rule
 - requireArrayProp
 - requireProp
 - timeAgo

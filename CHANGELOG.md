@@ -2,6 +2,65 @@
 
 All notable changes to UIKit will be documented in this file.
 
+## [2.0.1] - 2026-04-17
+
+Doc cleanup following a second-round review. No code behavior changes.
+Pure additive/corrective.
+
+### Fixed — version-string drift
+
+Review caught that several docs still carried 1.5.1 strings despite the
+package being at 2.0.0:
+
+- `AGENTS.md:3` — "v1.5.1" → "v2.0.0"
+- `skills/bloomneo-uikit/SKILL.md` frontmatter `version:` + H1 header
+- All four scaffolding template SKILL.md files
+  (`bin/templates/{fbca,multi,single,spa}/.claude/skills/bloomneo-uikit/SKILL.md`)
+- `docs/NAMING.md` — "stable within the 1.x line... 1.5.1" → "stable as of 2.0.0"
+
+The `@voilajsx/uikit` → `@bloomneo/uikit` scope-change section in the
+README is kept as historical context but now labelled "historical" so
+it doesn't read as current.
+
+### Fixed — cross-platform overreach in README
+
+`README.md:79-81` still sold *"Web, desktop, mobile, extensions from
+one codebase... The only React UI kit that covers all four surfaces."*
+The `package.json` description was corrected in 1.6.0 but the README
+hero bullet wasn't. Rewritten to match the actual surface: layout
+primitives + platform-detection helpers (`isTauri()`, `isNative()`,
+`isBrowser()`), with an explicit "components are React DOM; full
+native/Tauri/extension adapters not yet shipped" note.
+
+### Fixed — FormController export visibility
+
+`src/index.ts:41` re-exports react-hook-form's `FormField` as
+`FormController` so existing consumers with react-hook-form code don't
+have to rename. The component source (`form.tsx`) already carries
+`@llm-rule AVOID:` JSDoc, and `AGENTS.md` rule "Never do #2" bans its
+use in new code. But an agent grepping `src/index.ts` exports would
+find it without either signal. Added an explicit `@llm-rule AVOID:`
+comment on the export line itself so grep-first agents see the warning
+without having to open the component file.
+
+The export is kept (removing it would be breaking; queued for a future
+3.0.0 if ever justified).
+
+### Not touched (on purpose)
+
+Review flagged three other items. All are real observations; all are
+explicitly deferred:
+
+- **"No one-rule equivalent"** — design observation, inherent to React vs
+  backend. Component libraries fundamentally have more concurrent
+  concerns (import + providers + FOUC) than single-entry backend modules.
+  Not fixable without a rewrite.
+- **`@llm-rule WHEN NOT:` cross-refs on 44 components** — 44-file churn
+  for marginal gain. Add when a consumer reports an agent picking the
+  wrong sibling (e.g. Dialog when useConfirm was correct).
+- **Per-component bundle-size table** — nice to have, low urgency.
+  Revisit if a bundle-size complaint surfaces.
+
 ## [2.0.0] - 2026-04-17
 
 One breaking change on top of the 1.6.0 governance audit. Bundled as a

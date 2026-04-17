@@ -76,9 +76,11 @@ theme classes are on `<html>` before React mounts.
 - **No flash of wrong theme (1.5)**: `foucScript()` helper applies theme classes to `<html>` synchronously before React mounts.
 - **Dark mode included**: Every theme works in light and dark mode out of the box.
 
-**📱 For cross-platform**
+**📱 For cross-surface layouts (web-first)**
 
-- **Web, desktop, mobile, extensions** from one codebase: `<MobileLayout>` for Capacitor apps, `<PopupLayout>` for Chrome/Firefox extensions, Tauri-friendly bundling. The only React UI kit that covers all four surfaces.
+- **Layout primitives** that work across web, mobile-web, and extension popups: `<MobileLayout>` for Capacitor apps, `<PopupLayout>` for Chrome/Firefox extensions, Tauri-friendly bundling.
+- **Platform detection helpers** (`isTauri()`, `isNative()`, `isBrowser()`) so your code branches on environment.
+- **Components are React DOM.** Full Tauri / React Native / extension-specific component adapters are not yet shipped — the helpers let you wire your own when needed.
 
 **🏢 For team productivity**
 
@@ -464,13 +466,13 @@ function ThemeSwitcher() {
 - [Theme System](docs/UIKIT_THEME_GUIDE.md) — advanced theming and customization
 - [CLI Commands](docs/UIKIT_CLI_GUIDE.md) — complete command reference
 - [LLM Usage Guide](docs/UIKIT_LLM_GUIDE.md) — AI-powered development patterns
-- [`CHANGELOG.md`](./CHANGELOG.md) — release notes (see 1.5.0 for the agent-readiness rework)
+- [`CHANGELOG.md`](./CHANGELOG.md) — release notes (see 2.0.0 for the current API; 1.5.0 for the agent-readiness rework)
 
 <a id="scope-change"></a>
 
-### 🔁 Scope change (1.5.0)
+### 🔁 Scope change — historical (1.5.0)
 
-This package was previously published as **`@voilajsx/uikit`**. Starting with `1.5.0` it lives at **`@bloomneo/uikit`**. The old package on npm is frozen at `1.4.0` and will not receive further updates.
+This package was previously published as **`@voilajsx/uikit`**. Starting with `1.5.0` (historical) and continuing through the current 2.x line it lives at **`@bloomneo/uikit`**. The old `@voilajsx/uikit` package on npm is frozen at `1.4.0` and will not receive further updates.
 
 **Migration:**
 

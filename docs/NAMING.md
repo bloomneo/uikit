@@ -1,7 +1,7 @@
 # Naming Policy — `@bloomneo/uikit`
 
-**Status:** stable within the 1.x line. Any rename after 1.5.1 without an
-alias requires a major version bump.
+**Status:** stable as of 2.0.0. Any rename from here requires a major
+version bump and a `CHANGELOG.md` migration entry.
 
 This document defines the conventions every component, hook, and utility
 in `@bloomneo/uikit` follows. The goal is **predictability for LLM agents
@@ -252,5 +252,5 @@ When an agent needs to pick a component, this tree resolves the choice:
   `@bloomneo/appkit@4.0.0`'s NAMING.md + documented observed
   conventions in the uikit source.
 
-Any rename after this point that breaks the `@bloomneo/uikit@1.5.1`
+Any rename after this point that breaks the `@bloomneo/uikit@2.0.0`
 public API requires a major version bump.

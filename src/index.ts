@@ -35,9 +35,13 @@ export {
   Form,
   FormControl,
   FormDescription,
-  // The react-hook-form `<FormField>` is a controller wrapper. The new
-  // <FormField> below (label/error/helper/a11y) is what most consumers want.
-  // Rename the controller export to avoid the name clash.
+  // @llm-rule AVOID: Do not reach for `FormController` in new code — it is a
+  //   legacy alias for react-hook-form's `<FormField>` controller, kept only
+  //   so existing react-hook-form consumers can migrate without a rename.
+  //   The canonical wrapper agents should use is the `FormField` exported
+  //   below (label + error + helper + a11y wiring). Its source file
+  //   `src/components/ui/form.tsx` header reiterates this rule, and
+  //   AGENTS.md rule "Never do #2" bans its use in new code.
   FormField as FormController,
   FormItem,
   FormLabel,
