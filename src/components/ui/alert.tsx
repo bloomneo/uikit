@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * <Alert> — inline banner for persistent messages (info, warnings, errors).
  * @module @bloomneo/uikit

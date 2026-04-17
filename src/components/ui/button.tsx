@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * <Button> — primary interactive element for actions and submissions.
  * @module @bloomneo/uikit

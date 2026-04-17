@@ -1,26 +1,26 @@
 /**
  * <Combobox> — searchable Select.
+ * @module @bloomneo/uikit
+ * @file src/components/ui/combobox.tsx
  *
- * For dropdowns with more than ~20 options where typing-to-filter beats
- * scrolling. Built on the existing Command (cmdk) + Popover primitives so it
- * doesn't add new dependencies.
+ * @llm-rule WHEN: Searchable/filterable dropdowns with 10+ options (country, user, tag pickers)
+ * @llm-rule AVOID: Using for static short lists — use <Select>. For action menus — use <DropdownMenu>
+ * @llm-rule NOTE: Controlled: `value` + `onChange` (NOT `onValueChange`). Options: `{ value: string, label: string }[]`
+ * @llm-rule NOTE: Props: `clearable`, `disabled`, `searchPlaceholder`, `emptyMessage`, `renderOption`
+ * @llm-rule NOTE: Custom component — built on Command (cmdk) + Popover. Uses `onChange`, NOT Radix `onValueChange`
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  *
- * The API is intentionally close to <Select>:
- *
+ * @example
  *   <Combobox
  *     value={country}
  *     onChange={setCountry}
  *     options={[
  *       { value: 'us', label: 'United States' },
  *       { value: 'in', label: 'India' },
- *       { value: 'uk', label: 'United Kingdom' },
  *     ]}
  *     placeholder="Select a country"
  *     searchPlaceholder="Search countries…"
  *   />
- *
- * Pass `clearable` to allow setting back to undefined. Pass `disabled` to
- * lock. Pass `renderOption` if you need icons / two-line entries.
  */
 import * as React from 'react';
 export interface ComboboxOption {

@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * <Skeleton> — placeholder loading animation.
  * @module @bloomneo/uikit

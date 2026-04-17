@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * <PageHeader> — the standard top-of-page block with icon, title, breadcrumbs, and actions.
  * @module @bloomneo/uikit

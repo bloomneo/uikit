@@ -8,7 +8,10 @@ allowed-tools: Bash(npx uikit *), Bash(pnpm dlx uikit *), Bash(bunx --bun uikit 
 
 # @bloomneo/uikit (v1.5.1)
 
-End-to-end React framework with components, layouts, themes, routing, and scaffolding. Cross-platform (web, desktop, mobile, extensions). Built on Radix + Tailwind + cva. Previously published as `@voilajsx/uikit`.
+React component library with components, layouts, themes, routing, and
+scaffolding. Built on Radix + Tailwind + cva. Web-first (React DOM); ships
+platform-detection helpers (`isTauri()`, `isNative()`, etc.) but not full
+native/Tauri/extension component adapters. Previously published as `@voilajsx/uikit`.
 
 > **IMPORTANT:** Read `node_modules/@bloomneo/uikit/llms.txt` for the full component API reference. Read `AGENTS.md` in the project root for do/don't rules. This skill is the fastest way in; those two files are canonical.
 

@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * <Slider> — numeric range input built on Radix UI.
  * @module @bloomneo/uikit

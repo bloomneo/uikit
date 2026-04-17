@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * <Accordion> — collapsible content sections built on Radix UI.
  * @module @bloomneo/uikit

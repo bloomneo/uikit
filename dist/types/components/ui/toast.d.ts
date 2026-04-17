@@ -1,25 +1,15 @@
 /**
- * Toast system for @bloomneo/uikit.
+ * Toast system — transient notifications via `toast.*` and `<ToastProvider>`.
+ * @module @bloomneo/uikit
+ * @file src/components/ui/toast.tsx
  *
- * Thin wrapper over `sonner` (already installed) that exposes a stable,
- * discoverable API:
- *
- *   • <ToastProvider />        — drop once at the app root (re-exports Toaster)
- *   • toast.success(message)   — green check
- *   • toast.error(message)     — red x
- *   • toast.info(message)      — neutral
- *   • toast.warning(message)   — yellow
- *   • toast.promise(promise, { loading, success, error })
- *   • toast(message, options)  — generic
- *   • useToast()               — returns the same object as a hook
- *
- * Why a wrapper at all? Two reasons:
- *
- *   1. Discovery — `useToast` is the convention agents and humans expect.
- *      Sonner's "import { toast } from 'sonner'" is invisible to anything
- *      reading UIKit's surface area.
- *   2. Theme parity — sonner reads next-themes; we re-bind it to UIKit's
- *      theme provider so dark mode is always correct.
+ * @llm-rule WHEN: Transient success/error/info notifications (save success, API error, copy confirmation)
+ * @llm-rule AVOID: Using for persistent messages — use <Alert> instead. Never build custom toast UI
+ * @llm-rule NOTE: Mount <ToastProvider /> once at app root. Call `toast.success()`, `toast.error()`, `toast.warning()`, `toast.info()`
+ * @llm-rule NOTE: `toast.promise(asyncFn, { loading, success, error })` for async operations
+ * @llm-rule NOTE: `useToast()` hook returns the same `toast` object for components that prefer hooks
+ * @llm-rule NOTE: Custom component — wraps sonner library. Do not import from 'sonner' directly
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 import * as React from 'react';
 import { type ToasterProps } from 'sonner';

@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * <PermissionGate> + <PermissionProvider> + usePermission() — role-based conditional rendering.
  * @module @bloomneo/uikit

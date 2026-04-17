@@ -45,12 +45,17 @@ import {
 function App({ children }) {
   return (
     <ThemeProvider theme="base" mode="light">
-      <ConfirmProvider>{children}</ConfirmProvider>
       <ToastProvider />
+      <ConfirmProvider>{children}</ConfirmProvider>
     </ThemeProvider>
   );
 }
 ```
+
+`ToastProvider` is a self-closing sibling — it mounts the Toaster and does
+NOT wrap children. `ConfirmProvider` wraps children because `useConfirm()`
+reads context from it. This order matches every cookbook recipe and llms.txt;
+any other arrangement is drift.
 
 FOUC prevention (recommended, prevents theme flash on first paint):
 

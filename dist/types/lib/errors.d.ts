@@ -1,21 +1,67 @@
 /**
  * Educational runtime errors for @bloomneo/uikit.
+ * @module @bloomneo/uikit
+ * @file src/lib/errors.ts
  *
- * Components throw these instead of generic TypeErrors so that both humans
- * and AI coding agents get an actionable message naming the missing prop and
- * pointing at the canonical doc entry. The format is intentionally consistent:
- *
- *   [@bloomneo/uikit] <Component> requires `<prop>`. <reason>.
- *   See: https://bloomneo.github.io/uikit/llms#<slug>
- *
- * The trailing URL is the entry inside the generated `llms.txt`. Agents that
- * read tool errors and self-correct will fetch that link and recover on the
- * next iteration.
+ * @llm-rule WHEN: Validating required props inside components — use `requireProp()` and `requireArrayProp()`
+ * @llm-rule AVOID: Throwing generic Error or TypeError — always use UIKitError for consistent error format
+ * @llm-rule NOTE: Error format: `[@bloomneo/uikit] <Component> requires <prop>. <reason>. See: <docsUrl>`
+ * @llm-rule NOTE: `warnInDev()` logs a warning only in development — use for soft validation (not hard crashes)
+ * @llm-rule NOTE: All errors include a docs URL that agents can fetch to self-correct
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
+ */
+/**
+ * Base class for every typed error thrown by @bloomneo/uikit. Consumers
+ * check `err instanceof UIKitError` to catch uikit errors uniformly; the
+ * per-component subclasses below (`DataTableError`, `FormFieldError`, etc.)
+ * are all `instanceof UIKitError` as well.
  */
 export declare class UIKitError extends Error {
     readonly component: string;
     readonly docsUrl: string;
     constructor(component: string, message: string, slug?: string);
+}
+/**
+ * Thrown by `<DataTable>` when `data` is not an array, a column id is
+ * missing/duplicated, or other DataTable-specific invariants fail.
+ */
+export declare class DataTableError extends UIKitError {
+    constructor(message: string, slug?: string);
+}
+/**
+ * Thrown by `<FormField>` when required wiring is missing — child isn't a
+ * single ReactElement, `id` conflicts, or label/error shape is wrong.
+ */
+export declare class FormFieldError extends UIKitError {
+    constructor(message: string, slug?: string);
+}
+/**
+ * Thrown by `<ThemeProvider>` or `useTheme()` — called outside a provider,
+ * unknown theme name, invalid mode, mismatched storage key with foucScript.
+ */
+export declare class ThemeError extends UIKitError {
+    constructor(message: string, slug?: string);
+}
+/**
+ * Thrown by `useConfirm()` or `<ConfirmProvider>` when the provider is
+ * missing from the tree or the hook is called outside a React component.
+ */
+export declare class ConfirmError extends UIKitError {
+    constructor(message: string, slug?: string);
+}
+/**
+ * Thrown by `<Toaster>` / `useToast()` / `toast.*` when called outside a
+ * component tree or before `<ToastProvider />` has mounted.
+ */
+export declare class ToastError extends UIKitError {
+    constructor(message: string, slug?: string);
+}
+/**
+ * Thrown by `<PermissionGate>` / `usePermission()` when the provider's
+ * `check` callback is missing or has the wrong shape.
+ */
+export declare class PermissionError extends UIKitError {
+    constructor(message: string, slug?: string);
 }
 /**
  * Throw if a required prop is missing or wrongly typed. Designed to fire at

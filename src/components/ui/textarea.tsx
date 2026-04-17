@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * <Textarea> — multi-line text input with UIKit styling.
  * @module @bloomneo/uikit

@@ -13,6 +13,12 @@
 
 const DOCS_BASE = 'https://bloomneo.github.io/uikit/llms#';
 
+/**
+ * Base class for every typed error thrown by @bloomneo/uikit. Consumers
+ * check `err instanceof UIKitError` to catch uikit errors uniformly; the
+ * per-component subclasses below (`DataTableError`, `FormFieldError`, etc.)
+ * are all `instanceof UIKitError` as well.
+ */
 export class UIKitError extends Error {
   readonly component: string;
   readonly docsUrl: string;
@@ -23,6 +29,72 @@ export class UIKitError extends Error {
     this.name = 'UIKitError';
     this.component = component;
     this.docsUrl = url;
+  }
+}
+
+/**
+ * Thrown by `<DataTable>` when `data` is not an array, a column id is
+ * missing/duplicated, or other DataTable-specific invariants fail.
+ */
+export class DataTableError extends UIKitError {
+  constructor(message: string, slug: string = 'data-table') {
+    super('DataTable', message, slug);
+    this.name = 'DataTableError';
+  }
+}
+
+/**
+ * Thrown by `<FormField>` when required wiring is missing — child isn't a
+ * single ReactElement, `id` conflicts, or label/error shape is wrong.
+ */
+export class FormFieldError extends UIKitError {
+  constructor(message: string, slug: string = 'form-field') {
+    super('FormField', message, slug);
+    this.name = 'FormFieldError';
+  }
+}
+
+/**
+ * Thrown by `<ThemeProvider>` or `useTheme()` — called outside a provider,
+ * unknown theme name, invalid mode, mismatched storage key with foucScript.
+ */
+export class ThemeError extends UIKitError {
+  constructor(message: string, slug: string = 'theme-provider') {
+    super('ThemeProvider', message, slug);
+    this.name = 'ThemeError';
+  }
+}
+
+/**
+ * Thrown by `useConfirm()` or `<ConfirmProvider>` when the provider is
+ * missing from the tree or the hook is called outside a React component.
+ */
+export class ConfirmError extends UIKitError {
+  constructor(message: string, slug: string = 'confirm-dialog') {
+    super('ConfirmDialog', message, slug);
+    this.name = 'ConfirmError';
+  }
+}
+
+/**
+ * Thrown by `<Toaster>` / `useToast()` / `toast.*` when called outside a
+ * component tree or before `<ToastProvider />` has mounted.
+ */
+export class ToastError extends UIKitError {
+  constructor(message: string, slug: string = 'toast') {
+    super('Toast', message, slug);
+    this.name = 'ToastError';
+  }
+}
+
+/**
+ * Thrown by `<PermissionGate>` / `usePermission()` when the provider's
+ * `check` callback is missing or has the wrong shape.
+ */
+export class PermissionError extends UIKitError {
+  constructor(message: string, slug: string = 'permission-gate') {
+    super('PermissionGate', message, slug);
+    this.name = 'PermissionError';
   }
 }
 

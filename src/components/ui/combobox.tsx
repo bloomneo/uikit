@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * <Combobox> — searchable Select.
  * @module @bloomneo/uikit

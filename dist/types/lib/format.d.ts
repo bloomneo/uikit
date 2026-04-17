@@ -1,13 +1,14 @@
 /**
- * Locale-aware formatters for @bloomneo/uikit.
+ * Locale-aware formatters — `formatCurrency`, `formatDate`, `formatNumber`, `formatBytes`, `timeAgo`.
+ * @module @bloomneo/uikit
+ * @file src/lib/format.ts
  *
- * Thin, zero-dependency wrappers around the platform `Intl.*` APIs and the
- * Web `Date` constructor. Importing this module never pulls in another
- * library; the only cost is the formatter functions themselves.
- *
- * Every formatter is safe to call with `null` / `undefined` — it returns an
- * empty string instead of crashing — so cell renderers and inline JSX can use
- * them without defensive null checks.
+ * @llm-rule WHEN: Displaying currency, dates, file sizes, numbers, or relative time in the UI
+ * @llm-rule AVOID: Inline formatting (`${val}`, `new Date().toLocaleString()`) — always use these helpers
+ * @llm-rule NOTE: All formatters are null-safe — `null` / `undefined` input returns `""`, never throws
+ * @llm-rule NOTE: Uses `Intl.*` APIs — zero external dependencies. Pass `locale` option to override default
+ * @llm-rule NOTE: `<Time>` component renders a <time> element with relative "X ago" display
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 import * as React from 'react';
 export type Nullable<T> = T | null | undefined;

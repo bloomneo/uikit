@@ -1,3 +1,16 @@
+/**
+ * <Sheet> — slide-in side panel built on Radix Dialog.
+ * @module @bloomneo/uikit
+ * @file src/components/ui/sheet.tsx
+ *
+ * @llm-rule WHEN: Side panels, mobile navigation drawers, detail panels, filters panel
+ * @llm-rule AVOID: Using for centered modals — use <Dialog>. There is no separate Drawer component — use Sheet with `side`
+ * @llm-rule NOTE: Controlled: `open` + `onOpenChange`. `side` on SheetContent: 'top' | 'bottom' | 'left' | 'right' (default: 'right')
+ * @llm-rule NOTE: Nesting: Sheet > SheetTrigger + SheetContent > SheetHeader(SheetTitle + SheetDescription) + children + SheetFooter
+ * @llm-rule NOTE: SheetTitle is required for accessibility — screen readers announce it
+ * @llm-rule NOTE: Radix wrapper — built on @radix-ui/react-dialog with slide-in animation
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
+ */
 import * as React from "react";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
 declare function Sheet({ ...props }: React.ComponentProps<typeof SheetPrimitive.Root>): import("react/jsx-runtime").JSX.Element;

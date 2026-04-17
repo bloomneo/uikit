@@ -1,6 +1,6 @@
-# @bloomneo/uikit v1.5.1
+# @bloomneo/uikit v1.6.0
 
-End-to-end React framework AI coding agents pick first — components, layouts, themes, routing, scaffolding, and a generated llms.txt. Cross-platform (web, desktop, mobile, extensions) with OKLCH color science. Previously published as @voilajsx/uikit.
+React component library AI coding agents pick first — components, layouts, themes, routing, scaffolding, and a generated llms.txt. Web-first (React DOM); ships platform-detection utilities for Tauri/React Native/extensions but not yet full adapters.
 
 This file is the canonical machine-readable index of @bloomneo/uikit.
 Read it first when generating code that uses this library.
@@ -40,45 +40,6 @@ always use the flat `from '@bloomneo/uikit'` import.
 
 Built-in: base | elegant | metro | studio | vivid
 Switch with `useTheme().setTheme('elegant')`. Custom themes are also allowed.
-
-### Semantic color system
-
-UIKit uses 29 CSS variables. Never hardcode hex — use semantic Tailwind classes:
-
-| Variable | Class example | Purpose |
-|---|---|---|
-| `--background` | `bg-background` | Main page background |
-| `--foreground` | `text-foreground` | Primary text |
-| `--card` / `--card-foreground` | `bg-card` | Elevated content (cards) |
-| `--popover` / `--popover-foreground` | `bg-popover` | Dropdown/popover surfaces |
-| `--primary` / `--primary-foreground` | `bg-primary` | Brand color (buttons, links, badges, charts, focus rings) |
-| `--secondary` / `--secondary-foreground` | `bg-secondary` | Secondary actions |
-| `--muted` / `--muted-foreground` | `bg-muted`, `text-muted-foreground` | Subtle sections, secondary text |
-| `--accent` / `--accent-foreground` | `bg-accent` | Interactive hover states |
-| `--destructive` / `--destructive-foreground` | `bg-destructive` | Error/danger actions |
-| `--border` | `border-border` | Standard borders |
-| `--input` | `border-input` | Form input borders |
-| `--ring` | `ring-ring` | Focus rings |
-| `--chart-1` … `--chart-5` | `var(--chart-1)` | Data visualization colors |
-| `--sidebar` … `--sidebar-ring` | `bg-sidebar` | AdminLayout sidebar (7 vars) |
-
-Background hierarchy: `bg-background` → `bg-card` → `bg-muted` → `bg-accent`
-Text hierarchy: `text-foreground` → `text-muted-foreground` → `text-primary`
-
-### Custom themes
-
-Generate with the CLI, then edit colors:
-
-    npx uikit generate theme brand
-    npx uikit bundle            # compile to CSS
-    npx uikit bundle --watch    # dev mode
-
-Theme file location: `src/themes/presets/theme-{name}.js` (FBCA: `src/web/themes/presets/`).
-
-Color tips:
-- Use your actual brand color as `primary`. Ensure contrast with white text.
-- Dark mode: lighten primary (e.g. `#1E40AF` → `#60A5FA`), avoid pure `#000000`.
-- Light mode: backgrounds should be white or very light gray, not colored.
 
 ## Examples — one canonical snippet per component
 
@@ -506,6 +467,78 @@ export default function ToastExample() {
 }
 ```
 
+### Use Api
+File: examples/use-api.tsx
+
+```tsx
+/**
+ * useApi example — data-fetching hook with loading, error, and manual call
+ * triggers. Matches the canonical shape in llms.txt and AGENTS.md.
+ *
+ * @see src/hooks/useApi.ts — UseApiReturn<T>: { data, loading, error, call, get, post, put, delete, reset }
+ *
+ * Real usage: baseURL auto-detects from VITE_API_URL or localhost in dev.
+ * Override via `useApi({ baseURL: 'https://api.example.com' })` when needed.
+ */
+
+import { useEffect } from 'react';
+import { useApi, Button, Skeleton, toast } from '@bloomneo/uikit';
+
+type User = { id: number; email: string; name: string };
+
+export default function UseApiExample() {
+  // Hook call — generic T flows through to `data` and every method.
+  const users = useApi<User[]>();
+
+  // GET on mount. `users.get(endpoint)` resolves with the response body,
+  // but you usually don't need the return value — `users.data` updates.
+  useEffect(() => {
+    users.get('/api/users').catch((err) => {
+      toast.error(`Failed to load users: ${err.message}`);
+    });
+  }, []);
+
+  // POST example — creating a user on button click.
+  async function createUser() {
+    try {
+      const u = await users.post<User>('/api/users', { email: 'x@y.com', name: 'Alice' });
+      toast.success(`Created ${u.email}`);
+      await users.get('/api/users'); // refetch the list
+    } catch (err: any) {
+      toast.error(`Create failed: ${err.message}`);
+    }
+  }
+
+  // Loading: render a skeleton.
+  if (users.loading && !users.data) {
+    return <Skeleton className="h-40 w-full" />;
+  }
+
+  // Error: show the string. Pair with a retry button.
+  if (users.error && !users.data) {
+    return (
+      <div className="p-4">
+        <p className="text-destructive">Failed: {users.error}</p>
+        <Button onClick={() => users.get('/api/users')}>Retry</Button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="p-4 space-y-4">
+      <ul>
+        {users.data?.map((u) => (
+          <li key={u.id}>{u.name} — {u.email}</li>
+        ))}
+      </ul>
+      <Button onClick={createUser} disabled={users.loading}>
+        {users.loading ? 'Creating…' : 'Create user'}
+      </Button>
+    </div>
+  );
+}
+```
+
 ### Use Breakpoint
 File: examples/use-breakpoint.tsx
 
@@ -595,18 +628,19 @@ File: cookbook/crud-page.tsx
  *
  * Searchable, sortable user list with row actions and a delete-with-confirm
  * flow. The whole thing is ~80 lines instead of the usual 600 because every
- * piece (PageHeader, DataTable, ConfirmProvider/useConfirm, ToastProvider/toast)
- * is a UIKit primitive.
+ * piece (PageHeader, DataTable, useConfirm, toast) is a UIKit primitive.
+ *
+ * Assumes <ThemeProvider>, <ToastProvider />, and <ConfirmProvider> are
+ * mounted at your app root. `useConfirm()` requires <ConfirmProvider>.
+ * See cookbook/README.md for the setup snippet.
  */
 
 import { useState } from 'react';
 import { Pencil, Trash2, Users } from 'lucide-react';
 import {
   Button,
-  ConfirmProvider,
   DataTable,
   PageHeader,
-  ToastProvider,
   toast,
   useConfirm,
   type DataTableColumn,
@@ -622,7 +656,7 @@ const initialUsers: User[] = [
   { id: '4', name: 'Dawud',  email: 'dawud@example.com',  role: 'user' },
 ];
 
-function UserListInner() {
+export default function CrudPageRecipe() {
   const [users, setUsers] = useState<User[]>(initialUsers);
   const confirm = useConfirm();
 
@@ -680,15 +714,6 @@ function UserListInner() {
     </div>
   );
 }
-
-export default function CrudPageRecipe() {
-  return (
-    <ConfirmProvider>
-      <ToastProvider />
-      <UserListInner />
-    </ConfirmProvider>
-  );
-}
 ```
 
 ### Dashboard
@@ -700,6 +725,10 @@ File: cookbook/dashboard.tsx
  *
  * Stats grid + recent activity table inside a standard page shell.
  * Drop into any admin layout — works inside <AdminLayout> or alone.
+ *
+ * Assumes <ThemeProvider> is mounted at your app root. This recipe uses
+ * no toasts or confirms, so <ToastProvider /> and <ConfirmProvider> are
+ * optional for it. See cookbook/README.md for the full setup snippet.
  */
 
 import { Activity, DollarSign, Package, Users } from 'lucide-react';
@@ -799,19 +828,17 @@ File: cookbook/delete-flow.tsx
  *
  * Use this for irreversible operations: deleting users, dropping databases,
  * cancelling subscriptions, etc.
+ *
+ * Assumes <ThemeProvider>, <ToastProvider />, and <ConfirmProvider> are
+ * mounted at your app root. `useConfirm()` requires <ConfirmProvider>.
+ * See cookbook/README.md for the setup snippet.
  */
 
-import {
-  Button,
-  ConfirmProvider,
-  ToastProvider,
-  toast,
-  useConfirm,
-} from '@bloomneo/uikit';
+import { Button, toast, useConfirm } from '@bloomneo/uikit';
 
 const RESOURCE_NAME = 'production-db';
 
-function DeleteResource() {
+export default function DeleteFlowRecipe() {
   const confirm = useConfirm();
 
   async function onDelete() {
@@ -828,25 +855,16 @@ function DeleteResource() {
   }
 
   return (
-    <Button variant="destructive" onClick={onDelete}>
-      Delete database
-    </Button>
-  );
-}
-
-export default function DeleteFlowRecipe() {
-  return (
-    <ConfirmProvider>
-      <ToastProvider />
-      <div className="flex flex-col items-start gap-4 p-6">
-        <p className="max-w-md text-sm text-muted-foreground">
-          The button below opens a confirmation dialog. The user must type
-          <code className="mx-1 rounded bg-muted px-1">{RESOURCE_NAME}</code>
-          before the delete button enables.
-        </p>
-        <DeleteResource />
-      </div>
-    </ConfirmProvider>
+    <div className="flex flex-col items-start gap-4 p-6">
+      <p className="max-w-md text-sm text-muted-foreground">
+        The button below opens a confirmation dialog. The user must type
+        <code className="mx-1 rounded bg-muted px-1">{RESOURCE_NAME}</code>
+        before the delete button enables.
+      </p>
+      <Button variant="destructive" onClick={onDelete}>
+        Delete database
+      </Button>
+    </div>
   );
 }
 ```
@@ -860,6 +878,9 @@ File: cookbook/login.tsx
  *
  * Centered card with email + password form, inline validation, and a
  * submit button. No backend — wire your auth call where the comment is.
+ *
+ * Assumes <ThemeProvider>, <ToastProvider />, and <ConfirmProvider> are
+ * mounted at your app root. See cookbook/README.md for the setup snippet.
  */
 
 import { useState } from 'react';
@@ -873,7 +894,6 @@ import {
   FormField,
   Input,
   PasswordInput,
-  ToastProvider,
   toast,
 } from '@bloomneo/uikit';
 
@@ -905,39 +925,36 @@ export default function LoginRecipe() {
   }
 
   return (
-    <>
-      <ToastProvider />
-      <div className="flex min-h-screen items-center justify-center bg-muted/30 p-6">
-        <Card className="w-full max-w-sm">
-          <CardHeader>
-            <CardTitle>Sign in</CardTitle>
-            <CardDescription>Welcome back to your workspace</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form className="flex flex-col gap-4" onSubmit={onSubmit}>
-              <FormField label="Email" required error={emailError}>
-                <Input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  autoComplete="email"
-                />
-              </FormField>
-              <FormField label="Password" required error={passwordError}>
-                <PasswordInput
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  autoComplete="current-password"
-                />
-              </FormField>
-              <Button type="submit" disabled={!canSubmit}>
-                {submitting ? 'Signing in…' : 'Sign in'}
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-      </div>
-    </>
+    <div className="flex min-h-screen items-center justify-center bg-muted/30 p-6">
+      <Card className="w-full max-w-sm">
+        <CardHeader>
+          <CardTitle>Sign in</CardTitle>
+          <CardDescription>Welcome back to your workspace</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form className="flex flex-col gap-4" onSubmit={onSubmit}>
+            <FormField label="Email" required error={emailError}>
+              <Input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                autoComplete="email"
+              />
+            </FormField>
+            <FormField label="Password" required error={passwordError}>
+              <PasswordInput
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete="current-password"
+              />
+            </FormField>
+            <Button type="submit" disabled={!canSubmit}>
+              {submitting ? 'Signing in…' : 'Sign in'}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
 ```
@@ -951,6 +968,9 @@ File: cookbook/settings.tsx
  *
  * Tabs containing a profile form, a security form, and a notifications form.
  * Each section has its own save handler that fires a toast.
+ *
+ * Assumes <ThemeProvider>, <ToastProvider />, and <ConfirmProvider> are
+ * mounted at your app root. See cookbook/README.md for the setup snippet.
  */
 
 import { useState } from 'react';
@@ -965,7 +985,6 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-  ToastProvider,
   toast,
 } from '@bloomneo/uikit';
 
@@ -1035,28 +1054,25 @@ function NotificationsForm() {
 
 export default function SettingsRecipe() {
   return (
-    <>
-      <ToastProvider />
-      <div className="flex flex-col gap-6 p-6">
-        <PageHeader title="Settings" description="Manage your account preferences" />
-        <Tabs defaultValue="profile">
-          <TabsList>
-            <TabsTrigger value="profile">Profile</TabsTrigger>
-            <TabsTrigger value="security">Security</TabsTrigger>
-            <TabsTrigger value="notifications">Notifications</TabsTrigger>
-          </TabsList>
-          <TabsContent value="profile" className="pt-4">
-            <ProfileForm />
-          </TabsContent>
-          <TabsContent value="security" className="pt-4">
-            <SecurityForm />
-          </TabsContent>
-          <TabsContent value="notifications" className="pt-4">
-            <NotificationsForm />
-          </TabsContent>
-        </Tabs>
-      </div>
-    </>
+    <div className="flex flex-col gap-6 p-6">
+      <PageHeader title="Settings" description="Manage your account preferences" />
+      <Tabs defaultValue="profile">
+        <TabsList>
+          <TabsTrigger value="profile">Profile</TabsTrigger>
+          <TabsTrigger value="security">Security</TabsTrigger>
+          <TabsTrigger value="notifications">Notifications</TabsTrigger>
+        </TabsList>
+        <TabsContent value="profile" className="pt-4">
+          <ProfileForm />
+        </TabsContent>
+        <TabsContent value="security" className="pt-4">
+          <SecurityForm />
+        </TabsContent>
+        <TabsContent value="notifications" className="pt-4">
+          <NotificationsForm />
+        </TabsContent>
+      </Tabs>
+    </div>
   );
 }
 ```
@@ -1070,148 +1086,6 @@ export default function SettingsRecipe() {
 - Use `useConfirm()` for delete flows — never manage open/close state by hand.
 - Use the `format*` helpers for currency / dates / bytes — never inline `${val}`.
 - Use `useBreakpoint("md")` to react to viewport changes — do not write resize listeners.
-
-## Controlled prop cheat sheet
-
-Every stateful component's exact control API — do NOT guess or mix these up:
-
-| Component | Value prop | Change handler | Handler signature |
-|---|---|---|---|
-| Input | `value` | `onChange` | `(e: ChangeEvent<HTMLInputElement>) => void` |
-| Textarea | `value` | `onChange` | `(e: ChangeEvent<HTMLTextAreaElement>) => void` |
-| Combobox | `value` | `onChange` | `(value: string \| undefined) => void` |
-| Select | `value` | `onValueChange` | `(value: string) => void` |
-| RadioGroup | `value` | `onValueChange` | `(value: string) => void` |
-| Checkbox | `checked` | `onCheckedChange` | `(checked: boolean \| 'indeterminate') => void` |
-| Switch | `checked` | `onCheckedChange` | `(checked: boolean) => void` |
-| Toggle | `pressed` | `onPressedChange` | `(pressed: boolean) => void` |
-| Slider | `value` | `onValueChange` | `(value: number[]) => void` |
-| Tabs | `value` | `onValueChange` | `(value: string) => void` |
-| Accordion | `value` | `onValueChange` | `(value: string \| string[]) => void` |
-| Dialog | `open` | `onOpenChange` | `(open: boolean) => void` |
-| Sheet | `open` | `onOpenChange` | `(open: boolean) => void` |
-| Popover | `open` | `onOpenChange` | `(open: boolean) => void` |
-| HoverCard | `open` | `onOpenChange` | `(open: boolean) => void` |
-| Collapsible | `open` | `onOpenChange` | `(open: boolean) => void` |
-| DropdownMenu | `open` | `onOpenChange` | `(open: boolean) => void` |
-| Tooltip | `open` | `onOpenChange` | `(open: boolean) => void` |
-
-Key pattern: Radix components use `onValueChange` / `onCheckedChange` / `onOpenChange`.
-Combobox is the exception — it uses `onChange` (like native HTML) because it's a custom wrapper, not a Radix primitive.
-Input/Textarea use standard React `onChange` with event objects.
-
-## Layouts
-
-Six production-ready layouts. Pick based on what you're building:
-
-| Building | Use | Pattern |
-|---|---|---|
-| Admin dashboard / SaaS | `AdminLayout` | Compound: `.Header`, `.Sidebar`, `.Content` |
-| Marketing / public site | `PageLayout` | Compound: `.Header`, `.Content`, `.Footer` |
-| Login / signup | `AuthLayout` | Single: direct children |
-| Mobile / Capacitor | `MobileLayout` | Compound: `.Header`, `.Content`, `.TabBar` |
-| Error / minimal page | `BlankLayout` | Single: direct children |
-| Browser extension popup | `PopupLayout` | Single: direct children |
-
-### Shared layout props
-
-All layouts accept: `scheme` (structure variant), `tone` (`clean | subtle | brand | contrast`), `size` (`sm | md | lg | xl | full`).
-
-| Size | Layout max-width | Sidebar width |
-|---|---|---|
-| `sm` | 672px | 192px |
-| `md` | 896px | 224px |
-| `lg` | 1152px | 256px |
-| `xl` | 1280px | 288px |
-| `full` | 100% | 320px |
-
-### AdminLayout schemes
-
-`sidebar` (default collapsible sidebar) | `compact` (narrow icon sidebar).
-
-```tsx
-import { AdminLayout, DataTable, Button } from '@bloomneo/uikit';
-
-<AdminLayout scheme="sidebar" tone="subtle" size="lg">
-  <AdminLayout.Header title="Users" actions={<Button>Export</Button>} />
-  <AdminLayout.Sidebar navigation={nav} currentPath="/admin/users" onNavigate={go} logo={<Logo />} />
-  <AdminLayout.Content>
-    <DataTable data={users} columns={cols} />
-  </AdminLayout.Content>
-</AdminLayout>
-```
-
-### AuthLayout schemes
-
-`simple` | `card` | `split` | `hero`. Props: `title`, `subtitle`, `logo`, `imageUrl`.
-
-### NavigationItem interface
-
-Used by AdminLayout.Sidebar, PageLayout.Header, MobileLayout.TabBar, Header, Footer, Container, TabBar:
-
-```ts
-interface NavigationItem {
-  key: string;
-  label: string;
-  href?: string;
-  onClick?: () => void;
-  icon?: ComponentType;
-  badge?: string;
-  isActive?: boolean;
-  items?: NavigationItem[];  // max 2 levels
-}
-```
-
-### Section components
-
-Standalone building blocks for custom layouts (not tied to a Layout):
-
-| Component | Key props |
-|---|---|
-| `Header` | `tone`, `size`, `position` (`sticky | fixed | relative`), `navigation`, `logo`, `actions` |
-| `Footer` | `tone`, `size`, `position`, `navigation`, `copyright` |
-| `Container` | `tone`, `size`, `sidebar` (`left | right | none`), `navigation`, `onNavigate` |
-| `SafeArea` | `edges` (`top | bottom | left | right`[]), `tone`, `useMargin` |
-| `TabBar` | `tabs`, `activeTab`, `onTabClick`, `tone`, `size`, `variant` (`default | floating | minimal`) |
-
-## CLI reference
-
-| Command | Purpose |
-|---|---|
-| `uikit create <name>` | Single-page template |
-| `uikit create <name> --spa` | SPA with React Router |
-| `uikit create <name> --multi` | Multi-layout app |
-| `uikit create <name> --fbca` | Feature-based architecture (enterprise) |
-| `uikit serve` | Dev server with theme bundling |
-| `uikit build` | Production build |
-| `uikit preview` | Preview production build locally |
-| `uikit generate theme <name>` | Create custom theme |
-| `uikit generate feature <name>` | New FBCA feature folder |
-| `uikit generate page <name>` | New page component |
-| `uikit bundle` | Compile themes to CSS |
-| `uikit bundle --watch` | Watch mode for theme dev |
-| `uikit deploy --github` | Deploy to GitHub Pages |
-| `uikit prerender` | Pre-render SPA routes for SEO |
-| `uikit optimize` | Compress images to WebP |
-
-### FBCA auto-routing
-
-File structure maps to URLs:
-
-    /features/main/pages/index.tsx      → /
-    /features/auth/pages/index.tsx      → /auth
-    /features/blog/pages/[id].tsx       → /blog/:id
-    /features/docs/pages/[...slug].tsx  → /docs/*
-
-### Troubleshooting
-
-| Problem | Fix |
-|---|---|
-| `uikit` command not found | `npm install -g @bloomneo/uikit` |
-| Port already in use | `npx kill-port 3000` or `uikit serve --port 3001` |
-| Build fails with module errors | `rm -rf node_modules package-lock.json && npm install` |
-| Theme changes not applying | Run `uikit bundle`, clear browser cache, restart `uikit serve` |
-| GitHub Pages deploy fails | Ensure Pages is enabled in repo settings, check branch permissions |
 
 ## Full export list
 
@@ -1268,12 +1142,14 @@ Every named export available from `@bloomneo/uikit`:
 - CommandShortcut
 - ConfirmDialog
 - ConfirmDialogProps
+- ConfirmError
 - ConfirmOptions
 - ConfirmProvider
 - Container
 - DataTable
 - DataTableCellValue
 - DataTableColumn
+- DataTableError
 - DataTableFilterValue
 - DataTableProps
 - DateInput
@@ -1310,6 +1186,7 @@ Every named export available from `@bloomneo/uikit`:
 - FormController
 - FormDescription
 - FormField
+- FormFieldError
 - FormFieldProps
 - FormItem
 - FormLabel
@@ -1361,6 +1238,7 @@ Every named export available from `@bloomneo/uikit`:
 - PasswordInputProps
 - PermissionCheck
 - PermissionContextValue
+- PermissionError
 - PermissionGate
 - PermissionGateProps
 - PermissionProvider
@@ -1409,11 +1287,13 @@ Every named export available from `@bloomneo/uikit`:
 - TabsTrigger
 - Textarea
 - Theme
+- ThemeError
 - ThemeProvider
 - Time
 - TimeAgoOptions
 - TimeProps
 - ToastAction
+- ToastError
 - ToastOptions
 - ToastPosition
 - ToastProvider

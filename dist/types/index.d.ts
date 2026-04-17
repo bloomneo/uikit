@@ -60,7 +60,7 @@ export { formatCurrency, formatNumber, formatDate, timeAgo, formatBytes, Time, }
 export type { FormatCurrencyOptions, FormatNumberOptions, FormatDateOptions, FormatBytesOptions, TimeAgoOptions, TimeProps, Nullable, DateInput, } from './lib/format';
 export { foucScript, foucScriptTag } from './lib/fouc';
 export type { FoucScriptOptions } from './lib/fouc';
-export { UIKitError, requireProp, requireArrayProp, warnInDev } from './lib/errors';
+export { UIKitError, DataTableError, FormFieldError, ThemeError, ConfirmError, ToastError, PermissionError, requireProp, requireArrayProp, warnInDev, } from './lib/errors';
 export { PageLayout } from './components/layouts/page';
 export { AdminLayout } from './components/layouts/admin';
 export { AuthLayout } from './components/layouts/auth';

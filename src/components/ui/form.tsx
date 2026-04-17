@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * Unified Form System — validated inputs, react-hook-form integration, and form primitives.
  * @module @bloomneo/uikit

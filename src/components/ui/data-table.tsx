@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * <DataTable> — professional data grid with sort, filter, search, pagination, and row actions.
  * @module @bloomneo/uikit

@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * <FormField> — the canonical label/input/error/helper wrapper.
  * @module @bloomneo/uikit

@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * <Separator> — visual divider line (horizontal or vertical).
  * @module @bloomneo/uikit

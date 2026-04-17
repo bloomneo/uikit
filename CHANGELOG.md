@@ -2,6 +2,95 @@
 
 All notable changes to UIKit will be documented in this file.
 
+## [1.6.0] - 2026-04-17
+
+Governance + agent-friendliness audit. Closes the gap between uikit and
+`@bloomneo/appkit@4.0.0`'s drift-gate discipline. Pure additive — no
+breaking changes, no migration needed.
+
+### Added — drift gates
+
+- **`scripts/check-doc-drift.ts`** — scans docs, examples, cookbook,
+  skills, scaffolding templates, and `src/` for stale scope references
+  (`@voilajsx/uikit`), hallucinated callback names (`<Combobox onValueChange>`,
+  `<Select onChange>`), renamed legacy names (`FormController`), and wrong
+  `<DataTable data={undefined}>` usage. Handles `❌`/`✅` teaching pairs and
+  diff-block (`-`/`+`) migration lines without false-positives.
+- **`scripts/check-readme-anchors.ts`** — verifies every `UIKitError`
+  docs URL (implicit or explicit) resolves to a real heading in
+  `llms.txt`. Catches errors pointing at dead anchors.
+- **`tests/public-surface.test.ts`** — 74 assertions over every expected
+  export in `src/index.ts` (components, hooks, utilities, error types,
+  provider pairings). Catches removed exports and broken re-exports in
+  one file.
+- **`.github/workflows/ci.yml`** — runs `check:docs` + `check:anchors` +
+  `test:unit` + `typecheck` + `build` on Node 18/20/22 for every push
+  and pull request.
+- **`npm test`** now runs the drift-check + anchor-check + vitest in
+  order. `npm run test:unit` is vitest-only. `npm run test:watch` is the
+  old interactive mode.
+
+### Added — error taxonomy
+
+- `UIKitError` re-exports every typed subclass so a consumer can catch
+  `instanceof UIKitError` and match every uikit error in one clause:
+  `DataTableError`, `FormFieldError`, `ThemeError`, `ConfirmError`,
+  `ToastError`, `PermissionError`.
+
+### Added — Next.js App Router compatibility
+
+- **`'use client';` directive** added to every file in
+  `src/components/ui/` (44 components). uikit components all use React
+  hooks, refs, and event handlers; the directive marks them correctly as
+  client boundaries so Next.js 13+ App Router consumers no longer need
+  to write their own wrappers.
+
+### Added — docs
+
+- **`docs/NAMING.md`** — codifies the React-library naming conventions
+  (PascalCase components, `use`-prefixed hooks, `onValueChange` vs
+  `onChange` rules, variant/size props, ref-forwarding pattern, error
+  handling, and a component-picker decision tree).
+- **`examples/use-api.tsx`** — the missing example for `useApi<T>()`.
+  Shows GET-on-mount + POST with error handling + loading skeleton +
+  toast feedback.
+
+### Changed
+
+- **`package.json` description** no longer claims "Cross-platform (web,
+  desktop, mobile, extensions) with OKLCH color science." That was
+  aspirational; reality is web-first React DOM with detection helpers.
+  New: *"React component library AI coding agents pick first... Web-first
+  (React DOM); ships platform-detection utilities for Tauri/React
+  Native/extensions but not yet full adapters."* `react-native`, `tauri`,
+  `expo`, `chrome-extension`, `popup-layout`, `oklch`, and
+  `cross-platform` keywords removed to match.
+- **`AGENTS.md` provider order** now matches the canonical cookbook and
+  `llms.txt` ordering: `<ThemeProvider> > <ToastProvider /> (sibling) +
+  <ConfirmProvider>{children}</ConfirmProvider>`. Previous AGENTS.md
+  example had the Confirm/Toast order swapped.
+- **`package.json` `files:`** now includes `AGENTS.md` and `skills/` so
+  both ship in the npm tarball. Consumers previously installed
+  `@bloomneo/uikit` and never got the AGENTS.md that the README tells
+  them to read first.
+
+### Known — queued for a future major
+
+- Combobox uses `onChange` while Select uses `onValueChange`. The split
+  is documented in AGENTS.md + SKILL.md and caught by drift-check, but
+  unifying them is breaking. Queued for 2.0.
+- Real per-component behavior tests under `src/**/*.test.tsx` — 1.6.0
+  adds the shape-level gate (`tests/public-surface.test.ts`) but not
+  component-behavior tests. Start with DataTable, Form primitives, and
+  ThemeProvider as the highest-value three.
+
+### Removed
+
+- Stale `pages/` directory (487MB bloomneo.github.io docs-site nested
+  subproject). Was git-ignored, not shipped to npm, no references from
+  build or library code. Cleanup only — no observable change for
+  consumers.
+
 ## [1.5.1] - 2026-04-11
 
 A focused follow-up to 1.5.0. Fixes the one publicly-documented type bug from

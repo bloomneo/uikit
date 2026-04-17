@@ -268,8 +268,21 @@ export type {
 export { foucScript, foucScriptTag } from './lib/fouc';
 export type { FoucScriptOptions } from './lib/fouc';
 
-// Educational error helpers (used by components, also exposed for custom use)
-export { UIKitError, requireProp, requireArrayProp, warnInDev } from './lib/errors';
+// Educational error helpers (used by components, also exposed for custom use).
+// Every typed subclass extends UIKitError, so `catch (err) { if (err instanceof UIKitError) ... }`
+// matches every uikit error in one clause.
+export {
+  UIKitError,
+  DataTableError,
+  FormFieldError,
+  ThemeError,
+  ConfirmError,
+  ToastError,
+  PermissionError,
+  requireProp,
+  requireArrayProp,
+  warnInDev,
+} from './lib/errors';
 
 // Layout System
 export { PageLayout } from './components/layouts/page';

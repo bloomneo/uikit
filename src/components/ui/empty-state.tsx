@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * <EmptyState> — the canonical "no data yet" affordance.
  * @module @bloomneo/uikit

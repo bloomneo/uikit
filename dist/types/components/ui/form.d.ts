@@ -1,7 +1,15 @@
 /**
- * Unified Form System - Simple Components + React Hook Form Integration
+ * Unified Form System — validated inputs, react-hook-form integration, and form primitives.
  * @module @bloomneo/uikit
  * @file src/components/ui/form.tsx
+ *
+ * @llm-rule WHEN: Building forms with validation (ValidatedInput, ValidatedTextarea, ValidatedSelect, ValidatedCheckbox)
+ * @llm-rule AVOID: Using <FormController> for new code — it's a legacy alias. Use <FormField> + validated components instead
+ * @llm-rule NOTE: ValidatedInput/ValidatedTextarea/ValidatedSelect include built-in label, error, helper, and required indicator
+ * @llm-rule NOTE: PasswordInput has built-in show/hide toggle via `showPasswordToggle` prop
+ * @llm-rule NOTE: For react-hook-form, use Form + FormField + FormItem + FormControl + FormMessage
+ * @llm-rule NOTE: Custom component — ValidatedInput/Textarea/Select are standalone. Form/FormField/FormItem integrate react-hook-form
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 import * as React from 'react';
 import * as LabelPrimitive from "@radix-ui/react-label";

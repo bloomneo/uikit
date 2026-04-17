@@ -1,26 +1,30 @@
 import { jsxs as o, jsx as r } from "react/jsx-runtime";
-import * as l from "react";
-import { UIKitError as V } from "./errors.js";
-import { Dialog as h, DialogContent as p, DialogHeader as C, DialogTitle as g, DialogDescription as y, DialogFooter as x } from "./dialog.js";
+import * as n from "react";
+import { UIKitError as F, warnInDev as w } from "./errors.js";
+import { Dialog as p, DialogContent as C, DialogHeader as g, DialogTitle as y, DialogDescription as x, DialogFooter as b } from "./dialog.js";
 import { Button as m } from "./button.js";
-import { Input as b } from "./input.js";
-import { Label as D } from "./label.js";
-const k = l.createContext(null);
+import { Input as D } from "./input.js";
+import { Label as P } from "./label.js";
+const k = n.createContext(null);
+let h = !1;
 function R({ children: t }) {
-  const [e, c] = l.useState(null), n = l.useRef(null), [s, u] = l.useState(""), v = l.useCallback((i) => (u(""), c(i), new Promise((d) => {
-    n.current = d;
-  })), []), a = (i) => {
-    n.current?.(i), n.current = null, c(null), u("");
+  n.useEffect(() => (h && w("ConfirmProvider", "mounted more than once. Only mount a single <ConfirmProvider> at the app root.", "confirm-dialog"), h = !0, () => {
+    h = !1;
+  }), []);
+  const [e, c] = n.useState(null), i = n.useRef(null), [s, u] = n.useState(""), v = n.useCallback((l) => (u(""), c(l), new Promise((d) => {
+    i.current = d;
+  })), []), a = (l) => {
+    i.current?.(l), i.current = null, c(null), u("");
   }, f = e?.verifyText ? s !== e.verifyText : !1;
   return /* @__PURE__ */ o(k.Provider, { value: { open: v }, children: [
     t,
-    /* @__PURE__ */ r(h, { open: e !== null, onOpenChange: (i) => !i && a(!1), children: /* @__PURE__ */ o(p, { children: [
-      /* @__PURE__ */ o(C, { children: [
-        /* @__PURE__ */ r(g, { children: e?.title }),
-        e?.description && /* @__PURE__ */ r(y, { children: e.description })
+    /* @__PURE__ */ r(p, { open: e !== null, onOpenChange: (l) => !l && a(!1), children: /* @__PURE__ */ o(C, { children: [
+      /* @__PURE__ */ o(g, { children: [
+        /* @__PURE__ */ r(y, { children: e?.title }),
+        e?.description && /* @__PURE__ */ r(x, { children: e.description })
       ] }),
       e?.verifyText && /* @__PURE__ */ o("div", { className: "flex flex-col gap-2 py-2", children: [
-        /* @__PURE__ */ o(D, { htmlFor: "confirm-verify", children: [
+        /* @__PURE__ */ o(P, { htmlFor: "confirm-verify", children: [
           "Type",
           " ",
           /* @__PURE__ */ r("span", { className: "font-mono font-semibold text-foreground", children: e.verifyText }),
@@ -28,17 +32,17 @@ function R({ children: t }) {
           "to confirm"
         ] }),
         /* @__PURE__ */ r(
-          b,
+          D,
           {
             id: "confirm-verify",
             value: s,
-            onChange: (i) => u(i.target.value),
+            onChange: (l) => u(l.target.value),
             autoComplete: "off",
             autoFocus: !0
           }
         )
       ] }),
-      /* @__PURE__ */ o(x, { children: [
+      /* @__PURE__ */ o(b, { children: [
         /* @__PURE__ */ r(m, { variant: "outline", onClick: () => a(!1), children: e?.cancelLabel ?? "Cancel" }),
         /* @__PURE__ */ r(
           m,
@@ -54,43 +58,43 @@ function R({ children: t }) {
   ] });
 }
 function S() {
-  const t = l.useContext(k);
+  const t = n.useContext(k);
   if (!t)
-    throw new V(
+    throw new F(
       "useConfirm",
       "called outside <ConfirmProvider>. Wrap your app root in <ConfirmProvider>.",
       "confirm-dialog"
     );
-  const e = l.useCallback(
-    (n) => t.open({ ...n, tone: n.tone ?? "default" }),
+  const e = n.useCallback(
+    (i) => t.open({ ...i, tone: i.tone ?? "default" }),
     [t]
-  ), c = l.useCallback(
-    (n) => t.open({ ...n, tone: "destructive" }),
+  ), c = n.useCallback(
+    (i) => t.open({ ...i, tone: "destructive" }),
     [t]
   );
   return Object.assign(e, { destructive: c });
 }
-function E({
+function B({
   open: t,
   onOpenChange: e,
   onConfirm: c,
-  title: n,
+  title: i,
   description: s,
   confirmLabel: u,
   cancelLabel: v,
   tone: a = "default",
   verifyText: f
 }) {
-  const [i, d] = l.useState("");
-  return l.useEffect(() => {
+  const [l, d] = n.useState("");
+  return n.useEffect(() => {
     t || d("");
-  }, [t]), /* @__PURE__ */ r(h, { open: t, onOpenChange: e, children: /* @__PURE__ */ o(p, { children: [
-    /* @__PURE__ */ o(C, { children: [
-      /* @__PURE__ */ r(g, { children: n }),
-      s && /* @__PURE__ */ r(y, { children: s })
+  }, [t]), /* @__PURE__ */ r(p, { open: t, onOpenChange: e, children: /* @__PURE__ */ o(C, { children: [
+    /* @__PURE__ */ o(g, { children: [
+      /* @__PURE__ */ r(y, { children: i }),
+      s && /* @__PURE__ */ r(x, { children: s })
     ] }),
     f && /* @__PURE__ */ o("div", { className: "flex flex-col gap-2 py-2", children: [
-      /* @__PURE__ */ o(D, { htmlFor: "confirm-verify-controlled", children: [
+      /* @__PURE__ */ o(P, { htmlFor: "confirm-verify-controlled", children: [
         "Type",
         " ",
         /* @__PURE__ */ r("span", { className: "font-mono font-semibold text-foreground", children: f }),
@@ -98,23 +102,23 @@ function E({
         "to confirm"
       ] }),
       /* @__PURE__ */ r(
-        b,
+        D,
         {
           id: "confirm-verify-controlled",
-          value: i,
-          onChange: (P) => d(P.target.value),
+          value: l,
+          onChange: (V) => d(V.target.value),
           autoComplete: "off",
           autoFocus: !0
         }
       )
     ] }),
-    /* @__PURE__ */ o(x, { children: [
+    /* @__PURE__ */ o(b, { children: [
       /* @__PURE__ */ r(m, { variant: "outline", onClick: () => e(!1), children: v ?? "Cancel" }),
       /* @__PURE__ */ r(
         m,
         {
           variant: a === "destructive" ? "destructive" : "default",
-          disabled: f ? i !== f : !1,
+          disabled: f ? l !== f : !1,
           onClick: () => {
             c(), e(!1);
           },
@@ -125,7 +129,7 @@ function E({
   ] }) });
 }
 export {
-  E as ConfirmDialog,
+  B as ConfirmDialog,
   R as ConfirmProvider,
   S as useConfirm
 };

@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * <Calendar> — date picker built on react-day-picker with UIKit styling.
  * @module @bloomneo/uikit

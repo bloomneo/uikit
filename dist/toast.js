@@ -1,63 +1,69 @@
-import { jsx as m } from "react/jsx-runtime";
-import { T as i, t as s } from "./index-B6sSWi7l.js";
-import { useTheme as c } from "./theme-provider.js";
-function T({
-  position: r = "bottom-right",
-  theme: o,
-  ...n
+import { jsx as i } from "react/jsx-runtime";
+import * as c from "react";
+import { T as f, t } from "./index-B6sSWi7l.js";
+import { useTheme as u } from "./theme-provider.js";
+import { warnInDev as p } from "./errors.js";
+let m = !1;
+function w({
+  position: o = "bottom-right",
+  theme: r,
+  ...a
 }) {
-  let a = "system";
+  c.useEffect(() => (m && p("ToastProvider", "mounted more than once. Only mount a single <ToastProvider> at the app root.", "toast"), m = !0, () => {
+    m = !1;
+  }), []);
+  let n = "system";
   try {
-    a = c().mode;
+    n = u().mode;
   } catch {
   }
-  return /* @__PURE__ */ m(
-    i,
+  return /* @__PURE__ */ i(
+    f,
     {
-      position: r,
-      theme: o ?? a,
+      position: o,
+      theme: r ?? n,
       className: "toaster group",
       style: {
         "--normal-bg": "var(--popover)",
         "--normal-text": "var(--popover-foreground)",
         "--normal-border": "var(--border)"
       },
-      ...n
+      ...a
     }
   );
 }
-function e(r, o, n = {}) {
-  return (r === "success" ? s.success : r === "error" ? s.error : r === "info" ? s.info : r === "warning" ? s.warning : s)(o, n);
+function s(o, r, a = {}) {
+  return (o === "success" ? t.success : o === "error" ? t.error : o === "info" ? t.info : o === "warning" ? t.warning : t)(r, a);
 }
-function u(r, o) {
-  s.promise(r, o);
+function l(o, r) {
+  t.promise(o, r);
 }
-const t = ((r, o) => {
-  e("message", r, o);
+const e = ((o, r) => {
+  s("message", o, r);
 });
-t.success = (r, o) => {
-  e("success", r, o);
+e.success = (o, r) => {
+  s("success", o, r);
 };
-t.error = (r, o) => {
-  e("error", r, o);
+e.error = (o, r) => {
+  s("error", o, r);
 };
-t.info = (r, o) => {
-  e("info", r, o);
+e.info = (o, r) => {
+  s("info", o, r);
 };
-t.warning = (r, o) => {
-  e("warning", r, o);
+e.warning = (o, r) => {
+  s("warning", o, r);
 };
-t.promise = u;
-t.dismiss = (r) => {
-  s.dismiss(r);
+e.promise = l;
+e.dismiss = (o) => {
+  t.dismiss(o);
 };
-const f = t;
-function v() {
-  return f;
+const d = e;
+function b() {
+  return d;
 }
 export {
-  T as ToastProvider,
-  f as toast,
-  v as useToast
+  w as ToastProvider,
+  d as toast,
+  b as useToast
 };
 //# sourceMappingURL=toast.js.map

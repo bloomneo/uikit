@@ -1,7 +1,15 @@
 /**
- * Enhanced DataTable - Professional grade with virtual scrolling, advanced filtering
+ * <DataTable> — professional data grid with sort, filter, search, pagination, and row actions.
  * @module @bloomneo/uikit
  * @file src/components/ui/data-table.tsx
+ *
+ * @llm-rule WHEN: Displaying tabular data with sorting, filtering, pagination, or row actions
+ * @llm-rule AVOID: Using for simple static tables — use <Table> instead. Never pass `undefined` to `data` — use `[]`
+ * @llm-rule NOTE: Every column needs a unique `id`. Pass `data` as `[]` while loading, not `undefined`
+ * @llm-rule NOTE: Row actions via `rowActions` prop: `{ label, icon?, onClick, variant? }[]`
+ * @llm-rule NOTE: Use `useDataTable()` hook for controlled state, or pass props directly for uncontrolled
+ * @llm-rule NOTE: Custom component — built from scratch using UIKit primitives (Table, Button, Input, Select, Checkbox)
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 import * as React from 'react';
 /**

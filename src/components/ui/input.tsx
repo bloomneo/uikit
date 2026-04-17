@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * <Input> — single-line text input with UIKit styling.
  * @module @bloomneo/uikit

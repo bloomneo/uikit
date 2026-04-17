@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * <RadioGroup> — mutually exclusive option selection built on Radix UI.
  * @module @bloomneo/uikit

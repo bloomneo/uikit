@@ -1,13 +1,18 @@
 /**
- * <PermissionGate> + <PermissionProvider> + usePermission()
+ * <PermissionGate> + <PermissionProvider> + usePermission() — role-based conditional rendering.
+ * @module @bloomneo/uikit
+ * @file src/components/ui/permission-gate.tsx
  *
- * Conditional rendering primitive for role-based / capability-based access
- * control. Replaces the `{hasRole(user, ['admin']) && <Button />}` ternary
- * pattern that gets repeated dozens of times in any multi-role app.
+ * @llm-rule WHEN: Showing/hiding UI based on user roles or permissions
+ * @llm-rule AVOID: Inline `if (role === 'admin')` checks — use <PermissionGate when="admin"> instead
+ * @llm-rule NOTE: Mount <PermissionProvider check={(perm) => user.roles.includes(perm)}> at app root
+ * @llm-rule NOTE: `when` accepts a single role string, an array (OR logic), or `{ allOf: [...] }` (AND logic)
+ * @llm-rule NOTE: `fallback` prop renders alternative content for unauthorized users
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  *
- * UIKit is intentionally unopinionated about WHERE roles come from. You bring
- * your own auth provider — just wrap the app in <PermissionProvider> with a
- * `check` function and PermissionGate calls it.
+ * Replaces the `{hasRole(user, ['admin']) && <Button />}` ternary
+ * pattern. UIKit is unopinionated about WHERE roles come from — you bring
+ * your own auth provider via the `check` function.
  *
  * @example
  *   // Once at the app root:

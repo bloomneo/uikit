@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * <Badge> — small status label or tag.
  * @module @bloomneo/uikit

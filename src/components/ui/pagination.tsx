@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * <Pagination> — page navigation controls for paged content.
  * @module @bloomneo/uikit

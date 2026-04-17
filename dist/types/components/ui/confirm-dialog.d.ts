@@ -1,31 +1,22 @@
 /**
  * <ConfirmDialog> + useConfirm() — promise-based confirmation prompts.
+ * @module @bloomneo/uikit
+ * @file src/components/ui/confirm-dialog.tsx
  *
- * Replaces the open/close-state choreography that every page reinvents:
+ * @llm-rule WHEN: Delete/destructive confirmations, any action that needs user sign-off
+ * @llm-rule AVOID: Using <Dialog> with manual state for confirmations — use `useConfirm()` instead
+ * @llm-rule NOTE: Mount <ConfirmProvider> once at app root. Call `useConfirm()` anywhere inside it
+ * @llm-rule NOTE: `confirm.destructive({ verifyText })` forces user to type exact text before confirming
+ * @llm-rule NOTE: Returns `Promise<boolean>` — `true` = confirmed, `false` = cancelled
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  *
+ * @example
  *   const confirm = useConfirm();
+ *   const ok = await confirm({ title: 'Delete?', tone: 'destructive' });
+ *   if (!ok) return;
  *
- *   async function onDelete() {
- *     const ok = await confirm({
- *       title: 'Delete this design?',
- *       description: 'This cannot be undone.',
- *       confirmLabel: 'Delete',
- *       tone: 'destructive',
- *     });
- *     if (!ok) return;
- *     await api.deleteDesign(id);
- *   }
- *
- * Or for the high-stakes case:
- *
- *   await confirm.destructive({
- *     title: 'Delete user',
- *     verifyText: user.name,   // user must type the name to confirm
- *     description: 'This will permanently delete the account.',
- *   });
- *
- * Mount <ConfirmProvider /> once at the root of your app, then call
- * useConfirm() from anywhere inside it.
+ * @example High-stakes:
+ *   await confirm.destructive({ title: 'Delete user', verifyText: user.name });
  */
 import * as React from 'react';
 export interface ConfirmOptions {

@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * <Breadcrumb> — navigation path showing the user's location in the app.
  * @module @bloomneo/uikit

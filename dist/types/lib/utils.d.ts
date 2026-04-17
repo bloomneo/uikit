@@ -1,7 +1,12 @@
 /**
- * Essential utility functions for @bloomneo/uikit
+ * Essential utility functions for @bloomneo/uikit.
  * @module @bloomneo/uikit
  * @file src/lib/utils.ts
+ *
+ * @llm-rule WHEN: Merging Tailwind class names — always use `cn()` to avoid class conflicts
+ * @llm-rule AVOID: Raw `className={...}` concatenation — `cn()` handles Tailwind merge + conditional classes
+ * @llm-rule NOTE: `cn()` = `twMerge(clsx(...inputs))`. Accepts strings, arrays, objects, and falsy values
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 import { type ClassValue } from 'clsx';
 /**

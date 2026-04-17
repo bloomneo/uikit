@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * <Toaster> — thin wrapper around Sonner that inherits the active UIKit theme.
  * @module @bloomneo/uikit

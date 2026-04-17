@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * <DetailPage> — pre-built detail/edit page layout with form sections, metadata, and actions.
  * @module @bloomneo/uikit

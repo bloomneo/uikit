@@ -1,8 +1,14 @@
 /**
- * Ultra-Simple Motion Component - 10/10 LLM Rating
- * Pure CSS animations with zero JavaScript complexity
+ * <Motion> — pure CSS entrance animations with zero JS complexity.
  * @module @bloomneo/uikit
  * @file src/components/ui/motion.tsx
+ *
+ * @llm-rule WHEN: Entrance animations (page load, section reveal, hero animation)
+ * @llm-rule AVOID: Using for complex orchestrated animations — use framer-motion directly
+ * @llm-rule NOTE: Presets: 'fadeIn' | 'slideInUp' | 'scaleIn' | 'slideInDown' | 'pulse'
+ * @llm-rule NOTE: Duration: 'fast' (200ms) | 'normal' (400ms) | 'slow' (700ms). Delay: number (ms)
+ * @llm-rule NOTE: `as` prop changes the rendered element (default: 'div'). Supports ref forwarding
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  */
 import * as React from 'react';
 type HTMLElementTagName = keyof React.JSX.IntrinsicElements;

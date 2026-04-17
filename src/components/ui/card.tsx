@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * <Card> — elevated content container with consistent spacing and borders.
  * @module @bloomneo/uikit

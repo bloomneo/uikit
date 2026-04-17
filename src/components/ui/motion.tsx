@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * <Motion> — pure CSS entrance animations with zero JS complexity.
  * @module @bloomneo/uikit

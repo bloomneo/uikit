@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * <Table> — raw HTML table primitives with UIKit styling.
  * @module @bloomneo/uikit

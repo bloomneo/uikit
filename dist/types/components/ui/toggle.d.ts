@@ -1,3 +1,15 @@
+/**
+ * <Toggle> — a pressable button that toggles between on/off states.
+ * @module @bloomneo/uikit
+ * @file src/components/ui/toggle.tsx
+ *
+ * @llm-rule WHEN: Toolbar-style toggles (bold, italic, view mode), binary icon buttons
+ * @llm-rule AVOID: Using for settings persistence — use <Switch> instead (Switch implies "save")
+ * @llm-rule NOTE: Controlled: `pressed` + `onPressedChange={(pressed: boolean) => ...}`. Uncontrolled: `defaultPressed`
+ * @llm-rule NOTE: Variants: 'default' (no border) | 'outline' (with border). Sizes: 'default' | 'sm' | 'lg'
+ * @llm-rule NOTE: Radix wrapper — props pass through to @radix-ui/react-toggle
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
+ */
 import * as React from "react";
 import * as TogglePrimitive from "@radix-ui/react-toggle";
 import { type VariantProps } from "class-variance-authority";

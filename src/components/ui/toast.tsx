@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * Toast system — transient notifications via `toast.*` and `<ToastProvider>`.
  * @module @bloomneo/uikit

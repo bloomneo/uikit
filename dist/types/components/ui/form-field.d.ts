@@ -1,21 +1,18 @@
 /**
  * <FormField> — the canonical label/input/error/helper wrapper.
+ * @module @bloomneo/uikit
+ * @file src/components/ui/form-field.tsx
  *
- * Handles the boring parts every form needs and gets wrong half the time:
- *
- *   • generates a stable id and wires `htmlFor` / `aria-describedby` / `aria-invalid`
- *   • renders the error message in a `role="alert"` region
- *   • supports a "required" indicator
- *   • clones the child input and merges the wired props automatically
+ * @llm-rule WHEN: Wrapping any form input (Input, Textarea, Combobox, Select) with label + error + a11y
+ * @llm-rule AVOID: Using bare <Label> + <Input> combos — FormField wires htmlFor, aria-describedby, aria-invalid automatically
+ * @llm-rule NOTE: Props: `label` (required string), `error` (string), `helper` (string), `required` (boolean)
+ * @llm-rule NOTE: Clones child input and merges `id`, `aria-invalid`, `aria-describedby` automatically
+ * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  *
  * @example
  *   <FormField label="Email" required error={errors.email} helper="We'll never share it">
  *     <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
  *   </FormField>
- *
- * Designed to compose cleanly with the existing react-hook-form `<Form />`
- * primitives in this package — pass `<Input {...register('email')} />` as the
- * child and FormField will wire ARIA correctly without you doing a thing.
  */
 import * as React from 'react';
 import { Input } from '@/components/ui/input';
