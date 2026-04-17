@@ -19,7 +19,7 @@ const G = E("ChevronsUpDown", [
 ]);
 function J({
   value: t,
-  onChange: o,
+  onValueChange: l,
   options: n,
   placeholder: g = "Select…",
   searchPlaceholder: x = "Search…",
@@ -30,15 +30,15 @@ function J({
   className: b,
   contentWidth: s = "trigger"
 }) {
-  const [p, u] = h.useState(!1), l = h.useMemo(
+  const [p, f] = h.useState(!1), o = h.useMemo(
     () => n.find((e) => e.value === t),
     [n, t]
   ), v = (e) => {
-    o?.(e === t && m ? void 0 : e), u(!1);
+    l?.(e === t && m ? void 0 : e), f(!1);
   }, y = (e) => {
-    e.stopPropagation(), o?.(void 0);
+    e.stopPropagation(), l?.(void 0);
   };
-  return /* @__PURE__ */ a(D, { open: p, onOpenChange: u, children: [
+  return /* @__PURE__ */ a(D, { open: p, onOpenChange: f, children: [
     /* @__PURE__ */ r(L, { asChild: !0, children: /* @__PURE__ */ a(
       w,
       {
@@ -50,13 +50,13 @@ function J({
         disabled: c,
         className: i(
           "w-full justify-between font-normal",
-          !l && "text-muted-foreground",
+          !o && "text-muted-foreground",
           b
         ),
         children: [
-          /* @__PURE__ */ r("span", { className: "truncate", children: l ? l.label : g }),
+          /* @__PURE__ */ r("span", { className: "truncate", children: o ? o.label : g }),
           /* @__PURE__ */ a("span", { className: "ml-2 flex shrink-0 items-center gap-1", children: [
-            m && l && !c && /* @__PURE__ */ r(
+            m && o && !c && /* @__PURE__ */ r(
               "span",
               {
                 role: "button",
@@ -83,7 +83,7 @@ function J({
           /* @__PURE__ */ a(j, { children: [
             /* @__PURE__ */ r(z, { children: C }),
             /* @__PURE__ */ r(I, { children: n.map((e) => {
-              const f = e.value === t;
+              const u = e.value === t;
               return /* @__PURE__ */ r(
                 P,
                 {
@@ -91,14 +91,14 @@ function J({
                   disabled: e.disabled,
                   onSelect: () => v(e.value),
                   className: "flex items-center justify-between gap-2",
-                  children: d ? d(e, f) : /* @__PURE__ */ a(N, { children: [
+                  children: d ? d(e, u) : /* @__PURE__ */ a(N, { children: [
                     /* @__PURE__ */ r("span", { className: "truncate", children: e.label }),
                     /* @__PURE__ */ r(
                       F,
                       {
                         className: i(
                           "size-4 shrink-0",
-                          f ? "opacity-100" : "opacity-0"
+                          u ? "opacity-100" : "opacity-0"
                         )
                       }
                     )

@@ -37,7 +37,7 @@ Every stateful component uses a specific value + handler pair. Using the wrong h
 | Radix form (`Select`) | `value` | `onValueChange` (string) |
 | Radix checkable (`Checkbox`, `Switch`, `RadioGroup`) | `checked` / `value` | `onCheckedChange` / `onValueChange` |
 | Overlays (`Dialog`, `Sheet`, `Popover`) | `open` | `onOpenChange` |
-| Custom (`Combobox`) | `value` | `onChange` ⚠️ not `onValueChange` |
+| Searchable (`Combobox`) | `value` | `onValueChange` (string \| undefined) |
 
 ### Component picking
 
@@ -108,10 +108,10 @@ if (ok) await deleteUser(id);
   ]}
 />
 
-// Combobox — note onChange, not onValueChange
+// Combobox — same onValueChange as Select (unified in 2.0.0)
 <Combobox
   value={country}
-  onChange={setCountry}
+  onValueChange={setCountry}
   options={countries}
 />
 ```
@@ -124,10 +124,15 @@ if (ok) await deleteUser(id);
 // ✅ Select with onValueChange
 <Select value={v} onValueChange={setV} />
 
-// ❌ Combobox with onValueChange (type error)
-<Combobox value={v} onValueChange={setV} />
-// ✅ Combobox with onChange
+// ❌ Combobox with onChange (pre-2.0 API — removed in 2.0.0, no alias)
 <Combobox value={v} onChange={setV} />
+// ✅ Combobox with onValueChange (same shape as Select)
+<Combobox value={v} onValueChange={setV} />
+
+// ❌ Input / Textarea / PasswordInput with onValueChange (React-DOM expects onChange)
+<Input value={email} onValueChange={setEmail} />
+// ✅ Input with onChange (ChangeEvent)
+<Input value={email} onChange={e => setEmail(e.target.value)} />
 
 // ❌ ToastProvider wrapping children (ToastProvider accepts no children)
 <ThemeProvider>

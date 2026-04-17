@@ -29,10 +29,11 @@ const BANNED: Banned[] = [
   // Old scope — renamed to @bloomneo in 1.5.0, no aliases kept
   { pattern: /@voilajsx\/uikit/,               now: '@bloomneo/uikit' },
 
-  // Combobox uses onChange, NOT onValueChange (custom component, not Radix)
-  { pattern: /<Combobox[^>]*\bonValueChange\b/, now: '<Combobox onChange={setValue} ...>' },
+  // Combobox uses onValueChange — unified with Select + every other
+  // value-not-event picker in 2.0.0. Pre-2.0 onChange is gone, no alias.
+  { pattern: /<Combobox[^>]*\bonChange\b/,      now: '<Combobox onValueChange={setValue} ...>' },
 
-  // Select uses onValueChange, NOT onChange (Radix wrapper)
+  // Select uses onValueChange (Radix), never onChange
   { pattern: /<Select[^>]*\bonChange\b/,        now: '<Select onValueChange={setValue} ...>' },
 
   // DataTable data prop — never undefined, always an array

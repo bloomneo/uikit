@@ -2,7 +2,80 @@
 
 All notable changes to UIKit will be documented in this file.
 
-## [1.6.0] - 2026-04-17
+## [2.0.0] - 2026-04-17
+
+One breaking change on top of the 1.6.0 governance audit. Bundled as a
+fresh major because 1.6.0 was never published to npm — `latest` on npm
+remains 1.5.1, so for external consumers this is a direct 1.5.1 → 2.0.0
+jump and the migration table below covers everything.
+
+### Breaking — Combobox callback unified with Select
+
+```
+<Combobox onChange={fn} />   →   <Combobox onValueChange={fn} />
+```
+
+- Pre-2.0: `<Combobox>` used `onChange(string | undefined)` while
+  `<Select>` used `onValueChange(string)`. Two nearly-identical dropdowns
+  with different callback names — the single largest agent-friction
+  point flagged in the governance audit.
+- 2.0.0: `<Combobox onValueChange={fn} />`. Same shape as `Select`,
+  `Slider`, `Tabs`, `Accordion`. No alias kept.
+- Drift-check (`scripts/check-doc-drift.ts`) bans the old name so no
+  future doc or template can reintroduce it.
+
+### Added — everything from 1.6.0 (collapsed into this release)
+
+- Drift gates: `scripts/check-doc-drift.ts`, `scripts/check-readme-anchors.ts`,
+  `tests/public-surface.test.ts`, `.github/workflows/ci.yml`.
+- `npm test` now runs drift-check + anchor-check + vitest in order.
+- `UIKitError` typed subclasses: `DataTableError`, `FormFieldError`,
+  `ThemeError`, `ConfirmError`, `ToastError`, `PermissionError`. One
+  `instanceof UIKitError` catches every uikit error.
+- `'use client';` directive on all 44 files in `src/components/ui/` for
+  Next.js 13+ App Router compatibility.
+- `docs/NAMING.md` — React-library naming conventions, including the
+  new rule: `onValueChange` for value-not-event pickers (Select,
+  Combobox, Slider, Tabs, Accordion); `onChange` for native-HTML input
+  wrappers (Input, Textarea, PasswordInput).
+- `examples/use-api.tsx` — the missing example for `useApi<T>()`.
+- `AGENTS.md` + `skills/` now ship in the npm tarball (previously
+  excluded from the `files:` manifest).
+- Honest `package.json` — removed the cross-platform claim and
+  unsupported keywords (`react-native`, `tauri`, `expo`,
+  `chrome-extension`, `oklch`).
+- `AGENTS.md` provider order matches the canonical cookbook order:
+  `ThemeProvider > ToastProvider (sibling) + ConfirmProvider (wraps)`.
+
+### Migration — 1.5.1 → 2.0.0
+
+Project-wide find-and-replace:
+
+```
+<Combobox onChange={X}    →   <Combobox onValueChange={X}
+```
+
+That's the only source change. Every other 1.6.0 addition is additive —
+your existing `<Select onValueChange>`, `<Input onChange>`, provider
+chain, DataTable usage, etc. all keep working unchanged.
+
+If you relied on `UIKitError` staying a bare class without subclasses,
+your `err instanceof UIKitError` checks still pass (subclasses extend
+the base) — no change needed.
+
+### Known — queued for later
+
+- Per-component behavior tests under `src/**/*.test.tsx` (the shape-level
+  gate is in place via `tests/public-surface.test.ts`; component-level
+  behavior tests are a separate effort). Start with DataTable, Form
+  primitives, and ThemeProvider.
+
+### Removed
+
+- `pages/` directory (487MB bloomneo.github.io docs-site nested
+  subproject). Git-ignored, never shipped, no references from build.
+
+## [1.6.0] - 2026-04-17 (unpublished, folded into 2.0.0)
 
 Governance + agent-friendliness audit. Closes the gap between uikit and
 `@bloomneo/appkit@4.0.0`'s drift-gate discipline. Pure additive — no

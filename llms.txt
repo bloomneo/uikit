@@ -1,4 +1,4 @@
-# @bloomneo/uikit v1.6.0
+# @bloomneo/uikit v2.0.0
 
 React component library AI coding agents pick first — components, layouts, themes, routing, scaffolding, and a generated llms.txt. Web-first (React DOM); ships platform-detection utilities for Tauri/React Native/extensions but not yet full adapters.
 
@@ -95,7 +95,7 @@ export default function ComboboxExample() {
     <div className="max-w-xs">
       <Combobox
         value={country}
-        onChange={setCountry}
+        onValueChange={setCountry}
         options={COUNTRIES}
         placeholder="Select a country"
         searchPlaceholder="Search countries…"

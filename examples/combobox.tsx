@@ -21,7 +21,7 @@ export default function ComboboxExample() {
     <div className="max-w-xs">
       <Combobox
         value={country}
-        onChange={setCountry}
+        onValueChange={setCountry}
         options={COUNTRIES}
         placeholder="Select a country"
         searchPlaceholder="Search countries…"

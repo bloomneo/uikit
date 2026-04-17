@@ -80,18 +80,22 @@ Every form-input component follows one of these shapes:
 
 | Pattern | Applies to | Example |
 |---|---|---|
-| `value` + `onChange` | Custom components | `Input`, `Textarea`, `Combobox` |
-| `value` + `onValueChange` | Radix-backed | `Select`, `Slider`, `Tabs`, `Accordion` |
-| `checked` + `onCheckedChange` | Radix booleans | `Checkbox`, `Switch`, `Toggle` |
-| `open` + `onOpenChange` | Radix overlays | `Dialog`, `Sheet`, `Popover`, `HoverCard` |
+| `value` + `onChange(ChangeEvent)` | Native HTML input wrappers | `Input`, `Textarea`, `PasswordInput` |
+| `value` + `onValueChange(string)` | Single-value pickers (Radix + custom) | `Select`, `Combobox`, `Slider`, `Tabs`, `Accordion` |
+| `checked` + `onCheckedChange(boolean)` | Boolean toggles | `Checkbox`, `Switch`, `Toggle` |
+| `open` + `onOpenChange(boolean)` | Overlays | `Dialog`, `Sheet`, `Popover`, `HoverCard` |
 
-**The `onChange` vs `onValueChange` split is deliberate** — Radix
-components inherit `onValueChange` from the underlying Radix primitive;
-custom components use `onChange` because that's the React-DOM idiom for
-input-like elements. When in doubt:
+**The split is strictly along data shape, not along Radix-vs-custom:**
 
-- Wrapping a Radix primitive? Use whatever Radix uses.
-- Building from scratch or from cmdk? Use `onChange`.
+- If the callback carries a `ChangeEvent` (native DOM event), use `onChange`.
+- If it carries the new value directly (string, number, boolean, etc.),
+  use `on<Thing>Change` — `onValueChange`, `onCheckedChange`, `onOpenChange`.
+- Whether the component wraps Radix or is built from scratch (cmdk,
+  floating-ui, hand-rolled) is irrelevant. Follow the data shape.
+
+This is a 2.0.0 change: pre-2.0 `Combobox` used `onChange(string | undefined)`
+to match `<input>`-like intuition, but the value-not-event shape matched
+Radix's convention more naturally. Unified in 2.0.0 — no aliases.
 
 ---
 
@@ -220,7 +224,7 @@ When an agent needs to pick a component, this tree resolves the choice:
 
 ### Form input?
 - **Wrap in `FormField`** (supplies label, error message, a11y wiring)
-- **Single-value select** → `Select` (onValueChange) or `Combobox` (onChange, with search)
+- **Single-value select** → `Select` (short, static list) or `Combobox` (searchable, 10+ options). Both use `onValueChange(string | undefined)` — unified in 2.0.0.
 - **Multi-line** → `Textarea`
 - **Boolean** → `Checkbox` or `Switch`
 - **Range** → `Slider`

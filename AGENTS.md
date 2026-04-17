@@ -27,7 +27,7 @@
 5. Never manage Dialog/Sheet/Confirm open state with a custom boolean when a provider hook exists.
 6. Never skip `ThemeProvider` — components depend on CSS variables it sets.
 7. Never import from `@voilajsx/uikit` — that is the old, deprecated scope name.
-8. Never mix `onValueChange` and `onChange` assumptions — check the specific component's API.
+8. Never use `onChange` on `<Select>` or `<Combobox>` — both use `onValueChange(newValue)` in 2.0+. `onChange(e)` is reserved for native input wrappers (Input, Textarea, PasswordInput).
 9. Never render `<ToastProvider>` or `<ConfirmProvider>` more than once in the component tree.
 10. Never pass `undefined` to the `DataTable` `data` prop — use `[]` for empty or loading states.
 
@@ -108,14 +108,16 @@ export default function RootLayout({ children }) {
 **Overlays** (Dialog, Sheet, Popover):
 Controlled via `open` + `onOpenChange`.
 
-**Form inputs** (Input, Textarea, Select):
-Standard React: `value` + `onChange`.
+**Native inputs** (Input, Textarea, PasswordInput):
+Standard React DOM: `value` + `onChange(e)` where `e` is a `ChangeEvent`.
+
+**Single-value pickers** (Select, Combobox, Slider, Tabs, Accordion):
+`value` + `onValueChange(newValue)` — the callback receives the value
+directly, not a ChangeEvent. Unified in 2.0.0; pre-2.0 Combobox used
+`onChange` — no alias kept.
 
 **Radix checkable** (Checkbox, Switch, RadioGroup):
-`checked` + `onCheckedChange`.
-
-**Combobox**:
-`value` + `onChange` (not `onValueChange`).
+`checked` + `onCheckedChange(newChecked)`.
 
 **Universal props** across all interactive components:
 - `className` — accepted for customization.
@@ -126,8 +128,8 @@ Standard React: `value` + `onChange`.
 | Mistake | Symptom | Fix |
 |---|---|---|
 | `<DataTable data={users}>` where `users` is undefined during loading | Runtime crash: "expects data to be an array" | Always pass `[]` while loading: `data={users ?? []}` |
-| Using `onChange` on `<Select>` | Nothing happens — no error, no update | Select uses `onValueChange`, not `onChange`. See cheat sheet in llms.txt |
-| Using `onValueChange` on `<Combobox>` | Type error or silent failure | Combobox uses `onChange` (custom wrapper, not Radix). See cheat sheet in llms.txt |
+| Using `onChange` on `<Select>` or `<Combobox>` | Nothing happens — no error, no update | Both use `onValueChange(newValue)` in 2.0+. Unified. |
+| Using `onValueChange` on `<Input>` / `<Textarea>` | Type error | Native inputs emit `ChangeEvent` — use `onChange(e => setX(e.target.value))` |
 | Mounting `<ToastProvider>` twice | Duplicate toasts appear | Mount exactly once at app root. Dev warning will fire if duplicated |
 | Mounting `<ConfirmProvider>` twice | Confirm dialogs show twice or don't resolve | Mount exactly once at app root. Dev warning will fire if duplicated |
 | Missing `<ThemeProvider>` wrapper | Components render without styles, CSS vars missing | Wrap entire app: `<ThemeProvider>` > `<ToastProvider>` > `<ConfirmProvider>` |

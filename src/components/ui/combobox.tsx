@@ -7,15 +7,15 @@
  *
  * @llm-rule WHEN: Searchable/filterable dropdowns with 10+ options (country, user, tag pickers)
  * @llm-rule AVOID: Using for static short lists — use <Select>. For action menus — use <DropdownMenu>
- * @llm-rule NOTE: Controlled: `value` + `onChange` (NOT `onValueChange`). Options: `{ value: string, label: string }[]`
+ * @llm-rule NOTE: Controlled: `value` + `onValueChange` — same shape as <Select>, <Slider>, <Tabs>, <Accordion>. Options: `{ value: string, label: string }[]`
  * @llm-rule NOTE: Props: `clearable`, `disabled`, `searchPlaceholder`, `emptyMessage`, `renderOption`
- * @llm-rule NOTE: Custom component — built on Command (cmdk) + Popover. Uses `onChange`, NOT Radix `onValueChange`
+ * @llm-rule NOTE: Built on Command (cmdk) + Popover. The `onValueChange` receives `undefined` when the selection is cleared.
  * @see https://github.com/bloomneo/uikit/blob/main/llms.txt
  *
  * @example
  *   <Combobox
  *     value={country}
- *     onChange={setCountry}
+ *     onValueChange={setCountry}
  *     options={[
  *       { value: 'us', label: 'United States' },
  *       { value: 'in', label: 'India' },
@@ -49,8 +49,17 @@ export interface ComboboxOption {
 export interface ComboboxProps {
   /** Currently-selected value, or undefined for "no selection". */
   value?: string;
-  /** Called when the user picks an option. Receives undefined when cleared. */
-  onChange?: (value: string | undefined) => void;
+  /**
+   * Called when the user picks an option. Receives `undefined` when the
+   * selection is cleared via the X button (only available with
+   * `clearable`) or by re-selecting the current value in `clearable` mode.
+   *
+   * Matches the `onValueChange` convention used by every other
+   * Radix-backed single-value component (Select, Slider, Tabs,
+   * Accordion). Unified with 2.0.0 — the pre-2.0 `onChange` prop is
+   * gone; find-and-replace `onChange` → `onValueChange` on any Combobox.
+   */
+  onValueChange?: (value: string | undefined) => void;
   /** The full list of options. */
   options: ComboboxOption[];
   /** Placeholder shown in the trigger when no value is selected. */
@@ -73,7 +82,7 @@ export interface ComboboxProps {
 
 export function Combobox({
   value,
-  onChange,
+  onValueChange,
   options,
   placeholder = 'Select…',
   searchPlaceholder = 'Search…',
@@ -93,16 +102,16 @@ export function Combobox({
 
   const handleSelect = (next: string) => {
     if (next === value && clearable) {
-      onChange?.(undefined);
+      onValueChange?.(undefined);
     } else {
-      onChange?.(next);
+      onValueChange?.(next);
     }
     setOpen(false);
   };
 
   const handleClear = (e: React.MouseEvent) => {
     e.stopPropagation();
-    onChange?.(undefined);
+    onValueChange?.(undefined);
   };
 
   return (
