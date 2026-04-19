@@ -1550,3 +1550,31 @@
     }
 
 /* END_THEME_DECLARATIONS */
+
+/*
+ * Default border color.
+ *
+ * Tailwind v4 switched the default `border-color` for naked `border`,
+ * `border-b`, `border-t` (etc.) utilities to `currentColor` — which in
+ * uikit's themes means the text color (e.g. #1E293B slate-800) and
+ * reads as near-black. Every theme already defines `--color-border`
+ * as a soft gray (#E2E8F0 in light mode), so the intent was always to
+ * use it. This rule restores that intent globally.
+ *
+ * Components that explicitly set a border color (`border-input`,
+ * `border-destructive`, `border-transparent`, etc.) continue to
+ * override via class specificity — only naked `border-*` utilities
+ * pick up this default.
+ *
+ * @llm-rule WHEN: Adding outline/separator CSS for new components
+ * @llm-rule PREFER: Writing `border-b` (naked) for subtle gray separators
+ * @llm-rule OVERRIDE: Use `border-input` for form fields, `border-destructive`
+ *   for error states — the class wins over this default
+ */
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--color-border, currentColor);
+  }
+}

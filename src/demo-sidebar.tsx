@@ -21,6 +21,17 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
+  Separator,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+  Alert,
+  AlertTitle,
+  AlertDescription,
+  Input,
   type NavigationItem,
 } from './index';
 import {
@@ -59,10 +70,63 @@ function DemoAdminShell() {
     '/admin': {
       title: 'Dashboard',
       body: (
-        <div className="grid gap-4 md:grid-cols-3">
-          <MetricCard label="Users" value="1,248" />
-          <MetricCard label="Signups (30d)" value="42" />
-          <MetricCard label="Audit events today" value="187" />
+        <div className="space-y-6">
+          <div className="grid gap-4 md:grid-cols-3">
+            <MetricCard label="Users" value="1,248" />
+            <MetricCard label="Signups (30d)" value="42" />
+            <MetricCard label="Audit events today" value="187" />
+          </div>
+          {/* Border showcase — every naked `border`, `border-b`, `border-t`
+              should render as soft gray, not near-black. This block exists
+              to make that change visually obvious at a glance. */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Borders &amp; separators</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <Alert>
+                <AlertTitle>Alert with border</AlertTitle>
+                <AlertDescription>
+                  The outline of this alert should be soft gray, matching the card outline.
+                </AlertDescription>
+              </Alert>
+              <div>
+                <p className="text-sm text-muted-foreground mb-2">Separator (horizontal):</p>
+                <Separator />
+                <p className="text-sm text-muted-foreground mt-2">...above line should be gray.</p>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground mb-2">Input field:</p>
+                <Input placeholder="Type here — border should be subtle gray" />
+              </div>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Name</TableHead>
+                    <TableHead>Email</TableHead>
+                    <TableHead>Role</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <TableRow>
+                    <TableCell>Alice</TableCell>
+                    <TableCell>alice@example.com</TableCell>
+                    <TableCell>admin</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Bob</TableCell>
+                    <TableCell>bob@example.com</TableCell>
+                    <TableCell>user</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Carol</TableCell>
+                    <TableCell>carol@example.com</TableCell>
+                    <TableCell>user</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
         </div>
       ),
     },

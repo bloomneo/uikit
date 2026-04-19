@@ -2,6 +2,45 @@
 
 All notable changes to UIKit will be documented in this file.
 
+## [2.1.1] - 2026-04-19
+
+Fixes naked-border utilities rendering near-black across every app.
+Pure visual fix — no API change, no behavioural change.
+
+### Fixed — `border`, `border-b`, `border-t` rendered as near-black
+
+Tailwind v4 switched the default `border-color` for *naked* border
+utilities (`border`, `border-b`, `border-t`, `border-l`, `border-r`) to
+`currentColor`. In uikit's themes the default text color is a dark
+slate (`#1E293B` in light mode), so every naked border rendered close
+to black. The themes already define `--color-border` as a soft gray
+(`#E2E8F0` light / `#334155` dark) for exactly this purpose, but the
+intent was lost when the Tailwind default changed.
+
+`src/styles/globals.css` now sets `border-color: var(--color-border)`
+on every element (`*`, `::before`, `::after`) in a base layer. Any
+component that explicitly specifies a border color (`border-input`,
+`border-destructive`, `border-transparent`, theme-scoped opacity
+rules, etc.) continues to override via class specificity — only
+naked utilities pick up the new default.
+
+**Visible impact:**
+
+- `Table` row separators and header underline → soft gray
+- `Alert`, `Dialog`, `Sheet`, `Popover`, `Menubar`, `DropdownMenu`,
+  `Select` dropdown outlines → soft gray
+- `Header` / `Footer` / `TabBar` top/bottom borders → soft gray
+- `Separator` was already correct (`bg-border`) — unchanged
+
+**Zero API change.** No source files need updates; the reset lives in
+CSS and applies automatically on import.
+
+### Updated
+
+- Demo page (`src/demo-sidebar.tsx`) — added a "Borders & separators"
+  showcase card on the Dashboard so the visual change is easy to
+  eyeball when running `npm run dev`.
+
 ## [2.1.0] - 2026-04-19
 
 `PageLayout` sidebar now works on mobile. Fully additive — no breaking
