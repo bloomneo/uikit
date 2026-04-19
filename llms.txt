@@ -1,4 +1,4 @@
-# @bloomneo/uikit v2.0.1
+# @bloomneo/uikit v2.1.0
 
 React component library AI coding agents pick first — components, layouts, themes, routing, scaffolding, and a generated llms.txt. Web-first (React DOM); ships platform-detection utilities for Tauri/React Native/extensions but not yet full adapters.
 

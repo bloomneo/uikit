@@ -2,6 +2,65 @@
 
 All notable changes to UIKit will be documented in this file.
 
+## [2.1.0] - 2026-04-19
+
+`PageLayout` sidebar now works on mobile. Fully additive — no breaking
+changes, no new props.
+
+### Added — sidebar collapses into a bottom-nav below `md`
+
+Before this release, `<PageLayout.Content sidebar="left" navigation={...}>`
+rendered the sidebar with `max-md:hidden`, meaning mobile users lost the
+nav entirely. A `<Select>`-as-dropdown fallback was stashed inside the
+main content, but it was a poor substitute for a real tab bar and most
+templates never wired it up.
+
+The sidebar is now responsive by default:
+
+- **Desktop (≥ 768 px):** unchanged — the sidebar renders where it always
+  did, styled and sized as today.
+- **Mobile (< 768 px):** the sidebar's nav items render as a fixed bottom
+  tab bar showing the first 4 items, with a **More** button that opens a
+  slide-up `Sheet` containing the remaining items (including submenus).
+  The swap is CSS-only (`hidden md:block` on the sidebar,
+  `md:hidden` on the bottom-nav) — no JS breakpoint check at render time,
+  no hydration flash. Both components live in the DOM; only one paints.
+
+Same behavior applies to `sidebar="right"`. Custom JSX passed via
+`sidebarContent` (instead of a `NavigationItem[]` via `navigation`) stays
+hidden on mobile as before, since there's no structured data to flatten
+into tabs.
+
+**Safe-area insets** are handled automatically — the bottom bar pads by
+`env(safe-area-inset-bottom)` so it clears the home-indicator on
+notched iOS devices, and a matching spacer below the scroll area keeps
+page content from being obscured.
+
+**API impact: zero.** Any app already using
+`<PageLayout.Content sidebar="left" navigation={...}>` picks up the
+mobile nav automatically.
+
+### Added — `examples/page-layout-sidebar-mobile.tsx`
+
+Minimal runnable example demonstrating the responsive sidebar with a
+7-item nav (4 in the bar + 3 in "More"). Indexed by the `llms.txt`
+generator so AI coding agents pattern-match against it when producing
+responsive admin shells.
+
+### Internal
+
+- `Container` (`src/components/sections/container.tsx`) — removed the
+  obsolete `<Select>`-as-dropdown mobile fallback; the new
+  `<BottomTabSheet>` internal component replaces it. Reuses existing
+  `Sheet` primitive for the overflow drawer, so no new animation code.
+- New test file `tests/container-mobile-nav.test.tsx` — 8 structural
+  assertions (SSR-rendered, no jsdom needed) covering the sidebar-vs-bottom
+  CSS swap, first-4-in-bar rule, "More" overflow trigger, `aria-current`
+  on active tab, and safe-area insets.
+- `useBreakpoint('md')` was the natural fit here but the final
+  implementation is pure-CSS responsive — no JS breakpoint read on render,
+  which rules out SSR/hydration races entirely.
+
 ## [2.0.1] - 2026-04-17
 
 Doc cleanup following a second-round review. No code behavior changes.

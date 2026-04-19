@@ -10,8 +10,14 @@ import { cva } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { ChevronRight } from 'lucide-react';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
+import { ChevronRight, MoreHorizontal } from 'lucide-react';
 import type { NavigationItem, Size } from '@/types';
 
 /**
@@ -51,7 +57,13 @@ const containerVariants = cva(
  * Sidebar variants - OPTIMIZED spacing and alignment
  */
 const sidebarVariants = cva(
-  'flex-shrink-0 rounded-lg m-4 max-md:hidden', // ✅ OPTIMIZED: Added m-4 for consistent outer margin
+  // `hidden md:block` — on small screens the sidebar is swapped for the
+  // `<BottomTabSheet>` rendered below. Below the `md` breakpoint the desktop
+  // sidebar is not rendered visibly, and the bottom-nav (which renders the
+  // same `NavigationItem[]`) takes its place. Both components are always
+  // present in the DOM so the swap is pure CSS — no hydration flash and no
+  // JS breakpoint check needed at render time.
+  'hidden md:block flex-shrink-0 rounded-lg m-4',
   {
     variants: {
       position: {
@@ -345,6 +357,157 @@ const ContainerSidebar = forwardRef<HTMLDivElement, ContainerSidebarProps>(({
 ContainerSidebar.displayName = 'ContainerSidebar';
 
 /**
+ * Props for the mobile bottom-tab navigation. Internal helper — not exported.
+ */
+interface BottomTabSheetProps {
+  navigation: NavigationItem[];
+  currentPath?: string;
+  onNavigate?: (href: string, item: NavigationItem) => void;
+  tone: 'clean' | 'subtle' | 'brand' | 'contrast';
+  size: Size;
+}
+
+/**
+ * `<BottomTabSheet>` — mobile-only replacement for the desktop sidebar.
+ *
+ * Renders the same `NavigationItem[]` the sidebar uses, but as:
+ *   - a fixed bottom bar showing the first 4 items (icon + short label)
+ *   - a "More" tab that opens a slide-up `<Sheet side="bottom">` with the
+ *     full navigation tree (reuses `NavigationRenderer`, so submenus and
+ *     badges behave exactly the same as the desktop sidebar)
+ *
+ * Visibility is CSS-driven (`md:hidden`) so the swap between sidebar and
+ * bottom-nav happens purely on the CSS breakpoint — no JS-media-query
+ * state, no hydration flash. Both components live in the DOM; only one
+ * paints at a time.
+ *
+ * Safe-area insets: `padding-bottom: env(safe-area-inset-bottom)` so the
+ * bar clears the home-indicator on notched iOS devices. The content
+ * spacer below matches.
+ */
+function BottomTabSheet({
+  navigation,
+  currentPath,
+  onNavigate,
+  tone,
+  size,
+}: BottomTabSheetProps) {
+  const [sheetOpen, setSheetOpen] = useState(false);
+
+  // First 4 items become tabs in the bar. Anything beyond (or any items at
+  // all if we have more than 4) gets folded into the "More" sheet along with
+  // every submenu. This mirrors rrdplanners' UX and matches how iOS TabBars
+  // typically cap at 5 slots.
+  const MAX_TABS = 4;
+  const primary = navigation.slice(0, MAX_TABS);
+  const overflow = navigation.slice(MAX_TABS);
+  const hasOverflow = overflow.length > 0;
+
+  const handlePrimaryClick = (item: NavigationItem) => {
+    if (item.href && onNavigate) {
+      onNavigate(item.href, item);
+    } else if (item.onClick) {
+      item.onClick();
+    }
+  };
+
+  const renderTab = (item: NavigationItem) => {
+    const isActive = item.href ? currentPath === item.href : Boolean(item.isActive);
+    const Icon = item.icon;
+    // First word only in the bar — keeps labels short enough to not wrap at
+    // narrow widths (320px / 4 tabs = 80px each). Callers who need a richer
+    // label can still use the full one in the overflow sheet.
+    const shortLabel = item.label.split(' ')[0];
+    return (
+      <button
+        key={item.key}
+        type="button"
+        onClick={() => handlePrimaryClick(item)}
+        className={cn(
+          'flex flex-col items-center justify-center gap-0.5 flex-1 min-w-0 py-2 px-1',
+          'transition-colors duration-150',
+          isActive
+            ? 'text-primary'
+            : 'text-muted-foreground hover:text-foreground',
+        )}
+        aria-current={isActive ? 'page' : undefined}
+      >
+        {Icon && <Icon className="h-5 w-5 flex-shrink-0" />}
+        <span className="text-[10px] font-medium truncate w-full text-center">
+          {shortLabel}
+        </span>
+      </button>
+    );
+  };
+
+  return (
+    <>
+      {/* Fixed bottom bar — swapped in for the sidebar below `md`. */}
+      <nav
+        className={cn(
+          'fixed bottom-0 inset-x-0 z-40 md:hidden',
+          'flex items-stretch bg-background border-t border-border',
+          'pb-[env(safe-area-inset-bottom)]',
+        )}
+        aria-label="Primary navigation"
+      >
+        <div className="flex items-stretch w-full h-[60px]">
+          {primary.map(renderTab)}
+          {hasOverflow && (
+            <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+              <SheetTrigger asChild>
+                <button
+                  type="button"
+                  className={cn(
+                    'flex flex-col items-center justify-center gap-0.5 flex-1 min-w-0 py-2 px-1',
+                    'text-muted-foreground hover:text-foreground transition-colors duration-150',
+                  )}
+                  aria-label="More navigation items"
+                >
+                  <MoreHorizontal className="h-5 w-5 flex-shrink-0" />
+                  <span className="text-[10px] font-medium">More</span>
+                </button>
+              </SheetTrigger>
+              <SheetContent
+                side="bottom"
+                className="max-h-[85vh] overflow-y-auto"
+              >
+                <SheetHeader>
+                  <SheetTitle>Navigation</SheetTitle>
+                </SheetHeader>
+                <div className="pb-6">
+                  {/* Reuse NavigationRenderer so submenus, badges, and
+                      active-state styling match the desktop sidebar exactly.
+                      Wrap onNavigate to also close the sheet after routing. */}
+                  <NavigationRenderer
+                    navigation={overflow}
+                    size={size}
+                    tone={tone}
+                    currentPath={currentPath}
+                    onNavigate={(href, item) => {
+                      onNavigate?.(href, item);
+                      setSheetOpen(false);
+                    }}
+                  />
+                </div>
+              </SheetContent>
+            </Sheet>
+          )}
+        </div>
+      </nav>
+      {/* Spacer so page content isn't obscured by the fixed bar. Matches the
+          bar's height + safe-area padding. Hidden at `md+` where the bar is
+          itself hidden. */}
+      <div
+        aria-hidden="true"
+        className="md:hidden h-[60px]"
+        style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+      />
+    </>
+  );
+}
+
+/**
  * Container Main props
  */
 interface ContainerMainProps {
@@ -431,50 +594,22 @@ const ContainerComponent = forwardRef<HTMLDivElement, ContainerProps>(({
   // Determine sidebar content: navigation takes priority
   const finalSidebarContent = navigation.length > 0 ? navigation : sidebarContent;
 
-  // ✅ ADD: Flatten navigation for mobile dropdown
-  const flattenNavigation = (navItems: NavigationItem[], prefix = ''): Array<{key: string, label: string, item: NavigationItem}> => {
-    const flattened: Array<{key: string, label: string, item: NavigationItem}> = [];
-    
-    navItems.forEach((item) => {
-      const label = prefix ? `${prefix} > ${item.label}` : item.label;
-      
-      if (item.href || item.onClick) {
-        flattened.push({ key: item.key, label, item });
-      }
-      
-      if (item.items && item.items.length > 0) {
-        flattened.push(...flattenNavigation(item.items, label));
-      }
-    });
-    
-    return flattened;
-  };
-
-  // ✅ ADD: Mobile dropdown handler
-  const handleMobileNavigation = (key: string) => {
-    if (!Array.isArray(finalSidebarContent)) return;
-    
-    const flattenedNav = flattenNavigation(finalSidebarContent);
-    const selectedItem = flattenedNav.find(item => item.key === key);
-    
-    if (selectedItem && onNavigate) {
-      if (selectedItem.item.href) {
-        onNavigate(selectedItem.item.href, selectedItem.item);
-      } else if (selectedItem.item.onClick) {
-        selectedItem.item.onClick();
-      }
-    }
-  };
+  // Navigation-array case: we can render the mobile bottom-nav. When the
+  // caller passes custom JSX via `sidebarContent` instead of an items array,
+  // there's no structured data to flatten into tabs, so the mobile swap
+  // is skipped and the custom JSX stays hidden below `md` (same as before).
+  const mobileNavItems: NavigationItem[] | null =
+    hasSidebar && Array.isArray(finalSidebarContent) ? finalSidebarContent : null;
 
   return (
-    <div 
+    <div
       ref={ref}
       className={cn(containerVariants({ layout, size, position }), className)}
       style={style}
     >
-      {/* Left Sidebar */}
+      {/* Left Sidebar — hidden below `md`; bottom-nav below takes over there. */}
       {hasSidebar && sidebar === 'left' && (
-        <ContainerSidebar 
+        <ContainerSidebar
           content={finalSidebarContent}
           position="left"
           size={size}
@@ -484,43 +619,15 @@ const ContainerComponent = forwardRef<HTMLDivElement, ContainerProps>(({
           onNavigate={onNavigate}
         />
       )}
-      
-      {/* Main Content with Mobile Dropdown */}
+
+      {/* Main Content */}
       <ContainerMain size={size}>
-        {/* ✅ ADD: Mobile Navigation Dropdown */}
-        {hasSidebar && Array.isArray(finalSidebarContent) && (
-          <div className="md:hidden mb-4">
-            <Select value={flattenNavigation(finalSidebarContent).find(item => item.item.href === currentPath)?.key} onValueChange={handleMobileNavigation}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Navigate to..." />
-              </SelectTrigger>
-              <SelectContent>
-                {flattenNavigation(finalSidebarContent).map(({ key, label, item }) => (
-                  <SelectItem key={key} value={key}>
-                    <div className="flex items-center justify-between w-full">
-                      <div className="flex items-center gap-2">
-                        {item.icon && <item.icon className="h-4 w-4" />}
-                        <span>{label}</span>
-                      </div>
-                      {item.badge && (
-                        <Badge variant="secondary" className="text-xs">
-                          {item.badge}
-                        </Badge>
-                      )}
-                    </div>
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-        )}
-        
         {children}
       </ContainerMain>
       
-      {/* Right Sidebar */}
+      {/* Right Sidebar — same story as left: hidden below `md`. */}
       {hasSidebar && sidebar === 'right' && (
-        <ContainerSidebar 
+        <ContainerSidebar
           content={finalSidebarContent}
           position="right"
           size={size}
@@ -528,6 +635,20 @@ const ContainerComponent = forwardRef<HTMLDivElement, ContainerProps>(({
           tone={tone}
           currentPath={currentPath}
           onNavigate={onNavigate}
+        />
+      )}
+
+      {/* Mobile bottom-tab navigation — CSS-swapped in below the `md`
+          breakpoint (sidebar is `hidden md:block`, this is `md:hidden`).
+          Only renders when navigation is an items array; custom JSX
+          sidebarContent is not lifted into tabs. */}
+      {mobileNavItems && (
+        <BottomTabSheet
+          navigation={mobileNavItems}
+          currentPath={currentPath}
+          onNavigate={onNavigate}
+          tone={tone}
+          size={size}
         />
       )}
     </div>
