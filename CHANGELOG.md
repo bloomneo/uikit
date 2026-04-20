@@ -2,6 +2,21 @@
 
 All notable changes to UIKit will be documented in this file.
 
+## [2.1.4] - 2026-04-20
+
+### Fixed — Skeleton still flashed the theme tint
+
+2.1.3 swapped `bg-accent` → `bg-muted`, but in brand-tinted themes
+(the base/sky theme has `--color-muted: #F0F9FF`, an alice-blue)
+`bg-muted` is itself a theme color — so the flash persisted, just a
+different shade of blue. Changed to `bg-foreground/10`, a 10% overlay
+of the current text color. That renders as a neutral darkening on
+every theme: gray on light themes, near-white on dark themes. No
+theme-color flash.
+
+Callers that want a themed skeleton (marketing hero, etc.) can still
+override via className (`<Skeleton className="bg-accent/30" />`).
+
 ## [2.1.3] - 2026-04-20
 
 ### Fixed — Skeleton flashed the theme's accent color

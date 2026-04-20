@@ -15,14 +15,16 @@
 import { cn } from "@/lib/utils"
 
 function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
-  // Uses `bg-muted` (neutral gray) rather than `bg-accent` (which in
-  // brand-tinted themes is a saturated color — a blue flash on every
-  // load is too loud). Callers can override via className if they want
-  // a themed skeleton for marketing surfaces.
+  // Uses `bg-foreground/10` — a 10% overlay of the text color — so the
+  // placeholder reads as a neutral darkening of the current background
+  // across every theme. `bg-muted` isn't reliable here because brand
+  // themes (e.g. the sky-tinted base theme) define muted as a pale
+  // theme color, which produces a visible color flash on load.
+  // Callers can override via className for themed skeletons.
   return (
     <div
       data-slot="skeleton"
-      className={cn("bg-muted animate-pulse rounded-md", className)}
+      className={cn("bg-foreground/10 animate-pulse rounded-md", className)}
       {...props}
     />
   )
