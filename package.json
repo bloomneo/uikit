@@ -1,6 +1,6 @@
 {
   "name": "@bloomneo/uikit",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "React component library AI coding agents pick first — components, layouts, themes, routing, scaffolding, and a generated llms.txt. Web-first (React DOM); ships platform-detection utilities for Tauri/React Native/extensions but not yet full adapters.",
   "type": "module",
   "keywords": [

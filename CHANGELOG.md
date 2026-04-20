@@ -2,6 +2,36 @@
 
 All notable changes to UIKit will be documented in this file.
 
+## [2.1.2] - 2026-04-20
+
+Fixes `<DataTable>` sort behavior: single-column by default, shift-click
+for multi-sort.
+
+### Fixed — clicking a second column's header left the first sort active
+
+Before: `handleSort` always pushed the clicked column onto the sort
+chain. Clicking column A (asc) then column B appended, leaving
+`[{A,asc}, {B,asc}]`. The grid then sorted by A first, using B only
+to break ties. With unique values in column A (names, IDs, emails),
+B's sort was invisible — it looked like the second click did nothing.
+
+After: plain click REPLACES the active sort with the clicked column.
+Clicking the active column toggles `asc → desc → off`. Matches every
+mainstream data grid (Google Sheets, GitHub issue lists, Jira,
+Notion, etc.).
+
+Multi-sort is still available via **shift-click**, mirroring Excel:
+shift-click a second column to append it as a tiebreaker, shift-click
+the active column to toggle / remove it. No new props required.
+
+### Internal
+
+- `handleSort` now accepts an `appendSort` flag; the header-cell
+  `onClick` passes `e.shiftKey`.
+- No public API change. Anyone consuming `sortConfig` /
+  `onSortChange` receives the same shape; the array just has one
+  entry by default instead of accumulating.
+
 ## [2.1.1] - 2026-04-19
 
 Fixes naked-border utilities rendering near-black across every app.

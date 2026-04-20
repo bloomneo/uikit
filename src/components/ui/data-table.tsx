@@ -376,29 +376,61 @@ const DataTable = forwardRef<HTMLTableElement, DataTableProps>((rawProps, ref) =
     [columns]
   );
 
-  // Handle sorting
-  const handleSort = useCallback((columnId: string) => {
-    if (!sortable) return;
+  // Handle sorting.
+  //
+  // Default semantics (plain click): REPLACE the active sort with the
+  // clicked column. Clicking the already-active column toggles asc →
+  // desc → off. This matches every data grid users are familiar with
+  // (Google Sheets, GitHub issue lists, most admin panels).
+  //
+  // Advanced: a shift-click APPENDS the column to the sort chain, so
+  // callers can build composite sorts (e.g. "role asc, then name asc")
+  // without losing the primary key. This mirrors Excel's behavior.
+  //
+  // Prior to 2.1.2 every click appended, which looked broken to users:
+  // clicking column B after column A left [A,B] in the chain, and
+  // because A's values were unique, B never visibly reordered
+  // anything — the second click "did nothing". See uikit CHANGELOG.
+  const handleSort = useCallback(
+    (columnId: string, appendSort = false) => {
+      if (!sortable) return;
 
-    const column = columns.find(col => col.id === columnId);
-    if (!column?.sortable) return;
+      const column = columns.find((col) => col.id === columnId);
+      if (!column?.sortable) return;
 
-    const newSort = [...internalSort];
-    const existingIndex = newSort.findIndex(s => s.key === columnId);
+      const existing = internalSort.find((s) => s.key === columnId);
 
-    if (existingIndex >= 0) {
-      if (newSort[existingIndex].direction === 'asc') {
-        newSort[existingIndex].direction = 'desc';
+      let newSort: SortConfig[];
+      if (appendSort) {
+        // Multi-sort path: preserve the other columns, toggle this one.
+        newSort = [...internalSort];
+        const idx = newSort.findIndex((s) => s.key === columnId);
+        if (idx >= 0) {
+          if (newSort[idx].direction === 'asc') {
+            newSort[idx] = { ...newSort[idx], direction: 'desc' };
+          } else {
+            newSort.splice(idx, 1);
+          }
+        } else {
+          newSort.push({ key: columnId, direction: 'asc' });
+        }
       } else {
-        newSort.splice(existingIndex, 1);
+        // Default single-sort path: replace the whole chain with just
+        // this column. Toggle asc → desc → off on the same column.
+        if (!existing) {
+          newSort = [{ key: columnId, direction: 'asc' }];
+        } else if (existing.direction === 'asc') {
+          newSort = [{ key: columnId, direction: 'desc' }];
+        } else {
+          newSort = [];
+        }
       }
-    } else {
-      newSort.push({ key: columnId, direction: 'asc' });
-    }
 
-    setInternalSort(newSort);
-    onSortChange?.(newSort);
-  }, [sortable, columns, internalSort, onSortChange]);
+      setInternalSort(newSort);
+      onSortChange?.(newSort);
+    },
+    [sortable, columns, internalSort, onSortChange],
+  );
 
   // Handle filtering
   const handleFilter = useCallback((columnId: string, value: DataTableFilterValue, operator: FilterOperator = 'contains') => {
@@ -587,7 +619,9 @@ const DataTable = forwardRef<HTMLTableElement, DataTableProps>((rawProps, ref) =
           minWidth: column.minWidth,
           maxWidth: column.maxWidth 
         }}
-        onClick={() => column.sortable && handleSort(column.id)}
+        onClick={(e) =>
+          column.sortable && handleSort(column.id, e.shiftKey)
+        }
       >
         <div className="flex items-center gap-2">
           <span>{column.header}</span>
