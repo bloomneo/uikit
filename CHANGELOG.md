@@ -2,6 +2,22 @@
 
 All notable changes to UIKit will be documented in this file.
 
+## [2.1.3] - 2026-04-20
+
+### Fixed — Skeleton flashed the theme's accent color
+
+`Skeleton` defaulted to `bg-accent`. In brand-tinted themes (base =
+sky blue, elegant, metro, etc.) that produced a saturated blue flash
+on every load. Changed to `bg-muted` (neutral gray) which is what
+skeletons should look like.
+
+Callers that want a themed skeleton (e.g. a marketing hero) can still
+override via className:
+
+```tsx
+<Skeleton className="h-24 bg-accent/30" />
+```
+
 ## [2.1.2] - 2026-04-20
 
 Fixes `<DataTable>` sort behavior: single-column by default, shift-click

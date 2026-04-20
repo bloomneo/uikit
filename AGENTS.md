@@ -1,6 +1,6 @@
 # AGENTS.md — @bloomneo/uikit
 
-> Rules for AI coding agents generating code with `@bloomneo/uikit` v2.1.2.
+> Rules for AI coding agents generating code with `@bloomneo/uikit` v2.1.3.
 > Read this FIRST, then `llms.txt` for per-component snippets.
 
 ## Always do
