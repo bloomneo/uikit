@@ -1,14 +1,14 @@
 ---
 name: bloomneo-uikit
-description: Rules for generating React code with @bloomneo/uikit — components, layouts, themes, and forms. Applies when the project's package.json has "@bloomneo/uikit" as a dependency, or when the user mentions uikit, bloomneo, voilajsx, or files import from "@bloomneo/uikit". Also triggers for "uikit init", "uikit generate", or any `npx uikit` command.
-version: 2.1.4
+description: Rules for generating React code with @bloomneo/uikit — components, layouts, themes, and forms. Applies when the project's package.json has "@bloomneo/uikit" as a dependency, or when the user mentions uikit, bloomneo, or files import from "@bloomneo/uikit". Also triggers for "uikit init", "uikit generate", or any `npx uikit` command.
+version: 2.1.5
 user-invocable: false
 allowed-tools: Bash(npx uikit *), Bash(pnpm dlx uikit *), Bash(bunx --bun uikit *)
 ---
 
-# @bloomneo/uikit (v2.1.4)
+# @bloomneo/uikit (v2.1.5)
 
-End-to-end React framework with components, layouts, themes, routing, and scaffolding. Cross-platform (web, desktop, mobile, extensions). Built on Radix + Tailwind + cva. Previously published as `@voilajsx/uikit`.
+End-to-end React framework with components, layouts, themes, routing, and scaffolding. Cross-platform (web, desktop, mobile, extensions). Built on Radix + Tailwind + cva.
 
 > **IMPORTANT:** Read `node_modules/@bloomneo/uikit/llms.txt` for the full component API reference. Read `AGENTS.md` in the project root for do/don't rules. This skill is the fastest way in; those two files are canonical.
 
@@ -22,7 +22,6 @@ These are always enforced. Violating them produces broken apps.
 - **Exactly one CSS import.** `import '@bloomneo/uikit/styles'` once at app entry.
 - **Exactly one provider tree.** Mount `ThemeProvider` > `ToastProvider` (self-closing, sibling) + `ConfirmProvider` (wraps children). `ToastProvider` and `ConfirmProvider` must each appear exactly once — duplicates fire dev-only `warnInDev` and produce doubled behavior in prod.
 - **FOUC script required.** Inject `<script>{foucScript()}</script>` from `@bloomneo/uikit/fouc` into `index.html` `<head>` or themes flash on load.
-- **Never `@voilajsx/uikit`.** Old deprecated scope, frozen at 1.4.0.
 
 ### Controlled props — the #1 agent failure mode
 

@@ -61,5 +61,4 @@ globs: ["**/*.tsx", "**/*.ts", "**/*.jsx"]
 - Never skip `ToastProvider` if using `toast()`
 - Never skip `ConfirmProvider` if using `useConfirm()`
 - Never use `<Dialog>` for simple yes/no confirms -- use `useConfirm()`
-- Never use `@voilajsx/uikit` -- old scope, frozen at 1.4.0
 - Never create separate CSS files for theming -- use the preset system

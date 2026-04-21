@@ -1,12 +1,12 @@
-import { jsx as o } from "react/jsx-runtime";
-import { c as n } from "./utils-CwJPJKOE.js";
-function m({ className: e, ...t }) {
-  return /* @__PURE__ */ o(
+import { jsx as r } from "react/jsx-runtime";
+import { c as t } from "./utils-CwJPJKOE.js";
+function m({ className: o, ...e }) {
+  return /* @__PURE__ */ r(
     "div",
     {
       "data-slot": "skeleton",
-      className: n("bg-accent animate-pulse rounded-md", e),
-      ...t
+      className: t("bg-foreground/10 animate-pulse rounded-md", o),
+      ...e
     }
   );
 }

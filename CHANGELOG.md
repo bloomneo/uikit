@@ -2,6 +2,29 @@
 
 All notable changes to UIKit will be documented in this file.
 
+## [2.1.5] - 2026-04-21
+
+### Removed
+
+- **`@voilajsx/uikit` references** in user-facing docs. The 1.5.0
+  rebrand is far enough in the rear-view that active docs should read
+  as a `@bloomneo/uikit` package from the start. Removed:
+  - `README.md` tagline + "Scope change (1.5.0)" migration section
+  - `AGENTS.md` Never-rule #7 (don't-import-voilajsx)
+  - `.cursor/rules/uikit.mdc` Never-line
+  - `skills/bloomneo-uikit/SKILL.md` (canonical + 4 bin/templates
+    copies): "voilajsx" removed from the skill-trigger keyword list,
+    "Previously published as `@voilajsx/uikit`" removed from the
+    package blurb, and the "Never `@voilajsx/uikit`" bullet removed
+    from the critical-rules list
+  - `docs/AGENT_CLARITY_ROADMAP.md` stale TODO for a voilajsx→bloomneo
+    codemod (no longer needed)
+
+- **Kept**: `scripts/check-doc-drift.ts` still carries the
+  `/@voilajsx\/uikit/` regex as a CI guard against accidental
+  reintroduction. Low cost, zero surface for agents. Changelog history
+  is preserved.
+
 ## [2.1.4] - 2026-04-20
 
 ### Fixed — Skeleton still flashed the theme tint

@@ -160,9 +160,6 @@ If a proposed change doesn't push one of the four, drop it.
 
 - [ ] **Write `DEPRECATION_POLICY.md`** stating: removed exports live as aliases ≥1 minor, breaking changes require codemod or sed recipe (D15, +1 pt)
 
-- [ ] **Add jscodeshift codemod for `@voilajsx/uikit` → `@bloomneo/uikit`** scope migration (D15, +0.5 pts)
-  - Even though 1.5 is shipped; useful for pending migrations
-
 - [ ] **Add "Migration Guide" template** to docs/ for future breaking changes (D15, +0.5 pts)
 
 **Phase 5 total: +2 pts.**

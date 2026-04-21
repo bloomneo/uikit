@@ -1,5 +1,5 @@
 import { jsx as e, jsxs as n } from "react/jsx-runtime";
-import { R as l, C as d, a as r, D as c, T as u, b as f, P as m, O as h } from "./index-Ba4eHUBD.js";
+import { R as l, b as d, C as c, a as r, T as u, P as f, O as m, D as h } from "./index-Ba4eHUBD.js";
 import { c as o } from "./utils-CwJPJKOE.js";
 import { X as p } from "./x-BxwubQiM.js";
 function v({ ...t }) {
@@ -8,7 +8,7 @@ function v({ ...t }) {
 function C({
   ...t
 }) {
-  return /* @__PURE__ */ e(f, { "data-slot": "sheet-trigger", ...t });
+  return /* @__PURE__ */ e(d, { "data-slot": "sheet-trigger", ...t });
 }
 function w({
   ...t
@@ -18,14 +18,14 @@ function w({
 function g({
   ...t
 }) {
-  return /* @__PURE__ */ e(m, { "data-slot": "sheet-portal", ...t });
+  return /* @__PURE__ */ e(f, { "data-slot": "sheet-portal", ...t });
 }
 function b({
   className: t,
   ...a
 }) {
   return /* @__PURE__ */ e(
-    h,
+    m,
     {
       "data-slot": "sheet-overlay",
       className: o(
@@ -45,7 +45,7 @@ function T({
   return /* @__PURE__ */ n(g, { children: [
     /* @__PURE__ */ e(b, {}),
     /* @__PURE__ */ n(
-      d,
+      c,
       {
         "data-slot": "sheet-content",
         className: o(
@@ -106,7 +106,7 @@ function O({
   ...a
 }) {
   return /* @__PURE__ */ e(
-    c,
+    h,
     {
       "data-slot": "sheet-description",
       className: o("text-muted-foreground text-sm", t),

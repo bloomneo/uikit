@@ -1,7 +1,5 @@
 # Bloomneo UIKit 🎨
 
-> Previously published as `@voilajsx/uikit`. Same code, new home, new namespace. See the [migration note](#scope-change) below.
-
 [![npm version](https://img.shields.io/npm/v/@bloomneo/uikit.svg)](https://www.npmjs.com/package/@bloomneo/uikit)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
@@ -467,33 +465,6 @@ function ThemeSwitcher() {
 - [CLI Commands](docs/UIKIT_CLI_GUIDE.md) — complete command reference
 - [LLM Usage Guide](docs/UIKIT_LLM_GUIDE.md) — AI-powered development patterns
 - [`CHANGELOG.md`](./CHANGELOG.md) — release notes (see 2.0.0 for the current API; 1.5.0 for the agent-readiness rework)
-
-<a id="scope-change"></a>
-
-### 🔁 Scope change — historical (1.5.0)
-
-This package was previously published as **`@voilajsx/uikit`**. Starting with `1.5.0` (historical) and continuing through the current 2.x line it lives at **`@bloomneo/uikit`**. The old `@voilajsx/uikit` package on npm is frozen at `1.4.0` and will not receive further updates.
-
-**Migration:**
-
-```diff
-- npm install @voilajsx/uikit
-+ npm install @bloomneo/uikit
-```
-
-```diff
-- import { Button } from '@voilajsx/uikit';
-+ import { Button } from '@bloomneo/uikit';
-```
-
-```diff
-- import '@voilajsx/uikit/styles';
-+ import '@bloomneo/uikit/styles';
-```
-
-A project-wide find-and-replace of `@voilajsx/uikit` → `@bloomneo/uikit` is sufficient. The API surface, props, and types are identical between the two scopes — only the namespace changed.
-
----
 
 ## 📄 License
 
