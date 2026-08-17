@@ -1,6 +1,6 @@
 import { jsx as r } from "react/jsx-runtime";
 import * as l from "react";
-import { P as i } from "./index-BVRIAMfe.js";
+import { P as i } from "./index-CpDnqHCm.js";
 import { c as n } from "./utils-CwJPJKOE.js";
 var s = "Label", o = l.forwardRef((t, a) => /* @__PURE__ */ r(
   i.label,

@@ -5,7 +5,7 @@
  *
  * @llm-rule WHEN: Searchable/filterable dropdowns with 10+ options (country, user, tag pickers)
  * @llm-rule AVOID: Using for static short lists — use <Select>. For action menus — use <DropdownMenu>
- * @llm-rule NOTE: Controlled: `value` + `onValueChange` — same shape as <Select>, <Slider>, <Tabs>, <Accordion>. Options: `{ value: string, label: string }[]`
+ * @llm-rule NOTE: Controlled: `value` + `onValueChange` — same shape as <Select> and <Tabs>. Options: `{ value: string, label: string }[]`
  * @llm-rule NOTE: Props: `clearable`, `disabled`, `searchPlaceholder`, `emptyMessage`, `renderOption`
  * @llm-rule NOTE: Built on Command (cmdk) + Popover. The `onValueChange` receives `undefined` when the selection is cleared.
  * @see https://github.com/bloomneo/uikit/blob/main/llms.txt

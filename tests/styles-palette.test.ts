@@ -117,7 +117,7 @@ describe('uikit does not use the palette it removes', () => {
   })(resolve(__dirname, '../src/components'));
 
   it('finds source files to scan (guards against a vacuous pass)', () => {
-    expect(files.length).toBeGreaterThan(30);
+    expect(files.length).toBeGreaterThan(20);
   });
 
   for (const file of files) {
@@ -175,4 +175,44 @@ describe('the lockdown holds in a CONSUMER build (not just uikit\'s own)', () =>
   for (const cls of ['bg-blue-600', 'text-gray-900']) {
     it(`consumer CANNOT use .${cls}`, () => expect(out).not.toContain(`.${cls}`));
   }
+});
+
+describe('theme.css stays a wrapper over _tokens.css (single source of truth)', () => {
+  // 4.0 nearly shipped a stale `theme.css`: a `voila-bundle` run in 2025 left
+  // an inline copy of every token in it, and because that copy had no
+  // `@import "./_tokens.css"` line, the inline step in build-styles.mjs was a
+  // silent no-op. The token cleanup landed in `_tokens.css` and never reached
+  // `dist/theme.css` — the file every Tailwind-running consumer imports. The
+  // build succeeded, the tests passed, and the shipped artefact was wrong.
+  const themeSrc = readFileSync(join(ROOT, 'src/styles/theme.css'), 'utf8');
+  const themeDist = readFileSync(join(ROOT, 'dist/theme.css'), 'utf8');
+
+  it('theme.css imports _tokens.css, so the build can inline it', () => {
+    expect(themeSrc).toContain('@import "./_tokens.css";');
+  });
+
+  it('theme.css defines no tokens of its own', () => {
+    const decls = themeSrc.match(/^\s*--color-[a-z-]+:/gm) ?? [];
+    expect(decls).toEqual([]);
+  });
+
+  it('the built theme.css actually carries the tokens (inline step ran)', () => {
+    expect(themeDist).toMatch(/--color-primary:\s*\S/);
+    expect(themeDist).toContain('--color-*: initial');
+    // A live import would dangle once flattened into dist/. Match only at the
+    // start of a line — the maintenance note in the header quotes the string.
+    expect(themeDist).not.toMatch(/^\s*@import "\.\/_tokens\.css";/m);
+  });
+
+  it('ships only the themes that still exist', () => {
+    const themes = [...new Set([...themeDist.matchAll(/\.theme-([a-z]+)/g)].map((m) => m[1]))];
+    expect(themes.sort()).toEqual(['base']);
+  });
+
+  it('every token in _tokens.css survives into dist/theme.css', () => {
+    const tokens = readFileSync(join(ROOT, 'src/styles/_tokens.css'), 'utf8');
+    const names = [...new Set([...tokens.matchAll(/^\s*(--color-[a-z0-9-]+):/gm)].map((m) => m[1]))];
+    expect(names.length).toBeGreaterThan(20);
+    expect(names.filter((n) => !themeDist.includes(`${n}:`))).toEqual([]);
+  });
 });

@@ -1,30 +1,24 @@
 import React from 'react';
-import { PageLayout } from '@bloomneo/uikit';
+import { PageHeader } from '@bloomneo/uikit';
 import { {{FeatureName}}Card } from '../components/{{FeatureName}}Card';
 
+/**
+ * Pages own their header and return plain content — the layout route that
+ * renders this page supplies the surrounding chrome.
+ */
 export const {{FeatureName}}Page: React.FC = () => {
   return (
-    <PageLayout>
-      <PageLayout.Content>
-        <div className="space-y-8">
-          <div className="text-center space-y-4">
-            <h1 className="voila-heading text-4xl md:text-5xl text-gradient-primary">
-              {{FeatureName}}
-            </h1>
-            <p className="voila-subheading text-muted-foreground max-w-2xl mx-auto text-xl">
-              Main {{featureName}} page with full feature implementation
-            </p>
-          </div>
+    <div className="space-y-6">
+      <PageHeader
+        title="{{FeatureName}}"
+        description="Main {{featureName}} page."
+      />
 
-          <div className="max-w-4xl mx-auto">
-            <{{FeatureName}}Card
-              title="{{FeatureName}} Feature"
-              description="Complete feature implementation with components and pages"
-              onAction={() => console.log('{{FeatureName}} action triggered')}
-            />
-          </div>
-        </div>
-      </PageLayout.Content>
-    </PageLayout>
+      <{{FeatureName}}Card
+        title="{{FeatureName}} feature"
+        description="Complete feature implementation with components and pages"
+        onAction={() => console.log('{{FeatureName}} action triggered')}
+      />
+    </div>
   );
 };

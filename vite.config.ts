@@ -16,20 +16,10 @@ const getComponentEntries = () => {
     entries[name] = resolve(__dirname, file);
   });
   
-  // Layout Components
-  const layoutComponents = glob.sync('src/components/layouts/*.tsx');
-  layoutComponents.forEach(file => {
-    const name = file.replace('src/components/layouts/', '').replace('.tsx', '');
-    entries[name] = resolve(__dirname, file);
-  });
-  
-  // Section Components
-  const sectionComponents = glob.sync('src/components/sections/*.tsx');
-  sectionComponents.forEach(file => {
-    const name = file.replace('src/components/sections/', '').replace('.tsx', '');
-    entries[name] = resolve(__dirname, file);
-  });
-  
+  // Layouts and sections were removed in 4.0 — an app's chrome is 80% product
+  // decision, and every real app rebuilt it. The pattern now ships in Bloom's
+  // templates instead, where it can be edited.
+
   // Themes
   entries['theme-provider'] = resolve(__dirname, 'src/themes/theme-provider.tsx');
   entries['themes'] = resolve(__dirname, 'src/themes/index.ts');
@@ -40,7 +30,6 @@ const getComponentEntries = () => {
   // Utils and Lib
   entries['utils'] = resolve(__dirname, 'src/lib/utils.ts');
   entries['platform'] = resolve(__dirname, 'src/lib/platform.ts');
-  entries['wrapper'] = resolve(__dirname, 'src/components/layouts/layout-wrapper.tsx');
   entries['format'] = resolve(__dirname, 'src/lib/format.ts');
   entries['fouc'] = resolve(__dirname, 'src/lib/fouc.ts');
   entries['errors'] = resolve(__dirname, 'src/lib/errors.ts');

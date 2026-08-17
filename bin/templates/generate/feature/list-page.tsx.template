@@ -1,32 +1,28 @@
 import React from 'react';
-import { PageLayout, Card, CardContent, CardHeader, CardTitle, Button } from '@bloomneo/uikit';
+import { PageHeader, Card, CardContent, CardHeader, CardTitle, Button } from '@bloomneo/uikit';
 
 export const {{FeatureName}}ListPage: React.FC = () => {
   return (
-    <PageLayout>
-      <PageLayout.Content>
-        <div className="space-y-6">
-          <div className="flex justify-between items-center">
-            <h1 className="voila-heading text-3xl">{{FeatureName}} List</h1>
-            <Button>Add New {{FeatureName}}</Button>
-          </div>
+    <div className="space-y-6">
+      <PageHeader
+        title="{{FeatureName}} list"
+        actions={<Button>Add new {{featureName}}</Button>}
+      />
 
-          <div className="grid gap-4">
-            {Array.from({ length: 3 }, (_, i) => (
-              <Card key={i}>
-                <CardHeader>
-                  <CardTitle>{{FeatureName}} Item {i + 1}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    Sample {{featureName}} item content goes here.
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </PageLayout.Content>
-    </PageLayout>
+      <div className="grid gap-4">
+        {Array.from({ length: 3 }, (_, i) => (
+          <Card key={i}>
+            <CardHeader>
+              <CardTitle>{{FeatureName}} item {i + 1}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground">
+                Sample {{featureName}} item content goes here.
+              </p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
   );
 };

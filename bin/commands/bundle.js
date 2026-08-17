@@ -576,8 +576,8 @@ export async function bundleThemes(options) {
       if (!options.watch) {
         console.log('\n💡 Next steps:');
         console.log('  - Themes are now bundled in your globals.css');
-        console.log('  - Use theme classes like .theme-base, .theme-elegant');
-        console.log('  - Run "npx uikit serve" to start development server');
+        console.log('  - Use theme classes like .theme-base, .theme-<your-theme>');
+        console.log('  - Start your app\'s own dev server (e.g. "npm run dev")');
       }
     }
   } catch (error) {

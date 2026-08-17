@@ -1,14 +1,13 @@
 import { jsx as a } from "react/jsx-runtime";
 import * as n from "react";
-import { u as k, c as l } from "./index-C0UREtMP.js";
-import { c as F } from "./index-DFZozV_h.js";
-import { u as I } from "./index-DQH6odE9.js";
-import { c as H, R as U, A as $, C as W, a as z } from "./index-dhIqEbxW.js";
-import { P as B, D as G } from "./index-BY7PeRJA.js";
-import { P as T } from "./index-BCjJQGh8.js";
-import { P as K } from "./index-BVRIAMfe.js";
+import { u as k, c as F, a as l } from "./index-WHakdmwv.js";
+import { u as I } from "./index-5Bhkapwi.js";
+import { c as H, R as U, a as $, C as W, A as z } from "./index-BjeYwP6P.js";
+import { P as B, D as G } from "./index-DKZPUN5w.js";
+import { P as T } from "./index-DKIoJbzW.js";
+import { P as K } from "./index-CpDnqHCm.js";
 import { c as j } from "./utils-CwJPJKOE.js";
-var x, S = "HoverCard", [O, fe] = F(S, [
+var x, S = "HoverCard", [O, pe] = F(S, [
   H
 ]), b = H(), [V, w] = O(S), _ = (e) => {
   const {
@@ -172,17 +171,17 @@ function Z(e) {
   return o;
 }
 var ee = _, re = N, oe = D, te = A;
-function ve({
+function fe({
   ...e
 }) {
   return /* @__PURE__ */ a(ee, { "data-slot": "hover-card", ...e });
 }
-function me({
+function ve({
   ...e
 }) {
   return /* @__PURE__ */ a(re, { "data-slot": "hover-card-trigger", ...e });
 }
-function Ce({
+function me({
   className: e,
   align: o = "center",
   sideOffset: t = 4,
@@ -203,8 +202,8 @@ function Ce({
   ) });
 }
 export {
-  ve as HoverCard,
-  Ce as HoverCardContent,
-  me as HoverCardTrigger
+  fe as HoverCard,
+  me as HoverCardContent,
+  ve as HoverCardTrigger
 };
 //# sourceMappingURL=hover-card.js.map

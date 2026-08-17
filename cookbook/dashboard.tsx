@@ -1,8 +1,8 @@
 /**
  * Dashboard recipe.
  *
- * Stats grid + recent activity table inside a standard page shell.
- * Drop into any admin layout — works inside <AdminLayout> or alone.
+ * Stats grid + recent activity table. Returns plain page content, so it
+ * drops into whatever layout route your app renders it through.
  *
  * Assumes <ThemeProvider> is mounted at your app root. This recipe uses
  * no toasts or confirms, so <ToastProvider /> and <ConfirmProvider> are

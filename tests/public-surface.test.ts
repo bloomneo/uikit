@@ -29,7 +29,6 @@ import * as root from '../src/index';
 const COMPONENTS = [
   // Form primitives
   'Button', 'Input', 'Textarea', 'Label', 'Checkbox',
-  'RadioGroup', 'RadioGroupItem', 'Switch', 'Slider',
   // Form wrappers
   'FormField', 'FormController',   // FormController = legacy alias
   'PasswordInput',
@@ -37,15 +36,11 @@ const COMPONENTS = [
   'Combobox',
   // Display
   'Card', 'CardHeader', 'CardTitle', 'CardDescription', 'CardContent', 'CardFooter',
-  'Badge', 'Avatar', 'AvatarFallback', 'AvatarImage',
-  'Separator', 'Progress', 'Skeleton',
   'Alert', 'AlertDescription', 'AlertTitle',
   // Nav
   'Tabs', 'TabsContent', 'TabsList', 'TabsTrigger',
-  'Toggle',
   'Popover', 'PopoverContent', 'PopoverTrigger',
   // Data
-  'DataTable', 'Calendar',
   // Overlay
   'Toaster',
   // App primitives

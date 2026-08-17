@@ -7,14 +7,14 @@ Rules for customizing, switching, and generating themes. Theming is the most com
 | User asks for | Do this |
 |---|---|
 | "Switch to dark mode" | Call `useTheme().setMode('dark')`. No CSS edits. |
-| "Use the elegant theme" | Call `useTheme().setTheme('elegant')`. No CSS edits. |
+| "Use our brand theme" | Generate it once with `uikit generate theme brand`, then `useTheme().setTheme('brand')`. No CSS edits. |
 | "Match our brand color" | `npx uikit generate theme brand`, edit `primary` in the generated file, `npx uikit bundle`. |
 | "Make the button blue" | **Don't.** Components take brand color from the theme's `primary`. If they want one-off color, use `variant` — never override via className with raw colors. |
 | "Create a custom theme" | `npx uikit generate theme <name>` → edit → `npx uikit bundle`. |
 
 ## Built-in themes
 
-`base | elegant | metro | studio | vivid` — switch at runtime with `useTheme().setTheme()`. No build step needed. Use these before generating custom themes.
+`base` is the only bundled theme (4.0 removed `elegant`, `metro`, `studio` and `vivid`). Generate your own with `uikit generate theme <name>`, then switch at runtime with `useTheme().setTheme()`.
 
 ## The 29-variable contract
 
@@ -41,7 +41,7 @@ Core variables (the ones you'll touch when customizing):
 | `--muted` / `--muted-foreground` | `bg-muted`, `text-muted-foreground` | Secondary text, subtle sections. |
 | `--border`, `--input`, `--ring` | `border-border` | Borders, form inputs, focus rings. |
 | `--chart-1` … `--chart-5` | `var(--chart-1)` | Data visualization. Change if charts clash with brand. |
-| `--sidebar` … `--sidebar-ring` | `bg-sidebar` | AdminLayout sidebar (7 vars). Change only if sidebar needs distinct styling. |
+| `--sidebar` … `--sidebar-ring` | `bg-sidebar` | Your app shell's sidebar (7 vars). Change only if the sidebar needs distinct styling. |
 
 Hierarchy (for choosing the right class):
 - **Backgrounds:** `bg-background` → `bg-card` → `bg-muted` → `bg-accent` (lightest to most-interactive)
@@ -124,7 +124,7 @@ useTheme().setTheme('brand');
 
 ## FBCA projects
 
-For Feature-Based Component Architecture (`uikit create --fbca`), themes live at `src/web/themes/presets/` instead of `src/themes/presets/`. The CLI detects FBCA automatically — same commands work.
+In a Feature-Based Component Architecture app (what `@bloomneo/bloom` scaffolds), themes live at `src/web/themes/presets/` instead of `src/themes/presets/`. The CLI detects FBCA automatically — same commands work.
 
 ## Troubleshooting
 
@@ -133,7 +133,7 @@ For Feature-Based Component Architecture (`uikit create --fbca`), themes live at
 | Theme changes not showing | Run `npx uikit bundle`, clear browser cache, restart dev server |
 | Colors look washed out in dark mode | Lighten `primary` — see dark mode rule above |
 | Chart colors clash with brand | Override `--chart-1` … `--chart-5` in the theme file |
-| Sidebar looks wrong | AdminLayout reads `--sidebar*` vars separately — 7 variables; default to `base` if unsure |
+| Sidebar looks wrong | Sidebar surfaces read `--sidebar*` vars separately — 7 variables; default to `base` if unsure |
 | FOUC (flash of default theme) on load | Ensure `<script>{foucScript()}</script>` is in `index.html` `<head>`, not body |
 
 ## Don't do

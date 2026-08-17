@@ -23,7 +23,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
-type Banned = { pattern: RegExp; now: string };
+type Banned = { pattern: RegExp; now: string; raw?: boolean };
 
 const BANNED: Banned[] = [
   // Old scope — renamed to @bloomneo in 1.5.0, no aliases kept
@@ -47,6 +47,38 @@ const BANNED: Banned[] = [
   // clsx vs cn — uikit exports `cn()`, not a re-exported clsx
   { pattern: /import\s+clsx\s+from\s+['"]@bloomneo\/uikit/, now: "import { cn } from '@bloomneo/uikit'" },
 ];
+
+// 4.0 removed the chrome (layouts, sections) and the never-imported primitives.
+// Listing them here stops docs, examples or CLI templates from referencing a
+// component that no longer exists — the drift that made the appkit skills
+// document three methods which had never existed.
+const REMOVED_IN_4: string[] = [
+  'AdminLayout', 'PageLayout', 'AuthLayout', 'MobileLayout', 'PopupLayout',
+  'BlankLayout', 'LayoutWrapper', 'Container', 'SafeArea', 'TabBar',
+  'HeaderLogo', 'HeaderNav', 'Accordion', 'Avatar', 'Breadcrumb', 'Calendar',
+  'Collapsible', 'DetailPage', 'Menubar', 'Motion', 'Pagination', 'Progress',
+  'Separator', 'Skeleton', 'Slider', 'Toggle', 'useMobileLayout',
+];
+for (const name of REMOVED_IN_4) {
+  BANNED.push({
+    pattern: new RegExp(String.raw`<` + name + String.raw`[\s/>]|\b` + name + String.raw`\b\s*[,}]\s*from`),
+    now: `removed in 4.0 — chrome now lives in Bloom's templates; see CHANGELOG`,
+    // Match the RAW line, before inline code spans are stripped. The strip
+    // exists so prose *discussing* drift does not false-positive, but a
+    // removed component named inside backticks is not discussion — a markdown
+    // table reading "| Dashboard | `<AdminLayout>` |" teaches an agent to use
+    // it just as effectively as a bare mention. That table survived the first
+    // pass of this gate for exactly that reason.
+    raw: true,
+  });
+}
+
+/**
+ * Lines that are allowed to name a removed component, because naming it is
+ * the point: release notes, migration guidance, and "do not use this" rules.
+ * Keep this narrow — it is the one hole in the check above.
+ */
+const REMOVAL_NOTE = /removed in 4\.0|4\.0 removed|4\.0\.0 removed|no longer exists?|do(es)? not exist|were all dead|ships \*\*no|were removed/i;
 
 const SCAN: string[] = [
   'AGENTS.md',
@@ -124,8 +156,10 @@ for (const file of SCAN) {
     const next = lines[i + 1] ?? '';
     if (/^-\s/.test(line) && /^\+\s/.test(next)) return;
 
-    for (const { pattern, now } of BANNED) {
-      if (pattern.test(clean)) {
+    for (const { pattern, now, raw } of BANNED) {
+      const subject = raw ? line : clean;
+      if (raw && REMOVAL_NOTE.test(line)) continue;
+      if (pattern.test(subject)) {
         console.error(
           `  ${file}:${i + 1}\n    ${line.trim()}\n    → use: ${now}`,
         );

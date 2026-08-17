@@ -17,24 +17,12 @@ export {
 
 // Import optimized theme presets from JavaScript files
 import baseTheme from './presets/base.js';
-import elegantTheme from './presets/elegant.js';
-import metroTheme from './presets/metro.js';
-import studioTheme from './presets/studio.js';
-import vividTheme from './presets/vivid.js';
 
 // Re-export with both default and named patterns
 export { default as baseTheme } from './presets/base.js';
-export { default as elegantTheme } from './presets/elegant.js';
-export { default as metroTheme } from './presets/metro.js';
-export { default as studioTheme } from './presets/studio.js';
-export { default as vividTheme } from './presets/vivid.js';
 
 // Named aliases for convenience
 export { baseTheme as base };
-export { elegantTheme as elegant };
-export { metroTheme as metro };
-export { studioTheme as studio };
-export { vividTheme as vivid };
 
 // Type definitions for themes (inferred from JavaScript objects)
 export interface ThemeColors {
@@ -102,10 +90,6 @@ export interface ThemePreset {
  */
 export const AVAILABLE_THEMES = [
   'base',
-  'elegant',
-  'metro',
-  'studio',
-  'vivid'
 ] as const;
 
 /**
@@ -115,10 +99,6 @@ export const AVAILABLE_THEMES = [
  */
 export const ALL_THEME_PRESETS = {
   base: baseTheme,
-  elegant: elegantTheme,
-  metro: metroTheme,
-  studio: studioTheme,
-  vivid: vividTheme,
 };
 
 /**
@@ -144,8 +124,8 @@ export const ALL_THEME_PRESETS = {
 
 /**
  * @llm-pattern Individual theme access (same as before)
- * import { vivid, studioTheme } from '@bloomneo/uikit/themes';
+ * import { base, baseTheme } from '@bloomneo/uikit/themes';
  * 
  * console.log(vivid.name); // "Vivid"
- * console.log(studioTheme.light.primary); // Theme color
+ * console.log(baseTheme.light.primary); // Theme color
  */

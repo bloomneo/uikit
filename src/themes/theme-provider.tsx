@@ -52,7 +52,6 @@ export interface ThemeContextValue {
   /** Get CSS classes for tone */
   getToneClasses: (tone: Tone) => string;
   /** Get default tone for component */
-  getDefaultTone: (component: string) => Tone;
 }
 
 /**
@@ -78,23 +77,6 @@ export interface ThemeProviderProps {
 }
 
 /**
- * @llm-defaults Tone defaults by component type
- * Smart contextual defaults for LLM predictability
- */
-const TONE_DEFAULTS: Record<string, Tone> = {
-  AdminLayout: 'subtle',       // Professional admin interfaces
-  PageLayout: 'clean',         // Clean public websites
-  AuthLayout: 'clean',         // Focused authentication
-  PopupLayout: 'clean',        // Clean extensions
-  BlankLayout: 'clean',        // Simple pages
-  Header: 'clean',             // Clean headers
-  Footer: 'contrast',          // Bold footers
-  AdminSidebar: 'subtle',      // Subtle sidebars
-  AdminHeader: 'clean',        // Clean admin headers
-  PopupHeader: 'brand',        // Branded popup headers
-};
-
-/**
  * @llm-rule Tone CSS class mapping
  * CSS variables automatically handle light/dark mode switching
  */
@@ -110,11 +92,7 @@ const TONE_CLASSES: Record<Tone, string> = {
  * All themes ship as CSS with the package
  */
 export const AVAILABLE_THEMES: Theme[] = [
-  'base',      // Sky blue theme - clean & professional (DEFAULT)
-  'elegant',   // Minimal blue - clean & professional
-  'metro',     // Dark teal - admin dashboards
-  'studio',    // Designer grays - creative tools
-  'vivid'      // Premium cursive - luxury/creative portfolios
+  'base',      // The only bundled theme. Brand yours by overriding tokens.
 ];
 
 // Theme context
@@ -212,22 +190,22 @@ function applyThemeImmediately(theme: Theme, mode: Mode) {
 /**
  * 🔧 ENHANCED: Ultra-simple theme provider with configuration priority
  * @llm-pattern Basic usage (default behavior - storage first)
- * <ThemeProvider theme="elegant" mode="dark">
+ * <ThemeProvider theme="base" mode="dark">
  *   <App />
  * </ThemeProvider>
  * 
  * @llm-pattern Force configuration (ignore storage completely)
- * <ThemeProvider theme="elegant" mode="dark" forceConfig={true}>
+ * <ThemeProvider theme="base" mode="dark" forceConfig={true}>
  *   <App />
  * </ThemeProvider>
  * 
  * @llm-pattern Disable storage entirely
- * <ThemeProvider theme="elegant" mode="dark" storageKey={null}>
+ * <ThemeProvider theme="base" mode="dark" storageKey={null}>
  *   <App />
  * </ThemeProvider>
  * 
  * @llm-pattern Custom storage key
- * <ThemeProvider theme="elegant" mode="dark" storageKey="my-app-theme">
+ * <ThemeProvider theme="base" mode="dark" storageKey="my-app-theme">
  *   <App />
  * </ThemeProvider>
  */
@@ -338,14 +316,6 @@ export function ThemeProvider({
     return TONE_CLASSES[tone];
   };
 
-  /**
-   * @llm-rule Get default tone for component type
-   * Returns smart contextual defaults for LLM predictability
-   */
-  const getDefaultTone = (component: string): Tone => {
-    return TONE_DEFAULTS[component] || 'clean';
-  };
-  
   // Create context value
   const contextValue: ThemeContextValue = {
     theme: themeState.theme,
@@ -355,7 +325,6 @@ export function ThemeProvider({
     setMode,
     toggleMode,
     getToneClasses,
-    getDefaultTone
   };
   
   return (
@@ -371,8 +340,7 @@ export function ThemeProvider({
  * const { theme, mode, setTheme, setMode, toggleMode } = useTheme();
  * 
  * @llm-pattern Component styling
- * const { getToneClasses, getDefaultTone } = useTheme();
- * const tone = getDefaultTone('AdminLayout');
+ * const { getToneClasses } = useTheme();
  * const classes = getToneClasses(tone); // Works automatically in both modes
  */
 export function useTheme(): ThemeContextValue {

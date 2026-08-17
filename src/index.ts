@@ -21,7 +21,6 @@ export { Label } from './components/ui/label';
 export { Checkbox } from './components/ui/checkbox';
 export { RadioGroup, RadioGroupItem } from './components/ui/radio-group';
 export { Switch } from './components/ui/switch';
-export { Slider } from './components/ui/slider';
 export {
   Select,
   SelectContent,
@@ -58,26 +57,8 @@ export {
   CardTitle,
 } from './components/ui/card';
 export { Badge } from './components/ui/badge';
-export { Avatar, AvatarFallback, AvatarImage } from './components/ui/avatar';
-export { Separator } from './components/ui/separator';
-export { Progress } from './components/ui/progress';
-export { Skeleton } from './components/ui/skeleton';
 export { Alert, AlertDescription, AlertTitle } from './components/ui/alert';
-export {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from './components/ui/breadcrumb';
 export { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs';
-export {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from './components/ui/accordion';
 
 // UI Components - Navigation & Menu
 export {
@@ -98,31 +79,6 @@ export {
   DropdownMenuShortcut,
 } from './components/ui/dropdown-menu';
 export {
-  Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarSeparator,
-  MenubarShortcut,
-  MenubarTrigger,
-  MenubarCheckboxItem,
-  MenubarRadioGroup,
-  MenubarRadioItem,
-  MenubarLabel,
-  MenubarSub,
-  MenubarSubContent,
-  MenubarSubTrigger,
-} from './components/ui/menubar';
-export {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from './components/ui/pagination';
-export {
   Command,
   CommandDialog,
   CommandEmpty,
@@ -133,12 +89,6 @@ export {
   CommandSeparator,
   CommandShortcut,
 } from './components/ui/command';
-export {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from './components/ui/collapsible';
-export { Toggle } from './components/ui/toggle';
 
 // UI Components - Overlay & Modal
 export {
@@ -194,7 +144,6 @@ export type {
   RowAction,
   SortConfig,
 } from './components/ui/data-table';
-export { Calendar } from './components/ui/calendar';
 export { Toaster } from './components/ui/sonner';
 
 // UI Components - App Primitives (Ship 2)
@@ -287,22 +236,6 @@ export {
   requireArrayProp,
   warnInDev,
 } from './lib/errors';
-
-// Layout System
-export { PageLayout } from './components/layouts/page';
-export { AdminLayout } from './components/layouts/admin';
-export { AuthLayout } from './components/layouts/auth';
-export { BlankLayout } from './components/layouts/blank';
-export { PopupLayout } from './components/layouts/popup';
-export { MobileLayout, useMobileLayout } from './components/layouts/mobile';
-export { LayoutWrapper } from './components/layouts/layout-wrapper';
-
-// Section Components
-export { Header, HeaderLogo, HeaderNav } from './components/sections/header';
-export { Footer } from './components/sections/footer';
-export { Container } from './components/sections/container';
-export { SafeArea } from './components/sections/safe-area';
-export { TabBar } from './components/sections/tab-bar';
 
 // Theme System
 export { ThemeProvider, useTheme, type Theme, type Mode } from './themes/theme-provider';

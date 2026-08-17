@@ -1,16 +1,15 @@
 import { jsx as e, jsxs as n } from "react/jsx-runtime";
-import { R as l, b as d, C as c, a as r, T as u, P as f, O as m, D as h } from "./index-Ba4eHUBD.js";
+import { R as l, C as d, a as r, X as c, D as u, T as f, b as h, P as m, O as p } from "./index-BsDbbVHU.js";
 import { c as o } from "./utils-CwJPJKOE.js";
-import { X as p } from "./x-BxwubQiM.js";
-function v({ ...t }) {
+function N({ ...t }) {
   return /* @__PURE__ */ e(l, { "data-slot": "sheet", ...t });
 }
-function C({
+function v({
   ...t
 }) {
-  return /* @__PURE__ */ e(d, { "data-slot": "sheet-trigger", ...t });
+  return /* @__PURE__ */ e(h, { "data-slot": "sheet-trigger", ...t });
 }
-function w({
+function C({
   ...t
 }) {
   return /* @__PURE__ */ e(r, { "data-slot": "sheet-close", ...t });
@@ -18,14 +17,14 @@ function w({
 function g({
   ...t
 }) {
-  return /* @__PURE__ */ e(f, { "data-slot": "sheet-portal", ...t });
+  return /* @__PURE__ */ e(m, { "data-slot": "sheet-portal", ...t });
 }
 function b({
   className: t,
   ...a
 }) {
   return /* @__PURE__ */ e(
-    m,
+    p,
     {
       "data-slot": "sheet-overlay",
       className: o(
@@ -36,7 +35,7 @@ function b({
     }
   );
 }
-function T({
+function w({
   className: t,
   children: a,
   side: s = "right",
@@ -45,7 +44,7 @@ function T({
   return /* @__PURE__ */ n(g, { children: [
     /* @__PURE__ */ e(b, {}),
     /* @__PURE__ */ n(
-      c,
+      d,
       {
         "data-slot": "sheet-content",
         className: o(
@@ -60,7 +59,7 @@ function T({
         children: [
           a,
           /* @__PURE__ */ n(r, { className: "ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none", children: [
-            /* @__PURE__ */ e(p, { className: "size-4" }),
+            /* @__PURE__ */ e(c, { className: "size-4" }),
             /* @__PURE__ */ e("span", { className: "sr-only", children: "Close" })
           ] })
         ]
@@ -68,7 +67,7 @@ function T({
     )
   ] });
 }
-function k({ className: t, ...a }) {
+function T({ className: t, ...a }) {
   return /* @__PURE__ */ e(
     "div",
     {
@@ -78,12 +77,25 @@ function k({ className: t, ...a }) {
     }
   );
 }
-function z({ className: t, ...a }) {
+function k({ className: t, ...a }) {
   return /* @__PURE__ */ e(
     "div",
     {
       "data-slot": "sheet-footer",
       className: o("mt-auto flex flex-col gap-2 p-4", t),
+      ...a
+    }
+  );
+}
+function z({
+  className: t,
+  ...a
+}) {
+  return /* @__PURE__ */ e(
+    f,
+    {
+      "data-slot": "sheet-title",
+      className: o("text-foreground font-semibold", t),
       ...a
     }
   );
@@ -95,19 +107,6 @@ function D({
   return /* @__PURE__ */ e(
     u,
     {
-      "data-slot": "sheet-title",
-      className: o("text-foreground font-semibold", t),
-      ...a
-    }
-  );
-}
-function O({
-  className: t,
-  ...a
-}) {
-  return /* @__PURE__ */ e(
-    h,
-    {
       "data-slot": "sheet-description",
       className: o("text-muted-foreground text-sm", t),
       ...a
@@ -115,13 +114,13 @@ function O({
   );
 }
 export {
-  v as Sheet,
-  w as SheetClose,
-  T as SheetContent,
-  O as SheetDescription,
-  z as SheetFooter,
-  k as SheetHeader,
-  D as SheetTitle,
-  C as SheetTrigger
+  N as Sheet,
+  C as SheetClose,
+  w as SheetContent,
+  D as SheetDescription,
+  k as SheetFooter,
+  T as SheetHeader,
+  z as SheetTitle,
+  v as SheetTrigger
 };
 //# sourceMappingURL=sheet.js.map

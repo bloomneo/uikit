@@ -1,14 +1,13 @@
 import { jsx as r } from "react/jsx-runtime";
 import * as f from "react";
-import { u as M, c as T } from "./index-C0UREtMP.js";
-import { c as k } from "./index-DFZozV_h.js";
-import { c as h, R as E, I as F } from "./index-DFi6WydO.js";
-import { P as $ } from "./index-BCjJQGh8.js";
-import { P as m } from "./index-BVRIAMfe.js";
-import { u as D } from "./index-1QHKgw6D.js";
-import { u as V } from "./index-xqkGMOJ8.js";
+import { u as M, c as k, a as T } from "./index-WHakdmwv.js";
+import { c as h, R as E, I as F } from "./index-CO5mz-pQ.js";
+import { P as $ } from "./index-DKIoJbzW.js";
+import { P as m } from "./index-CpDnqHCm.js";
+import { u as D } from "./index-C5CLmphY.js";
+import { u as V } from "./index-CXwMLXQo.js";
 import { c as p } from "./utils-CwJPJKOE.js";
-var g = "Tabs", [G, Z] = k(g, [
+var g = "Tabs", [G, Y] = k(g, [
   h
 ]), C = h(), [L, x] = G(g), I = f.forwardRef(
   (e, t) => {
@@ -151,7 +150,7 @@ function S(e, t) {
   return `${e}-content-${t}`;
 }
 var j = I, z = _, K = R, B = A;
-function ee({
+function Z({
   className: e,
   ...t
 }) {
@@ -164,7 +163,7 @@ function ee({
     }
   );
 }
-function te({
+function ee({
   className: e,
   ...t
 }) {
@@ -180,7 +179,7 @@ function te({
     }
   );
 }
-function ae({
+function te({
   className: e,
   ...t
 }) {
@@ -196,7 +195,7 @@ function ae({
     }
   );
 }
-function oe({
+function ae({
   className: e,
   ...t
 }) {
@@ -210,9 +209,9 @@ function oe({
   );
 }
 export {
-  ee as Tabs,
-  oe as TabsContent,
-  te as TabsList,
-  ae as TabsTrigger
+  Z as Tabs,
+  ae as TabsContent,
+  ee as TabsList,
+  te as TabsTrigger
 };
 //# sourceMappingURL=tabs.js.map

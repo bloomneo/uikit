@@ -2,6 +2,159 @@
 
 All notable changes to UIKit will be documented in this file.
 
+## [4.0.0] - 2026-08-17
+
+Breaking. UIKit becomes a **library**: components and design tokens. It no
+longer ships app chrome, and it no longer scaffolds applications — that is
+[`@bloomneo/bloom`](https://www.npmjs.com/package/@bloomneo/bloom)'s job.
+
+299 files and ~34,900 lines removed. Public exports **197 → 139**.
+
+### Removed — layouts and sections
+
+`AdminLayout`, `PageLayout`, `AuthLayout`, `BlankLayout`, `PopupLayout`,
+`MobileLayout`, `Header`, `Footer`, `Container`, `SafeArea`, `TabBar`, and the
+layout adapters/wrapper.
+
+Every application built on this library replaced them within weeks. App chrome
+is where product identity lives; a generic sidebar is the first thing anyone
+rewrites. Two internal apps had already migrated off `AdminShell` by hand and
+documented the reason in their own source. Shipping chrome cost maintenance and
+bought nothing.
+
+**Migration** — the pattern those apps converged on is a layout route that
+renders its pages through an `<Outlet />`, with each page owning its header:
+
+```tsx
+// AdminLayoutRoute.tsx — the shell, written once, in your app
+export function AdminLayoutRoute() {
+  return (
+    <div className="flex min-h-screen">
+      <Sidebar />
+      <main className="flex-1 p-6"><Outlet /></main>
+    </div>
+  );
+}
+
+// Any page — owns its header, returns plain content
+export default function UsersPage() {
+  return (
+    <div className="space-y-6">
+      <PageHeader title="Users" actions={<Button>Invite</Button>} />
+      <UsersTable />
+    </div>
+  );
+}
+```
+
+`PageHeader` stays, and is now the intended replacement for the `title` /
+`breadcrumbs` props layouts used to own.
+
+### Removed — unused primitives
+
+`Skeleton`, `Separator`, `Avatar`, `Progress`, `Accordion`, `Breadcrumb`,
+`Calendar`, `Collapsible`, `Menubar`, `Pagination`, `Slider`, `Toggle`,
+`Motion`, `DetailPage`.
+
+For a loading placeholder, `<div className="h-40 w-full animate-pulse rounded-md bg-muted" />`
+is one line and stays on the token palette.
+
+### Removed — four theme presets
+
+`elegant`, `metro`, `studio`, `vivid`. Four more palettes to keep consistent,
+and near-zero projects switched to them. `base` remains; `uikit generate theme
+<name>` covers the real case, which is one brand palette per product.
+`src/styles/_tokens.css`: **60 KB → 19 KB**.
+
+The `Theme` type is now `'base' | (string & {})` so generated theme ids still
+type-check.
+
+### Removed — the scaffolding CLI
+
+`uikit create` and its `single` / `spa` / `multi` / `fbca` templates, plus
+`serve`, `build`, `deploy`, `prerender` and `optimize`.
+
+These duplicated `@bloomneo/bloom`, and they were built on the layout chrome
+this release deletes — they could not have kept working. Your app's own
+toolchain already covers the lifecycle commands.
+
+The CLI is now theme tooling and per-piece generation:
+
+```bash
+uikit generate page|component|hook|feature|theme <name>
+uikit bundle [--watch]
+```
+
+### Fixed — `@bloomneo/uikit/theme` shipped a stale copy of the token system
+
+This one nearly shipped. `src/styles/theme.css` — copied verbatim to
+`dist/theme.css`, the file every Tailwind-running app imports — was a
+`voila-bundle` artefact generated in **2025** carrying its own inline copy of
+every token and all five themes. Because that copy contained no
+`@import "./_tokens.css"` line, the inline step in `build-styles.mjs` was a
+silent no-op, and the two files had been drifting ever since.
+
+The practical effect: 4.0's token cleanup landed in `_tokens.css` and never
+reached consumers. `dist/theme.css` would have shipped 62 KB containing four
+deleted themes. The build succeeded and every test passed.
+
+`theme.css` is now the thin wrapper it always claimed to be, and five new
+assertions fail if it ever grows its own tokens again — verified by
+reintroducing the bug and watching them fail. `dist/theme.css`: **62 KB → 21 KB**.
+
+### Fixed — the drift gate could not see backticked references
+
+The gate strips inline code spans so prose *discussing* drift does not
+false-positive. That hid a markdown table in the agent skill reading
+``| Dashboard / SaaS | `<AdminLayout>` … |`` — which teaches an agent to use a
+deleted component just as effectively as a bare mention would.
+
+Removed-component patterns now match the raw line, with a narrow allowance for
+lines that are explicitly release notes. Hardening it immediately surfaced one
+more: `usePagination`'s doc block promised a `<Pagination>` component that no
+longer ships.
+
+### Removed — `useTheme().getDefaultTone()`
+
+Every key in its lookup table named a layout that no longer exists, so it could
+only ever return the fallback.
+
+### Fixed — 27 export subpaths pointed at files that no longer build
+
+The `exports` map advertised `./skeleton`, `./admin`, `./motion` and 24 others
+whose entry points were removed. `exports`: **70 → 43**.
+
+### Fixed — a declared binary that was never shipped
+
+`package.json` declared `voila-bundle` → `bin/theme-bundler.js`. That file does
+not exist in the repo and is absent from the published 3.0.x tarball, so npm
+was linking a binary that could never run. Verified against the live tarball,
+then removed.
+
+### Fixed — templates and agent rules referencing removed components
+
+`uikit generate page|feature` emitted `<PageLayout>` and the class
+`text-gradient-primary`, which no longer exists in any stylesheet. Rewritten on
+the page-owned-header pattern. Component `@llm-rule AVOID:` lines that pointed
+readers at `<Skeleton>`, `<Toggle>` and `<TabBar>` now name replacements that
+exist.
+
+The doc-drift gate learned all 27 removed names, so none of these can come
+back through documentation.
+
+### Fixed — README linked five guides that do not exist
+
+`docs/UIKIT_COMPOSITE_UI_SYSTEM.md`, `docs/UIKIT_THEME_GUIDE.md`,
+`docs/UIKIT_CLI_GUIDE.md`, `docs/UIKIT_LLM_GUIDE.md` and `docs/quickstart/`
+were all dead links. Replaced with the docs that are actually shipped.
+
+### Note
+
+`ImportMeta.env` typing previously reached the whole project through a
+`/// <reference types="vite/client" />` inside `components/layouts/layout-wrapper.tsx`.
+Deleting that component silently removed it project-wide; the reference now
+lives in `src/env.d.ts`, where it belongs.
+
 ## [3.0.2] - 2026-08-17
 
 ### Fixed — apps built with uikit's own CLI lost the new tokens

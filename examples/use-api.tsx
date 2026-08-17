@@ -9,7 +9,7 @@
  */
 
 import { useEffect } from 'react';
-import { useApi, Button, Skeleton, toast } from '@bloomneo/uikit';
+import { useApi, Button, toast } from '@bloomneo/uikit';
 
 type User = { id: number; email: string; name: string };
 
@@ -36,9 +36,10 @@ export default function UseApiExample() {
     }
   }
 
-  // Loading: render a skeleton.
+  // Loading: render a skeleton. UIKit ships no Skeleton component — a
+  // pulsing muted block is one line and stays on the token palette.
   if (users.loading && !users.data) {
-    return <Skeleton className="h-40 w-full" />;
+    return <div className="h-40 w-full animate-pulse rounded-md bg-muted" />;
   }
 
   // Error: show the string. Pair with a retry button.

@@ -1,17 +1,22 @@
 /**
  * `usePagination` — pagination state machine.
  *
- * The `<Pagination>` UI component already ships, but the state (current page,
- * total pages, hasNext, hasPrev, ellipsis logic) gets reinvented in every list
- * page. This hook provides the canonical state shape so the loop can be:
+ * Headless by design: 4.0 removed the `Pagination` component, but the state
+ * (current page, total pages, hasNext, hasPrev, ellipsis logic) gets
+ * reinvented in every list page, so the hook stays. Render whatever controls
+ * your app's design calls for:
  *
  *   const pagination = usePagination({ total: 1234, pageSize: 25 });
  *   const items = data.slice(pagination.startIndex, pagination.endIndex);
  *
- *   {pagination.pages.map((p) =>
+ *   {pagination.pages.map((p, i) =>
  *     p === 'ellipsis'
- *       ? <PaginationEllipsis key={...} />
- *       : <PaginationLink key={p} isActive={p === pagination.page} onClick={() => pagination.goTo(p)}>{p}</PaginationLink>
+ *       ? <span key={i}>…</span>
+ *       : <Button
+ *           key={p}
+ *           variant={p === pagination.page ? 'default' : 'ghost'}
+ *           onClick={() => pagination.goTo(p)}
+ *         >{p}</Button>
  *   )}
  *
  * @example Server-side pagination

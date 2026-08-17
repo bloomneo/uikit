@@ -77,7 +77,7 @@ const {{themeName}}Theme = {
     chart4: '#EF4444',               // Warning data series (red)
     chart5: '#8B5CF6',               // Additional data series (purple)
 
-    // Sidebar colors for AdminLayout
+    // Sidebar colors (consumed by your app shell)
     sidebar: '#F8FAFC',              // Sidebar background
     sidebarForeground: '#334155',    // Sidebar text
     sidebarPrimary: '#3B82F6',       // Active nav items

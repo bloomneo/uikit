@@ -1,6 +1,6 @@
 {
   "name": "@bloomneo/uikit",
-  "version": "3.0.2",
+  "version": "4.0.0",
   "description": "React component library AI coding agents pick first — components, layouts, themes, routing, scaffolding, and a generated llms.txt. Web-first (React DOM); ships platform-detection utilities for Tauri/React Native/extensions but not yet full adapters.",
   "type": "module",
   "keywords": [
@@ -35,8 +35,7 @@
     "./dist/styles.css"
   ],
   "bin": {
-    "uikit": "./bin/uikit.js",
-    "voila-bundle": "./bin/theme-bundler.js"
+    "uikit": "./bin/uikit.js"
   },
   "exports": {
     ".": {
@@ -63,33 +62,17 @@
       "import": "./dist/styles/fonts.css",
       "require": "./dist/styles/fonts.css"
     },
-    "./accordion": {
-      "import": "./dist/accordion.js",
-      "types": "./dist/types/components/ui/accordion.d.ts"
-    },
     "./alert": {
       "import": "./dist/alert.js",
       "types": "./dist/types/components/ui/alert.d.ts"
-    },
-    "./avatar": {
-      "import": "./dist/avatar.js",
-      "types": "./dist/types/components/ui/avatar.d.ts"
     },
     "./badge": {
       "import": "./dist/badge.js",
       "types": "./dist/types/components/ui/badge.d.ts"
     },
-    "./breadcrumb": {
-      "import": "./dist/breadcrumb.js",
-      "types": "./dist/types/components/ui/breadcrumb.d.ts"
-    },
     "./button": {
       "import": "./dist/button.js",
       "types": "./dist/types/components/ui/button.d.ts"
-    },
-    "./calendar": {
-      "import": "./dist/calendar.js",
-      "types": "./dist/types/components/ui/calendar.d.ts"
     },
     "./card": {
       "import": "./dist/card.js",
@@ -98,10 +81,6 @@
     "./checkbox": {
       "import": "./dist/checkbox.js",
       "types": "./dist/types/components/ui/checkbox.d.ts"
-    },
-    "./collapsible": {
-      "import": "./dist/collapsible.js",
-      "types": "./dist/types/components/ui/collapsible.d.ts"
     },
     "./command": {
       "import": "./dist/command.js",
@@ -139,25 +118,9 @@
       "import": "./dist/label.js",
       "types": "./dist/types/components/ui/label.d.ts"
     },
-    "./menubar": {
-      "import": "./dist/menubar.js",
-      "types": "./dist/types/components/ui/menubar.d.ts"
-    },
-    "./motion": {
-      "import": "./dist/motion.js",
-      "types": "./dist/types/components/ui/motion.d.ts"
-    },
-    "./pagination": {
-      "import": "./dist/pagination.js",
-      "types": "./dist/types/components/ui/pagination.d.ts"
-    },
     "./popover": {
       "import": "./dist/popover.js",
       "types": "./dist/types/components/ui/popover.d.ts"
-    },
-    "./progress": {
-      "import": "./dist/progress.js",
-      "types": "./dist/types/components/ui/progress.d.ts"
     },
     "./radio-group": {
       "import": "./dist/radio-group.js",
@@ -167,21 +130,9 @@
       "import": "./dist/select.js",
       "types": "./dist/types/components/ui/select.d.ts"
     },
-    "./separator": {
-      "import": "./dist/separator.js",
-      "types": "./dist/types/components/ui/separator.d.ts"
-    },
     "./sheet": {
       "import": "./dist/sheet.js",
       "types": "./dist/types/components/ui/sheet.d.ts"
-    },
-    "./skeleton": {
-      "import": "./dist/skeleton.js",
-      "types": "./dist/types/components/ui/skeleton.d.ts"
-    },
-    "./slider": {
-      "import": "./dist/slider.js",
-      "types": "./dist/types/components/ui/slider.d.ts"
     },
     "./switch": {
       "import": "./dist/switch.js",
@@ -203,17 +154,9 @@
       "import": "./dist/toast.js",
       "types": "./dist/types/components/ui/toast.d.ts"
     },
-    "./toggle": {
-      "import": "./dist/toggle.js",
-      "types": "./dist/types/components/ui/toggle.d.ts"
-    },
     "./tooltip": {
       "import": "./dist/tooltip.js",
       "types": "./dist/types/components/ui/tooltip.d.ts"
-    },
-    "./detail-page": {
-      "import": "./dist/detail-page.js",
-      "types": "./dist/types/components/ui/detail-page.d.ts"
     },
     "./empty-state": {
       "import": "./dist/empty-state.js",
@@ -239,50 +182,6 @@
       "import": "./dist/combobox.js",
       "types": "./dist/types/components/ui/combobox.d.ts"
     },
-    "./admin": {
-      "import": "./dist/admin.js",
-      "types": "./dist/types/components/layouts/admin.d.ts"
-    },
-    "./auth": {
-      "import": "./dist/auth.js",
-      "types": "./dist/types/components/layouts/auth.d.ts"
-    },
-    "./blank": {
-      "import": "./dist/blank.js",
-      "types": "./dist/types/components/layouts/blank.d.ts"
-    },
-    "./page": {
-      "import": "./dist/page.js",
-      "types": "./dist/types/components/layouts/page.d.ts"
-    },
-    "./popup": {
-      "import": "./dist/popup.js",
-      "types": "./dist/types/components/layouts/popup.d.ts"
-    },
-    "./mobile": {
-      "import": "./dist/mobile.js",
-      "types": "./dist/types/components/layouts/mobile.d.ts"
-    },
-    "./container": {
-      "import": "./dist/container.js",
-      "types": "./dist/types/components/sections/container.d.ts"
-    },
-    "./header": {
-      "import": "./dist/header.js",
-      "types": "./dist/types/components/sections/header.d.ts"
-    },
-    "./footer": {
-      "import": "./dist/footer.js",
-      "types": "./dist/types/components/sections/footer.d.ts"
-    },
-    "./safe-area": {
-      "import": "./dist/safe-area.js",
-      "types": "./dist/types/components/sections/safe-area.d.ts"
-    },
-    "./tab-bar": {
-      "import": "./dist/tab-bar.js",
-      "types": "./dist/types/components/sections/tab-bar.d.ts"
-    },
     "./theme-provider": {
       "import": "./dist/theme-provider.js",
       "types": "./dist/types/themes/theme-provider.d.ts"
@@ -298,14 +197,6 @@
     "./platform": {
       "import": "./dist/platform.js",
       "types": "./dist/types/lib/platform.d.ts"
-    },
-    "./adapters": {
-      "import": "./dist/adapters.js",
-      "types": "./dist/types/adapters/index.d.ts"
-    },
-    "./wrapper": {
-      "import": "./dist/wrapper.js",
-      "types": "./dist/types/lib/layout-wrapper.d.ts"
     },
     "./format": {
       "import": "./dist/format.js",

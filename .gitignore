@@ -48,3 +48,6 @@ examples/.vite
 
 # Unrelated sub-project — not part of @bloomneo/uikit
 pages/
+# Leaked fixtures from tests/styles-palette.test.ts (created in-repo so they can
+# resolve `tailwindcss`; removed on success, left behind when a run fails).
+.consumer-*/

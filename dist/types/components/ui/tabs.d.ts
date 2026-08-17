@@ -4,7 +4,7 @@
  * @file src/components/ui/tabs.tsx
  *
  * @llm-rule WHEN: Switching between content panels on the same page
- * @llm-rule AVOID: Using for page-level navigation — use a router or <TabBar> section component
+ * @llm-rule AVOID: Using for page-level navigation — use your router's links instead
  * @llm-rule NOTE: Controlled: `value` + `onValueChange`. Uncontrolled: `defaultValue`
  * @llm-rule NOTE: Nesting: Tabs > TabsList > TabsTrigger, Tabs > TabsContent (value must match trigger value)
  * @llm-rule NOTE: Radix wrapper — props pass through to @radix-ui/react-tabs

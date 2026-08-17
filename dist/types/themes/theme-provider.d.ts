@@ -44,8 +44,6 @@ export interface ThemeContextValue {
     toggleMode: () => void;
     /** Get CSS classes for tone */
     getToneClasses: (tone: Tone) => string;
-    /** Get default tone for component */
-    getDefaultTone: (component: string) => Tone;
 }
 /**
  * @llm-props ThemeProvider props - ENHANCED WITH CONFIG PRIORITY
@@ -76,22 +74,22 @@ export declare const AVAILABLE_THEMES: Theme[];
 /**
  * 🔧 ENHANCED: Ultra-simple theme provider with configuration priority
  * @llm-pattern Basic usage (default behavior - storage first)
- * <ThemeProvider theme="elegant" mode="dark">
+ * <ThemeProvider theme="base" mode="dark">
  *   <App />
  * </ThemeProvider>
  *
  * @llm-pattern Force configuration (ignore storage completely)
- * <ThemeProvider theme="elegant" mode="dark" forceConfig={true}>
+ * <ThemeProvider theme="base" mode="dark" forceConfig={true}>
  *   <App />
  * </ThemeProvider>
  *
  * @llm-pattern Disable storage entirely
- * <ThemeProvider theme="elegant" mode="dark" storageKey={null}>
+ * <ThemeProvider theme="base" mode="dark" storageKey={null}>
  *   <App />
  * </ThemeProvider>
  *
  * @llm-pattern Custom storage key
- * <ThemeProvider theme="elegant" mode="dark" storageKey="my-app-theme">
+ * <ThemeProvider theme="base" mode="dark" storageKey="my-app-theme">
  *   <App />
  * </ThemeProvider>
  */
@@ -103,8 +101,7 @@ storageKey }: ThemeProviderProps): React.JSX.Element;
  * const { theme, mode, setTheme, setMode, toggleMode } = useTheme();
  *
  * @llm-pattern Component styling
- * const { getToneClasses, getDefaultTone } = useTheme();
- * const tone = getDefaultTone('AdminLayout');
+ * const { getToneClasses } = useTheme();
  * const classes = getToneClasses(tone); // Works automatically in both modes
  */
 export declare function useTheme(): ThemeContextValue;

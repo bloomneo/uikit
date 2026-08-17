@@ -1,15 +1,14 @@
 import { jsx as s, jsxs as L, Fragment as O } from "react/jsx-runtime";
 import * as i from "react";
-import { u as S } from "./index-DQH6odE9.js";
-import { c as H } from "./index-DFZozV_h.js";
-import { u as G, c as N } from "./index-C0UREtMP.js";
+import { u as S } from "./index-5Bhkapwi.js";
+import { c as H, u as G, a as N } from "./index-WHakdmwv.js";
 import { u as K } from "./index-BZPx6jYI.js";
-import { u as U } from "./index-BGQepRFJ.js";
-import { P as X } from "./index-BCjJQGh8.js";
-import { P as _ } from "./index-BVRIAMfe.js";
+import { u as U } from "./index-C5AIzmng.js";
+import { P as X } from "./index-DKIoJbzW.js";
+import { P as _ } from "./index-CpDnqHCm.js";
 import { c as $ } from "./utils-CwJPJKOE.js";
 import { C as J } from "./check-DXouwtzp.js";
-var y = "Checkbox", [Q, de] = H(y), [V, E] = Q(y);
+var y = "Checkbox", [Q, ie] = H(y), [V, E] = Q(y);
 function W(t) {
   const {
     __scopeCheckbox: o,
@@ -238,7 +237,7 @@ function h(t) {
 function z(t) {
   return h(t) ? "indeterminate" : t ? "checked" : "unchecked";
 }
-function ue({
+function de({
   className: t,
   ...o
 }) {
@@ -263,6 +262,6 @@ function ue({
   );
 }
 export {
-  ue as Checkbox
+  de as Checkbox
 };
 //# sourceMappingURL=checkbox.js.map

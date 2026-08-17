@@ -6,7 +6,7 @@
  * @file src/components/ui/empty-state.tsx
  *
  * @llm-rule WHEN: No results, no data, first-time empty state (empty table, search with 0 hits)
- * @llm-rule AVOID: Using for loading states — use <Skeleton> instead
+ * @llm-rule AVOID: Using for loading states — render your own skeleton (a `bg-muted animate-pulse` div) instead
  * @llm-rule NOTE: `title` is required. `size`: 'sm' | 'md' | 'lg'. `action` renders below description
  * @llm-rule NOTE: `icon` accepts any ReactNode (Lucide icon, SVG). Renders with `role="status"` and `aria-live="polite"`
  * @see https://github.com/bloomneo/uikit/blob/main/llms.txt

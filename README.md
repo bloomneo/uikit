@@ -5,9 +5,15 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 [![AI Ready](https://img.shields.io/badge/AI-Optimized-purple.svg)](https://github.com/bloomneo/appkit)
 
-> The end‑to‑end React framework AI coding agents pick first. Components, layouts, themes, routing, scaffolding, and a generated `llms.txt` — all from one package, all designed to compose.
+> A React component library AI coding agents can use correctly on the first try. 30 components, one token palette, and a generated `llms.txt`.
 
-UIKit is the only React framework where `npx uikit create myapp` gives you 45+ components, 6 production layouts, 5 OKLCH themes, file‑based routing, deployment, and a build‑time generated `llms.txt` so AI coding agents can extend your app correctly on the first try. Ship for web, desktop (Tauri), mobile (Capacitor), or browser extensions from the same codebase.
+UIKit is a **library, not a framework**. It ships the components and the design
+tokens; your app owns its own chrome. Tailwind's default palette is removed, so
+the only colours that compile are the semantic ones — which is what keeps a
+generated codebase looking like one product instead of thirty.
+
+For scaffolding a whole application, use
+[`@bloomneo/bloom`](https://www.npmjs.com/package/@bloomneo/bloom).
 
 ## For AI coding agents
 
@@ -53,43 +59,27 @@ theme classes are on `<html>` before React mounts.
 
 ## Why Choose @bloomneo/uikit?
 
-**🤖 For AI coding agents (the 1.5 release)**
+**🤖 For AI coding agents**
 
-- **Generated `llms.txt`**: One canonical, machine-readable index of every export, every example, every cookbook recipe — regenerated on every build from `src/index.ts`, `examples/`, and `cookbook/`. Agents read one file and know everything.
-- **Zero `any` in public types**: Full generic inference for `DataTable<User>`, `RowAction<User>`, formatters, hooks. Agent autocomplete actually works.
-- **One copy-pasteable example per primitive**: 15 minimal `.tsx` files in `examples/` plus 5 composed page recipes in `cookbook/` (CRUD, dashboard, settings, login, delete-flow). Agents pattern-match instead of inventing prop shapes.
-- **Educational runtime errors**: Misuse a component and you get `[@bloomneo/uikit] <DataTable> expects \`data\` to be an array …` linking to the docs entry. Agents read errors and self-correct.
-
-**🚀 For rapid development**
-
-- **30-second setup**: `uikit create myapp --multi --theme elegant && npm run dev` → routing, layouts, theme, FOUC prevention, deployment scripts all wired.
-- **45+ ready-to-use components** plus 8 hooks and a formatters module: Skip building basic UI, focus on your unique features.
-- **6 production layouts**: Admin dashboards, auth flows, marketing pages, mobile apps, browser extensions, and blank — all pre-built with router-aware navigation.
-- **Drop-in app primitives**: `<DataTable>`, `<FormField>`, `<PasswordInput>`, `<ConfirmDialog>` (promise-based), `<ToastProvider>`, `<EmptyState>`, `<PageHeader>` — the 8 things every admin page rebuilds by hand, shipped once.
+- **Generated `llms.txt`**: one canonical, machine-readable index of every export and every example — regenerated on every build from `src/index.ts`, `examples/`, and `cookbook/`, so it cannot drift.
+- **Zero `any` in public types**: full generic inference for `DataTable<User>`, `RowAction<User>`, formatters, hooks.
+- **One copy-pasteable example per primitive**: minimal `.tsx` files in `examples/` plus 5 composed page recipes in `cookbook/`. Agents pattern-match instead of inventing prop shapes.
+- **Educational runtime errors**: misuse a component and you get `[@bloomneo/uikit] <DataTable> expects \`data\` to be an array …`. Agents read errors and self-correct.
 
 **🎨 For design consistency**
 
-- **5 professional OKLCH themes**: base, elegant, metro, studio, vivid. Switch from minimal to luxury with one prop. No other React UI kit ships this.
-- **Decoupled font bundle (1.5)**: Core CSS is now ~150 KB without theme fonts. Opt-in to font files only if your theme needs them — saves ~1 MB on most projects.
-- **No flash of wrong theme (1.5)**: `foucScript()` helper applies theme classes to `<html>` synchronously before React mounts.
-- **Dark mode included**: Every theme works in light and dark mode out of the box.
+- **The palette is the enforcement.** `bg-blue-600` compiles to nothing; `bg-primary` works. A rule that only lives in documentation gets bypassed at the rate the codebase grows — see [The palette is locked to your theme](#the-palette-is-locked-to-your-theme-30).
+- **Dark mode included**, driven by the same tokens.
+- **Custom themes** via `uikit generate theme <name>` + `uikit bundle`.
 
-**📱 For cross-surface layouts (web-first)**
+**🚀 For rapid development**
 
-- **Layout primitives** that work across web, mobile-web, and extension popups: `<MobileLayout>` for Capacitor apps, `<PopupLayout>` for Chrome/Firefox extensions, Tauri-friendly bundling.
-- **Platform detection helpers** (`isTauri()`, `isNative()`, `isBrowser()`) so your code branches on environment.
-- **Components are React DOM.** Full Tauri / React Native / extension-specific component adapters are not yet shipped — the helpers let you wire your own when needed.
-
-**🏢 For team productivity**
-
-- **Standardized components**: No more "how should this button look?" debates.
-- **Feature-based architecture**: Scale to enterprise with the FBCA template (auto-discovery file-based routing, Next.js style).
-- **Instant deployment**: `uikit deploy --github` for immediate production hosting.
+- **Drop-in app primitives**: `<DataTable>`, `<FormField>`, `<ConfirmDialog>` (promise-based), `<ToastProvider>`, `<EmptyState>`, `<PageHeader>`, `<PermissionGate>` — the things every admin page rebuilds by hand, shipped once.
+- **12 hooks and a formatters module** so pages stay declarative.
 
 **🔧 For maintainability**
 
-- **Semantic colors**: Themes switch automatically — no hardcoded styles to break.
-- **Convention over configuration**: Predictable file structure, minimal decisions.
+- **Semantic colors**: themes switch automatically — no hardcoded styles to break.
 - **Future-proof**: Tailwind CSS v4, Radix UI, React 19 ready.
 
 ## Quick Start
@@ -111,21 +101,14 @@ import '@bloomneo/uikit/styles';
 
 > **Canonical import path:** always `from '@bloomneo/uikit'`. Deep imports like `@bloomneo/uikit/button` exist for build-size optimisation but are non-canonical — humans and AI agents should use the flat form. This is documented as the rule in [`llms.txt`](./llms.txt).
 
-**🚀 Complete Project Setup** — use the UIKit CLI to scaffold entire applications with routing, layouts, and themes pre-configured:
+**🚀 Complete Project Setup** — UIKit does not scaffold applications. Use
+[`@bloomneo/bloom`](https://www.npmjs.com/package/@bloomneo/bloom), which wires
+UIKit, AppKit and the FBCA convention into one CLI:
 
 ```bash
-# Step 1: Install UIKit CLI globally
-npm install -g @bloomneo/uikit
-
-# Check if you have the latest version
-npm list -g @bloomneo/uikit
-
-# Step 2: Create your app
-uikit create myapp --multi --theme elegant
+npx @bloomneo/bloom create myapp
 cd myapp && npm run dev
 ```
-
-**Done.** Your app is running with routing, layouts, and the elegant theme.
 
 ## Framework Architecture
 
@@ -135,53 +118,42 @@ cd myapp && npm run dev
 
 Build complete interfaces with our three-tier component system - from individual form controls to full page layouts. Mix and match components, sections, and layouts to create any interface quickly without starting from scratch.
 
-📖 **Learn more:** [Composite UI System Guide](docs/UIKIT_COMPOSITE_UI_SYSTEM.md)
+### Components (30 total)
 
-### Components (45+ total)
-
-| Category               | Components                                                                             | Description                       |
-| ---------------------- | -------------------------------------------------------------------------------------- | --------------------------------- |
-| **Form & Input**       | Button, Input, Textarea, Label, Checkbox, RadioGroup, Switch, Slider, Select, **FormField, PasswordInput** | Form controls + label/error/a11y wrapper |
-| **App Primitives** ⭐  | **DataTable, PageHeader, EmptyState, ConfirmDialog, ConfirmProvider, ToastProvider**   | The 8 things every admin app rebuilds — shipped once |
-| **Display & Layout**   | Card, Badge, Avatar, Separator, Progress, Skeleton, Alert, Breadcrumb, Tabs, Accordion | Information presentation          |
-| **Navigation & Menu**  | DropdownMenu, Menubar, Pagination, Command, Collapsible, Toggle                        | User navigation                   |
-| **Overlay & Modal**    | Dialog, Sheet, Popover, HoverCard, Tooltip                                             | User interactions                 |
-| **Data & Table**       | Table, DataTable, Calendar, Toaster                                                    | Data management                   |
-| **Motion & Animation** | Motion, LoadingSpinner, Reveal, Hover                                                  | Visual effects                    |
-| **Time & Format**      | **Time** (auto-updating relative timestamp)                                            | Locale-aware display              |
+| Category               | Components                                                                 |
+| ---------------------- | -------------------------------------------------------------------------- |
+| **Form & Input**       | Button, Input, Textarea, Label, Checkbox, RadioGroup, Switch, Select, Combobox, **Form, FormField** |
+| **App primitives** ⭐  | **DataTable, PageHeader, EmptyState, ConfirmDialog, ConfirmProvider, ToastProvider, PermissionGate** |
+| **Display**            | Card, Badge, Alert, Tabs, Table                                            |
+| **Navigation & menu**  | DropdownMenu, Command                                                      |
+| **Overlay & modal**    | Dialog, Sheet, Popover, HoverCard, Tooltip                                 |
+| **Feedback**           | Toast, Toaster (Sonner)                                                    |
 
 ### Hooks & utilities
 
-`useConfirm` · `useToast` · `useMediaQuery` · `useBreakpoint` · `useActiveBreakpoint` · `useDataTable` (headless) · `useApi` · `useLocalStorage` · `useTheme`
+`useConfirm` · `useToast` · `useTheme` · `useMediaQuery` · `useBreakpoint` ·
+`useActiveBreakpoint` · `useDataTable` (headless) · `usePagination` · `useApi` ·
+`useBackendStatus` · `useLocalStorage` · `usePermission`
 
-`formatCurrency` · `formatNumber` · `formatDate` · `timeAgo` · `formatBytes` · `foucScript` · `cn`
+`formatCurrency` · `formatNumber` · `formatDate` · `timeAgo` · `formatBytes` ·
+`foucScript` · `foucScriptTag` · `cn`
 
-### Section Components (5 Standalone)
+### Layouts and sections were removed in 4.0
 
-| Component     | Purpose                    | Usage                       | Props                |
-| ------------- | -------------------------- | --------------------------- | -------------------- |
-| **Header**    | Standalone header sections | Independent navigation bars | tone, size, position |
-| **Footer**    | Standalone footer sections | Independent footer content  | tone, size, position |
-| **Container** | Content with sidebar       | Flexible content containers | tone, size, sidebar  |
-| **SafeArea**  | Mobile safe area wrapper   | iOS notch/Android insets    | edges, tone          |
-| **TabBar**    | Mobile bottom navigation   | Tab-based navigation        | tabs, tone, variant  |
+`AdminLayout`, `PageLayout`, `AuthLayout`, `BlankLayout`, `PopupLayout`,
+`MobileLayout`, `Header`, `Footer`, `Container`, `SafeArea` and `TabBar` are
+gone. Every application built on this library replaced them within weeks: app
+chrome is where product identity lives, and a generic sidebar is the first
+thing anyone rewrites. Shipping it cost maintenance and bought nothing.
 
-### Layouts (6 Production-Ready)
-
-| Layout           | Use Case               | Components                       | Routing            |
-| ---------------- | ---------------------- | -------------------------------- | ------------------ |
-| **AdminLayout**  | Dashboards, SaaS apps  | Sidebar, Header, Content, Footer | Built-in nav state |
-| **PageLayout**   | Marketing sites        | Header, Content, Footer          | Static pages       |
-| **AuthLayout**   | Login/signup flows     | Centered forms, hero images      | Auth routing       |
-| **MobileLayout** | Mobile apps (Capacitor)| Header, Content, TabBar          | Tab/Stack nav      |
-| **PopupLayout**  | Browser extensions     | Compact, focused content         | Extension routing  |
-| **BlankLayout**  | Custom pages           | Clean slate                      | Manual routing     |
+What replaced them is a **layout route** that renders pages through an
+`<Outlet />`, with pages owning their own headers — see
+[Layouts — build your own](#layouts--build-your-own). `@bloomneo/bloom`
+scaffolds that shell for you.
 
 ## 2. Advanced Theming System
 
-Switch between 5 professional themes instantly or generate custom themes with perfect accessibility. Built on OKLCH color science with automatic light/dark mode support and semantic color variables that work across all components.
-
-📖 **Learn more:** [Theme System Guide](docs/UIKIT_THEME_GUIDE.md)
+One bundled theme (`base`) plus a generator for your own. Built on OKLCH color science with automatic light/dark mode support and semantic color variables that work across all components.
 
 **Note**: Instead of hardcoded colors like `bg-white` or `text-black`, use semantic color classes like `bg-background`, `text-foreground`, `border-border`. These automatically adapt to your selected theme and work perfectly in both light and dark modes.
 
@@ -238,15 +210,15 @@ import "@bloomneo/uikit/styles/permissive";   // 2.x behaviour, temporary
 
 Treat it as a migration aid with an end date.
 
-### 5 Professional Themes
+### Themes
 
-| Theme       | Style                | Font Family      | Best For              |
-| ----------- | -------------------- | ---------------- | --------------------- |
-| **base**    | Clean metallic black | System UI        | Minimalist apps       |
-| **elegant** | Professional blue    | Montserrat       | Business applications |
-| **metro**   | Modern green         | Clean typography | Admin dashboards      |
-| **studio**  | Bold black/orange    | Artistic fonts   | Creative portfolios   |
-| **vivid**   | Luxury purple/orange | Serif fonts      | Premium products      |
+| Theme    | Style                | Font Family | Best For        |
+| -------- | -------------------- | ----------- | --------------- |
+| **base** | Clean metallic black | System UI   | Everything      |
+
+4.0 removed the `elegant`, `metro`, `studio` and `vivid` presets. They were four
+more palettes to keep consistent and near-zero projects switched to them — the
+generator below covers the real case, which is one brand palette per product.
 
 ### Custom Theme Generation
 
@@ -277,64 +249,35 @@ uikit bundle
 - **No separate stylesheets** - keeps theme coherence undisturbed
 - **Easy maintenance** - all theme changes in one centralized file
 
-## 3. Project Scaffolding
+## 3. Project scaffolding — see @bloomneo/bloom
 
-Generate complete project structures with pre-configured routing, layouts, and development workflows. Choose from 4 templates optimized for different application types - from simple showcases to enterprise-scale feature-based architectures.
+UIKit stopped scaffolding applications in 4.0. The `uikit create` command and
+its `single` / `spa` / `multi` / `fbca` templates were removed: they duplicated
+[`@bloomneo/bloom`](https://www.npmjs.com/package/@bloomneo/bloom), and they were
+built on the very layout chrome this release deleted.
 
-📖 **For detailed setup guides:** [Quick-Start Documentation](docs/quickstart/)
-
-### UIKit CLI Templates
-
-| Template   | Command                    | Structure        | Routing                | Best For                    |
-| ---------- | -------------------------- | ---------------- | ---------------------- | --------------------------- |
-| **Single** | `uikit create app`         | Basic showcase   | None                   | Component demos, learning   |
-| **SPA**    | `uikit create app --spa`   | Single-page app  | React Router           | Marketing sites, portfolios |
-| **Multi**  | `uikit create app --multi` | Multi-layout app | React Router + layouts | Business apps, SaaS         |
-| **FBCA**   | `uikit create app --fbca`  | Feature-based    | Auto-discovery routing | Enterprise, large apps      |
-
-### When to Use Each Template
-
-**Single** - Very basic template for building from scratch with just one page. Use when you want to start minimal and build up manually.
-
-**SPA** - Single page code that visually reflects multiple pages. Use when you want the simplicity of one page but with navigation between views.
-
-**Multi** - True page isolation with different layouts and basic router included. Use when your requirements need actual separate pages for better organization.
-
-**FBCA** - Comprehensive large-scale applications with feature segregation and auto-discovery page router (Next.js style file-based routing). Use when your application is enterprise-grade with features like auth (login/register), user management, etc. organized in separate folders.
+```bash
+npx @bloomneo/bloom create myapp
+```
 
 ## UIKit CLI Commands
 
-📖 **Complete CLI reference:** [CLI Commands Guide](docs/UIKIT_CLI_GUIDE.md)
+The CLI is theme tooling and per-piece generation. Whole-app scaffolding, dev
+server, build, deploy, prerender and image optimisation were removed in 4.0 —
+your app's own toolchain (Vite, Next) already does those, and `@bloomneo/bloom`
+wires them.
 
 ```bash
-# Project Creation
-uikit create myapp                    # Single template (component showcase)
-uikit create myapp --spa              # SPA with React Router
-uikit create myapp --multi            # Multi-layout application
-uikit create myapp --fbca             # Feature-based architecture
+# Code generation (into an existing app)
+uikit generate page dashboard         # page component
+uikit generate component button       # reusable component
+uikit generate hook useAuth           # custom React hook
+uikit generate feature blog           # complete feature (page + component + hook)
 
-# Code Generation (for FBCA projects)
-uikit generate page dashboard         # Generate new page component
-uikit generate component button       # Generate reusable component
-uikit generate hook useAuth           # Generate custom React hook
-uikit generate feature blog           # Generate complete feature (page + component + hook)
-
-# Theme Management
-uikit generate theme brand            # Generate custom theme
-uikit bundle                          # Process themes to CSS
-uikit bundle --watch                  # Watch mode for development
-
-# Development & Deployment
-uikit serve                           # Start development server
-uikit build                           # Production build
-uikit deploy                          # Static site deployment
-uikit deploy --github                 # Deploy to GitHub Pages
-
-# SEO & Performance (requires: npm install puppeteer sharp)
-uikit prerender                       # Pre-render SPA routes to static HTML for SEO
-uikit prerender --routes "/,/about"   # Pre-render specific routes
-uikit optimize                        # Optimize images (convert to WebP, compress)
-uikit optimize --quality 85           # Set WebP quality (0-100)
+# Theme management
+uikit generate theme brand            # generate a custom theme
+uikit bundle                          # process themes to CSS
+uikit bundle --watch                  # watch mode for development
 ```
 
 ## Example Codes
@@ -441,41 +384,51 @@ import { Button, ToastProvider, toast } from '@bloomneo/uikit';
 <Button onClick={() => toast.success('Saved')}>Save</Button>
 ```
 
-### Layout Examples
+### Layouts — build your own
+
+UIKit ships **no layout components**. 4.0.0 removed `AdminLayout`, `PageLayout`,
+`AuthLayout`, `BlankLayout` and `PopupLayout` because every real app replaced
+them within weeks: app chrome is where product identity lives, and a generic
+sidebar is the first thing anyone rewrites.
+
+The pattern that replaced them is a **layout route** that renders its pages
+through an `<Outlet />`, and pages that own their own header:
 
 ```tsx
-import { AdminLayout, PageLayout, AuthLayout } from '@bloomneo/uikit';
+// AdminLayoutRoute.tsx — the shell, written once, in your app
+export function AdminLayoutRoute() {
+  return (
+    <div className="flex min-h-screen">
+      <Sidebar />                {/* yours */}
+      <main className="flex-1 p-6">
+        <Outlet />
+      </main>
+    </div>
+  );
+}
 
-// Admin Dashboard
-<AdminLayout scheme="sidebar" tone="subtle">
-  <AdminLayout.Header title="Dashboard" />
-  <AdminLayout.Sidebar navigation={nav} />
-  <AdminLayout.Content>
-    <h1 className="text-foreground">Dashboard Content</h1>
-  </AdminLayout.Content>
-</AdminLayout>
+// Any page — owns its header, returns plain content
+import { PageHeader, Button } from '@bloomneo/uikit';
 
-// Marketing Page
-<PageLayout scheme="default" tone="clean">
-  <PageLayout.Header logo="MyApp" navigation={nav} />
-  <PageLayout.Content>
-    <h1 className="text-foreground">Welcome</h1>
-  </PageLayout.Content>
-  <PageLayout.Footer />
-</PageLayout>
-
-// Auth Page
-<AuthLayout scheme="card" tone="clean">
-  <h1 className="text-foreground">Login Form</h1>
-</AuthLayout>
+export default function UsersPage() {
+  return (
+    <div className="space-y-6">
+      <PageHeader title="Users" actions={<Button>Invite</Button>} />
+      <UsersTable />
+    </div>
+  );
+}
 ```
+
+For a scaffolded app that already has this wired, use
+[`@bloomneo/bloom`](https://www.npmjs.com/package/@bloomneo/bloom).
 
 ### Theme Usage
 
 ```tsx
 import { Button, ThemeProvider, useTheme } from '@bloomneo/uikit';
 import '@bloomneo/uikit/styles';
-// Optional — only if you use the built-in Elegant/Metro/Studio/Vivid theme fonts:
+// Optional — only if your custom theme declares bundled font families:
 // import '@bloomneo/uikit/styles/fonts';
 
 // Setup (in main.tsx)
@@ -484,11 +437,11 @@ import '@bloomneo/uikit/styles';
 </ThemeProvider>
 
 // Theme switcher
-function ThemeSwitcher() {
-  const { setTheme } = useTheme();
+function ModeToggle() {
+  const { mode, setMode } = useTheme();
   return (
-    <Button variant="outline" onClick={() => setTheme('elegant')}>
-      Switch theme
+    <Button variant="outline" onClick={() => setMode(mode === 'dark' ? 'light' : 'dark')}>
+      Toggle dark mode
     </Button>
   );
 }
@@ -512,11 +465,9 @@ function ThemeSwitcher() {
 
 ### 📚 Human documentation
 
-- [Quick-Start Guides](docs/quickstart/) — template-specific setup instructions
-- [Composite UI System](docs/UIKIT_COMPOSITE_UI_SYSTEM.md) — component architecture deep dive
-- [Theme System](docs/UIKIT_THEME_GUIDE.md) — advanced theming and customization
-- [CLI Commands](docs/UIKIT_CLI_GUIDE.md) — complete command reference
-- [LLM Usage Guide](docs/UIKIT_LLM_GUIDE.md) — AI-powered development patterns
+- [Naming conventions](docs/NAMING.md) — how exports and props are named, and why
+- [Agent clarity benchmark](docs/AGENT_CLARITY_BENCHMARK.md) — how this package is scored for agent usability
+- [`CHANGELOG.md`](./CHANGELOG.md) — release history, including the 4.0 removals
 - [`CHANGELOG.md`](./CHANGELOG.md) — release notes (see 2.0.0 for the current API; 1.5.0 for the agent-readiness rework)
 
 ## 📄 License

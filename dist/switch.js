@@ -1,13 +1,12 @@
 import { jsxs as I, jsx as i } from "react/jsx-runtime";
 import * as a from "react";
-import { u as M, c as H } from "./index-C0UREtMP.js";
-import { u as x } from "./index-DQH6odE9.js";
-import { c as j } from "./index-DFZozV_h.js";
+import { u as M, c as H, a as j } from "./index-WHakdmwv.js";
+import { u as x } from "./index-5Bhkapwi.js";
 import { u as z } from "./index-BZPx6jYI.js";
-import { u as A } from "./index-BGQepRFJ.js";
-import { P as y } from "./index-BVRIAMfe.js";
+import { u as A } from "./index-C5AIzmng.js";
+import { P as y } from "./index-CpDnqHCm.js";
 import { c as C } from "./utils-CwJPJKOE.js";
-var m = "Switch", [U, Y] = j(m), [q, L] = U(m), P = a.forwardRef(
+var m = "Switch", [U, V] = H(m), [q, L] = U(m), P = a.forwardRef(
   (e, r) => {
     const {
       __scopeSwitch: t,
@@ -40,7 +39,7 @@ var m = "Switch", [U, Y] = j(m), [q, L] = U(m), P = a.forwardRef(
           value: u,
           ...k,
           ref: v,
-          onClick: H(e.onClick, (f) => {
+          onClick: j(e.onClick, (f) => {
             B((T) => !T), g && (S.current = f.isPropagationStopped(), S.current || f.stopPropagation());
           })
         }
@@ -124,7 +123,7 @@ function N(e) {
   return e ? "checked" : "unchecked";
 }
 var D = P, F = E;
-function Z({
+function Y({
   className: e,
   ...r
 }) {
@@ -150,6 +149,6 @@ function Z({
   );
 }
 export {
-  Z as Switch
+  Y as Switch
 };
 //# sourceMappingURL=switch.js.map

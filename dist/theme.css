@@ -16,7 +16,25 @@
  * So: apps that run Tailwind themselves (every Bloom template) import THIS.
  * Apps that ship no build and just want the prebuilt CSS use `/styles`.
  *
- * Deliberately does NOT import tailwindcss — you already did, above.
+ * Deliberately does NOT import tailwindcss — you already did, above. Tailwind
+ * v4 resolves `--color-*: initial` against the LAST import of the framework,
+ * so a reset placed before a nested framework import is silently undone.
+ *
+ * Fonts are intentionally NOT imported here. They live in a separate bundle
+ * (`@bloomneo/uikit/styles/fonts`) so projects with custom themes don't pay
+ * for @font-face declarations and woff files they will never use.
+ *
+ * ── Maintenance ───────────────────────────────────────────────────────────
+ * This file is a thin wrapper. Every token lives in `_tokens.css`, which
+ * `scripts/build-styles.mjs` inlines at the @import below when it writes
+ * dist/theme.css.
+ *
+ * Until 4.0 this file instead carried its own inline copy of every token,
+ * left behind by a `voila-bundle` run in 2025. Because it had no
+ * `@import "./_tokens.css"` line, the build's inline step was a silent no-op
+ * and the two copies drifted — 4.0's token cleanup landed in `_tokens.css`
+ * and never reached the file consumers actually import. Do not inline tokens
+ * here again; edit `_tokens.css`.
  */
 
 @theme {
@@ -120,158 +138,16 @@
 }
 
 /* Light mode colors for Elegant theme */
-.theme-elegant {
-  --color-background: #FFFFFF;
-  --color-foreground: #1F2937;
-  --color-card: #F8FAFC;
-  --color-card-foreground: #1F2937;
-  --color-popover: #FFFFFF;
-  --color-popover-foreground: #1F2937;
-  --color-primary: #2C5688;
-  --color-primary-foreground: #FFFFFF;
-  --color-secondary: #FAA533;
-  --color-secondary-foreground: #FFFFFF;
-  --color-muted: #F8FAFC;
-  --color-muted-foreground: #6B7280;
-  --color-accent: #E0F2FE;
-  --color-accent-foreground: #1F2937;
-  --color-destructive: #DC2626;
-  --color-destructive-foreground: #FFFFFF;
-  /* Status colours. Previously hardcoded green and orange scales inside
-     components, which the strict sheet removes. Same values, now themeable. */
-  --color-success: #16A34A;
-  --color-success-foreground: #FFFFFF;
-  --color-warning: #EA580C;
-  --color-warning-foreground: #FFFFFF;
-  /* Contrast: the deliberately-inverted surface used by tone="contrast".
-     Fixed across themes, exactly as the zinc scale it replaces was. */
-  --color-contrast: #18181B;
-  --color-contrast-foreground: #F4F4F5;
-  --color-contrast-muted: #3F3F46;
-  --color-contrast-muted-foreground: #A1A1AA;
-  --color-contrast-border: #3F3F46;
-  --color-border: #E2E8F0;
-  --color-input: #CBD5E1;
-  --color-ring: #003285;
-  --color-chart1: #003285;
-  --color-chart2: #1E40AF;
-  --color-chart3: #3B82F6;
-  --color-chart4: #60A5FA;
-  --color-chart5: #93C5FD;
-  --color-sidebar: #F8FAFC;
-  --color-sidebar-foreground: #1F2937;
-  --color-sidebar-primary: #003285;
-  --color-sidebar-primary-foreground: #FFFFFF;
-  --color-sidebar-accent: #E0F2FE;
-  --color-sidebar-accent-foreground: #6B7280;
-  --color-sidebar-border: #E2E8F0;
-  --color-sidebar-ring: #003285;
-}
+
 
 /* Light mode colors for Metro theme */
-.theme-metro {
-  --color-background: oklch(0.99 0.002 240);
-  --color-background-gradient: linear-gradient(135deg, oklch(0.96 0.005 240) 0%, oklch(0.99 0.002 240) 70%, oklch(0.88 0.008 240) 100%);
-  --color-foreground: oklch(0.09 0.01 240);
-  --color-card: oklch(0.98 0.003 240);
-  --color-card-foreground: oklch(0.09 0.01 240);
-  --color-popover: oklch(0.98 0.003 240);
-  --color-popover-foreground: oklch(0.09 0.01 240);
-  --color-primary: #1B4942;
-  --color-primary-foreground: oklch(0.98 0.003 240);
-  --color-secondary: #FAA533;
-  --color-secondary-foreground: #000000;
-  --color-muted: oklch(0.96 0.005 240);
-  --color-muted-foreground: oklch(0.35 0.01 240);
-  --color-accent: oklch(0.55 0.12 200);
-  --color-accent-foreground: oklch(0.98 0.003 240);
-  --color-border: oklch(0.88 0.008 240);
-  --color-input: oklch(0.88 0.008 240);
-  --color-ring: #0f3a36;
-  --color-chart1: #0f3a36;
-  --color-chart2: oklch(0.55 0.12 200);
-  --color-chart3: oklch(0.5 0.1 160);
-  --color-chart4: oklch(0.6 0.15 60);
-  --color-chart5: oklch(0.45 0.25 25);
-  --color-sidebar: oklch(0.98 0.003 240);
-  --color-sidebar-foreground: oklch(0.09 0.01 240);
-  --color-sidebar-primary: #0f3a36;
-  --color-sidebar-primary-foreground: oklch(0.98 0.003 240);
-  --color-sidebar-accent: oklch(0.55 0.12 200);
-  --color-sidebar-accent-foreground: oklch(0.35 0.01 240);
-  --color-sidebar-border: oklch(0.88 0.008 240);
-  --color-sidebar-ring: #0f3a36;
-}
+
 
 /* Light mode colors for Studio theme */
-.theme-studio {
-  --color-background: oklch(0.99 0.001 270);
-  --color-background-gradient: linear-gradient(135deg, oklch(0.97 0.002 270) 0%, oklch(0.99 0.001 270) 70%, oklch(0.90 0.003 270) 100%);
-  --color-foreground: oklch(0.08 0.005 270);
-  --color-card: oklch(0.98 0.002 270);
-  --color-card-foreground: oklch(0.08 0.005 270);
-  --color-popover: oklch(0.98 0.002 270);
-  --color-popover-foreground: oklch(0.08 0.005 270);
-  --color-primary: rgb(56, 61, 73);
-  --color-primary-foreground: oklch(0.98 0.002 270);
-  --color-secondary: oklch(0.85 0.003 270);
-  --color-secondary-foreground: oklch(0.15 0.008 270);
-  --color-muted: oklch(0.97 0.002 270);
-  --color-muted-foreground: oklch(0.38 0.005 270);
-  --color-accent: oklch(0.65 0.15 45);
-  --color-accent-foreground: oklch(0.98 0.002 270);
-  --color-border: oklch(0.9 0.003 270);
-  --color-input: oklch(0.9 0.003 270);
-  --color-ring: rgb(37, 41, 49);
-  --color-chart1: rgb(37, 41, 49);
-  --color-chart2: oklch(0.65 0.15 45);
-  --color-chart3: oklch(0.45 0.12 200);
-  --color-chart4: oklch(0.5 0.1 320);
-  --color-chart5: oklch(0.4 0.08 120);
-  --color-sidebar: oklch(0.98 0.002 270);
-  --color-sidebar-foreground: oklch(0.08 0.005 270);
-  --color-sidebar-primary: rgb(37, 41, 49);
-  --color-sidebar-primary-foreground: oklch(0.98 0.002 270);
-  --color-sidebar-accent: oklch(0.65 0.15 45);
-  --color-sidebar-accent-foreground: oklch(0.38 0.005 270);
-  --color-sidebar-border: oklch(0.9 0.003 270);
-  --color-sidebar-ring: rgb(37, 41, 49);
-}
+
 
 /* Light mode colors for Vivid theme */
-.theme-vivid {
-  --color-background: oklch(1.00 0.000 0);
-  --color-background-gradient: linear-gradient(135deg, oklch(0.45 0.08 290 / 0.02) 0%, oklch(1.00 0.000 0) 70%, oklch(0.98 0.005 60 / 0.01) 100%);
-  --color-foreground: oklch(0.18 0.02 290);
-  --color-card: oklch(0.99 0.002 290);
-  --color-card-foreground: oklch(0.18 0.02 290);
-  --color-popover: oklch(0.99 0.002 290);
-  --color-popover-foreground: oklch(0.18 0.02 290);
-  --color-primary: oklch(0.50 0.18 280);
-  --color-primary-foreground: oklch(0.98 0.005 60);
-  --color-secondary: oklch(0.58 0.20 15);
-  --color-secondary-foreground: oklch(0.98 0.005 60);
-  --color-muted: oklch(0.97 0.02 70);
-  --color-muted-foreground: oklch(0.42 0.05 290);
-  --color-accent: oklch(0.75 0.12 40);
-  --color-accent-foreground: oklch(0.08 0.02 290);
-  --color-border: oklch(0.90 0.02 290);
-  --color-input: oklch(0.90 0.02 290);
-  --color-ring: oklch(0.45 0.08 290);
-  --color-chart1: oklch(0.25 0.12 280);
-  --color-chart2: oklch(0.58 0.20 15);
-  --color-chart3: oklch(0.75 0.12 40);
-  --color-chart4: oklch(0.22 0.14 315);
-  --color-chart5: oklch(0.45 0.08 290);
-  --color-sidebar: oklch(0.98 0.005 60);
-  --color-sidebar-foreground: oklch(0.18 0.02 290);
-  --color-sidebar-primary: oklch(0.45 0.08 290);
-  --color-sidebar-primary-foreground: oklch(0.98 0.005 60);
-  --color-sidebar-accent: oklch(0.95 0.015 290);
-  --color-sidebar-accent-foreground: oklch(0.42 0.05 290);
-  --color-sidebar-border: oklch(0.90 0.02 290);
-  --color-sidebar-ring: oklch(0.45 0.08 290);
-}
+
 
 /* Dark mode overrides for Base theme */
 .theme-base.dark {
@@ -388,472 +264,100 @@
     }
 
 /* Dark mode overrides for Elegant theme */
-.theme-elegant.dark {
-  --color-background: #0F172A;
-  --color-foreground: #F8FAFC;
-  --color-card: #1E293B;
-  --color-card-foreground: #F8FAFC;
-  --color-popover: #1E293B;
-  --color-popover-foreground: #F8FAFC;
-  --color-primary: #3A6498;
-  --color-primary-foreground: #0F172A;
-  --color-secondary: #FAA533;
-  --color-secondary-foreground: #000000;
-  --color-muted: #1E293B;
-  --color-muted-foreground: #94A3B8;
-  --color-accent: #1E40AF;
-  --color-accent-foreground: #F8FAFC;
-  --color-destructive: #EF4444;
-  --color-destructive-foreground: #FFFFFF;
-  /* Status colours. Previously hardcoded green and orange scales inside
-     components, which the strict sheet removes. Same values, now themeable. */
-  --color-success: #22C55E;
-  --color-success-foreground: #FFFFFF;
-  --color-warning: #F97316;
-  --color-warning-foreground: #FFFFFF;
-  /* Contrast: the deliberately-inverted surface used by tone="contrast".
-     Fixed across themes, exactly as the zinc scale it replaces was. */
-  --color-contrast: #18181B;
-  --color-contrast-foreground: #F4F4F5;
-  --color-contrast-muted: #3F3F46;
-  --color-contrast-muted-foreground: #A1A1AA;
-  --color-contrast-border: #3F3F46;
-  --color-border: #334155;
-  --color-input: #475569;
-  --color-ring: #2563EB;
-  --color-chart1: #2563EB;
-  --color-chart2: #3B82F6;
-  --color-chart3: #60A5FA;
-  --color-chart4: #93C5FD;
-  --color-chart5: #DBEAFE;
-  --color-sidebar: #1E293B;
-  --color-sidebar-foreground: #F8FAFC;
-  --color-sidebar-primary: #2563EB;
-  --color-sidebar-primary-foreground: #F8FAFC;
-  --color-sidebar-accent: #1E40AF;
-  --color-sidebar-accent-foreground: #94A3B8;
-  --color-sidebar-border: #475569;
-  --color-sidebar-ring: #2563EB;
-}
+
 /* Elegant theme - Only 4 unified classes */
-    .theme-elegant {
-      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      font-weight: 400;
-      line-height: 1.6;
-      font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
-    }
     
-    .theme-elegant .voila-heading {
-      font-family: 'DM Serif Display', serif;
-      font-weight: 400;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      color: var(--color-foreground);
-    }
     
-    .theme-elegant .voila-subheading {
-      font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-weight: 500;
-      letter-spacing: -0.01em;
-      line-height: 1.3;
-      font-size: clamp(1.25rem, 3vw, 2rem);
-      color: var(--color-muted-foreground);
-    }
     
-    .theme-elegant .voila-brand-logo {
-      font-family: 'DM Serif Display', serif;
-      font-weight: 400;
-      letter-spacing: -0.01em;
-      font-size: 1.25rem;
-    }
+    
+    
+    
+    
     
     /* Body text enhancements */
-    .theme-elegant strong, .theme-elegant b {
-      font-weight: 600;
-    }
     
-    /* Cursor styles for interactive elements */
-    .theme-elegant button,
-    .theme-elegant .btn,
-    .theme-elegant [data-slot="button"],
-    .theme-elegant input[type="button"],
-    .theme-elegant input[type="submit"],
-    .theme-elegant input[type="reset"],
-    .theme-elegant a,
-    .theme-elegant [role="button"],
-    .theme-elegant [tabindex="0"]:not(input):not(textarea):not(select) {
-      cursor: pointer;
-    }
     
-    /* Disabled buttons get not-allowed cursor */
-    .theme-elegant button:disabled,
-    .theme-elegant .btn:disabled,
-    .theme-elegant [data-slot="button"]:disabled,
-    .theme-elegant input:disabled {
-      cursor: not-allowed;
-    }
+    /* Cursor styles for interactive elements *
     
-    /* Elegant focus ring with blue accent */
-    .theme-elegant *:focus-visible {
-      outline: 2px solid #003285;
-      outline-offset: 2px;
-      box-shadow: 0 0 0 4px rgb(0, 50, 133, 0.1);
-    }
+    /* Disabled buttons get not-allowed cursor *
+    
+    /* Elegant focus ring with blue accent *
 
 /* Dark mode overrides for Metro theme */
-.theme-metro.dark {
-  --color-background: oklch(0.05 0.005 220);
-  --color-background-gradient: linear-gradient(135deg, oklch(0.05 0.005 220) 0%, oklch(0.15 0.015 220) 100%);
-  --color-foreground: oklch(0.95 0.01 220);
-  --color-card: oklch(0.20 0.015 220);
-  --color-card-foreground: oklch(0.95 0.01 220);
-  --color-popover: oklch(0.20 0.015 220);
-  --color-popover-foreground: oklch(0.95 0.01 220);
-  --color-primary: #2F625C;
-  --color-primary-foreground: oklch(0.05 0.005 220);
-  --color-secondary: #FAA533;
-  --color-secondary-foreground: #000000;
-  --color-muted: oklch(0.08 0.01 240);
-  --color-muted-foreground: oklch(0.75 0.01 240);
-  --color-accent: oklch(0.75 0.18 200);
-  --color-accent-foreground: oklch(0.04 0.01 240);
-  --color-border: oklch(0.18 0.015 240);
-  --color-input: oklch(0.18 0.015 240);
-  --color-ring: #0f3a36;
-  --color-chart1: #0f3a36;
-  --color-chart2: oklch(0.75 0.18 200);
-  --color-chart3: oklch(0.7 0.15 160);
-  --color-chart4: oklch(0.75 0.2 60);
-  --color-chart5: oklch(0.65 0.25 25);
-  --color-sidebar: oklch(0.20 0.015 220);
-  --color-sidebar-foreground: oklch(0.95 0.01 220);
-  --color-sidebar-primary: #0f3a36;
-  --color-sidebar-primary-foreground: oklch(0.98 0.005 220);
-  --color-sidebar-accent: oklch(0.75 0.18 200);
-  --color-sidebar-accent-foreground: oklch(0.75 0.01 240);
-  --color-sidebar-border: oklch(0.18 0.015 240);
-  --color-sidebar-ring: #0f3a36;
-}
+
 /* Metro theme - Only 4 unified classes */
-    .theme-metro {
-      font-family: 'Libre Baskerville', serif;
-      font-weight: 400;
-      line-height: 1.6;
-    }
     
-    .theme-metro .voila-heading {
-      font-family: 'Crimson Text', serif;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      line-height: 1.1;
-      font-size: clamp(2.5rem, 6vw, 4rem);
-    }
     
-    .theme-metro .voila-subheading {
-      font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-weight: 500;
-      letter-spacing: -0.01em;
-      line-height: 1.3;
-      font-size: clamp(1.25rem, 3vw, 2rem);
-    }
     
-    .theme-metro .voila-brand-logo {
-      font-family: 'Crimson Text', serif;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      font-size: 1.25rem;
-    }
+    
+    
+    
+    
     
     /* Body text enhancements */
-    .theme-metro strong, .theme-metro b {
-      font-weight: 600;
-    }
     
-    /* Cursor styles for interactive elements */
-    .theme-metro button,
-    .theme-metro .btn,
-    .theme-metro [data-slot="button"],
-    .theme-metro input[type="button"],
-    .theme-metro input[type="submit"],
-    .theme-metro input[type="reset"],
-    .theme-metro a,
-    .theme-metro [role="button"],
-    .theme-metro [tabindex="0"]:not(input):not(textarea):not(select) {
-      cursor: pointer;
-    }
     
-    /* Disabled buttons get not-allowed cursor */
-    .theme-metro button:disabled,
-    .theme-metro .btn:disabled,
-    .theme-metro [data-slot="button"]:disabled,
-    .theme-metro input:disabled {
-      cursor: not-allowed;
-    }
+    /* Cursor styles for interactive elements *
     
-    /* Metro focus style override */
-    .theme-metro *:focus-visible {
-      outline: 2px solid #0f3a36;
-      outline-offset: 2px;
-      box-shadow: 0 0 0 4px rgb(15, 58, 54, 0.2);
-    }
+    /* Disabled buttons get not-allowed cursor *
+    
+    /* Metro focus style override *
 
 /* Dark mode overrides for Studio theme */
-.theme-studio.dark {
-  --color-background: oklch(0.05 0.003 270);
-  --color-background-gradient: linear-gradient(135deg, oklch(0.05 0.003 270) 0%, oklch(0.15 0.01 270) 100%);
-  --color-foreground: oklch(0.95 0.005 270);
-  --color-card: oklch(0.20 0.01 270);
-  --color-card-foreground: oklch(0.95 0.005 270);
-  --color-popover: oklch(0.20 0.01 270);
-  --color-popover-foreground: oklch(0.95 0.005 270);
-  --color-primary: rgb(78, 84, 96);
-  --color-primary-foreground: oklch(0.08 0.005 270);
-  --color-secondary: oklch(0.10 0.008 270);
-  --color-secondary-foreground: oklch(0.94 0.005 270);
-  --color-muted: oklch(0.08 0.006 270);
-  --color-muted-foreground: oklch(0.74 0.005 270);
-  --color-accent: oklch(0.85 0.18 45);
-  --color-accent-foreground: oklch(0.04 0.005 270);
-  --color-border: oklch(0.18 0.008 270);
-  --color-input: oklch(0.18 0.008 270);
-  --color-ring: rgb(37, 41, 49);
-  --color-chart1: rgb(37, 41, 49);
-  --color-chart2: oklch(0.85 0.18 45);
-  --color-chart3: oklch(0.7 0.15 200);
-  --color-chart4: oklch(0.72 0.12 320);
-  --color-chart5: oklch(0.68 0.1 120);
-  --color-sidebar: oklch(0.20 0.01 270);
-  --color-sidebar-foreground: oklch(0.95 0.005 270);
-  --color-sidebar-primary: rgb(37, 41, 49);
-  --color-sidebar-primary-foreground: oklch(0.98 0.003 270);
-  --color-sidebar-accent: oklch(0.85 0.18 45);
-  --color-sidebar-accent-foreground: oklch(0.74 0.005 270);
-  --color-sidebar-border: oklch(0.18 0.008 270);
-  --color-sidebar-ring: rgb(37, 41, 49);
-}
+
 /* Studio theme - Only 4 unified classes */
-    .theme-studio {
-      font-family: 'Source Serif Pro', serif;
-      font-weight: 400;
-      line-height: 1.6;
-    }
-    
-    .theme-studio .voila-heading {
-      font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      font-size: clamp(2.5rem, 6vw, 4rem);
-    }
-    
-    .theme-studio .voila-subheading {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      line-height: 1.3;
-      font-size: clamp(1.25rem, 3vw, 2rem);
-    }
-    
-    .theme-studio .voila-brand-logo {
-      font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      font-size: 1.25rem;
-    }
-    
-    /* Studio-specific button hover */
-    .theme-studio .btn-primary:hover,
-    .theme-studio button[data-variant="primary"]:hover,
-    .theme-studio [data-slot="button"][data-variant="primary"]:hover {
-      background: var(--voila-gradient-hover);
-    }
     
     
-    /* Body text enhancements */
-    .theme-studio strong, .theme-studio b {
-      font-weight: 600;
-    }
     
-    /* Cursor styles for interactive elements */
-    .theme-studio button,
-    .theme-studio .btn,
-    .theme-studio [data-slot="button"],
-    .theme-studio input[type="button"],
-    .theme-studio input[type="submit"],
-    .theme-studio input[type="reset"],
-    .theme-studio a,
-    .theme-studio [role="button"],
-    .theme-studio [tabindex="0"]:not(input):not(textarea):not(select) {
-      cursor: pointer;
-    }
     
-    /* Disabled buttons get not-allowed cursor */
-    .theme-studio button:disabled,
-    .theme-studio .btn:disabled,
-    .theme-studio [data-slot="button"]:disabled,
-    .theme-studio input:disabled {
-      cursor: not-allowed;
-    }
     
-    /* Studio focus style override */
-    .theme-studio *:focus-visible {
-      outline: 2px solid rgb(37, 41, 49);
-      outline-offset: 2px;
-      box-shadow: 0 0 0 4px rgb(37, 41, 49, 0.2);
-    }
+    
+    
+    
+    /* Studio-specific button hover *
+    
+    
+    /* Body text enhancements *
+    
+    /* Cursor styles for interactive elements *
+    
+    /* Disabled buttons get not-allowed cursor *
+    
+    /* Studio focus style override *
 
 /* Dark mode overrides for Vivid theme */
-.theme-vivid.dark {
-  --color-background: oklch(0.08 0.02 290);
-  --color-background-gradient: linear-gradient(135deg, oklch(0.08 0.02 290) 0%, oklch(0.06 0.015 320) 100%);
-  --color-foreground: oklch(0.92 0.01 60);
-  --color-card: oklch(0.20 0.04 290);
-  --color-card-foreground: oklch(0.92 0.01 60);
-  --color-popover: oklch(0.16 0.03 290);
-  --color-popover-foreground: oklch(0.92 0.01 60);
-  --color-primary: oklch(0.68 0.25 280);
-  --color-primary-foreground: oklch(0.08 0.02 290);
-  --color-secondary: oklch(0.70 0.25 15);
-  --color-secondary-foreground: oklch(0.08 0.02 290);
-  --color-muted: oklch(0.10 0.02 290);
-  --color-muted-foreground: oklch(0.70 0.05 290);
-  --color-accent: oklch(0.80 0.15 40);
-  --color-accent-foreground: oklch(0.08 0.02 290);
-  --color-border: oklch(0.28 0.05 290);
-  --color-input: oklch(0.25 0.04 290);
-  --color-ring: oklch(0.62 0.12 290);
-  --color-chart1: oklch(0.45 0.18 280);
-  --color-chart2: oklch(0.70 0.25 15);
-  --color-chart3: oklch(0.80 0.15 40);
-  --color-chart4: oklch(0.42 0.20 315);
-  --color-chart5: oklch(0.65 0.12 290);
-  --color-sidebar: oklch(0.10 0.02 290);
-  --color-sidebar-foreground: oklch(0.92 0.01 60);
-  --color-sidebar-primary: oklch(0.62 0.12 290);
-  --color-sidebar-primary-foreground: oklch(0.08 0.02 290);
-  --color-sidebar-accent: oklch(0.18 0.03 290);
-  --color-sidebar-accent-foreground: oklch(0.70 0.05 290);
-  --color-sidebar-border: oklch(0.28 0.05 290);
-  --color-sidebar-ring: oklch(0.62 0.12 290);
-}
+
 /* Vivid theme - Only 4 unified classes */
-    .theme-vivid {
-      font-family: 'Libre Baskerville', serif;
-      font-weight: 400;
-      line-height: 1.7;
-      font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1, 'onum' 1;
-    }
     
-    .theme-vivid .voila-heading {
-      font-family: 'Caveat', cursive;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      font-size: clamp(2.5rem, 6vw, 4rem);
-    }
     
-    .theme-vivid .voila-subheading {
-      font-family: 'Playfair Display', serif;
-      font-weight: 500;
-      font-style: italic;
-      letter-spacing: -0.01em;
-      line-height: 1.3;
-      font-size: clamp(1.25rem, 3vw, 2rem);
-    }
     
-    .theme-vivid .voila-brand-logo {
-      font-family: 'Caveat', cursive;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      font-size: 1.5rem;
-    }
+    
+    
+    
+    
     
     /* Clean gradient for bg-primary in Vivid theme only */
-    .theme-vivid .bg-primary {
-      background: linear-gradient(135deg, oklch(0.25 0.12 280) 0%, rgb(111, 103, 244) 100%) !important;
-    }
     
-    .theme-vivid.dark .bg-primary {
-      background: linear-gradient(135deg, oklch(0.45 0.18 280) 0%, rgb(151, 143, 255) 100%) !important;
-    }
+    
+    
     
     /* Premium typography */
-    .theme-vivid p, .theme-vivid div, .theme-vivid span {
-      font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1, 'onum' 1;
-      line-height: 1.7;
-    }
     
-    /* Elegant button effects */
-    .theme-vivid .btn-primary,
-    .theme-vivid button[data-variant="primary"],
-    .theme-vivid [data-slot="button"][data-variant="primary"] {
-      background: linear-gradient(135deg, oklch(0.25 0.12 280) 0%, rgb(111, 103, 244) 100%);
-      letter-spacing: 0.025em;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      border-radius: 1.2rem;
-    }
     
-    .theme-vivid button,
-    .theme-vivid [data-slot="button"] {
-      border-radius: 1.2rem;
-    }
+    /* Elegant button effects *
     
-    .theme-vivid .btn-primary:hover,
-    .theme-vivid button[data-variant="primary"]:hover,
-    .theme-vivid [data-slot="button"][data-variant="primary"]:hover {
-      background: linear-gradient(135deg, oklch(0.22 0.14 315) 0%, oklch(0.25 0.12 280) 100%);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgb(0 0 0 / 0.15), 0 3px 10px rgb(0 0 0 / 0.1);
-    }
-    
-    /* Premium cards */
-    .theme-vivid [data-slot="card"] {
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      border: 1px solid oklch(from var(--color-border) l c h / 0.3);
-    }
-    
-    .theme-vivid [data-slot="card"]:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgb(0 0 0 / 0.12), 0 4px 12px rgb(0 0 0 / 0.08);
-    }
+    /* Premium cards *
     
     /* Darker shadows for dark mode cards */
-    .theme-vivid.dark [data-slot="card"] {
-      box-shadow: 0 4px 20px rgb(0 0 0 / 0.25), 0 1px 3px rgb(0 0 0 / 0.15);
-      border: 1px solid oklch(from var(--color-border) l c h / 0.4);
-    }
     
-    .theme-vivid.dark [data-slot="card"]:hover {
-      box-shadow: 0 12px 40px rgb(0 0 0 / 0.35), 0 4px 12px rgb(0 0 0 / 0.20);
-    }
     
-    /* Cursor styles for interactive elements */
-    .theme-vivid button,
-    .theme-vivid .btn,
-    .theme-vivid [data-slot="button"],
-    .theme-vivid input[type="button"],
-    .theme-vivid input[type="submit"],
-    .theme-vivid input[type="reset"],
-    .theme-vivid a,
-    .theme-vivid [role="button"],
-    .theme-vivid [tabindex="0"]:not(input):not(textarea):not(select) {
-      cursor: pointer;
-    }
     
-    /* Disabled buttons get not-allowed cursor */
-    .theme-vivid button:disabled,
-    .theme-vivid .btn:disabled,
-    .theme-vivid [data-slot="button"]:disabled,
-    .theme-vivid input:disabled {
-      cursor: not-allowed;
-    }
     
-    /* Refined focus styles */
-    .theme-vivid *:focus-visible {
-      outline-offset: 3px;
-      box-shadow: 0 0 0 6px oklch(0.45 0.08 290 / 0.15);
-    }
+    /* Cursor styles for interactive elements *
+    
+    /* Disabled buttons get not-allowed cursor *
+    
+    /* Refined focus styles *
 
 /* END_THEME_DECLARATIONS */
 
@@ -941,159 +445,13 @@
   --color-sidebar-ring: #0EA5E9;
 }
 
-/* Light mode colors for Elegant theme */
-.theme-elegant {
-  --color-background: #FFFFFF;
-  --color-foreground: #1F2937;
-  --color-card: #F8FAFC;
-  --color-card-foreground: #1F2937;
-  --color-popover: #FFFFFF;
-  --color-popover-foreground: #1F2937;
-  --color-primary: #2C5688;
-  --color-primary-foreground: #FFFFFF;
-  --color-secondary: #FAA533;
-  --color-secondary-foreground: #FFFFFF;
-  --color-muted: #F8FAFC;
-  --color-muted-foreground: #6B7280;
-  --color-accent: #E0F2FE;
-  --color-accent-foreground: #1F2937;
-  --color-destructive: #DC2626;
-  --color-destructive-foreground: #FFFFFF;
-  /* Status colours. Previously hardcoded green and orange scales inside
-     components, which the strict sheet removes. Same values, now themeable. */
-  --color-success: #16A34A;
-  --color-success-foreground: #FFFFFF;
-  --color-warning: #EA580C;
-  --color-warning-foreground: #FFFFFF;
-  /* Contrast: the deliberately-inverted surface used by tone="contrast".
-     Fixed across themes, exactly as the zinc scale it replaces was. */
-  --color-contrast: #18181B;
-  --color-contrast-foreground: #F4F4F5;
-  --color-contrast-muted: #3F3F46;
-  --color-contrast-muted-foreground: #A1A1AA;
-  --color-contrast-border: #3F3F46;
-  --color-border: #E2E8F0;
-  --color-input: #CBD5E1;
-  --color-ring: #003285;
-  --color-chart1: #003285;
-  --color-chart2: #1E40AF;
-  --color-chart3: #3B82F6;
-  --color-chart4: #60A5FA;
-  --color-chart5: #93C5FD;
-  --color-sidebar: #F8FAFC;
-  --color-sidebar-foreground: #1F2937;
-  --color-sidebar-primary: #003285;
-  --color-sidebar-primary-foreground: #FFFFFF;
-  --color-sidebar-accent: #E0F2FE;
-  --color-sidebar-accent-foreground: #6B7280;
-  --color-sidebar-border: #E2E8F0;
-  --color-sidebar-ring: #003285;
-}
+/* Light mode colors for Elegant theme *
 
-/* Light mode colors for Metro theme */
-.theme-metro {
-  --color-background: oklch(0.99 0.002 240);
-  --color-background-gradient: linear-gradient(135deg, oklch(0.96 0.005 240) 0%, oklch(0.99 0.002 240) 70%, oklch(0.88 0.008 240) 100%);
-  --color-foreground: oklch(0.09 0.01 240);
-  --color-card: oklch(0.98 0.003 240);
-  --color-card-foreground: oklch(0.09 0.01 240);
-  --color-popover: oklch(0.98 0.003 240);
-  --color-popover-foreground: oklch(0.09 0.01 240);
-  --color-primary: #1B4942;
-  --color-primary-foreground: oklch(0.98 0.003 240);
-  --color-secondary: #FAA533;
-  --color-secondary-foreground: #000000;
-  --color-muted: oklch(0.96 0.005 240);
-  --color-muted-foreground: oklch(0.35 0.01 240);
-  --color-accent: oklch(0.55 0.12 200);
-  --color-accent-foreground: oklch(0.98 0.003 240);
-  --color-border: oklch(0.88 0.008 240);
-  --color-input: oklch(0.88 0.008 240);
-  --color-ring: #0f3a36;
-  --color-chart1: #0f3a36;
-  --color-chart2: oklch(0.55 0.12 200);
-  --color-chart3: oklch(0.5 0.1 160);
-  --color-chart4: oklch(0.6 0.15 60);
-  --color-chart5: oklch(0.45 0.25 25);
-  --color-sidebar: oklch(0.98 0.003 240);
-  --color-sidebar-foreground: oklch(0.09 0.01 240);
-  --color-sidebar-primary: #0f3a36;
-  --color-sidebar-primary-foreground: oklch(0.98 0.003 240);
-  --color-sidebar-accent: oklch(0.55 0.12 200);
-  --color-sidebar-accent-foreground: oklch(0.35 0.01 240);
-  --color-sidebar-border: oklch(0.88 0.008 240);
-  --color-sidebar-ring: #0f3a36;
-}
+/* Light mode colors for Metro theme *
 
-/* Light mode colors for Studio theme */
-.theme-studio {
-  --color-background: oklch(0.99 0.001 270);
-  --color-background-gradient: linear-gradient(135deg, oklch(0.97 0.002 270) 0%, oklch(0.99 0.001 270) 70%, oklch(0.90 0.003 270) 100%);
-  --color-foreground: oklch(0.08 0.005 270);
-  --color-card: oklch(0.98 0.002 270);
-  --color-card-foreground: oklch(0.08 0.005 270);
-  --color-popover: oklch(0.98 0.002 270);
-  --color-popover-foreground: oklch(0.08 0.005 270);
-  --color-primary: rgb(56, 61, 73);
-  --color-primary-foreground: oklch(0.98 0.002 270);
-  --color-secondary: oklch(0.85 0.003 270);
-  --color-secondary-foreground: oklch(0.15 0.008 270);
-  --color-muted: oklch(0.97 0.002 270);
-  --color-muted-foreground: oklch(0.38 0.005 270);
-  --color-accent: oklch(0.65 0.15 45);
-  --color-accent-foreground: oklch(0.98 0.002 270);
-  --color-border: oklch(0.9 0.003 270);
-  --color-input: oklch(0.9 0.003 270);
-  --color-ring: rgb(37, 41, 49);
-  --color-chart1: rgb(37, 41, 49);
-  --color-chart2: oklch(0.65 0.15 45);
-  --color-chart3: oklch(0.45 0.12 200);
-  --color-chart4: oklch(0.5 0.1 320);
-  --color-chart5: oklch(0.4 0.08 120);
-  --color-sidebar: oklch(0.98 0.002 270);
-  --color-sidebar-foreground: oklch(0.08 0.005 270);
-  --color-sidebar-primary: rgb(37, 41, 49);
-  --color-sidebar-primary-foreground: oklch(0.98 0.002 270);
-  --color-sidebar-accent: oklch(0.65 0.15 45);
-  --color-sidebar-accent-foreground: oklch(0.38 0.005 270);
-  --color-sidebar-border: oklch(0.9 0.003 270);
-  --color-sidebar-ring: rgb(37, 41, 49);
-}
+/* Light mode colors for Studio theme *
 
-/* Light mode colors for Vivid theme */
-.theme-vivid {
-  --color-background: oklch(1.00 0.000 0);
-  --color-background-gradient: linear-gradient(135deg, oklch(0.45 0.08 290 / 0.02) 0%, oklch(1.00 0.000 0) 70%, oklch(0.98 0.005 60 / 0.01) 100%);
-  --color-foreground: oklch(0.18 0.02 290);
-  --color-card: oklch(0.99 0.002 290);
-  --color-card-foreground: oklch(0.18 0.02 290);
-  --color-popover: oklch(0.99 0.002 290);
-  --color-popover-foreground: oklch(0.18 0.02 290);
-  --color-primary: oklch(0.50 0.18 280);
-  --color-primary-foreground: oklch(0.98 0.005 60);
-  --color-secondary: oklch(0.58 0.20 15);
-  --color-secondary-foreground: oklch(0.98 0.005 60);
-  --color-muted: oklch(0.97 0.02 70);
-  --color-muted-foreground: oklch(0.42 0.05 290);
-  --color-accent: oklch(0.75 0.12 40);
-  --color-accent-foreground: oklch(0.08 0.02 290);
-  --color-border: oklch(0.90 0.02 290);
-  --color-input: oklch(0.90 0.02 290);
-  --color-ring: oklch(0.45 0.08 290);
-  --color-chart1: oklch(0.25 0.12 280);
-  --color-chart2: oklch(0.58 0.20 15);
-  --color-chart3: oklch(0.75 0.12 40);
-  --color-chart4: oklch(0.22 0.14 315);
-  --color-chart5: oklch(0.45 0.08 290);
-  --color-sidebar: oklch(0.98 0.005 60);
-  --color-sidebar-foreground: oklch(0.18 0.02 290);
-  --color-sidebar-primary: oklch(0.45 0.08 290);
-  --color-sidebar-primary-foreground: oklch(0.98 0.005 60);
-  --color-sidebar-accent: oklch(0.95 0.015 290);
-  --color-sidebar-accent-foreground: oklch(0.42 0.05 290);
-  --color-sidebar-border: oklch(0.90 0.02 290);
-  --color-sidebar-ring: oklch(0.45 0.08 290);
-}
+/* Light mode colors for Vivid theme *
 
 /* Dark mode overrides for Base theme */
 .theme-base.dark {
@@ -1210,472 +568,68 @@
     }
 
 /* Dark mode overrides for Elegant theme */
-.theme-elegant.dark {
-  --color-background: #0F172A;
-  --color-foreground: #F8FAFC;
-  --color-card: #1E293B;
-  --color-card-foreground: #F8FAFC;
-  --color-popover: #1E293B;
-  --color-popover-foreground: #F8FAFC;
-  --color-primary: #3A6498;
-  --color-primary-foreground: #0F172A;
-  --color-secondary: #FAA533;
-  --color-secondary-foreground: #000000;
-  --color-muted: #1E293B;
-  --color-muted-foreground: #94A3B8;
-  --color-accent: #1E40AF;
-  --color-accent-foreground: #F8FAFC;
-  --color-destructive: #EF4444;
-  --color-destructive-foreground: #FFFFFF;
-  /* Status colours. Previously hardcoded green and orange scales inside
-     components, which the strict sheet removes. Same values, now themeable. */
-  --color-success: #22C55E;
-  --color-success-foreground: #FFFFFF;
-  --color-warning: #F97316;
-  --color-warning-foreground: #FFFFFF;
-  /* Contrast: the deliberately-inverted surface used by tone="contrast".
-     Fixed across themes, exactly as the zinc scale it replaces was. */
-  --color-contrast: #18181B;
-  --color-contrast-foreground: #F4F4F5;
-  --color-contrast-muted: #3F3F46;
-  --color-contrast-muted-foreground: #A1A1AA;
-  --color-contrast-border: #3F3F46;
-  --color-border: #334155;
-  --color-input: #475569;
-  --color-ring: #2563EB;
-  --color-chart1: #2563EB;
-  --color-chart2: #3B82F6;
-  --color-chart3: #60A5FA;
-  --color-chart4: #93C5FD;
-  --color-chart5: #DBEAFE;
-  --color-sidebar: #1E293B;
-  --color-sidebar-foreground: #F8FAFC;
-  --color-sidebar-primary: #2563EB;
-  --color-sidebar-primary-foreground: #F8FAFC;
-  --color-sidebar-accent: #1E40AF;
-  --color-sidebar-accent-foreground: #94A3B8;
-  --color-sidebar-border: #475569;
-  --color-sidebar-ring: #2563EB;
-}
-/* Elegant theme - Only 4 unified classes */
-    .theme-elegant {
-      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      font-weight: 400;
-      line-height: 1.6;
-      font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
-    }
+
+/* Elegant theme - Only 4 unified classes *
     
-    .theme-elegant .voila-heading {
-      font-family: 'DM Serif Display', serif;
-      font-weight: 400;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      color: var(--color-foreground);
-    }
+    /* Body text enhancements *
     
-    .theme-elegant .voila-subheading {
-      font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-weight: 500;
-      letter-spacing: -0.01em;
-      line-height: 1.3;
-      font-size: clamp(1.25rem, 3vw, 2rem);
-      color: var(--color-muted-foreground);
-    }
+    /* Cursor styles for interactive elements *
     
-    .theme-elegant .voila-brand-logo {
-      font-family: 'DM Serif Display', serif;
-      font-weight: 400;
-      letter-spacing: -0.01em;
-      font-size: 1.25rem;
-    }
+    /* Disabled buttons get not-allowed cursor *
     
-    /* Body text enhancements */
-    .theme-elegant strong, .theme-elegant b {
-      font-weight: 600;
-    }
-    
-    /* Cursor styles for interactive elements */
-    .theme-elegant button,
-    .theme-elegant .btn,
-    .theme-elegant [data-slot="button"],
-    .theme-elegant input[type="button"],
-    .theme-elegant input[type="submit"],
-    .theme-elegant input[type="reset"],
-    .theme-elegant a,
-    .theme-elegant [role="button"],
-    .theme-elegant [tabindex="0"]:not(input):not(textarea):not(select) {
-      cursor: pointer;
-    }
-    
-    /* Disabled buttons get not-allowed cursor */
-    .theme-elegant button:disabled,
-    .theme-elegant .btn:disabled,
-    .theme-elegant [data-slot="button"]:disabled,
-    .theme-elegant input:disabled {
-      cursor: not-allowed;
-    }
-    
-    /* Elegant focus ring with blue accent */
-    .theme-elegant *:focus-visible {
-      outline: 2px solid #003285;
-      outline-offset: 2px;
-      box-shadow: 0 0 0 4px rgb(0, 50, 133, 0.1);
-    }
+    /* Elegant focus ring with blue accent *
 
 /* Dark mode overrides for Metro theme */
-.theme-metro.dark {
-  --color-background: oklch(0.05 0.005 220);
-  --color-background-gradient: linear-gradient(135deg, oklch(0.05 0.005 220) 0%, oklch(0.15 0.015 220) 100%);
-  --color-foreground: oklch(0.95 0.01 220);
-  --color-card: oklch(0.20 0.015 220);
-  --color-card-foreground: oklch(0.95 0.01 220);
-  --color-popover: oklch(0.20 0.015 220);
-  --color-popover-foreground: oklch(0.95 0.01 220);
-  --color-primary: #2F625C;
-  --color-primary-foreground: oklch(0.05 0.005 220);
-  --color-secondary: #FAA533;
-  --color-secondary-foreground: #000000;
-  --color-muted: oklch(0.08 0.01 240);
-  --color-muted-foreground: oklch(0.75 0.01 240);
-  --color-accent: oklch(0.75 0.18 200);
-  --color-accent-foreground: oklch(0.04 0.01 240);
-  --color-border: oklch(0.18 0.015 240);
-  --color-input: oklch(0.18 0.015 240);
-  --color-ring: #0f3a36;
-  --color-chart1: #0f3a36;
-  --color-chart2: oklch(0.75 0.18 200);
-  --color-chart3: oklch(0.7 0.15 160);
-  --color-chart4: oklch(0.75 0.2 60);
-  --color-chart5: oklch(0.65 0.25 25);
-  --color-sidebar: oklch(0.20 0.015 220);
-  --color-sidebar-foreground: oklch(0.95 0.01 220);
-  --color-sidebar-primary: #0f3a36;
-  --color-sidebar-primary-foreground: oklch(0.98 0.005 220);
-  --color-sidebar-accent: oklch(0.75 0.18 200);
-  --color-sidebar-accent-foreground: oklch(0.75 0.01 240);
-  --color-sidebar-border: oklch(0.18 0.015 240);
-  --color-sidebar-ring: #0f3a36;
-}
-/* Metro theme - Only 4 unified classes */
-    .theme-metro {
-      font-family: 'Libre Baskerville', serif;
-      font-weight: 400;
-      line-height: 1.6;
-    }
+
+/* Metro theme - Only 4 unified classes *
     
-    .theme-metro .voila-heading {
-      font-family: 'Crimson Text', serif;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      line-height: 1.1;
-      font-size: clamp(2.5rem, 6vw, 4rem);
-    }
+    /* Body text enhancements *
     
-    .theme-metro .voila-subheading {
-      font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-weight: 500;
-      letter-spacing: -0.01em;
-      line-height: 1.3;
-      font-size: clamp(1.25rem, 3vw, 2rem);
-    }
+    /* Cursor styles for interactive elements *
     
-    .theme-metro .voila-brand-logo {
-      font-family: 'Crimson Text', serif;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      font-size: 1.25rem;
-    }
+    /* Disabled buttons get not-allowed cursor *
     
-    /* Body text enhancements */
-    .theme-metro strong, .theme-metro b {
-      font-weight: 600;
-    }
-    
-    /* Cursor styles for interactive elements */
-    .theme-metro button,
-    .theme-metro .btn,
-    .theme-metro [data-slot="button"],
-    .theme-metro input[type="button"],
-    .theme-metro input[type="submit"],
-    .theme-metro input[type="reset"],
-    .theme-metro a,
-    .theme-metro [role="button"],
-    .theme-metro [tabindex="0"]:not(input):not(textarea):not(select) {
-      cursor: pointer;
-    }
-    
-    /* Disabled buttons get not-allowed cursor */
-    .theme-metro button:disabled,
-    .theme-metro .btn:disabled,
-    .theme-metro [data-slot="button"]:disabled,
-    .theme-metro input:disabled {
-      cursor: not-allowed;
-    }
-    
-    /* Metro focus style override */
-    .theme-metro *:focus-visible {
-      outline: 2px solid #0f3a36;
-      outline-offset: 2px;
-      box-shadow: 0 0 0 4px rgb(15, 58, 54, 0.2);
-    }
+    /* Metro focus style override *
 
 /* Dark mode overrides for Studio theme */
-.theme-studio.dark {
-  --color-background: oklch(0.05 0.003 270);
-  --color-background-gradient: linear-gradient(135deg, oklch(0.05 0.003 270) 0%, oklch(0.15 0.01 270) 100%);
-  --color-foreground: oklch(0.95 0.005 270);
-  --color-card: oklch(0.20 0.01 270);
-  --color-card-foreground: oklch(0.95 0.005 270);
-  --color-popover: oklch(0.20 0.01 270);
-  --color-popover-foreground: oklch(0.95 0.005 270);
-  --color-primary: rgb(78, 84, 96);
-  --color-primary-foreground: oklch(0.08 0.005 270);
-  --color-secondary: oklch(0.10 0.008 270);
-  --color-secondary-foreground: oklch(0.94 0.005 270);
-  --color-muted: oklch(0.08 0.006 270);
-  --color-muted-foreground: oklch(0.74 0.005 270);
-  --color-accent: oklch(0.85 0.18 45);
-  --color-accent-foreground: oklch(0.04 0.005 270);
-  --color-border: oklch(0.18 0.008 270);
-  --color-input: oklch(0.18 0.008 270);
-  --color-ring: rgb(37, 41, 49);
-  --color-chart1: rgb(37, 41, 49);
-  --color-chart2: oklch(0.85 0.18 45);
-  --color-chart3: oklch(0.7 0.15 200);
-  --color-chart4: oklch(0.72 0.12 320);
-  --color-chart5: oklch(0.68 0.1 120);
-  --color-sidebar: oklch(0.20 0.01 270);
-  --color-sidebar-foreground: oklch(0.95 0.005 270);
-  --color-sidebar-primary: rgb(37, 41, 49);
-  --color-sidebar-primary-foreground: oklch(0.98 0.003 270);
-  --color-sidebar-accent: oklch(0.85 0.18 45);
-  --color-sidebar-accent-foreground: oklch(0.74 0.005 270);
-  --color-sidebar-border: oklch(0.18 0.008 270);
-  --color-sidebar-ring: rgb(37, 41, 49);
-}
-/* Studio theme - Only 4 unified classes */
-    .theme-studio {
-      font-family: 'Source Serif Pro', serif;
-      font-weight: 400;
-      line-height: 1.6;
-    }
+
+/* Studio theme - Only 4 unified classes *
     
-    .theme-studio .voila-heading {
-      font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      font-size: clamp(2.5rem, 6vw, 4rem);
-    }
-    
-    .theme-studio .voila-subheading {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      line-height: 1.3;
-      font-size: clamp(1.25rem, 3vw, 2rem);
-    }
-    
-    .theme-studio .voila-brand-logo {
-      font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      font-size: 1.25rem;
-    }
-    
-    /* Studio-specific button hover */
-    .theme-studio .btn-primary:hover,
-    .theme-studio button[data-variant="primary"]:hover,
-    .theme-studio [data-slot="button"][data-variant="primary"]:hover {
-      background: var(--voila-gradient-hover);
-    }
+    /* Studio-specific button hover *
     
     
-    /* Body text enhancements */
-    .theme-studio strong, .theme-studio b {
-      font-weight: 600;
-    }
+    /* Body text enhancements *
     
-    /* Cursor styles for interactive elements */
-    .theme-studio button,
-    .theme-studio .btn,
-    .theme-studio [data-slot="button"],
-    .theme-studio input[type="button"],
-    .theme-studio input[type="submit"],
-    .theme-studio input[type="reset"],
-    .theme-studio a,
-    .theme-studio [role="button"],
-    .theme-studio [tabindex="0"]:not(input):not(textarea):not(select) {
-      cursor: pointer;
-    }
+    /* Cursor styles for interactive elements *
     
-    /* Disabled buttons get not-allowed cursor */
-    .theme-studio button:disabled,
-    .theme-studio .btn:disabled,
-    .theme-studio [data-slot="button"]:disabled,
-    .theme-studio input:disabled {
-      cursor: not-allowed;
-    }
+    /* Disabled buttons get not-allowed cursor *
     
-    /* Studio focus style override */
-    .theme-studio *:focus-visible {
-      outline: 2px solid rgb(37, 41, 49);
-      outline-offset: 2px;
-      box-shadow: 0 0 0 4px rgb(37, 41, 49, 0.2);
-    }
+    /* Studio focus style override *
 
 /* Dark mode overrides for Vivid theme */
-.theme-vivid.dark {
-  --color-background: oklch(0.08 0.02 290);
-  --color-background-gradient: linear-gradient(135deg, oklch(0.08 0.02 290) 0%, oklch(0.06 0.015 320) 100%);
-  --color-foreground: oklch(0.92 0.01 60);
-  --color-card: oklch(0.20 0.04 290);
-  --color-card-foreground: oklch(0.92 0.01 60);
-  --color-popover: oklch(0.16 0.03 290);
-  --color-popover-foreground: oklch(0.92 0.01 60);
-  --color-primary: oklch(0.68 0.25 280);
-  --color-primary-foreground: oklch(0.08 0.02 290);
-  --color-secondary: oklch(0.70 0.25 15);
-  --color-secondary-foreground: oklch(0.08 0.02 290);
-  --color-muted: oklch(0.10 0.02 290);
-  --color-muted-foreground: oklch(0.70 0.05 290);
-  --color-accent: oklch(0.80 0.15 40);
-  --color-accent-foreground: oklch(0.08 0.02 290);
-  --color-border: oklch(0.28 0.05 290);
-  --color-input: oklch(0.25 0.04 290);
-  --color-ring: oklch(0.62 0.12 290);
-  --color-chart1: oklch(0.45 0.18 280);
-  --color-chart2: oklch(0.70 0.25 15);
-  --color-chart3: oklch(0.80 0.15 40);
-  --color-chart4: oklch(0.42 0.20 315);
-  --color-chart5: oklch(0.65 0.12 290);
-  --color-sidebar: oklch(0.10 0.02 290);
-  --color-sidebar-foreground: oklch(0.92 0.01 60);
-  --color-sidebar-primary: oklch(0.62 0.12 290);
-  --color-sidebar-primary-foreground: oklch(0.08 0.02 290);
-  --color-sidebar-accent: oklch(0.18 0.03 290);
-  --color-sidebar-accent-foreground: oklch(0.70 0.05 290);
-  --color-sidebar-border: oklch(0.28 0.05 290);
-  --color-sidebar-ring: oklch(0.62 0.12 290);
-}
-/* Vivid theme - Only 4 unified classes */
-    .theme-vivid {
-      font-family: 'Libre Baskerville', serif;
-      font-weight: 400;
-      line-height: 1.7;
-      font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1, 'onum' 1;
-    }
+
+/* Vivid theme - Only 4 unified classes *
     
-    .theme-vivid .voila-heading {
-      font-family: 'Caveat', cursive;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      font-size: clamp(2.5rem, 6vw, 4rem);
-    }
+    /* Clean gradient for bg-primary in Vivid theme only *
     
-    .theme-vivid .voila-subheading {
-      font-family: 'Playfair Display', serif;
-      font-weight: 500;
-      font-style: italic;
-      letter-spacing: -0.01em;
-      line-height: 1.3;
-      font-size: clamp(1.25rem, 3vw, 2rem);
-    }
     
-    .theme-vivid .voila-brand-logo {
-      font-family: 'Caveat', cursive;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      font-size: 1.5rem;
-    }
     
-    /* Clean gradient for bg-primary in Vivid theme only */
-    .theme-vivid .bg-primary {
-      background: linear-gradient(135deg, oklch(0.25 0.12 280) 0%, rgb(111, 103, 244) 100%) !important;
-    }
+    /* Premium typography *
     
-    .theme-vivid.dark .bg-primary {
-      background: linear-gradient(135deg, oklch(0.45 0.18 280) 0%, rgb(151, 143, 255) 100%) !important;
-    }
+    /* Elegant button effects *
     
-    /* Premium typography */
-    .theme-vivid p, .theme-vivid div, .theme-vivid span {
-      font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1, 'onum' 1;
-      line-height: 1.7;
-    }
-    
-    /* Elegant button effects */
-    .theme-vivid .btn-primary,
-    .theme-vivid button[data-variant="primary"],
-    .theme-vivid [data-slot="button"][data-variant="primary"] {
-      background: linear-gradient(135deg, oklch(0.25 0.12 280) 0%, rgb(111, 103, 244) 100%);
-      letter-spacing: 0.025em;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      border-radius: 1.2rem;
-    }
-    
-    .theme-vivid button,
-    .theme-vivid [data-slot="button"] {
-      border-radius: 1.2rem;
-    }
-    
-    .theme-vivid .btn-primary:hover,
-    .theme-vivid button[data-variant="primary"]:hover,
-    .theme-vivid [data-slot="button"][data-variant="primary"]:hover {
-      background: linear-gradient(135deg, oklch(0.22 0.14 315) 0%, oklch(0.25 0.12 280) 100%);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgb(0 0 0 / 0.15), 0 3px 10px rgb(0 0 0 / 0.1);
-    }
-    
-    /* Premium cards */
-    .theme-vivid [data-slot="card"] {
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      border: 1px solid oklch(from var(--color-border) l c h / 0.3);
-    }
-    
-    .theme-vivid [data-slot="card"]:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgb(0 0 0 / 0.12), 0 4px 12px rgb(0 0 0 / 0.08);
-    }
+    /* Premium cards *
     
     /* Darker shadows for dark mode cards */
-    .theme-vivid.dark [data-slot="card"] {
-      box-shadow: 0 4px 20px rgb(0 0 0 / 0.25), 0 1px 3px rgb(0 0 0 / 0.15);
-      border: 1px solid oklch(from var(--color-border) l c h / 0.4);
-    }
     
-    .theme-vivid.dark [data-slot="card"]:hover {
-      box-shadow: 0 12px 40px rgb(0 0 0 / 0.35), 0 4px 12px rgb(0 0 0 / 0.20);
-    }
     
-    /* Cursor styles for interactive elements */
-    .theme-vivid button,
-    .theme-vivid .btn,
-    .theme-vivid [data-slot="button"],
-    .theme-vivid input[type="button"],
-    .theme-vivid input[type="submit"],
-    .theme-vivid input[type="reset"],
-    .theme-vivid a,
-    .theme-vivid [role="button"],
-    .theme-vivid [tabindex="0"]:not(input):not(textarea):not(select) {
-      cursor: pointer;
-    }
     
-    /* Disabled buttons get not-allowed cursor */
-    .theme-vivid button:disabled,
-    .theme-vivid .btn:disabled,
-    .theme-vivid [data-slot="button"]:disabled,
-    .theme-vivid input:disabled {
-      cursor: not-allowed;
-    }
     
-    /* Refined focus styles */
-    .theme-vivid *:focus-visible {
-      outline-offset: 3px;
-      box-shadow: 0 0 0 6px oklch(0.45 0.08 290 / 0.15);
-    }
+    /* Cursor styles for interactive elements *
+    
+    /* Disabled buttons get not-allowed cursor *
+    
+    /* Refined focus styles *
 
 /* END_THEME_DECLARATIONS */
 
@@ -1706,3 +660,4 @@
     border-color: var(--color-border, currentColor);
   }
 }
+

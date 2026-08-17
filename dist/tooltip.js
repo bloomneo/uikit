@@ -1,16 +1,15 @@
 import { jsx as u, jsxs as H } from "react/jsx-runtime";
 import * as a from "react";
-import { u as K, c as C } from "./index-C0UREtMP.js";
-import { u as S, b as W } from "./index-DQH6odE9.js";
-import { c as J } from "./index-DFZozV_h.js";
-import { P as Q, D as Z } from "./index-BY7PeRJA.js";
-import { u as ee } from "./index-xqkGMOJ8.js";
-import { c as G, R as te, A as oe, a as re, C as ne } from "./index-dhIqEbxW.js";
-import { P as j } from "./index-BCjJQGh8.js";
-import { P as ae } from "./index-BVRIAMfe.js";
-import { R as se } from "./index-pWhlqjff.js";
+import { c as K, u as W, a as C } from "./index-WHakdmwv.js";
+import { u as S, a as J } from "./index-5Bhkapwi.js";
+import { P as Q, D as Z } from "./index-DKZPUN5w.js";
+import { u as ee } from "./index-CXwMLXQo.js";
+import { c as G, R as te, A as oe, a as re, C as ne } from "./index-BjeYwP6P.js";
+import { P as j } from "./index-DKIoJbzW.js";
+import { P as ae } from "./index-CpDnqHCm.js";
+import { R as se } from "./index-DfNPZZ8M.js";
 import { c as ie } from "./utils-CwJPJKOE.js";
-var [O, ze] = J("Tooltip", [
+var [O, Fe] = K("Tooltip", [
   G
 ]), D = G(), F = "TooltipProvider", le = 700, A = "tooltip.open", [ce, k] = O(F), z = (e) => {
   const {
@@ -57,7 +56,7 @@ var R = "Tooltip", [ue, _] = O(R), $ = (e) => {
     onOpenChange: l,
     disableHoverableContent: i,
     delayDuration: v
-  } = e, s = k(R, e.__scopeTooltip), d = D(o), [c, f] = a.useState(null), m = ee(), p = a.useRef(0), h = i ?? s.disableHoverableContent, g = v ?? s.delayDuration, T = a.useRef(!1), [x, y] = K({
+  } = e, s = k(R, e.__scopeTooltip), d = D(o), [c, f] = a.useState(null), m = ee(), p = a.useRef(0), h = i ?? s.disableHoverableContent, g = v ?? s.delayDuration, T = a.useRef(!1), [x, y] = W({
     prop: r,
     defaultProp: n ?? !1,
     onChange: (N) => {
@@ -101,7 +100,7 @@ $.displayName = R;
 var L = "TooltipTrigger", B = a.forwardRef(
   (e, o) => {
     const { __scopeTooltip: t, ...r } = e, n = _(L, t), l = k(L, t), i = D(t), v = a.useRef(null), s = S(o, v, n.onTriggerChange), d = a.useRef(!1), c = a.useRef(!1), f = a.useCallback(() => d.current = !1, []);
-    return a.useEffect(() => () => document.removeEventListener("pointerup", f), [f]), /* @__PURE__ */ u(oe, { asChild: !0, ...i, children: /* @__PURE__ */ u(
+    return a.useEffect(() => () => document.removeEventListener("pointerup", f), [f]), /* @__PURE__ */ u(re, { asChild: !0, ...i, children: /* @__PURE__ */ u(
       ae.button,
       {
         "aria-describedby": n.open ? n.contentId : void 0,
@@ -165,7 +164,7 @@ var b = "TooltipContent", V = a.forwardRef(
       return document.addEventListener("pointermove", h), () => document.removeEventListener("pointermove", h);
     }
   }, [s, c, i, d, m]), /* @__PURE__ */ u(Y, { ...e, ref: l });
-}), [ve, me] = O(R, { isInside: !1 }), he = W("TooltipContent"), Y = a.forwardRef(
+}), [ve, me] = O(R, { isInside: !1 }), he = J("TooltipContent"), Y = a.forwardRef(
   (e, o) => {
     const {
       __scopeTooltip: t,
@@ -223,7 +222,7 @@ var q = "TooltipArrow", X = a.forwardRef(
     return me(
       q,
       t
-    ).isInside ? null : /* @__PURE__ */ u(re, { ...n, ...r, ref: o });
+    ).isInside ? null : /* @__PURE__ */ u(oe, { ...n, ...r, ref: o });
   }
 );
 X.displayName = q;
@@ -333,17 +332,17 @@ function De({
     }
   );
 }
-function $e({
+function ze({
   ...e
 }) {
   return /* @__PURE__ */ u(De, { children: /* @__PURE__ */ u(Pe, { "data-slot": "tooltip", ...e }) });
 }
-function Be({
+function $e({
   ...e
 }) {
   return /* @__PURE__ */ u(Ee, { "data-slot": "tooltip-trigger", ...e });
 }
-function Ue({
+function Be({
   className: e,
   sideOffset: o = 0,
   children: t,
@@ -367,9 +366,9 @@ function Ue({
   ) });
 }
 export {
-  $e as Tooltip,
-  Ue as TooltipContent,
+  ze as Tooltip,
+  Be as TooltipContent,
   De as TooltipProvider,
-  Be as TooltipTrigger
+  $e as TooltipTrigger
 };
 //# sourceMappingURL=tooltip.js.map

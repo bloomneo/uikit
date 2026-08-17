@@ -1,91 +1,66 @@
 import React from 'react';
 import {
-  PageLayout,
+  PageHeader,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
   Button,
-  Badge,
 } from '@bloomneo/uikit';
 
+/**
+ * A page owns its own header and returns plain content. The surrounding
+ * chrome (sidebar, topbar, auth guard) belongs to the layout route that
+ * renders this page through an <Outlet />, not to the page itself.
+ */
 export const {{FeatureName}}Page: React.FC = () => {
   return (
-    <PageLayout>
-      <PageLayout.Content>
-        <div className="space-y-8">
-          {/* Page Header */}
-          <div className="text-center space-y-4">
-            <h1 className="voila-heading text-4xl md:text-5xl text-gradient-primary">
-              {{FeatureName}}
-            </h1>
-            <p className="voila-subheading text-muted-foreground max-w-2xl mx-auto text-xl">
-              Welcome to your new {{featureName}} page powered by UIKit
-            </p>
-            <Badge variant="outline" className="text-sm">
-              Generated with UIKit CLI
-            </Badge>
-          </div>
+    <div className="space-y-6">
+      <PageHeader
+        title="{{FeatureName}}"
+        description="Welcome to your new {{featureName}} page."
+        actions={<Button>Primary action</Button>}
+      />
 
-          {/* Main Content */}
-          <div className="max-w-4xl mx-auto">
+      <Card>
+        <CardHeader>
+          <CardTitle>{{FeatureName}} content</CardTitle>
+          <CardDescription>
+            Customize this page with UIKit components and your own content.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <p className="text-muted-foreground">
+            Start building your {{featureName}} feature here.
+          </p>
+
+          <div className="grid gap-4 md:grid-cols-2">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  🎨 {{FeatureName}} Content
-                </CardTitle>
-                <CardDescription>
-                  This is your generated {{featureName}} page. Customize it with UIKit components and your own content.
-                </CardDescription>
+                <CardTitle className="text-lg">Feature 1</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-muted-foreground">
-                  Start building your {{featureName}} feature here. You have access to all UIKit components
-                  with the {{theme}} theme applied.
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  Add your first {{featureName}} feature here.
                 </p>
+              </CardContent>
+            </Card>
 
-                <div className="flex gap-2 flex-wrap">
-                  <Button variant="default">
-                    Primary Action
-                  </Button>
-                  <Button variant="outline">
-                    Secondary Action
-                  </Button>
-                  <Button variant="ghost">
-                    Tertiary Action
-                  </Button>
-                </div>
-
-                <div className="grid gap-4 md:grid-cols-2">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="text-lg">Feature 1</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground">
-                        Add your first {{featureName}} feature here.
-                      </p>
-                    </CardContent>
-                  </Card>
-
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="text-lg">Feature 2</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground">
-                        Add your second {{featureName}} feature here.
-                      </p>
-                    </CardContent>
-                  </Card>
-                </div>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Feature 2</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  Add your second {{featureName}} feature here.
+                </p>
               </CardContent>
             </Card>
           </div>
-        </div>
-      </PageLayout.Content>
-    </PageLayout>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 

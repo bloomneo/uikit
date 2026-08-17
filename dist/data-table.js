@@ -11,15 +11,14 @@ import { Select as Re, SelectTrigger as qe, SelectValue as Pe, SelectContent as 
 import { DropdownMenu as J, DropdownMenuTrigger as Q, DropdownMenuContent as X, DropdownMenuItem as Y } from "./dropdown-menu.js";
 import { requireArrayProp as Z, warnInDev as He } from "./errors.js";
 import { S as Ie } from "./search-CpUwRnG-.js";
-import { c as C } from "./createLucideIcon-B45kRl5r.js";
-import { E as Be } from "./ellipsis-BhAoKPVk.js";
+import { c as k } from "./createLucideIcon-B45kRl5r.js";
 /**
  * @license lucide-react v0.468.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const Oe = C("ArrowDownWideNarrow", [
+const Be = k("ArrowDownWideNarrow", [
   ["path", { d: "m3 16 4 4 4-4", key: "1co6wj" }],
   ["path", { d: "M7 20V4", key: "1yoxec" }],
   ["path", { d: "M11 4h10", key: "1w87gc" }],
@@ -32,7 +31,7 @@ const Oe = C("ArrowDownWideNarrow", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const _e = C("ArrowUpDown", [
+const Oe = k("ArrowUpDown", [
   ["path", { d: "m21 16-4 4-4-4", key: "f6ql7i" }],
   ["path", { d: "M17 20V4", key: "1ejh1v" }],
   ["path", { d: "m3 8 4-4 4 4", key: "11wl7u" }],
@@ -44,7 +43,7 @@ const _e = C("ArrowUpDown", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const Ge = C("ArrowUpNarrowWide", [
+const _e = k("ArrowUpNarrowWide", [
   ["path", { d: "m3 8 4-4 4 4", key: "11wl7u" }],
   ["path", { d: "M7 4v16", key: "1glfcx" }],
   ["path", { d: "M11 12h4", key: "q8tih4" }],
@@ -57,7 +56,7 @@ const Ge = C("ArrowUpNarrowWide", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const Je = C("Download", [
+const Ge = k("Download", [
   ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }],
   ["polyline", { points: "7 10 12 15 17 10", key: "2ggqvy" }],
   ["line", { x1: "12", x2: "12", y1: "15", y2: "3", key: "1vk2je" }]
@@ -68,7 +67,18 @@ const Je = C("Download", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const Qe = C("Filter", [
+const Je = k("Ellipsis", [
+  ["circle", { cx: "12", cy: "12", r: "1", key: "41hilf" }],
+  ["circle", { cx: "19", cy: "12", r: "1", key: "1wjl8i" }],
+  ["circle", { cx: "5", cy: "12", r: "1", key: "1pcz8c" }]
+]);
+/**
+ * @license lucide-react v0.468.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Qe = k("Filter", [
   ["polygon", { points: "22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3", key: "1yg77f" }]
 ]);
 /**
@@ -77,7 +87,7 @@ const Qe = C("Filter", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const $ = C("RefreshCw", [
+const $ = k("RefreshCw", [
   ["path", { d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8", key: "v9h5vc" }],
   ["path", { d: "M21 3v5h-5", key: "1q7to0" }],
   ["path", { d: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16", key: "3uifl3" }],
@@ -101,7 +111,7 @@ const $ = C("RefreshCw", [
       bordered: !0
     }
   }
-), x = ee(
+), C = ee(
   "text-left border-b border-border transition-colors",
   {
     variants: {
@@ -176,7 +186,7 @@ const $ = C("RefreshCw", [
     exportFormats: ye = ["csv", "json"],
     onExport: be,
     size: ve = "md",
-    density: k = "normal",
+    density: x = "normal",
     striped: we = !1,
     bordered: Ne = !0,
     hoverable: ke = !0,
@@ -289,8 +299,8 @@ const $ = C("RefreshCw", [
       "th",
       {
         className: o(
-          x({
-            density: k,
+          C({
+            density: x,
             pinned: e.pinned || "none"
           }),
           "bg-muted/50 font-medium text-muted-foreground",
@@ -306,9 +316,9 @@ const $ = C("RefreshCw", [
         children: /* @__PURE__ */ l("div", { className: "flex items-center gap-2", children: [
           /* @__PURE__ */ a("span", { children: e.header }),
           e.sortable && /* @__PURE__ */ l("div", { className: "flex flex-col", children: [
-            !r && /* @__PURE__ */ a(_e, { className: "h-3 w-3" }),
-            r && i === "asc" && /* @__PURE__ */ a(Ge, { className: "h-3 w-3" }),
-            r && i === "desc" && /* @__PURE__ */ a(Oe, { className: "h-3 w-3" })
+            !r && /* @__PURE__ */ a(Oe, { className: "h-3 w-3" }),
+            r && i === "asc" && /* @__PURE__ */ a(_e, { className: "h-3 w-3" }),
+            r && i === "desc" && /* @__PURE__ */ a(Be, { className: "h-3 w-3" })
           ] }),
           e.filterable && /* @__PURE__ */ a(
             y,
@@ -339,7 +349,7 @@ const $ = C("RefreshCw", [
             i && "bg-primary/10"
           ),
           children: [
-            d && /* @__PURE__ */ a("td", { className: o(x({ density: k })), children: /* @__PURE__ */ a(
+            d && /* @__PURE__ */ a("td", { className: o(C({ density: x })), children: /* @__PURE__ */ a(
               G,
               {
                 checked: i,
@@ -352,8 +362,8 @@ const $ = C("RefreshCw", [
                 "td",
                 {
                   className: o(
-                    x({
-                      density: k,
+                    C({
+                      density: x,
                       pinned: t.pinned || "none"
                     }),
                     t.className
@@ -368,8 +378,8 @@ const $ = C("RefreshCw", [
                 t.id
               );
             }),
-            v.length > 0 && /* @__PURE__ */ a("td", { className: o(x({ density: k })), children: /* @__PURE__ */ l(J, { children: [
-              /* @__PURE__ */ a(Q, { asChild: !0, children: /* @__PURE__ */ a(y, { variant: "ghost", size: "sm", children: /* @__PURE__ */ a(Be, { className: "h-4 w-4" }) }) }),
+            v.length > 0 && /* @__PURE__ */ a("td", { className: o(C({ density: x })), children: /* @__PURE__ */ l(J, { children: [
+              /* @__PURE__ */ a(Q, { asChild: !0, children: /* @__PURE__ */ a(y, { variant: "ghost", size: "sm", children: /* @__PURE__ */ a(Je, { className: "h-4 w-4" }) }) }),
               /* @__PURE__ */ a(X, { align: "end", children: v.filter((t) => !t.visible || t.visible(e, n)).map((t) => /* @__PURE__ */ l(
                 Y,
                 {
@@ -436,7 +446,7 @@ const $ = C("RefreshCw", [
       /* @__PURE__ */ l("div", { className: "flex items-center gap-2", children: [
         fe && /* @__PURE__ */ l(J, { children: [
           /* @__PURE__ */ a(Q, { asChild: !0, children: /* @__PURE__ */ l(y, { variant: "outline", size: "sm", children: [
-            /* @__PURE__ */ a(Je, { className: "h-4 w-4 mr-2" }),
+            /* @__PURE__ */ a(Ge, { className: "h-4 w-4 mr-2" }),
             "Export"
           ] }) }),
           /* @__PURE__ */ a(X, { children: ye.map((e) => /* @__PURE__ */ l(
@@ -466,7 +476,7 @@ const $ = C("RefreshCw", [
             className: o(Xe({ size: ve, bordered: Ne })),
             children: [
               /* @__PURE__ */ a("thead", { children: /* @__PURE__ */ l("tr", { children: [
-                d && /* @__PURE__ */ a("th", { className: o(x({ density: k }), "bg-muted/50"), children: K === "multiple" && /* @__PURE__ */ a(
+                d && /* @__PURE__ */ a("th", { className: o(C({ density: x }), "bg-muted/50"), children: K === "multiple" && /* @__PURE__ */ a(
                   G,
                   {
                     checked: u.length === p.length && p.length > 0,
@@ -477,7 +487,7 @@ const $ = C("RefreshCw", [
                   }
                 ) }),
                 g.map(Le),
-                v.length > 0 && /* @__PURE__ */ a("th", { className: o(x({ density: k }), "bg-muted/50 w-16"), children: "Actions" })
+                v.length > 0 && /* @__PURE__ */ a("th", { className: o(C({ density: x }), "bg-muted/50 w-16"), children: "Actions" })
               ] }) }),
               /* @__PURE__ */ a("tbody", { children: pe ? /* @__PURE__ */ a("tr", { children: /* @__PURE__ */ a(
                 "td",
@@ -578,8 +588,8 @@ const $ = C("RefreshCw", [
   ] });
 });
 te.displayName = "DataTable";
-const gt = te;
+const pt = te;
 export {
-  gt as DataTable
+  pt as DataTable
 };
 //# sourceMappingURL=data-table.js.map

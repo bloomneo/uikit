@@ -1,17 +1,22 @@
 ---
 name: bloomneo-uikit
-description: Rules for generating React code with @bloomneo/uikit — components, layouts, themes, and forms. Applies when the project's package.json has "@bloomneo/uikit" as a dependency, or when the user mentions uikit, bloomneo, or files import from "@bloomneo/uikit". Also triggers for "uikit init", "uikit generate", or any `npx uikit` command.
-version: 2.1.5
+description: Rules for generating React code with @bloomneo/uikit — components, design tokens, and forms. Applies when the project's package.json has "@bloomneo/uikit" as a dependency, or when the user mentions uikit, bloomneo, or files import from "@bloomneo/uikit". Also triggers for "uikit generate" or any `npx uikit` command.
+version: 4.0.0
 user-invocable: false
 allowed-tools: Bash(npx uikit *), Bash(pnpm dlx uikit *), Bash(bunx --bun uikit *)
 ---
 
-# @bloomneo/uikit (v3.0.2)
+# @bloomneo/uikit (v4.0.0)
 
-React component library with components, layouts, themes, routing, and
-scaffolding. Built on Radix + Tailwind + cva. Web-first (React DOM); ships
-platform-detection helpers (`isTauri()`, `isNative()`, etc.) but not full
-native/Tauri/extension component adapters.
+React component library: 30 components and a locked design-token palette.
+Built on Radix + Tailwind + cva. Web-first (React DOM); ships platform-detection
+helpers (`isTauri()`, `isNative()`, etc.) but not full native/Tauri/extension
+component adapters.
+
+**UIKit ships no layouts and does not scaffold apps** (both removed in 4.0).
+App chrome is your app's — write a layout route that renders pages through an
+`<Outlet />`, and let each page own its `<PageHeader>`. To scaffold a whole
+application, use `@bloomneo/bloom`.
 
 > **IMPORTANT:** Read `node_modules/@bloomneo/uikit/llms.txt` for the full component API reference. Read `AGENTS.md` in the project root for do/don't rules. This skill is the fastest way in; those two files are canonical.
 
@@ -48,16 +53,37 @@ Every stateful component uses a specific value + handler pair. Using the wrong h
 - **Empty lists:** `<EmptyState>` — not ad-hoc placeholder divs.
 - **Password fields:** `<PasswordInput>` — not `<Input type="password">`.
 
-### Layouts (one per route)
+### Layouts — you write them
 
-| Use case | Component |
-|---|---|
-| Dashboard / SaaS | `<AdminLayout>` with `.Header`, `.Sidebar`, `.Content` |
-| Marketing / landing | `<PageLayout>` with `.Header`, `.Content`, `.Footer` |
-| Login / signup | `<AuthLayout scheme="card">` |
-| Mobile (Capacitor) | `<MobileLayout>` |
-| Browser extension | `<PopupLayout>` |
-| Custom / blank | `<BlankLayout>` |
+UIKit ships **no layout components** (removed in 4.0). Write a layout route
+that renders its pages through an `<Outlet />`, and let each page own its
+header:
+
+```tsx
+// AdminLayoutRoute.tsx — the shell, once, in the app
+export function AdminLayoutRoute() {
+  return (
+    <div className="flex min-h-screen">
+      <Sidebar />
+      <main className="flex-1 p-6"><Outlet /></main>
+    </div>
+  );
+}
+
+// Any page — owns its header, returns plain content
+export default function UsersPage() {
+  return (
+    <div className="space-y-6">
+      <PageHeader title="Users" actions={<Button>Invite</Button>} />
+      <UsersTable />
+    </div>
+  );
+}
+```
+
+`@bloomneo/bloom` scaffolds this shell. Do not reach for `AdminLayout`,
+`PageLayout`, `AuthLayout`, `MobileLayout`, `PopupLayout` or `BlankLayout` —
+they do not exist.
 
 ### Styling
 
@@ -66,7 +92,6 @@ Every stateful component uses a specific value + handler pair. Using the wrong h
 - **`cn()`** from `@bloomneo/uikit` for conditional classes — not template literal ternaries.
 - **No manual `z-index`** on overlays — Dialog, Sheet, Popover manage their own stacking.
 - **Theme customization** → see [rules/theming.md](./rules/theming.md) for OKLCH, custom theme CLI, dark-mode rules, and FBCA paths.
-- **Scaffolding, folder structure, FBCA routing, deploy** → see [rules/scaffolding.md](./rules/scaffolding.md).
 
 ### DataTable — the other #1 agent failure mode
 
@@ -184,23 +209,24 @@ const ok = await confirm({ title: 'Sure?', tone: 'destructive' });
 | Persistent banner | `Alert` |
 | Table with sort/filter/paginate | `DataTable` |
 | Empty state | `EmptyState` |
-| Loading placeholder | `Skeleton` |
+| Loading placeholder | `<div className="h-40 animate-pulse rounded-md bg-muted" />` |
 | Page header w/ breadcrumbs | `PageHeader` |
 | Role-gated UI | `PermissionGate` |
 
 ## CLI
 
 ```bash
-npx uikit create <name>              # scaffold new project
-npx uikit generate theme <name>      # create custom theme
-npx uikit generate feature <name>    # scaffold feature folder (FBCA)
+npx uikit generate theme <name>      # create a custom theme
+npx uikit generate page <name>       # page component
+npx uikit generate component <name>  # reusable component
+npx uikit generate hook <name>       # custom React hook
+npx uikit generate feature <name>    # feature folder (page + component + hook)
 npx uikit bundle                     # compile custom themes to CSS
-npx uikit serve                      # dev server
-npx uikit build                      # production build
-npx uikit deploy --github            # GitHub Pages
 ```
 
-Full reference (templates, folder structure, FBCA auto-routing, deploy options): [rules/scaffolding.md](./rules/scaffolding.md).
+`create`, `serve`, `build`, `deploy`, `prerender` and `optimize` were removed in
+4.0 — use `@bloomneo/bloom` to scaffold, and the app's own toolchain for the
+lifecycle.
 
 Substitute `pnpm dlx uikit` or `bunx --bun uikit` based on the project's `packageManager`.
 

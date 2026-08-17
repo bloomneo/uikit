@@ -1,6 +1,6 @@
 # AGENTS.md — @bloomneo/uikit
 
-> Rules for AI coding agents generating code with `@bloomneo/uikit` v3.0.2.
+> Rules for AI coding agents generating code with `@bloomneo/uikit` v4.0.0.
 > Read this FIRST, then `llms.txt` for per-component snippets.
 
 ## Always do
@@ -111,8 +111,8 @@ export default function RootLayout({ children }) {
 | Inline banner, stays visible | `Alert` | `toast.*` |
 | Table with sort/filter/paginate | `DataTable` | `Table` |
 | Raw HTML table for custom layouts | `Table` | `DataTable` |
-| No data exists | `EmptyState` | `Skeleton` |
-| Data is loading | `Skeleton` | `EmptyState` |
+| No data exists | `EmptyState` | a loading placeholder |
+| Data is loading | `<div className="h-N animate-pulse rounded-md bg-muted" />` | `EmptyState` |
 | Label + error + a11y input wrapper | `FormField` | `FormController` |
 | react-hook-form controller (legacy) | `FormController` (only with `useForm`) | — |
 
@@ -124,7 +124,7 @@ Controlled via `open` + `onOpenChange`.
 **Native inputs** (Input, Textarea, PasswordInput):
 Standard React DOM: `value` + `onChange(e)` where `e` is a `ChangeEvent`.
 
-**Single-value pickers** (Select, Combobox, Slider, Tabs, Accordion):
+**Single-value pickers** (Select, Combobox, Tabs):
 `value` + `onValueChange(newValue)` — the callback receives the value
 directly, not a ChangeEvent. Unified in 2.0.0; pre-2.0 Combobox used
 `onChange` — no alias kept.
@@ -153,15 +153,15 @@ directly, not a ChangeEvent. Unified in 2.0.0; pre-2.0 Combobox used
 
 ## Icon name collisions with lucide-react
 
-Six uikit components share a name with a `lucide-react` icon:
-**Badge, Calendar, Command, Container, Sheet, Table.**
+Four uikit components share a name with a `lucide-react` icon:
+**Badge, Command, Sheet, Table.**
 
-Importing both unqualified makes `<Calendar />` ambiguous, and the icon
+Importing both unqualified makes `<Table />` ambiguous, and the icon
 usually wins because it is what most code means. Alias the icon:
 
 ```tsx
-import { Calendar } from '@bloomneo/uikit';
-import { Calendar as CalendarIcon } from 'lucide-react';
+import { Table } from '@bloomneo/uikit';
+import { Table as TableIcon } from 'lucide-react';
 ```
 
 ## Client-only components
@@ -169,5 +169,4 @@ import { Calendar as CalendarIcon } from 'lucide-react';
 These components require `"use client"` at the top of the file in Next.js App Router:
 
 Dialog, Sheet, Popover, Tooltip, HoverCard, DropdownMenu, ConfirmDialog,
-Toast / ToastProvider, Command / CommandDialog, Combobox, Tabs, Accordion,
-Collapsible, Calendar, ThemeProvider.
+Toast / ToastProvider, Command / CommandDialog, Combobox, Tabs, ThemeProvider.
