@@ -51,3 +51,6 @@ pages/
 # Leaked fixtures from tests/styles-palette.test.ts (created in-repo so they can
 # resolve `tailwindcss`; removed on success, left behind when a run fails).
 .consumer-*/
+
+# npm pack output — regenerate with `npm pack`
+*.tgz
