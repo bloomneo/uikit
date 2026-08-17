@@ -2,6 +2,33 @@
 
 All notable changes to UIKit will be documented in this file.
 
+## [3.0.2] - 2026-08-17
+
+### Fixed — apps built with uikit's own CLI lost the new tokens
+
+`uikit bundle` regenerates an app's `globals.css` from its theme presets, and
+the presets had no `success`, `warning` or `contrast` entries — so the
+regenerated CSS defined `--color-destructive` and none of the tokens 3.0
+added. In an app scaffolded by `uikit create` (which imports its own bundled
+`globals.css` rather than `@bloomneo/uikit/theme`), that meant
+`bg-contrast`, `bg-success` and `bg-warning` resolved to nothing — and uikit's
+own Header, Footer, AdminLayout and form components use them, so their
+contrast surfaces and status colours rendered unstyled.
+
+Root cause: 3.0 added the tokens to the stylesheet directly, but the presets
+are the source the bundler reads. The two drifted.
+
+Fixed in both places, so there is one source of truth again:
+- `src/themes/presets/*.js` — the shipped themes
+- `bin/templates/generate/theme/theme.js.template` — themes users generate
+
+Verified end to end through the real CLI pipeline: `uikit create --fbca` →
+`uikit generate theme brand` → `uikit bundle`, then inspecting the regenerated
+`globals.css` for every token.
+
+Apps scaffolded by **Bloom** were never affected — they import
+`@bloomneo/uikit/theme` directly.
+
 ## [3.0.1] - 2026-08-17
 
 ### Fixed — `@import "@bloomneo/uikit/theme"` could not be resolved

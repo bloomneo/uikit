@@ -13,6 +13,9 @@
  * - secondary: Supporting color for less prominent elements
  * - accent: Highlight color for special elements
  * - destructive: Error/danger color (usually red variants)
+ * - success / warning: state colors. uikit components use these, so leaving
+ *   them out means status indicators fall back to the base theme.
+ * - contrast*: the inverted surface used by tone="contrast" (dark bars).
  *
  * 💡 OKLCH Colors (recommended for better consistency):
  * - Replace hex values with oklch() for better color science
@@ -50,6 +53,17 @@ const {{themeName}}Theme = {
     // State colors
     destructive: '#EF4444',          // Error/danger elements
     destructiveForeground: '#FFFFFF', // Text on destructive elements
+    success: '#16A34A',              // Success / confirmed states
+    successForeground: '#FFFFFF',
+    warning: '#EA580C',              // Warning / needs-attention states
+    warningForeground: '#FFFFFF',
+    // Contrast: a deliberately inverted surface (dark bars, tone="contrast").
+    // Usually kept fixed across themes rather than tinted to the brand.
+    contrast: '#18181B',
+    contrastForeground: '#F4F4F5',
+    contrastMuted: '#3F3F46',
+    contrastMutedForeground: '#A1A1AA',
+    contrastBorder: '#3F3F46',
 
     // Border colors
     border: '#E2E8F0',               // Standard borders
@@ -98,6 +112,15 @@ const {{themeName}}Theme = {
     // State colors
     destructive: '#F87171',          // Lighter red for dark mode
     destructiveForeground: '#1F2937', // Dark text on light red
+    success: '#22C55E',              // Brighter for dark backgrounds
+    successForeground: '#FFFFFF',
+    warning: '#F97316',
+    warningForeground: '#FFFFFF',
+    contrast: '#18181B',
+    contrastForeground: '#F4F4F5',
+    contrastMuted: '#3F3F46',
+    contrastMutedForeground: '#A1A1AA',
+    contrastBorder: '#3F3F46',
 
     // Border colors
     border: '#334155',               // Dark borders

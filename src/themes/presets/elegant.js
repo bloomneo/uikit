@@ -105,6 +105,17 @@ const elegantTheme = {
     // State colors
     destructive: '#DC2626',
     destructiveForeground: '#FFFFFF',
+    // Status + contrast tokens (3.0). Previously hardcoded green/orange/zinc
+    // scales inside components, which the strict palette removes.
+    success: '#16A34A',
+    successForeground: '#FFFFFF',
+    warning: '#EA580C',
+    warningForeground: '#FFFFFF',
+    contrast: '#18181B',
+    contrastForeground: '#F4F4F5',
+    contrastMuted: '#3F3F46',
+    contrastMutedForeground: '#A1A1AA',
+    contrastBorder: '#3F3F46',
 
     // Border colors
     border: '#E2E8F0',
@@ -151,6 +162,17 @@ const elegantTheme = {
     // State colors
     destructive: '#EF4444',
     destructiveForeground: '#FFFFFF',
+    // Status + contrast tokens (3.0). Previously hardcoded green/orange/zinc
+    // scales inside components, which the strict palette removes.
+    success: '#22C55E',
+    successForeground: '#FFFFFF',
+    warning: '#F97316',
+    warningForeground: '#FFFFFF',
+    contrast: '#18181B',
+    contrastForeground: '#F4F4F5',
+    contrastMuted: '#3F3F46',
+    contrastMutedForeground: '#A1A1AA',
+    contrastBorder: '#3F3F46',
 
     // Border colors
     border: '#334155',

@@ -6,7 +6,7 @@ user-invocable: false
 allowed-tools: Bash(npx uikit *), Bash(pnpm dlx uikit *), Bash(bunx --bun uikit *)
 ---
 
-# @bloomneo/uikit (v3.0.1)
+# @bloomneo/uikit (v3.0.2)
 
 React component library with components, layouts, themes, routing, and
 scaffolding. Built on Radix + Tailwind + cva. Web-first (React DOM); ships
