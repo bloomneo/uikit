@@ -16,6 +16,7 @@
  */
 
 import { execSync } from 'node:child_process';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { mkdirSync, copyFileSync, existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -62,7 +63,19 @@ function build() {
     { stdio: 'inherit', cwd: root }
   );
 
-  // 2. Build the permissive stylesheet — 2.x behaviour, migration only.
+  // 2. Copy the theme source verbatim — it is consumed by the CONSUMER's
+  //    Tailwind build, so it must stay unprocessed. Compiling it here would
+  //    defeat the point: the reset has to run against their source scan.
+  console.log('[build-styles] Copying theme source → dist/theme.css');
+  const themeSrc = resolve(root, 'src/styles/theme.css');
+  const themeOut = resolve(root, 'dist/theme.css');
+  ensureDir(themeOut);
+  let themeCss = readFileSync(themeSrc, 'utf8');
+  // `@import "./_tokens.css"` would dangle once flattened into dist/.
+  themeCss = themeCss.replace('@import "./_tokens.css";', readFileSync(resolve(root, 'src/styles/_tokens.css'), 'utf8'));
+  writeFileSync(themeOut, themeCss);
+
+  // 3. Build the permissive stylesheet — 2.x behaviour, migration only.
   console.log('[build-styles] Building permissive styles → dist/styles/permissive.css');
   execSync(
     `npx tailwindcss -i "${permissiveInput}" -o "${permissiveOut}" --minify`,

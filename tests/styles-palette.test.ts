@@ -128,3 +128,47 @@ describe('uikit does not use the palette it removes', () => {
     });
   }
 });
+
+describe('the lockdown holds in a CONSUMER build (not just uikit\'s own)', () => {
+  // The failure this exists to prevent: 3.0 was one verification away from
+  // shipping a headline promise that was false in the only situation it
+  // mattered. A consuming app runs its OWN `@import "tailwindcss"`, which
+  // generates whatever utilities ITS source uses — `bg-blue-600` included —
+  // no matter what prebuilt CSS uikit ships. The reset only takes effect when
+  // it participates in the build that scans the app's code, which is why
+  // `@bloomneo/uikit/theme` is shipped as source rather than compiled.
+  let out = '';
+
+  beforeAll(() => {
+    // Inside the repo on purpose: a temp dir outside it cannot resolve
+    // `tailwindcss`, and this fixture imports the framework the way a real
+    // consumer does rather than by absolute path.
+    const dir = mkdtempSync(join(resolve(__dirname, '..'), '.consumer-'));
+    writeFileSync(
+      join(dir, 'App.tsx'),
+      `export default () => <div className="bg-blue-600 text-gray-900 bg-primary bg-contrast bg-success">x</div>;`,
+    );
+    writeFileSync(
+      join(dir, 'index.css'),
+      `@import "tailwindcss";\n@import "${resolve(__dirname, '../src/styles/theme.css')}";\n@source "${join(dir, 'App.tsx')}";\n`,
+    );
+    execFileSync('npx', ['@tailwindcss/cli', '-i', join(dir, 'index.css'), '-o', join(dir, 'out.css')], {
+      cwd: resolve(__dirname, '..'),
+      stdio: 'pipe',
+    });
+    out = readFileSync(join(dir, 'out.css'), 'utf8');
+    rmSync(dir, { recursive: true, force: true });
+  }, 120_000);
+
+  it('compiled something (guards a vacuous pass)', () => {
+    expect(out.length).toBeGreaterThan(1_000);
+  });
+
+  for (const cls of ['bg-primary', 'bg-contrast', 'bg-success']) {
+    it(`consumer can use .${cls}`, () => expect(out).toContain(`.${cls}`));
+  }
+
+  for (const cls of ['bg-blue-600', 'text-gray-900']) {
+    it(`consumer CANNOT use .${cls}`, () => expect(out).not.toContain(`.${cls}`));
+  }
+});

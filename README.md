@@ -208,8 +208,29 @@ asks very little: not "adopt our component library", just "use the one class
 that exists". A mistake surfaces immediately as an unstyled element instead of
 drift nobody notices until the brand stops matching itself.
 
-**Migrating from 2.x?** Import the permissive sheet to keep your existing
-colours working, then move them to tokens at your own pace:
+### Which import do you need?
+
+This matters, and it is easy to get wrong: **a prebuilt stylesheet cannot
+constrain your build.** If your app runs its own `@import "tailwindcss"` — every
+Bloom template does — then your Tailwind generates whatever utilities your
+source uses, `bg-blue-600` included, regardless of what uikit ships. The reset
+only takes effect when it participates in the build that scans your code.
+
+**If your app runs Tailwind (the normal case):**
+
+```css
+/* your index.css */
+@import "tailwindcss";
+@import "@bloomneo/uikit/theme";     /* tokens + the palette lockdown */
+```
+
+**If your app ships no build and just wants the prebuilt CSS:**
+
+```ts
+import "@bloomneo/uikit/styles";
+```
+
+**Migrating from 2.x?** Keep your existing colours working while you convert:
 
 ```ts
 import "@bloomneo/uikit/styles/permissive";   // 2.x behaviour, temporary

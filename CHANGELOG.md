@@ -33,6 +33,28 @@ migration aid with an end date, not a supported style.
 
 Costs ~6.5 KB less CSS.
 
+### Added — `@bloomneo/uikit/theme` (this is the import most apps need)
+
+```css
+/* your index.css */
+@import "tailwindcss";
+@import "@bloomneo/uikit/theme";
+```
+
+**A prebuilt stylesheet cannot constrain your build.** If an app runs its own
+`@import "tailwindcss"` — every Bloom template does — its Tailwind generates
+whatever utilities its source uses, `bg-blue-600` included, no matter what
+uikit ships. The reset only takes effect when it participates in the build that
+scans the app's code, so the tokens are now shipped as **source** for that
+pipeline.
+
+This was caught during pre-publish verification by simulating a real consumer
+build. Without it 3.0 would have shipped a headline promise that was false in
+the only situation it mattered: the lockdown worked inside uikit and nowhere
+else.
+
+`@bloomneo/uikit/styles` remains for apps with no build step.
+
 ### Changed — stylesheet internals split
 
 Tokens live in `src/styles/_tokens.css`; `globals.css` and `permissive.css`
@@ -87,10 +109,12 @@ build succeeds, and the component simply has no colour.
 
 ### Added — tests that compile real CSS
 
-28 assertions run the Tailwind CLI against both entries and inspect the
-output, because "this class produces no CSS" is invisible in review and the
-near-miss above proved a source-level check would have passed. Includes a
-guard against an empty-output false pass.
+34 assertions run the Tailwind CLI and inspect the output, because "this class
+produces no CSS" is invisible in review and two near-misses proved a
+source-level check would have passed. Six of them compile a **simulated
+consumer app** — its own `@import "tailwindcss"` plus uikit's theme — which is
+the only configuration that proves the lockdown reaches real applications.
+Includes guards against empty-output false passes.
 
 Suite: 82 → 110 passing.
 
@@ -134,6 +158,28 @@ Strict is recommended for new apps; existing ones should migrate their
 hardcoded colours first.
 
 Costs ~12 KB less CSS (126.6 KB → 120.1 KB minified).
+
+### Added — `@bloomneo/uikit/theme` (this is the import most apps need)
+
+```css
+/* your index.css */
+@import "tailwindcss";
+@import "@bloomneo/uikit/theme";
+```
+
+**A prebuilt stylesheet cannot constrain your build.** If an app runs its own
+`@import "tailwindcss"` — every Bloom template does — its Tailwind generates
+whatever utilities its source uses, `bg-blue-600` included, no matter what
+uikit ships. The reset only takes effect when it participates in the build that
+scans the app's code, so the tokens are now shipped as **source** for that
+pipeline.
+
+This was caught during pre-publish verification by simulating a real consumer
+build. Without it 3.0 would have shipped a headline promise that was false in
+the only situation it mattered: the lockdown worked inside uikit and nowhere
+else.
+
+`@bloomneo/uikit/styles` remains for apps with no build step.
 
 ### Changed — stylesheet internals split
 

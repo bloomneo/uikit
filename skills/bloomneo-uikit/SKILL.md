@@ -6,7 +6,7 @@ user-invocable: false
 allowed-tools: Bash(npx uikit *), Bash(pnpm dlx uikit *), Bash(bunx --bun uikit *)
 ---
 
-# @bloomneo/uikit (v2.1.5)
+# @bloomneo/uikit (v3.0.0)
 
 React component library with components, layouts, themes, routing, and
 scaffolding. Built on Radix + Tailwind + cva. Web-first (React DOM); ships
@@ -22,7 +22,7 @@ These are always enforced. Violating them produces broken apps.
 ### Setup
 
 - **Exactly one import path.** `import { X } from '@bloomneo/uikit'`. Never `@bloomneo/uikit/button` in hand-written code (only bundlers use deep imports).
-- **Exactly one CSS import.** `import '@bloomneo/uikit/styles'` once at app entry.
+- **Wire styles by build type.** If the app runs its own Tailwind (every Bloom template), add `@import "@bloomneo/uikit/theme";` after `@import "tailwindcss";` in its CSS — a prebuilt sheet cannot constrain your build, so this is what applies the 3.0 palette lockdown. If there is no build, `import '@bloomneo/uikit/styles'` at entry. Migrating from 2.x? `@bloomneo/uikit/styles/permissive` keeps raw palette classes working.
 - **Exactly one provider tree.** Mount `ThemeProvider` > `ToastProvider` (self-closing, sibling) + `ConfirmProvider` (wraps children). `ToastProvider` and `ConfirmProvider` must each appear exactly once — duplicates fire dev-only `warnInDev` and produce doubled behavior in prod.
 - **FOUC script required.** Inject `<script>{foucScript()}</script>` from `@bloomneo/uikit/fouc` into `index.html` `<head>` or themes flash on load.
 
@@ -61,7 +61,8 @@ Every stateful component uses a specific value + handler pair. Using the wrong h
 
 ### Styling
 
-- **Semantic tokens only.** `bg-background`, `text-foreground`, `bg-primary`, `text-muted-foreground`, `border-border`. Never raw colors (`bg-blue-500`, `text-white`) — they break when the theme changes.
+- **Semantic tokens only.** `bg-background`, `text-foreground`, `bg-primary`, `text-muted-foreground`, `border-border`. Raw colors (`bg-blue-500`, `text-white`) compile to nothing in 3.0 — the element renders unstyled, which is how you'll notice.
+- **Status and contrast tokens** (3.0): `bg-success` / `bg-warning` (+ `-foreground`) for state, and `bg-contrast` / `text-contrast-foreground` / `text-contrast-muted-foreground` / `border-contrast-border` for deliberately-inverted surfaces such as `tone="contrast"`.
 - **`cn()`** from `@bloomneo/uikit` for conditional classes — not template literal ternaries.
 - **No manual `z-index`** on overlays — Dialog, Sheet, Popover manage their own stacking.
 - **Theme customization** → see [rules/theming.md](./rules/theming.md) for OKLCH, custom theme CLI, dark-mode rules, and FBCA paths.

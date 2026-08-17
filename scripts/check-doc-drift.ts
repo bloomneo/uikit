@@ -17,7 +17,7 @@
  * purpose (that's the whole point) and must not self-fail this gate.
  */
 
-import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -140,3 +140,40 @@ if (violations > 0) {
   process.exit(1);
 }
 console.log(`OK: scanned ${SCAN.length} files, no drift.`);
+
+/* ────────────────────────────────────────────────────────────────────────────
+ * Version claims must match package.json.
+ *
+ * AGENTS.md is the first file an agent reads and it sat two releases stale at
+ * v2.1.4 while the package was 3.0.0 — which matters more than it sounds,
+ * because 3.0 changed what the default stylesheet does. llms.txt is generated
+ * from package.json so it is checked as a cheap regression guard, not because
+ * it has ever drifted.
+ * ──────────────────────────────────────────────────────────────────────────── */
+
+const pkgVersion = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')).version as string;
+const VERSION_CLAIMS: Array<{ file: string; re: RegExp; label: string }> = [
+  { file: 'AGENTS.md', re: /`@bloomneo\/uikit` v([0-9]+\.[0-9]+\.[0-9]+)/, label: 'AGENTS.md header' },
+  { file: 'skills/bloomneo-uikit/SKILL.md', re: /v([0-9]+\.[0-9]+\.[0-9]+)/, label: 'uikit SKILL.md header' },
+  { file: 'llms.txt', re: /^# @bloomneo\/uikit v([0-9]+\.[0-9]+\.[0-9]+)/m, label: 'llms.txt header (generated)' },
+];
+
+const versionErrors: string[] = [];
+for (const claim of VERSION_CLAIMS) {
+  const path = join(ROOT, claim.file);
+  if (!existsSync(path)) {
+    versionErrors.push(`${claim.label}: ${claim.file} is missing`);
+    continue;
+  }
+  const found = readFileSync(path, 'utf8').match(claim.re);
+  if (!found) versionErrors.push(`${claim.label} not found — the version line was removed or reworded`);
+  else if (found[1] !== pkgVersion) versionErrors.push(`${claim.label} says ${found[1]}, package.json says ${pkgVersion}`);
+}
+
+if (versionErrors.length > 0) {
+  console.error('\nFAIL: version claims out of sync:\n');
+  for (const e of versionErrors) console.error(`  ${e}`);
+  console.error('');
+  process.exit(1);
+}
+console.log(`OK: version claims match package.json (${pkgVersion}).`);

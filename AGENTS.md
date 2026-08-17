@@ -1,12 +1,19 @@
 # AGENTS.md — @bloomneo/uikit
 
-> Rules for AI coding agents generating code with `@bloomneo/uikit` v2.1.4.
+> Rules for AI coding agents generating code with `@bloomneo/uikit` v3.0.0.
 > Read this FIRST, then `llms.txt` for per-component snippets.
 
 ## Always do
 
 1. Import from `@bloomneo/uikit` (flat, canonical).
-2. Import `@bloomneo/uikit/styles` once at your app entry point. It ships the
+2. Wire the styles correctly — this is the one that gets missed:
+   - App runs its own Tailwind (every Bloom template)? Put
+     `@import "@bloomneo/uikit/theme";` after `@import "tailwindcss";` in your
+     CSS. A prebuilt stylesheet cannot constrain your build, so this is what
+     actually applies the palette lockdown.
+   - No build, prebuilt CSS only? `import '@bloomneo/uikit/styles'` at entry.
+   - Migrating a 2.x app? `@bloomneo/uikit/styles/permissive` keeps raw
+     palette classes working temporarily. It ships the
    semantic tokens ONLY — Tailwind's default palette is removed in 3.0, so
    `bg-blue-600` produces no CSS. Use `bg-primary`, `bg-card`,
    `text-muted-foreground`. (Migrating a 2.x app? `@bloomneo/uikit/styles/permissive`

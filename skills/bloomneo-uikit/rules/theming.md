@@ -18,7 +18,18 @@ Rules for customizing, switching, and generating themes. Theming is the most com
 
 ## The 29-variable contract
 
-Every theme defines the same 29 CSS variables. Components consume them via semantic Tailwind classes. **Never hardcode hex, rgb, or Tailwind palette colors (`bg-blue-500`, `text-white`) in application code.** They break on theme/mode switch.
+Every theme defines the same set of CSS variables. Components consume them via
+semantic Tailwind classes.
+
+**In 3.0 raw palette classes are not merely discouraged — they produce no CSS.**
+`@bloomneo/uikit/styles` removes Tailwind's default palette, so `bg-blue-500`
+and `text-gray-900` compile to nothing and the element renders unstyled. That
+is deliberate: a rule that only lives in documentation gets bypassed, and one
+production app accumulated 1,547 hardcoded palette classes against 196 semantic
+ones before this change.
+
+Migrating a 2.x app? `@bloomneo/uikit/styles/permissive` restores the old
+behaviour while you convert.
 
 Core variables (the ones you'll touch when customizing):
 
@@ -128,7 +139,7 @@ For Feature-Based Component Architecture (`uikit create --fbca`), themes live at
 ## Don't do
 
 - Don't write `.css` files for brand colors. The theme preset system exists for exactly this.
-- Don't use Tailwind palette classes (`bg-blue-500`, `text-red-600`) in components. They're theme-blind.
+- Don't use Tailwind palette classes (`bg-blue-500`, `text-red-600`). Under the default stylesheet they emit no CSS at all — the element just has no colour.
 - Don't edit compiled CSS in `dist/` — regenerate from the preset instead.
 - Don't mix OKLCH with hex in the same theme file. Pick one (prefer OKLCH — that's what the generator emits).
 - Don't set `primary` to a color with low contrast against white — button text becomes unreadable.
