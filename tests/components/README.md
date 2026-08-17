@@ -27,6 +27,24 @@ browser console that happened to be open.
 | `controlled-props.test.tsx` | The contract AGENTS.md calls the #1 agent failure mode: `onChange` (native) vs `onCheckedChange` (Radix checkables) vs `onValueChange` (pickers). Each asserted by driving the component and checking which callback fires with what. |
 | `data-table.test.tsx` | The column contract (`id` required, `cell` receives value-first, `accessor` beats `accessorKey`), plus sorting, search, empty/loading/error states, and the educational throw on non-array `data`. |
 | `providers-and-guards.test.tsx` | Duplicate-provider warnings, required-prop errors naming the fix, `PermissionGate` failing closed, `useConfirm` resolving true/false, and `ThemeProvider` owning the `theme-*` class on `<html>`. |
+| `select-combobox.test.tsx` | The two components AGENTS.md actually names in its #1 failure mode. The first pass covered that contract with `<Tabs>` as a stand-in, which left `Select` and `Combobox` untested — the fiddliest components here (a Radix portal and cmdk inside a Popover). |
+
+## Known coverage gaps
+
+11 of 30 components are exercised. The untested ones are mostly thin Radix
+wrappers whose behaviour belongs to Radix (`Dialog`, `Sheet`, `Popover`,
+`HoverCard`, `Tooltip`, `DropdownMenu`, `Label`, `RadioGroup`) or pure
+presentation (`Alert`, `Badge`, `Card`, `Table`).
+
+The gaps that would genuinely repay tests, in order:
+
+1. **`Form` / `FormField`** — the a11y wiring (label association, error
+   announcement, required marker) is a documented promise and is unverified.
+2. **`toast` / `Toaster`** — the `toast.*` API surface.
+3. **`ConfirmDialog`** as a component, separate from the `useConfirm` hook
+   already covered.
+
+Prefer covering those over chasing a coverage percentage on Radix re-exports.
 
 ## These were mutation-tested
 
