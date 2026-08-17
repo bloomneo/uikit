@@ -30,15 +30,6 @@
 @theme {
   --color-radius: 0.75rem;
   /* 🚀 Enhanced Design Tokens from all themes */
-  --voila-font-display: 'Crimson Text', serif;
-  --voila-gradient-primary: #0f3a36;
-  --voila-gradient-subtle: linear-gradient(135deg, oklch(0.96 0.005 240) 0%, oklch(0.88 0.008 240) 100%);
-  --voila-gradient-hover: linear-gradient(135deg, oklch(0.55 0.12 220) 0%, #0f3a36 100%);
-  --voila-gradient-text: linear-gradient(135deg, #0f3a36 0%, oklch(0.55 0.12 200) 50%, oklch(0.96 0.005 240) 100%);
-  --voila-gradient-background: linear-gradient(135deg, oklch(0.09 0.01 240) 0%, oklch(0.15 0.015 220) 100%);
-  --voila-gradient-background-light: linear-gradient(135deg, oklch(0.96 0.005 240) 0%, oklch(0.99 0.002 240) 70%, oklch(0.88 0.008 240) 100%);
-  --voila-font-primary: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --voila-font-display: 'Merriweather', serif;
   --voila-gradient-primary: rgb(37, 41, 49);
   --voila-gradient-subtle: linear-gradient(135deg, oklch(0.97 0.002 270) 0%, oklch(0.90 0.003 270) 100%);
   --voila-gradient-hover: linear-gradient(135deg, oklch(0.60 0.08 260) 0%, rgb(37, 41, 49) 100%);

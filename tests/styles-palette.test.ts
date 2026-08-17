@@ -41,13 +41,13 @@ const RAW_PALETTE = [
 ];
 
 let dir: string;
-const compiled: Record<'globals' | 'strict', string> = { globals: '', strict: '' };
+const compiled: Record<'globals' | 'permissive', string> = { globals: '', permissive: '' };
 
 beforeAll(() => {
   dir = mkdtempSync(join(tmpdir(), 'uikit-styles-'));
   writeFileSync(join(dir, 'probe.html'), `<div class="${[...SEMANTIC, ...RAW_PALETTE].join(' ')}"></div>`);
 
-  for (const entry of ['globals', 'strict'] as const) {
+  for (const entry of ['globals', 'permissive'] as const) {
     const inFile = join(dir, `${entry}.css`);
     const outFile = join(dir, `${entry}.out.css`);
     writeFileSync(
@@ -63,34 +63,34 @@ afterAll(() => {
   if (dir) rmSync(dir, { recursive: true, force: true });
 });
 
-describe('@bloomneo/uikit/styles (permissive)', () => {
+describe('@bloomneo/uikit/styles/permissive (migration only)', () => {
   for (const cls of SEMANTIC) {
-    it(`emits .${cls}`, () => expect(compiled.globals).toContain(`.${cls}`));
+    it(`emits .${cls}`, () => expect(compiled.permissive).toContain(`.${cls}`));
   }
 
   // Kept deliberately: existing apps carry thousands of these, and 3.0 must
   // not silently unstyle them on upgrade.
   for (const cls of RAW_PALETTE) {
-    it(`still emits .${cls} (2.x compatibility)`, () => expect(compiled.globals).toContain(`.${cls}`));
+    it(`still emits .${cls} (2.x compatibility)`, () => expect(compiled.permissive).toContain(`.${cls}`));
   }
 });
 
-describe('@bloomneo/uikit/styles/strict', () => {
+describe('@bloomneo/uikit/styles (default — strict)', () => {
   for (const cls of SEMANTIC) {
-    it(`emits .${cls}`, () => expect(compiled.strict).toContain(`.${cls}`));
+    it(`emits .${cls}`, () => expect(compiled.globals).toContain(`.${cls}`));
   }
 
   for (const cls of RAW_PALETTE) {
     it(`does NOT emit .${cls} — the theme cannot be bypassed`, () => {
-      expect(compiled.strict).not.toContain(`.${cls}`);
+      expect(compiled.globals).not.toContain(`.${cls}`);
     });
   }
 
   it('is smaller than the permissive sheet', () => {
-    expect(compiled.strict.length).toBeLessThan(compiled.globals.length);
+    expect(compiled.globals.length).toBeLessThan(compiled.permissive.length);
   });
 
   it('actually compiled something (guards against an empty-output false pass)', () => {
-    expect(compiled.strict.length).toBeGreaterThan(10_000);
+    expect(compiled.globals.length).toBeGreaterThan(10_000);
   });
 });

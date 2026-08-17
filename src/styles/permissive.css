@@ -1,0 +1,14 @@
+/*
+ * @bloomneo/uikit/styles/permissive — 2.x behaviour, for migration only.
+ *
+ * Semantic tokens PLUS Tailwind's full default palette, so `bg-blue-600` and
+ * `bg-primary` both work. Exists so an app carrying thousands of hardcoded
+ * colours can take uikit 3.0 without its UI losing styles on the same day.
+ *
+ * Treat it as a migration aid with an end date, not a supported style. Every
+ * class it enables that the strict sheet does not is drift you will eventually
+ * pay for — see the Theming section of the README.
+ */
+
+@import "tailwindcss";
+@import "./_tokens.css";

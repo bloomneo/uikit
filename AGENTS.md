@@ -6,7 +6,11 @@
 ## Always do
 
 1. Import from `@bloomneo/uikit` (flat, canonical).
-2. Import `@bloomneo/uikit/styles` once at your app entry point.
+2. Import `@bloomneo/uikit/styles` once at your app entry point. It ships the
+   semantic tokens ONLY — Tailwind's default palette is removed in 3.0, so
+   `bg-blue-600` produces no CSS. Use `bg-primary`, `bg-card`,
+   `text-muted-foreground`. (Migrating a 2.x app? `@bloomneo/uikit/styles/permissive`
+   restores the old behaviour temporarily.)
 3. Wrap the app root in `ThemeProvider` > `ToastProvider` > `ConfirmProvider` (in that order).
 4. Add the FOUC-prevention script via `foucScript()` in the `<head>` of `index.html`.
 5. Pass `data` as `[]` while loading — never pass `undefined` to `DataTable`.
@@ -22,7 +26,10 @@
 
 1. Never deep-import as primary: `@bloomneo/uikit/button` is only for tree-shaking optimization.
 2. Never use `<FormController>` for new code — it is a legacy alias for react-hook-form's FormField.
-3. Never hardcode hex colors — use semantic Tailwind classes (`bg-primary`, `text-muted-foreground`).
+3. Never hardcode colors — not hex, and not Tailwind palette classes like
+   `bg-blue-600` or `text-gray-900`. They compile to nothing under the default
+   stylesheet. Use semantic classes: `bg-primary`, `text-muted-foreground`,
+   `bg-card`, `border-border`.
 4. Never create custom toast UI — use `ToastProvider` + `toast.*`.
 5. Never manage Dialog/Sheet/Confirm open state with a custom boolean when a provider hook exists.
 6. Never skip `ThemeProvider` — components depend on CSS variables it sets.
@@ -136,6 +143,19 @@ directly, not a ChangeEvent. Unified in 2.0.0; pre-2.0 Combobox used
 | Using `<Dialog>` for delete confirmation | Works but verbose — managing open state manually | Use `useConfirm()` or `<ConfirmDialog>` instead |
 | Bare `<Input>` without `<FormField>` | No label, no error display, broken a11y | Wrap in `<FormField label="..." error={...}>` |
 | Hardcoded colors like `bg-blue-500` | Breaks when theme changes | Use semantic classes: `bg-primary`, `text-muted-foreground` |
+
+## Icon name collisions with lucide-react
+
+Six uikit components share a name with a `lucide-react` icon:
+**Badge, Calendar, Command, Container, Sheet, Table.**
+
+Importing both unqualified makes `<Calendar />` ambiguous, and the icon
+usually wins because it is what most code means. Alias the icon:
+
+```tsx
+import { Calendar } from '@bloomneo/uikit';
+import { Calendar as CalendarIcon } from 'lucide-react';
+```
 
 ## Client-only components
 

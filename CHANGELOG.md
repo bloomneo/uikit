@@ -2,6 +2,78 @@
 
 All notable changes to UIKit will be documented in this file.
 
+## [3.0.0] - 2026-08-17
+
+### Breaking — the default stylesheet no longer ships Tailwind's palette
+
+`@bloomneo/uikit/styles` now emits **only** the theme's semantic tokens.
+`bg-primary` works; `bg-blue-600`, `text-gray-900` and `border-red-400`
+compile to nothing.
+
+**Why.** The theme system was this library's headline feature and its
+least-used part. One production app accumulated **1,547 hardcoded palette
+classes against 196 semantic ones**; another 209 against 74. Not carelessness
+— both were equally available and the raw palette needed no lookup. A rule
+that lives only in documentation gets bypassed at the rate the codebase grows.
+
+Removing the alternative is the only version of the rule that holds, and it
+asks very little of an agent: not "adopt our component library", just "use the
+one class that exists". The failure mode is loud — an unstyled element, seen
+immediately — instead of drift nobody notices until the brand stops matching
+itself.
+
+**Migration.** `@bloomneo/uikit/styles/permissive` is 2.x verbatim:
+
+```ts
+import "@bloomneo/uikit/styles/permissive";   // temporary
+```
+
+Switch, then move hardcoded colours to tokens at your own pace. Treat it as a
+migration aid with an end date, not a supported style.
+
+Costs ~6.5 KB less CSS.
+
+### Changed — stylesheet internals split
+
+Tokens live in `src/styles/_tokens.css`; `globals.css` and `permissive.css`
+are thin entries that compose them differently.
+
+The split is load-bearing. Tailwind v4 resolves `--color-*: initial` against
+the **last** `@import "tailwindcss"` it sees, so a reset placed before a nested
+framework import is silently undone — the first attempt at this looked
+correct, built without error, and did nothing at all.
+
+### Fixed — 9 dead duplicate token declarations
+
+The root `@theme` block defined 8 tokens two or three times over
+(`--voila-font-display` 3×, plus six gradient tokens), a side effect of theme
+presets being concatenated. CSS already kept only the last, so the earlier
+declarations were dead weight that made the block misleading to read.
+
+### Added — icon collision guidance
+
+Six exports share a name with a `lucide-react` icon: **Badge, Calendar,
+Command, Container, Sheet, Table**. Importing both unqualified makes
+`<Calendar />` ambiguous. `AGENTS.md` now documents the alias pattern.
+
+### Added — tests that compile real CSS
+
+28 assertions run the Tailwind CLI against both entries and inspect the
+output, because "this class produces no CSS" is invisible in review and the
+near-miss above proved a source-level check would have passed. Includes a
+guard against an empty-output false pass.
+
+Suite: 82 → 110 passing.
+
+### Not in this release
+
+The export-surface cull (68 → ~15) is **deferred, deliberately**. The case for
+it rested on 18% component adoption — but that measurement was taken while the
+raw palette was freely available, which is a confound this release removes.
+Re-measure adoption on 3.0 before cutting anything; the same evidence review
+also showed `DataTable`, `EmptyState` and `ConfirmDialog` were hand-rebuilt in
+every app, which is proven demand, not dead weight.
+
 ## [2.2.0] - 2026-08-17
 
 ### Added — `@bloomneo/uikit/styles/strict`

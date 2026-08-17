@@ -5,13 +5,13 @@
  * Replaces the old shell-based pipeline (`tailwindcss ... && cat ... > ... && rm ...`)
  * which broke on Windows. Produces:
  *
- *   dist/styles.css         — permissive: theme tokens + Tailwind's palette
- *   dist/styles/strict.css  — strict: theme tokens ONLY, raw palette removed
+ *   dist/styles.css              — theme tokens ONLY (raw palette removed)
+ *   dist/styles/permissive.css   — 2.x behaviour, for migration
  *   dist/styles/fonts.css   — opt-in @font-face declarations for built-in themes
  *
  * Both files are independently importable via package.json exports:
- *   import '@bloomneo/uikit/styles';          // permissive (2.x behaviour)
- *   import '@bloomneo/uikit/styles/strict';   // themed palette only
+ *   import '@bloomneo/uikit/styles';              // themed palette only
+ *   import '@bloomneo/uikit/styles/permissive';   // 2.x, migration only
  *   import '@bloomneo/uikit/styles/fonts';
  */
 
@@ -24,10 +24,10 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = resolve(__dirname, '..');
 
 const input = resolve(root, 'src/styles/globals.css');
-const strictInput = resolve(root, 'src/styles/strict.css');
+const permissiveInput = resolve(root, 'src/styles/permissive.css');
 const fontsSrc = resolve(root, 'src/styles/fonts.css');
 const coreOut = resolve(root, 'dist/styles.css');
-const strictOut = resolve(root, 'dist/styles/strict.css');
+const permissiveOut = resolve(root, 'dist/styles/permissive.css');
 const fontsOut = resolve(root, 'dist/styles/fonts.css');
 
 function ensureDir(path) {
@@ -44,13 +44,13 @@ function build() {
     process.exit(1);
   }
 
-  if (!existsSync(strictInput)) {
-    console.error(`[build-styles] Strict input not found: ${strictInput}`);
+  if (!existsSync(permissiveInput)) {
+    console.error(`[build-styles] Permissive input not found: ${permissiveInput}`);
     process.exit(1);
   }
 
   ensureDir(coreOut);
-  ensureDir(strictOut);
+  ensureDir(permissiveOut);
   ensureDir(fontsOut);
 
   // 1. Build the core stylesheet (Tailwind + theme tokens, no fonts).
@@ -62,11 +62,10 @@ function build() {
     { stdio: 'inherit', cwd: root }
   );
 
-  // 2. Build the strict stylesheet — same tokens, Tailwind's default palette
-  //    removed so the theme cannot be bypassed with `bg-blue-600`.
-  console.log('[build-styles] Building strict styles → dist/styles/strict.css');
+  // 2. Build the permissive stylesheet — 2.x behaviour, migration only.
+  console.log('[build-styles] Building permissive styles → dist/styles/permissive.css');
   execSync(
-    `npx tailwindcss -i "${strictInput}" -o "${strictOut}" --minify`,
+    `npx tailwindcss -i "${permissiveInput}" -o "${permissiveOut}" --minify`,
     { stdio: 'inherit', cwd: root }
   );
 

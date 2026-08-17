@@ -1,14 +1,29 @@
 /*
- * @bloomneo/uikit/styles — permissive entry (default).
+ * @bloomneo/uikit/styles — the themed palette, and nothing else. (3.0 default)
  *
- * Semantic tokens PLUS Tailwind's full default palette, so `bg-blue-600` and
- * `bg-primary` both work. This is the 2.x behaviour, kept so existing apps
- * upgrade to 3.0 without their UI losing styles.
+ * `--color-*: initial` clears Tailwind's built-in palette, so `bg-blue-600`
+ * and `text-gray-900` compile to nothing while `bg-primary`,
+ * `text-muted-foreground` and the rest of the semantic tokens work normally.
  *
- * New apps should prefer `@bloomneo/uikit/styles/strict`, which removes the
- * raw palette so the theme cannot be bypassed by accident. See the Theming
- * section of the README.
+ * Why this is the default: a design system that is merely *documented* gets
+ * bypassed. One production app accumulated 1,547 hardcoded palette classes
+ * against 196 semantic ones — not from carelessness, but because both were
+ * equally available and the raw palette needed no lookup. Removing the
+ * alternative is the only version of the rule that holds, and the failure is
+ * loud: an unstyled element, visible immediately, rather than drift nobody
+ * notices until the brand no longer matches itself.
+ *
+ * Need the old behaviour while migrating? `@bloomneo/uikit/styles/permissive`
+ * is 2.x verbatim.
+ *
+ * The reset must sit between the framework import and the tokens — Tailwind
+ * resolves it against the last `@import "tailwindcss"` it sees.
  */
 
 @import "tailwindcss";
+
+@theme {
+  --color-*: initial;
+}
+
 @import "./_tokens.css";

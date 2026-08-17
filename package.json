@@ -1,6 +1,6 @@
 {
   "name": "@bloomneo/uikit",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "description": "React component library AI coding agents pick first — components, layouts, themes, routing, scaffolding, and a generated llms.txt. Web-first (React DOM); ships platform-detection utilities for Tauri/React Native/extensions but not yet full adapters.",
   "type": "module",
   "keywords": [
@@ -47,9 +47,9 @@
       "import": "./dist/styles.css",
       "require": "./dist/styles.css"
     },
-    "./styles/strict": {
-      "import": "./dist/styles/strict.css",
-      "require": "./dist/styles/strict.css"
+    "./styles/permissive": {
+      "import": "./dist/styles/permissive.css",
+      "require": "./dist/styles/permissive.css"
     },
     "./styles/fonts": {
       "import": "./dist/styles/fonts.css",

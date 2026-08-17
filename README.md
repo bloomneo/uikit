@@ -185,34 +185,37 @@ Switch between 5 professional themes instantly or generate custom themes with pe
 
 **Note**: Instead of hardcoded colors like `bg-white` or `text-black`, use semantic color classes like `bg-background`, `text-foreground`, `border-border`. These automatically adapt to your selected theme and work perfectly in both light and dark modes.
 
-### Strict mode — make the theme impossible to bypass
+### The palette is locked to your theme (3.0)
 
-`@bloomneo/uikit/styles` ships the semantic tokens **alongside** Tailwind's
-default palette, so `bg-primary` and `bg-blue-600` both work. That's
-convenient, and it's why design systems drift: one production app accumulated
-**1,547 hardcoded palette classes against 196 semantic ones** — not from
-carelessness, but because both were equally available and the raw palette
-needed no lookup.
+`@bloomneo/uikit/styles` ships **only** the semantic tokens. Tailwind's default
+palette is removed, so `bg-blue-600` compiles to nothing while `bg-primary`
+works normally.
 
-Import the strict sheet instead and the alternative simply stops existing:
-
-```ts
-import "@bloomneo/uikit/styles/strict";   // instead of "@bloomneo/uikit/styles"
-```
-
-| Class | `/styles` | `/styles/strict` |
+| Class | `/styles` (default) | `/styles/permissive` |
 |---|:--:|:--:|
 | `bg-primary`, `text-muted-foreground`, `bg-card` | ✅ | ✅ |
-| `bg-blue-600`, `text-gray-900`, `border-red-400` | ✅ | 🚫 compiles to nothing |
+| `bg-blue-600`, `text-gray-900`, `border-red-400` | 🚫 | ✅ |
 
-An agent writing `bg-blue-600` gets an element with no background — visible
-immediately, in the browser, without a reviewer noticing. That's a far lower
-bar than "import our component library": the model only has to use the one
-class that exists.
+**Why this is the default.** The theme system was this library's headline
+feature and its least-used part. One production app accumulated **1,547
+hardcoded palette classes against 196 semantic ones**; another 209 against 74.
+Not carelessness — both were equally available and the raw palette needed no
+lookup. A rule that lives only in documentation gets bypassed at the rate the
+codebase grows.
 
-Costs ~12 KB less CSS. **Recommended for new apps.** Existing apps should stay
-on `/styles` until their hardcoded colours are migrated — switching early
-unstyles every one of them.
+Removing the alternative is the only version of the rule that holds, and it
+asks very little: not "adopt our component library", just "use the one class
+that exists". A mistake surfaces immediately as an unstyled element instead of
+drift nobody notices until the brand stops matching itself.
+
+**Migrating from 2.x?** Import the permissive sheet to keep your existing
+colours working, then move them to tokens at your own pace:
+
+```ts
+import "@bloomneo/uikit/styles/permissive";   // 2.x behaviour, temporary
+```
+
+Treat it as a migration aid with an end date.
 
 ### 5 Professional Themes
 
