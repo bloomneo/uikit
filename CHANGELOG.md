@@ -2,6 +2,23 @@
 
 All notable changes to UIKit will be documented in this file.
 
+## [4.1.6] - 2026-08-17
+
+### Fixed — the modal close button kept an arrow cursor
+
+`Dialog` and `Sheet` close with a raw Radix `Close` primitive rather than a
+`<Button>`, so 4.1.4's cursor pass — which enumerated components by hand —
+skipped both. The X still showed an arrow.
+
+It also gained a real hit target: a bare 16px icon is small to aim at, so it is
+now a 28px square with a hover background.
+
+**The guard was rewritten to check shape rather than a list.** Enumerating
+component names is how this was missed in the first place; the new assertion
+finds any Radix `Close`/`Trigger` that styles itself (rather than delegating
+via `asChild`) and requires it to declare its own cursor. That catches the next
+one without anyone remembering it exists.
+
 ## [4.1.5] - 2026-08-17
 
 ### Fixed — every modal opened with no dim behind it

@@ -234,4 +234,29 @@ describe('interactive surfaces show a pointer cursor', () => {
       expect(readFileSync(join(ROOT, `src/components/ui/${name}.tsx`), 'utf8')).toContain('cursor-pointer');
     });
   }
+
+  /*
+   * Enumerating components by hand missed the Dialog and Sheet close buttons —
+   * they are raw Radix `Close` primitives rather than <Button>, so the first
+   * cursor pass skipped them and the X kept an arrow cursor.
+   *
+   * So check the shape instead of a list: any Radix Close/Trigger given its own
+   * className has opted out of Button's styling and has to say `cursor-pointer`
+   * itself. That catches the next one without anyone remembering to add it.
+   */
+  it('every self-styled Radix Close/Trigger declares its own cursor', () => {
+    const offenders: string[] = [];
+    for (const f of files) {
+      const src = readFileSync(f, 'utf8');
+      for (const m of src.matchAll(/<\w+Primitive\.(Close|Trigger)\b([\s\S]{0,700}?)\/?>/g)) {
+        const body = m[2];
+        // Only those styling themselves; `asChild` delegates to a real Button.
+        if (!body.includes('className=') || body.includes('asChild')) continue;
+        if (!body.includes('cursor-pointer')) {
+          offenders.push(`${f.replace(ROOT + '/', '')}: ${m[1]}`);
+        }
+      }
+    }
+    expect(offenders).toEqual([]);
+  });
 });

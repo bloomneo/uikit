@@ -1,15 +1,15 @@
 import { jsx as e, jsxs as n } from "react/jsx-runtime";
-import { D as l, a as r, b as d, X as c, c as u, f, g as h, e as g, d as m } from "./index-tBy_fxjI.js";
+import { D as l, a as r, b as d, X as c, c as u, f, g, e as h, d as m } from "./index-tBy_fxjI.js";
 import { c as o } from "./utils-D7gXXjDs.js";
 function S({ ...t }) {
   return /* @__PURE__ */ e(l, { "data-slot": "sheet", ...t });
 }
-function N({
+function v({
   ...t
 }) {
-  return /* @__PURE__ */ e(h, { "data-slot": "sheet-trigger", ...t });
+  return /* @__PURE__ */ e(g, { "data-slot": "sheet-trigger", ...t });
 }
-function v({
+function N({
   ...t
 }) {
   return /* @__PURE__ */ e(r, { "data-slot": "sheet-close", ...t });
@@ -17,7 +17,7 @@ function v({
 function p({
   ...t
 }) {
-  return /* @__PURE__ */ e(g, { "data-slot": "sheet-portal", ...t });
+  return /* @__PURE__ */ e(h, { "data-slot": "sheet-portal", ...t });
 }
 function b({
   className: t,
@@ -58,7 +58,7 @@ function w({
         ...i,
         children: [
           a,
-          /* @__PURE__ */ n(r, { className: "ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none", children: [
+          /* @__PURE__ */ n(r, { className: "ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-3.5 right-3.5 grid size-7 cursor-pointer place-items-center rounded-md opacity-70 hover:bg-accent transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none", children: [
             /* @__PURE__ */ e(c, { className: "size-4" }),
             /* @__PURE__ */ e("span", { className: "sr-only", children: "Close" })
           ] })
@@ -77,7 +77,7 @@ function C({ className: t, ...a }) {
     }
   );
 }
-function T({ className: t, ...a }) {
+function z({ className: t, ...a }) {
   return /* @__PURE__ */ e(
     "div",
     {
@@ -87,7 +87,7 @@ function T({ className: t, ...a }) {
     }
   );
 }
-function k({
+function T({
   className: t,
   ...a
 }) {
@@ -100,7 +100,7 @@ function k({
     }
   );
 }
-function z({
+function k({
   className: t,
   ...a
 }) {
@@ -115,12 +115,12 @@ function z({
 }
 export {
   S as Sheet,
-  v as SheetClose,
+  N as SheetClose,
   w as SheetContent,
-  z as SheetDescription,
-  T as SheetFooter,
+  k as SheetDescription,
+  z as SheetFooter,
   C as SheetHeader,
-  k as SheetTitle,
-  N as SheetTrigger
+  T as SheetTitle,
+  v as SheetTrigger
 };
 //# sourceMappingURL=sheet.js.map
