@@ -11,7 +11,7 @@ function N({
 }) {
   return /* @__PURE__ */ t(p, { "data-slot": "dialog-trigger", ...a });
 }
-function D({
+function x({
   ...a
 }) {
   return /* @__PURE__ */ t(f, { "data-slot": "dialog-portal", ...a });
@@ -21,7 +21,7 @@ function $({
 }) {
   return /* @__PURE__ */ t(s, { "data-slot": "dialog-close", ...a });
 }
-function x({
+function D({
   className: a,
   ...o
 }) {
@@ -30,7 +30,7 @@ function x({
     {
       "data-slot": "dialog-overlay",
       className: e(
-        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50",
+        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-overlay backdrop-blur-[2px]",
         a
       ),
       ...o
@@ -43,8 +43,8 @@ function z({
   showCloseButton: n = !0,
   ...i
 }) {
-  return /* @__PURE__ */ l(D, { "data-slot": "dialog-portal", children: [
-    /* @__PURE__ */ t(x, {}),
+  return /* @__PURE__ */ l(x, { "data-slot": "dialog-portal", children: [
+    /* @__PURE__ */ t(D, {}),
     /* @__PURE__ */ l(
       d,
       {
@@ -128,8 +128,8 @@ export {
   T as DialogDescription,
   C as DialogFooter,
   w as DialogHeader,
-  x as DialogOverlay,
-  D as DialogPortal,
+  D as DialogOverlay,
+  x as DialogPortal,
   k as DialogTitle,
   N as DialogTrigger
 };

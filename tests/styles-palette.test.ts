@@ -107,6 +107,19 @@ describe('uikit does not use the palette it removes', () => {
     'g',
   );
 
+  /*
+   * `black` and `white` carry no numeric shade, so the pattern above could
+   * never match them — and the palette reset removes them just the same.
+   *
+   * That hole shipped: DialogOverlay and SheetOverlay both used `bg-black/50`,
+   * which compiled to nothing, so every modal opened with NO dim behind it.
+   * The page stayed fully visible under the dialog and nothing errored.
+   */
+  const BLACK_WHITE = new RegExp(
+    String.raw`\b(bg|text|border|ring|from|via|to|fill|stroke|divide|placeholder|accent|caret|outline|shadow|decoration)-(black|white)(\/\d+)?\b`,
+    'g',
+  );
+
   const files = (function walk(dir: string, acc: string[] = []): string[] {
     for (const entry of readdirSync(dir, { withFileTypes: true })) {
       const full = join(dir, entry.name);
@@ -123,7 +136,8 @@ describe('uikit does not use the palette it removes', () => {
   for (const file of files) {
     const rel = file.slice(file.indexOf('src/'));
     it(`${rel} uses only semantic colour classes`, () => {
-      const hits = [...new Set(readFileSync(file, 'utf8').match(RAW) ?? [])];
+      const src = readFileSync(file, 'utf8');
+      const hits = [...new Set([...(src.match(RAW) ?? []), ...(src.match(BLACK_WHITE) ?? [])])];
       expect(hits, `${rel} would render unstyled under the default stylesheet: ${hits.join(', ')}`).toEqual([]);
     });
   }

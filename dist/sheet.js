@@ -1,5 +1,5 @@
 import { jsx as e, jsxs as n } from "react/jsx-runtime";
-import { D as l, a as i, b as d, X as c, c as u, f, g as h, e as g, d as m } from "./index-tBy_fxjI.js";
+import { D as l, a as r, b as d, X as c, c as u, f, g as h, e as g, d as m } from "./index-tBy_fxjI.js";
 import { c as o } from "./utils-D7gXXjDs.js";
 function S({ ...t }) {
   return /* @__PURE__ */ e(l, { "data-slot": "sheet", ...t });
@@ -12,7 +12,7 @@ function N({
 function v({
   ...t
 }) {
-  return /* @__PURE__ */ e(i, { "data-slot": "sheet-close", ...t });
+  return /* @__PURE__ */ e(r, { "data-slot": "sheet-close", ...t });
 }
 function p({
   ...t
@@ -28,7 +28,7 @@ function b({
     {
       "data-slot": "sheet-overlay",
       className: o(
-        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50",
+        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-overlay backdrop-blur-[2px]",
         t
       ),
       ...a
@@ -39,7 +39,7 @@ function w({
   className: t,
   children: a,
   side: s = "right",
-  ...r
+  ...i
 }) {
   return /* @__PURE__ */ n(p, { children: [
     /* @__PURE__ */ e(b, {}),
@@ -55,10 +55,10 @@ function w({
           s === "bottom" && "data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 h-auto border-t",
           t
         ),
-        ...r,
+        ...i,
         children: [
           a,
-          /* @__PURE__ */ n(i, { className: "ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none", children: [
+          /* @__PURE__ */ n(r, { className: "ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none", children: [
             /* @__PURE__ */ e(c, { className: "size-4" }),
             /* @__PURE__ */ e("span", { className: "sr-only", children: "Close" })
           ] })

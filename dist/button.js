@@ -9,7 +9,7 @@ const v = c(
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
-        destructive: "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
+        destructive: "bg-destructive text-destructive-foreground shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline: "border border-border bg-background text-foreground shadow-xs hover:bg-accent hover:text-accent-foreground dark:border-muted-foreground/30 dark:bg-transparent dark:hover:bg-muted/50",
         secondary: "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
@@ -27,13 +27,13 @@ const v = c(
       size: "default"
     }
   }
-), g = n.forwardRef(({ className: e, variant: r, size: t, asChild: o = !1, ...i }, s) => /* @__PURE__ */ a(
+), g = n.forwardRef(({ className: e, variant: r, size: t, asChild: o = !1, ...s }, i) => /* @__PURE__ */ a(
   o ? d : "button",
   {
-    ref: s,
+    ref: i,
     "data-slot": "button",
     className: u(v({ variant: r, size: t, className: e })),
-    ...i
+    ...s
   }
 ));
 g.displayName = "Button";

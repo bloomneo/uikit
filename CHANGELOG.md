@@ -2,6 +2,29 @@
 
 All notable changes to UIKit will be documented in this file.
 
+## [4.1.5] - 2026-08-17
+
+### Fixed — every modal opened with no dim behind it
+
+`DialogOverlay` and `SheetOverlay` used shadcn's `bg-black/50`. The 3.0 palette
+reset removes Tailwind's default colours — **including `black`** — so that class
+compiled to nothing. Dialogs and sheets opened over a fully visible page with no
+scrim at all, which reads as a broken modal rather than a missing utility.
+
+Replaced with a new `--color-overlay` token (`oklch(0 0 0 / 0.5)` light,
+`0.68` dark) plus a 2px backdrop blur, so the scrim is themeable rather than a
+literal. `text-white` on the destructive Button and Badge became
+`text-destructive-foreground` for the same reason.
+
+**The guard that should have caught this had a hole.** Its pattern required a
+numeric shade — `bg-red-500` — and `black`/`white` have none, so four instances
+were invisible to it. Extended and verified by reintroducing `bg-black/50`.
+
+This is the third bug in this series from adopting shadcn source without
+reconciling it against UIKit's own conventions: different token names
+(`--popover` vs `--color-popover`), a newer Tailwind (`cursor: default`), and
+now a palette that no longer contains the colours shadcn assumes.
+
 ## [4.1.4] - 2026-08-17
 
 ### Fixed — nothing clickable showed a pointer cursor

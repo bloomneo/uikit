@@ -98,6 +98,11 @@
   --color-foreground: #1E293B;
   --color-card: #F8FAFC;
   --color-card-foreground: #1E293B;
+  /* Modal scrim. A token rather than `bg-black/50` because the palette reset
+   * removes `black`, so shadcn's overlay class compiled to nothing and every
+   * dialog opened with no dim behind it. Themeable too — a light product may
+   * want a softer scrim than a dark one. */
+  --color-overlay: oklch(0 0 0 / 0.5);
   --color-popover: #FFFFFF;
   --color-popover-foreground: #1E293B;
   --color-primary: #0EA5E9;
@@ -155,6 +160,7 @@
   --color-foreground: #F1F5F9;
   --color-card: #1E293B;
   --color-card-foreground: #F1F5F9;
+  --color-overlay: oklch(0 0 0 / 0.68);
   --color-popover: #1E293B;
   --color-popover-foreground: #F1F5F9;
   --color-primary: #38BDF8;
