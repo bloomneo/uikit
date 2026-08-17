@@ -166,3 +166,43 @@ describe('CSS subpaths carry type declarations', () => {
     });
   }
 });
+
+
+describe('components reference UIKit token names, not shadcn ones', () => {
+  /*
+   * UIKit's tokens are Tailwind v4 `@theme` names — `--color-popover`,
+   * `--color-border`. shadcn uses bare `--popover` / `--border`. Code copied
+   * from shadcn and not fully adapted therefore points at variables that do
+   * not exist, and CSS resolves an undefined custom property to *nothing*
+   * rather than erroring.
+   *
+   * That shipped in Toaster: `--normal-bg: var(--popover)` meant every toast
+   * rendered with a fully transparent background, so the text sat unreadable
+   * on top of whatever was behind it. Six references across two files.
+   */
+  const SHADCN_TOKENS = [
+    'popover', 'popover-foreground', 'border', 'background', 'foreground',
+    'card', 'card-foreground', 'primary', 'primary-foreground', 'secondary',
+    'muted', 'muted-foreground', 'accent', 'destructive', 'input', 'ring',
+  ];
+
+  const files = walk(join(ROOT, 'src')).filter((f) => /\.(tsx|ts)$/.test(f) && !f.includes('.test.'));
+
+  it('found source files to scan (guards a vacuous pass)', () => {
+    expect(files.length).toBeGreaterThan(20);
+  });
+
+  it('uses no bare shadcn custom properties', () => {
+    const bad: string[] = [];
+    for (const f of files) {
+      for (const m of readFileSync(f, 'utf8').matchAll(/var\(--([a-z-]+)\)/g)) {
+        // `--radix-*` and `--color-*` are legitimate; everything matching a
+        // shadcn token name without the `color-` prefix is the bug.
+        if (SHADCN_TOKENS.includes(m[1])) {
+          bad.push(`${f.replace(ROOT + '/', '')}: var(--${m[1]}) should be var(--color-${m[1]})`);
+        }
+      }
+    }
+    expect(bad).toEqual([]);
+  });
+});

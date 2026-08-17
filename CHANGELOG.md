@@ -2,6 +2,28 @@
 
 All notable changes to UIKit will be documented in this file.
 
+## [4.1.3] - 2026-08-17
+
+### Fixed — every toast rendered with a transparent background
+
+`Toaster` set Sonner's colour variables from shadcn's token names:
+
+```js
+'--normal-bg': 'var(--popover)'      // UIKit defines --color-popover
+```
+
+UIKit's tokens are Tailwind v4 `@theme` names, so `--popover` does not exist —
+and CSS resolves an undefined custom property to *nothing* rather than
+erroring. The result was a fully transparent toast: the text sat directly on
+whatever happened to be behind it, unreadable wherever the page had content.
+
+Six references across `sonner.tsx` and `toast.tsx`, all from shadcn source
+copied in without adapting the variable names.
+
+A guard now scans every component for bare shadcn custom properties, verified
+by reintroducing one. Same root cause as the `Tabs` sizing issue: shadcn code
+adopted without reconciling it against UIKit's own conventions.
+
 ## [4.1.2] - 2026-08-17
 
 ### Fixed — consuming apps got none of UIKit's own utility classes

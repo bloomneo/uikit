@@ -60,9 +60,14 @@ export function ToastProvider({
       className="toaster group"
       style={
         {
-          '--normal-bg': 'var(--popover)',
-          '--normal-text': 'var(--popover-foreground)',
-          '--normal-border': 'var(--border)',
+          // UIKit's tokens are Tailwind v4 `@theme` names (`--color-popover`),
+          // not shadcn's bare `--popover`. Copying shadcn's Toaster verbatim
+          // left these pointing at variables that do not exist, so every toast
+          // rendered with a transparent background and unreadable text over
+          // whatever happened to be behind it.
+          '--normal-bg': 'var(--color-popover)',
+          '--normal-text': 'var(--color-popover-foreground)',
+          '--normal-border': 'var(--color-border)',
         } as React.CSSProperties
       }
       {...rest}
