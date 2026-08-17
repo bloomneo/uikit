@@ -124,6 +124,18 @@ only ever return the fallback.
 The `exports` map advertised `./skeleton`, `./admin`, `./motion` and 24 others
 whose entry points were removed. `exports`: **70 → 43**.
 
+### Removed — 12 dependencies with zero remaining references
+
+Deleting the components left their packages behind in `dependencies`, so every
+consumer was installing them: `@radix-ui/react-{accordion,avatar,collapsible,
+menubar,progress,separator,slider,toast,toggle}`, `react-day-picker`,
+`date-fns`, and `gh-pages` (which existed only for the removed `deploy`
+command). The Radix toast package was already dead before 4.0 — `Toast` is
+built on Sonner.
+
+`dependencies`: **35 → 23**. `puppeteer` and `sharp` also leave
+`peerDependencies`, having existed only for `prerender` and `optimize`.
+
 ### Fixed — a declared binary that was never shipped
 
 `package.json` declared `voila-bundle` → `bin/theme-bundler.js`. That file does

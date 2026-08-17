@@ -1,148 +1,142 @@
-import { jsx as a } from "react/jsx-runtime";
-import * as n from "react";
-import { u as k, c as F, a as l } from "./index-WHakdmwv.js";
-import { u as I } from "./index-5Bhkapwi.js";
-import { c as H, R as U, a as $, C as W, A as z } from "./index-BjeYwP6P.js";
-import { P as B, D as G } from "./index-DKZPUN5w.js";
-import { P as T } from "./index-DKIoJbzW.js";
-import { P as K } from "./index-CpDnqHCm.js";
-import { c as j } from "./utils-CwJPJKOE.js";
-var x, S = "HoverCard", [O, pe] = F(S, [
-  H
-]), b = H(), [V, w] = O(S), _ = (e) => {
+import { jsx as s } from "react/jsx-runtime";
+import * as r from "react";
+import { c as L, b as A, a as p } from "./index-b757E0P6.js";
+import { u as k } from "./index-DFmzheZp.js";
+import { c as E, R as F, A as I, C as M } from "./index-DR2_SPIM.js";
+import { P as U, D as $ } from "./index-DeQNeE2u.js";
+import { P as O } from "./index-C7u_Yu0y.js";
+import { P as z } from "./index-rT3N9N4T.js";
+import { c as B } from "./utils-D7gXXjDs.js";
+var W = Object.defineProperty, f = (t, e) => W(t, "name", { value: e, configurable: !0 }), S, x = "HoverCard", [_, ue] = L(x, [
+  E
+]), w = E(), [j, R] = _(x), G = /* @__PURE__ */ f((t) => {
   const {
-    __scopeHoverCard: o,
-    children: t,
-    open: s,
-    defaultOpen: i,
-    onOpenChange: c,
-    openDelay: f = 700,
-    closeDelay: v = 300
-  } = e, d = b(o), m = n.useRef(0), u = n.useRef(0), C = n.useRef(!1), p = n.useRef(!1), [h, r] = k({
-    prop: s,
-    defaultProp: i ?? !1,
-    onChange: c,
-    caller: S
-  }), P = n.useCallback(() => {
-    clearTimeout(u.current), m.current = window.setTimeout(() => r(!0), f);
-  }, [f, r]), L = n.useCallback(() => {
-    clearTimeout(m.current), !C.current && !p.current && (u.current = window.setTimeout(() => r(!1), v));
-  }, [v, r]), M = n.useCallback(() => r(!1), [r]);
-  return n.useEffect(() => () => {
-    clearTimeout(m.current), clearTimeout(u.current);
-  }, []), /* @__PURE__ */ a(
-    V,
+    __scopeHoverCard: e,
+    children: n,
+    open: a,
+    defaultOpen: u,
+    onOpenChange: i,
+    openDelay: d = 700,
+    closeDelay: C = 300
+  } = t, m = w(e), c = r.useRef(0), P = r.useRef(0), v = r.useRef(!1), b = r.useRef(!1), [h, l] = A({
+    prop: a,
+    defaultProp: u ?? !1,
+    onChange: i,
+    caller: x
+  }), o = r.useCallback(() => {
+    clearTimeout(P.current), c.current = window.setTimeout(() => l(!0), d);
+  }, [d, l]), H = r.useCallback(() => {
+    clearTimeout(c.current), !v.current && !b.current && (P.current = window.setTimeout(() => l(!1), C));
+  }, [C, l]), N = r.useCallback(() => l(!1), [l]);
+  return r.useEffect(() => () => {
+    clearTimeout(c.current), clearTimeout(P.current);
+  }, []), /* @__PURE__ */ s(
+    j,
     {
-      scope: o,
+      scope: e,
       open: h,
-      onOpenChange: r,
-      onOpen: P,
-      onClose: L,
-      onDismiss: M,
-      hasSelectionRef: C,
-      isPointerDownOnContentRef: p,
-      children: /* @__PURE__ */ a(U, { ...d, children: t })
+      onOpenChange: l,
+      onOpen: o,
+      onClose: H,
+      onDismiss: N,
+      hasSelectionRef: v,
+      isPointerDownOnContentRef: b,
+      children: /* @__PURE__ */ s(F, { ...m, children: n })
     }
   );
-};
-_.displayName = S;
-var y = "HoverCardTrigger", N = n.forwardRef(
-  (e, o) => {
-    const { __scopeHoverCard: t, ...s } = e, i = w(y, t), c = b(t);
-    return /* @__PURE__ */ a($, { asChild: !0, ...c, children: /* @__PURE__ */ a(
-      K.a,
+}, "HoverCard"), K = "HoverCardTrigger", V = /* @__PURE__ */ r.forwardRef(
+  // blank line to reduce diff noise
+  /* @__PURE__ */ f(function(e, n) {
+    const { __scopeHoverCard: a, ...u } = e, i = R(K, a), d = w(a);
+    return /* @__PURE__ */ s(I, { asChild: !0, ...d, children: /* @__PURE__ */ s(
+      z.a,
       {
         "data-state": i.open ? "open" : "closed",
-        ...s,
-        ref: o,
-        onPointerEnter: l(e.onPointerEnter, R(i.onOpen)),
-        onPointerLeave: l(e.onPointerLeave, R(i.onClose)),
-        onFocus: l(e.onFocus, i.onOpen),
-        onBlur: l(e.onBlur, i.onClose),
-        onTouchStart: l(e.onTouchStart, (f) => f.preventDefault())
+        ...u,
+        ref: n,
+        onPointerEnter: p(e.onPointerEnter, g(i.onOpen)),
+        onPointerLeave: p(e.onPointerLeave, g(i.onClose)),
+        onFocus: p(e.onFocus, i.onOpen),
+        onBlur: p(e.onBlur, i.onClose),
+        onTouchStart: p(e.onTouchStart, (C) => C.preventDefault())
       }
     ) });
-  }
-);
-N.displayName = y;
-var E = "HoverCardPortal", [q, J] = O(E, {
+  }, "HoverCardTrigger")
+), D = "HoverCardPortal", [q, J] = _(D, {
   forceMount: void 0
-}), D = (e) => {
-  const { __scopeHoverCard: o, forceMount: t, children: s, container: i } = e, c = w(E, o);
-  return /* @__PURE__ */ a(q, { scope: o, forceMount: t, children: /* @__PURE__ */ a(T, { present: t || c.open, children: /* @__PURE__ */ a(B, { asChild: !0, container: i, children: s }) }) });
-};
-D.displayName = E;
-var g = "HoverCardContent", A = n.forwardRef(
-  (e, o) => {
-    const t = J(g, e.__scopeHoverCard), { forceMount: s = t.forceMount, ...i } = e, c = w(g, e.__scopeHoverCard);
-    return /* @__PURE__ */ a(T, { present: s || c.open, children: /* @__PURE__ */ a(
-      Q,
+}), Q = /* @__PURE__ */ f((t) => {
+  const { __scopeHoverCard: e, forceMount: n, children: a, container: u } = t, i = R(D, e);
+  return /* @__PURE__ */ s(q, { scope: e, forceMount: n, children: /* @__PURE__ */ s(O, { present: n || i.open, children: /* @__PURE__ */ s(U, { asChild: !0, container: u, children: a }) }) });
+}, "HoverCardPortal"), T = "HoverCardContent", X = /* @__PURE__ */ r.forwardRef(
+  // blank line to reduce diff noise
+  /* @__PURE__ */ f(function(e, n) {
+    const a = J(T, e.__scopeHoverCard), { forceMount: u = a.forceMount, ...i } = e, d = R(T, e.__scopeHoverCard);
+    return /* @__PURE__ */ s(O, { present: u || d.open, children: /* @__PURE__ */ s(
+      Y,
       {
-        "data-state": c.open ? "open" : "closed",
+        "data-state": d.open ? "open" : "closed",
         ...i,
-        onPointerEnter: l(e.onPointerEnter, R(c.onOpen)),
-        onPointerLeave: l(e.onPointerLeave, R(c.onClose)),
-        ref: o
+        onPointerEnter: p(e.onPointerEnter, g(d.onOpen)),
+        onPointerLeave: p(e.onPointerLeave, g(d.onClose)),
+        ref: n
       }
     ) });
-  }
-);
-A.displayName = g;
-var Q = n.forwardRef((e, o) => {
+  }, "HoverCardContent")
+), Y = /* @__PURE__ */ r.forwardRef(/* @__PURE__ */ f(function(e, n) {
   const {
-    __scopeHoverCard: t,
-    onEscapeKeyDown: s,
+    __scopeHoverCard: a,
+    onEscapeKeyDown: u,
     onPointerDownOutside: i,
-    onFocusOutside: c,
-    onInteractOutside: f,
-    ...v
-  } = e, d = w(g, t), m = b(t), u = n.useRef(null), C = I(o, u), [p, h] = n.useState(!1);
-  return n.useEffect(() => {
-    if (p) {
-      const r = document.body;
-      return x = r.style.userSelect || r.style.webkitUserSelect, r.style.userSelect = "none", r.style.webkitUserSelect = "none", () => {
-        r.style.userSelect = x, r.style.webkitUserSelect = x;
+    onFocusOutside: d,
+    onInteractOutside: C,
+    ...m
+  } = e, c = R(T, a), P = w(a), v = r.useRef(null), b = k(n, v), [h, l] = r.useState(!1);
+  return r.useEffect(() => {
+    if (h) {
+      const o = document.body;
+      return S = o.style.userSelect || o.style.webkitUserSelect, o.style.userSelect = "none", o.style.webkitUserSelect = "none", () => {
+        o.style.userSelect = S, o.style.webkitUserSelect = S;
       };
     }
-  }, [p]), n.useEffect(() => {
-    if (u.current) {
-      const r = () => {
-        h(!1), d.isPointerDownOnContentRef.current = !1, setTimeout(() => {
-          document.getSelection()?.toString() !== "" && (d.hasSelectionRef.current = !0);
+  }, [h]), r.useEffect(() => {
+    if (v.current) {
+      const o = /* @__PURE__ */ f(() => {
+        l(!1), c.isPointerDownOnContentRef.current = !1, setTimeout(() => {
+          document.getSelection()?.toString() !== "" && (c.hasSelectionRef.current = !0);
         });
-      };
-      return document.addEventListener("pointerup", r), () => {
-        document.removeEventListener("pointerup", r), d.hasSelectionRef.current = !1, d.isPointerDownOnContentRef.current = !1;
+      }, "handlePointerUp");
+      return document.addEventListener("pointerup", o), () => {
+        document.removeEventListener("pointerup", o), c.hasSelectionRef.current = !1, c.isPointerDownOnContentRef.current = !1;
       };
     }
-  }, [d.isPointerDownOnContentRef, d.hasSelectionRef]), n.useEffect(() => {
-    u.current && Z(u.current).forEach((P) => P.setAttribute("tabindex", "-1"));
-  }), /* @__PURE__ */ a(
-    G,
+  }, [c.isPointerDownOnContentRef, c.hasSelectionRef]), r.useEffect(() => {
+    v.current && y(v.current).forEach((H) => H.setAttribute("tabindex", "-1"));
+  }), /* @__PURE__ */ s(
+    $,
     {
       asChild: !0,
       disableOutsidePointerEvents: !1,
-      onInteractOutside: f,
-      onEscapeKeyDown: s,
+      onInteractOutside: C,
+      onEscapeKeyDown: u,
       onPointerDownOutside: i,
-      onFocusOutside: l(c, (r) => {
-        r.preventDefault();
+      onFocusOutside: p(d, (o) => {
+        o.preventDefault();
       }),
-      onDismiss: d.onDismiss,
-      children: /* @__PURE__ */ a(
-        W,
+      onDismiss: c.onDismiss,
+      children: /* @__PURE__ */ s(
+        M,
         {
+          ...P,
           ...m,
-          ...v,
-          onPointerDown: l(v.onPointerDown, (r) => {
-            r.currentTarget.contains(r.target) && h(!0), d.hasSelectionRef.current = !1, d.isPointerDownOnContentRef.current = !0;
+          onPointerDown: p(m.onPointerDown, (o) => {
+            o.currentTarget.contains(o.target) && l(!0), c.hasSelectionRef.current = !1, c.isPointerDownOnContentRef.current = !0;
           }),
-          ref: C,
+          ref: b,
           style: {
-            ...v.style,
-            userSelect: p ? "text" : void 0,
+            ...m.style,
+            userSelect: h ? "text" : void 0,
             // Safari requires prefix
-            WebkitUserSelect: p ? "text" : void 0,
+            WebkitUserSelect: h ? "text" : void 0,
             "--radix-hover-card-content-transform-origin": "var(--radix-popper-transform-origin)",
             "--radix-hover-card-content-available-width": "var(--radix-popper-available-width)",
             "--radix-hover-card-content-available-height": "var(--radix-popper-available-height)",
@@ -153,57 +147,53 @@ var Q = n.forwardRef((e, o) => {
       )
     }
   );
-}), X = "HoverCardArrow", Y = n.forwardRef(
-  (e, o) => {
-    const { __scopeHoverCard: t, ...s } = e, i = b(t);
-    return /* @__PURE__ */ a(z, { ...i, ...s, ref: o });
-  }
-);
-Y.displayName = X;
-function R(e) {
-  return (o) => o.pointerType === "touch" ? void 0 : e();
+}, "HoverCardContentImpl"));
+function g(t) {
+  return (e) => e.pointerType === "touch" ? void 0 : t();
 }
-function Z(e) {
-  const o = [], t = document.createTreeWalker(e, NodeFilter.SHOW_ELEMENT, {
-    acceptNode: (s) => s.tabIndex >= 0 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP
+f(g, "excludeTouch");
+function y(t) {
+  const e = [], n = document.createTreeWalker(t, NodeFilter.SHOW_ELEMENT, {
+    acceptNode: /* @__PURE__ */ f((a) => a.tabIndex >= 0 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP, "acceptNode")
   });
-  for (; t.nextNode(); ) o.push(t.currentNode);
-  return o;
+  for (; n.nextNode(); ) e.push(n.currentNode);
+  return e;
 }
-var ee = _, re = N, oe = D, te = A;
-function fe({
-  ...e
+f(y, "getTabbableNodes");
+var Z = G, ee = V, te = Q, oe = X;
+function pe({
+  ...t
 }) {
-  return /* @__PURE__ */ a(ee, { "data-slot": "hover-card", ...e });
+  return /* @__PURE__ */ s(Z, { "data-slot": "hover-card", ...t });
+}
+function fe({
+  ...t
+}) {
+  return /* @__PURE__ */ s(ee, { "data-slot": "hover-card-trigger", ...t });
 }
 function ve({
-  ...e
+  className: t,
+  align: e = "center",
+  sideOffset: n = 4,
+  ...a
 }) {
-  return /* @__PURE__ */ a(re, { "data-slot": "hover-card-trigger", ...e });
-}
-function me({
-  className: e,
-  align: o = "center",
-  sideOffset: t = 4,
-  ...s
-}) {
-  return /* @__PURE__ */ a(oe, { "data-slot": "hover-card-portal", children: /* @__PURE__ */ a(
-    te,
+  return /* @__PURE__ */ s(te, { "data-slot": "hover-card-portal", children: /* @__PURE__ */ s(
+    oe,
     {
       "data-slot": "hover-card-content",
-      align: o,
-      sideOffset: t,
-      className: j(
+      align: e,
+      sideOffset: n,
+      className: B(
         "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-64 origin-(--radix-hover-card-content-transform-origin) rounded-md border p-4 shadow-md outline-hidden",
-        e
+        t
       ),
-      ...s
+      ...a
     }
   ) });
 }
 export {
-  fe as HoverCard,
-  me as HoverCardContent,
-  ve as HoverCardTrigger
+  pe as HoverCard,
+  ve as HoverCardContent,
+  fe as HoverCardTrigger
 };
 //# sourceMappingURL=hover-card.js.map

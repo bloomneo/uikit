@@ -1,204 +1,205 @@
-import { jsx as u, jsxs as H } from "react/jsx-runtime";
-import * as a from "react";
-import { c as K, u as W, a as C } from "./index-WHakdmwv.js";
-import { u as S, a as J } from "./index-5Bhkapwi.js";
-import { P as Q, D as Z } from "./index-DKZPUN5w.js";
-import { u as ee } from "./index-CXwMLXQo.js";
-import { c as G, R as te, A as oe, a as re, C as ne } from "./index-BjeYwP6P.js";
-import { P as j } from "./index-DKIoJbzW.js";
-import { P as ae } from "./index-CpDnqHCm.js";
-import { R as se } from "./index-DfNPZZ8M.js";
-import { c as ie } from "./utils-CwJPJKOE.js";
-var [O, Fe] = K("Tooltip", [
-  G
-]), D = G(), F = "TooltipProvider", le = 700, A = "tooltip.open", [ce, k] = O(F), z = (e) => {
+import { jsx as c, jsxs as G } from "react/jsx-runtime";
+import * as i from "react";
+import { c as J, b as Q, a as w, u as W } from "./index-b757E0P6.js";
+import { u as j, a as Z } from "./index-DFmzheZp.js";
+import { P as ee, D as te } from "./index-DeQNeE2u.js";
+import { u as oe } from "./index-BraAqWsy.js";
+import { c as F, R as re, A as ne, C as ie, a as ae } from "./index-DR2_SPIM.js";
+import { P as z } from "./index-C7u_Yu0y.js";
+import { P as se } from "./index-rT3N9N4T.js";
+import { R as le } from "./index-DCDi3jON.js";
+import { c as ce } from "./utils-D7gXXjDs.js";
+var ue = Object.defineProperty, v = (o, e) => ue(o, "name", { value: e, configurable: !0 }), [I, Be] = J("Tooltip", [
+  F
+]), L = F(), pe = "TooltipProvider", de = 700, A = "tooltip.open", [fe, S] = I(pe), ve = /* @__PURE__ */ v((o) => {
   const {
-    __scopeTooltip: o,
-    delayDuration: t = le,
+    __scopeTooltip: e,
+    delayDuration: t = de,
     skipDelayDuration: r = 300,
-    disableHoverableContent: n = !1,
-    children: l
-  } = e, i = a.useRef(!0), v = a.useRef(!1), s = a.useRef(0);
-  return a.useEffect(() => {
-    const d = s.current;
-    return () => window.clearTimeout(d);
-  }, []), /* @__PURE__ */ u(
-    ce,
+    disableHoverableContent: a = !1,
+    children: n
+  } = o, s = i.useRef(!0), T = i.useRef(!1), u = i.useRef(0);
+  return i.useEffect(() => {
+    const p = u.current;
+    return () => window.clearTimeout(p);
+  }, []), /* @__PURE__ */ c(
+    fe,
     {
-      scope: o,
-      isOpenDelayedRef: i,
+      scope: e,
+      isOpenDelayedRef: s,
       delayDuration: t,
-      onOpen: a.useCallback(() => {
-        window.clearTimeout(s.current), i.current = !1;
-      }, []),
-      onClose: a.useCallback(() => {
-        window.clearTimeout(s.current), s.current = window.setTimeout(
-          () => i.current = !0,
-          r
-        );
+      onOpen: i.useCallback(() => {
+        r <= 0 || (window.clearTimeout(u.current), s.current = !1);
       }, [r]),
-      isPointerInTransitRef: v,
-      onPointerInTransitChange: a.useCallback((d) => {
-        v.current = d;
+      onClose: i.useCallback(() => {
+        r <= 0 || (window.clearTimeout(u.current), u.current = window.setTimeout(
+          () => s.current = !0,
+          r
+        ));
+      }, [r]),
+      isPointerInTransitRef: T,
+      onPointerInTransitChange: i.useCallback((p) => {
+        T.current = p;
       }, []),
-      disableHoverableContent: n,
-      children: l
+      disableHoverableContent: a,
+      children: n
     }
   );
-};
-z.displayName = F;
-var R = "Tooltip", [ue, _] = O(R), $ = (e) => {
+}, "TooltipProvider"), k = "Tooltip", [Te, _] = I(k), he = /* @__PURE__ */ v((o) => {
   const {
-    __scopeTooltip: o,
+    __scopeTooltip: e,
     children: t,
     open: r,
-    defaultOpen: n,
-    onOpenChange: l,
-    disableHoverableContent: i,
-    delayDuration: v
-  } = e, s = k(R, e.__scopeTooltip), d = D(o), [c, f] = a.useState(null), m = ee(), p = a.useRef(0), h = i ?? s.disableHoverableContent, g = v ?? s.delayDuration, T = a.useRef(!1), [x, y] = W({
+    defaultOpen: a,
+    onOpenChange: n,
+    disableHoverableContent: s,
+    delayDuration: T
+  } = o, u = S(k, o.__scopeTooltip), p = L(e), [d, h] = i.useState(null), [f, g] = i.useState(void 0), x = oe(), l = i.useRef(0), m = s ?? u.disableHoverableContent, C = T ?? u.delayDuration, b = i.useRef(!1), [P, y] = Q({
     prop: r,
-    defaultProp: n ?? !1,
-    onChange: (N) => {
-      N ? (s.onOpen(), document.dispatchEvent(new CustomEvent(A))) : s.onClose(), l?.(N);
-    },
-    caller: R
-  }), w = a.useMemo(() => x ? T.current ? "delayed-open" : "instant-open" : "closed", [x]), P = a.useCallback(() => {
-    window.clearTimeout(p.current), p.current = 0, T.current = !1, y(!0);
-  }, [y]), E = a.useCallback(() => {
-    window.clearTimeout(p.current), p.current = 0, y(!1);
-  }, [y]), I = a.useCallback(() => {
-    window.clearTimeout(p.current), p.current = window.setTimeout(() => {
-      T.current = !0, y(!0), p.current = 0;
-    }, g);
-  }, [g, y]);
-  return a.useEffect(() => () => {
-    p.current && (window.clearTimeout(p.current), p.current = 0);
-  }, []), /* @__PURE__ */ u(te, { ...d, children: /* @__PURE__ */ u(
-    ue,
+    defaultProp: a ?? !1,
+    onChange: /* @__PURE__ */ v((H) => {
+      H ? (u.onOpen(), document.dispatchEvent(new CustomEvent(A))) : u.onClose(), n?.(H);
+    }, "onChange"),
+    caller: k
+  }), O = i.useMemo(() => P ? b.current ? "delayed-open" : "instant-open" : "closed", [P]), E = i.useCallback(() => {
+    window.clearTimeout(l.current), l.current = 0, b.current = !1, y(!0);
+  }, [y]), D = i.useCallback(() => {
+    window.clearTimeout(l.current), l.current = 0, y(!1);
+  }, [y]), M = i.useCallback(() => {
+    window.clearTimeout(l.current), l.current = window.setTimeout(() => {
+      b.current = !0, y(!0), l.current = 0;
+    }, C);
+  }, [C, y]);
+  return i.useEffect(() => () => {
+    l.current && (window.clearTimeout(l.current), l.current = 0);
+  }, []), /* @__PURE__ */ c(re, { ...p, children: /* @__PURE__ */ c(
+    Te,
     {
-      scope: o,
-      contentId: m,
-      open: x,
-      stateAttribute: w,
-      trigger: c,
-      onTriggerChange: f,
-      onTriggerEnter: a.useCallback(() => {
-        s.isOpenDelayedRef.current ? I() : P();
-      }, [s.isOpenDelayedRef, I, P]),
-      onTriggerLeave: a.useCallback(() => {
-        h ? E() : (window.clearTimeout(p.current), p.current = 0);
-      }, [E, h]),
-      onOpen: P,
-      onClose: E,
-      disableHoverableContent: h,
+      scope: e,
+      contentId: f ?? x,
+      setContentId: g,
+      open: P,
+      stateAttribute: O,
+      trigger: d,
+      onTriggerChange: h,
+      onTriggerEnter: i.useCallback(() => {
+        u.isOpenDelayedRef.current ? M() : E();
+      }, [u.isOpenDelayedRef, M, E]),
+      onTriggerLeave: i.useCallback(() => {
+        m ? D() : (window.clearTimeout(l.current), l.current = 0);
+      }, [D, m]),
+      onOpen: E,
+      onClose: D,
+      disableHoverableContent: m,
       children: t
     }
   ) });
-};
-$.displayName = R;
-var L = "TooltipTrigger", B = a.forwardRef(
-  (e, o) => {
-    const { __scopeTooltip: t, ...r } = e, n = _(L, t), l = k(L, t), i = D(t), v = a.useRef(null), s = S(o, v, n.onTriggerChange), d = a.useRef(!1), c = a.useRef(!1), f = a.useCallback(() => d.current = !1, []);
-    return a.useEffect(() => () => document.removeEventListener("pointerup", f), [f]), /* @__PURE__ */ u(re, { asChild: !0, ...i, children: /* @__PURE__ */ u(
-      ae.button,
+}, "Tooltip"), N = "TooltipTrigger", ge = /* @__PURE__ */ i.forwardRef(
+  /* @__PURE__ */ v(function(e, t) {
+    const { __scopeTooltip: r, ...a } = e, n = _(N, r), s = S(N, r), T = L(r), u = i.useRef(null), p = j(t, u, n.onTriggerChange), d = i.useRef(!1), h = i.useRef(!1), f = i.useCallback(() => d.current = !1, []);
+    return i.useEffect(() => () => document.removeEventListener("pointerup", f), [f]), /* @__PURE__ */ c(ne, { asChild: !0, ...T, children: /* @__PURE__ */ c(
+      se.button,
       {
         "aria-describedby": n.open ? n.contentId : void 0,
         "data-state": n.stateAttribute,
-        ...r,
-        ref: s,
-        onPointerMove: C(e.onPointerMove, (m) => {
-          m.pointerType !== "touch" && !c.current && !l.isPointerInTransitRef.current && (n.onTriggerEnter(), c.current = !0);
+        ...a,
+        ref: p,
+        onPointerMove: w(e.onPointerMove, (g) => {
+          g.pointerType !== "touch" && !h.current && !s.isPointerInTransitRef.current && (n.onTriggerEnter(), h.current = !0);
         }),
-        onPointerLeave: C(e.onPointerLeave, () => {
-          n.onTriggerLeave(), c.current = !1;
+        onPointerLeave: w(e.onPointerLeave, () => {
+          n.onTriggerLeave(), h.current = !1;
         }),
-        onPointerDown: C(e.onPointerDown, () => {
+        onPointerDown: w(e.onPointerDown, () => {
           n.open && n.onClose(), d.current = !0, document.addEventListener("pointerup", f, { once: !0 });
         }),
-        onFocus: C(e.onFocus, () => {
+        onFocus: w(e.onFocus, () => {
           d.current || n.onOpen();
         }),
-        onBlur: C(e.onBlur, n.onClose),
-        onClick: C(e.onClick, n.onClose)
+        onBlur: w(e.onBlur, n.onClose),
+        onClick: w(e.onClick, n.onClose)
       }
     ) });
-  }
-);
-B.displayName = L;
-var M = "TooltipPortal", [pe, de] = O(M, {
+  }, "TooltipTrigger")
+), $ = "TooltipPortal", [me, Ce] = I($, {
   forceMount: void 0
-}), U = (e) => {
-  const { __scopeTooltip: o, forceMount: t, children: r, container: n } = e, l = _(M, o);
-  return /* @__PURE__ */ u(pe, { scope: o, forceMount: t, children: /* @__PURE__ */ u(j, { present: t || l.open, children: /* @__PURE__ */ u(Q, { asChild: !0, container: n, children: r }) }) });
-};
-U.displayName = M;
-var b = "TooltipContent", V = a.forwardRef(
-  (e, o) => {
-    const t = de(b, e.__scopeTooltip), { forceMount: r = t.forceMount, side: n = "top", ...l } = e, i = _(b, e.__scopeTooltip);
-    return /* @__PURE__ */ u(j, { present: r || i.open, children: i.disableHoverableContent ? /* @__PURE__ */ u(Y, { side: n, ...l, ref: o }) : /* @__PURE__ */ u(fe, { side: n, ...l, ref: o }) });
-  }
-), fe = a.forwardRef((e, o) => {
-  const t = _(b, e.__scopeTooltip), r = k(b, e.__scopeTooltip), n = a.useRef(null), l = S(o, n), [i, v] = a.useState(null), { trigger: s, onClose: d } = t, c = n.current, { onPointerInTransitChange: f } = r, m = a.useCallback(() => {
-    v(null), f(!1);
-  }, [f]), p = a.useCallback(
-    (h, g) => {
-      const T = h.currentTarget, x = { x: h.clientX, y: h.clientY }, y = Te(x, T.getBoundingClientRect()), w = ge(x, y), P = ye(g.getBoundingClientRect()), E = Ce([...w, ...P]);
-      v(E), f(!0);
+}), xe = /* @__PURE__ */ v((o) => {
+  const { __scopeTooltip: e, forceMount: t, children: r, container: a } = o, n = _($, e);
+  return /* @__PURE__ */ c(me, { scope: e, forceMount: t, children: /* @__PURE__ */ c(z, { present: t || n.open, children: /* @__PURE__ */ c(ee, { asChild: !0, container: a, children: r }) }) });
+}, "TooltipPortal"), R = "TooltipContent", ye = /* @__PURE__ */ i.forwardRef(
+  /* @__PURE__ */ v(function(e, t) {
+    const r = Ce(R, e.__scopeTooltip), { forceMount: a = r.forceMount, side: n = "top", ...s } = e, T = _(R, e.__scopeTooltip);
+    return /* @__PURE__ */ c(z, { present: a || T.open, children: T.disableHoverableContent ? /* @__PURE__ */ c(B, { side: n, ...s, ref: t }) : /* @__PURE__ */ c(be, { side: n, ...s, ref: t }) });
+  }, "TooltipContent")
+), be = /* @__PURE__ */ i.forwardRef(/* @__PURE__ */ v(function(e, t) {
+  const r = _(R, e.__scopeTooltip), a = S(R, e.__scopeTooltip), n = i.useRef(null), s = j(t, n), [T, u] = i.useState(null), { trigger: p, onClose: d } = r, h = n.current, { onPointerInTransitChange: f } = a, g = i.useCallback(() => {
+    u(null), f(!1);
+  }, [f]), x = i.useCallback(
+    (l, m) => {
+      const C = l.currentTarget, b = { x: l.clientX, y: l.clientY }, P = U(b, C.getBoundingClientRect()), y = Y(b, P), O = q(m.getBoundingClientRect()), E = K([...y, ...O]);
+      u(E), f(!0);
     },
     [f]
   );
-  return a.useEffect(() => () => m(), [m]), a.useEffect(() => {
-    if (s && c) {
-      const h = (T) => p(T, c), g = (T) => p(T, s);
-      return s.addEventListener("pointerleave", h), c.addEventListener("pointerleave", g), () => {
-        s.removeEventListener("pointerleave", h), c.removeEventListener("pointerleave", g);
+  return i.useEffect(() => () => g(), [g]), i.useEffect(() => {
+    if (p && h) {
+      const l = /* @__PURE__ */ v((C) => x(C, h), "handleTriggerLeave"), m = /* @__PURE__ */ v((C) => x(C, p), "handleContentLeave");
+      return p.addEventListener("pointerleave", l), h.addEventListener("pointerleave", m), () => {
+        p.removeEventListener("pointerleave", l), h.removeEventListener("pointerleave", m);
       };
     }
-  }, [s, c, p, m]), a.useEffect(() => {
-    if (i) {
-      const h = (g) => {
-        const T = g.target, x = { x: g.clientX, y: g.clientY }, y = s?.contains(T) || c?.contains(T), w = !xe(x, i);
-        y ? m() : w && (m(), d());
-      };
-      return document.addEventListener("pointermove", h), () => document.removeEventListener("pointermove", h);
+  }, [p, h, x, g]), i.useEffect(() => {
+    if (T) {
+      const l = /* @__PURE__ */ v((m) => {
+        const C = m.target, b = { x: m.clientX, y: m.clientY }, P = p?.contains(C) || h?.contains(C), y = !X(b, T);
+        P ? g() : y && (g(), d());
+      }, "handleTrackPointerGrace");
+      return document.addEventListener("pointermove", l), () => document.removeEventListener("pointermove", l);
     }
-  }, [s, c, i, d, m]), /* @__PURE__ */ u(Y, { ...e, ref: l });
-}), [ve, me] = O(R, { isInside: !1 }), he = J("TooltipContent"), Y = a.forwardRef(
-  (e, o) => {
+  }, [p, h, T, d, g]), /* @__PURE__ */ c(B, { ...e, ref: s });
+}, "TooltipContentHoverable")), Pe = Z("TooltipContent"), B = /* @__PURE__ */ i.forwardRef(
+  // blank line to reduce diff noise
+  /* @__PURE__ */ v(function(e, t) {
     const {
-      __scopeTooltip: t,
-      children: r,
+      __scopeTooltip: r,
+      children: a,
       "aria-label": n,
-      onEscapeKeyDown: l,
-      onPointerDownOutside: i,
-      ...v
-    } = e, s = _(b, t), d = D(t), { onClose: c } = s;
-    return a.useEffect(() => (document.addEventListener(A, c), () => document.removeEventListener(A, c)), [c]), a.useEffect(() => {
-      if (s.trigger) {
-        const f = (m) => {
-          m.target?.contains(s.trigger) && c();
-        };
-        return window.addEventListener("scroll", f, { capture: !0 }), () => window.removeEventListener("scroll", f, { capture: !0 });
+      id: s,
+      onEscapeKeyDown: T,
+      onPointerDownOutside: u,
+      ...p
+    } = e, d = _(R, r), h = L(r), { onClose: f } = d;
+    i.useEffect(() => (document.addEventListener(A, f), () => document.removeEventListener(A, f)), [f]), i.useEffect(() => {
+      if (d.trigger) {
+        const x = /* @__PURE__ */ v((l) => {
+          l.target instanceof Node && l.target.contains(d.trigger) && f();
+        }, "handleScroll");
+        return window.addEventListener("scroll", x, { capture: !0 }), () => window.removeEventListener("scroll", x, { capture: !0 });
       }
-    }, [s.trigger, c]), /* @__PURE__ */ u(
-      Z,
+    }, [d.trigger, f]);
+    const { setContentId: g } = d;
+    return W(() => (g(s), () => {
+      g(void 0);
+    }), [s, g]), /* @__PURE__ */ c(
+      te,
       {
         asChild: !0,
         disableOutsidePointerEvents: !1,
-        onEscapeKeyDown: l,
-        onPointerDownOutside: i,
-        onFocusOutside: (f) => f.preventDefault(),
-        onDismiss: c,
-        children: /* @__PURE__ */ H(
-          ne,
+        onEscapeKeyDown: T,
+        onPointerDownOutside: u,
+        onFocusOutside: (x) => x.preventDefault(),
+        onDismiss: f,
+        children: /* @__PURE__ */ G(
+          ie,
           {
-            "data-state": s.stateAttribute,
-            ...d,
-            ...v,
-            ref: o,
+            "data-state": d.stateAttribute,
+            role: n ? void 0 : "tooltip",
+            id: n ? void 0 : d.contentId,
+            ...h,
+            ...p,
+            ref: t,
             style: {
-              ...v.style,
+              ...p.style,
               "--radix-tooltip-content-transform-origin": "var(--radix-popper-transform-origin)",
               "--radix-tooltip-content-available-width": "var(--radix-popper-available-width)",
               "--radix-tooltip-content-available-height": "var(--radix-popper-available-height)",
@@ -206,32 +207,26 @@ var b = "TooltipContent", V = a.forwardRef(
               "--radix-tooltip-trigger-height": "var(--radix-popper-anchor-height)"
             },
             children: [
-              /* @__PURE__ */ u(he, { children: r }),
-              /* @__PURE__ */ u(ve, { scope: t, isInside: !0, children: /* @__PURE__ */ u(se, { id: s.contentId, role: "tooltip", children: n || r }) })
+              /* @__PURE__ */ c(Pe, { children: a }),
+              n ? /* @__PURE__ */ c(le, { id: d.contentId, role: "tooltip", children: n }) : null
             ]
           }
         )
       }
     );
-  }
+  }, "TooltipContentImpl")
+), we = /* @__PURE__ */ i.forwardRef(
+  /* @__PURE__ */ v(function(e, t) {
+    const { __scopeTooltip: r, ...a } = e, n = L(r);
+    return /* @__PURE__ */ c(ae, { ...n, ...a, ref: t });
+  }, "TooltipArrow")
 );
-V.displayName = b;
-var q = "TooltipArrow", X = a.forwardRef(
-  (e, o) => {
-    const { __scopeTooltip: t, ...r } = e, n = D(t);
-    return me(
-      q,
-      t
-    ).isInside ? null : /* @__PURE__ */ u(oe, { ...n, ...r, ref: o });
-  }
-);
-X.displayName = q;
-function Te(e, o) {
-  const t = Math.abs(o.top - e.y), r = Math.abs(o.bottom - e.y), n = Math.abs(o.right - e.x), l = Math.abs(o.left - e.x);
-  switch (Math.min(t, r, n, l)) {
-    case l:
-      return "left";
+function U(o, e) {
+  const t = Math.abs(e.top - o.y), r = Math.abs(e.bottom - o.y), a = Math.abs(e.right - o.x), n = Math.abs(e.left - o.x);
+  switch (Math.min(t, r, a, n)) {
     case n:
+      return "left";
+    case a:
       return "right";
     case t:
       return "top";
@@ -241,134 +236,140 @@ function Te(e, o) {
       throw new Error("unreachable");
   }
 }
-function ge(e, o, t = 5) {
+v(U, "getExitSideFromRect");
+function Y(o, e, t = 5) {
   const r = [];
-  switch (o) {
+  switch (e) {
     case "top":
       r.push(
-        { x: e.x - t, y: e.y + t },
-        { x: e.x + t, y: e.y + t }
+        { x: o.x - t, y: o.y + t },
+        { x: o.x + t, y: o.y + t }
       );
       break;
     case "bottom":
       r.push(
-        { x: e.x - t, y: e.y - t },
-        { x: e.x + t, y: e.y - t }
+        { x: o.x - t, y: o.y - t },
+        { x: o.x + t, y: o.y - t }
       );
       break;
     case "left":
       r.push(
-        { x: e.x + t, y: e.y - t },
-        { x: e.x + t, y: e.y + t }
+        { x: o.x + t, y: o.y - t },
+        { x: o.x + t, y: o.y + t }
       );
       break;
     case "right":
       r.push(
-        { x: e.x - t, y: e.y - t },
-        { x: e.x - t, y: e.y + t }
+        { x: o.x - t, y: o.y - t },
+        { x: o.x - t, y: o.y + t }
       );
       break;
   }
   return r;
 }
-function ye(e) {
-  const { top: o, right: t, bottom: r, left: n } = e;
+v(Y, "getPaddedExitPoints");
+function q(o) {
+  const { top: e, right: t, bottom: r, left: a } = o;
   return [
-    { x: n, y: o },
-    { x: t, y: o },
+    { x: a, y: e },
+    { x: t, y: e },
     { x: t, y: r },
-    { x: n, y: r }
+    { x: a, y: r }
   ];
 }
-function xe(e, o) {
-  const { x: t, y: r } = e;
-  let n = !1;
-  for (let l = 0, i = o.length - 1; l < o.length; i = l++) {
-    const v = o[l], s = o[i], d = v.x, c = v.y, f = s.x, m = s.y;
-    c > r != m > r && t < (f - d) * (r - c) / (m - c) + d && (n = !n);
+v(q, "getPointsFromRect");
+function X(o, e) {
+  const { x: t, y: r } = o;
+  let a = !1;
+  for (let n = 0, s = e.length - 1; n < e.length; s = n++) {
+    const T = e[n], u = e[s], p = T.x, d = T.y, h = u.x, f = u.y;
+    d > r != f > r && t < (h - p) * (r - d) / (f - d) + p && (a = !a);
   }
-  return n;
+  return a;
 }
-function Ce(e) {
-  const o = e.slice();
-  return o.sort((t, r) => t.x < r.x ? -1 : t.x > r.x ? 1 : t.y < r.y ? -1 : t.y > r.y ? 1 : 0), be(o);
+v(X, "isPointInPolygon");
+function K(o) {
+  const e = o.slice();
+  return e.sort((t, r) => t.x < r.x ? -1 : t.x > r.x ? 1 : t.y < r.y ? -1 : t.y > r.y ? 1 : 0), V(e);
 }
-function be(e) {
-  if (e.length <= 1) return e.slice();
-  const o = [];
-  for (let r = 0; r < e.length; r++) {
-    const n = e[r];
-    for (; o.length >= 2; ) {
-      const l = o[o.length - 1], i = o[o.length - 2];
-      if ((l.x - i.x) * (n.y - i.y) >= (l.y - i.y) * (n.x - i.x)) o.pop();
+v(K, "getHull");
+function V(o) {
+  if (o.length <= 1) return o.slice();
+  const e = [];
+  for (let r = 0; r < o.length; r++) {
+    const a = o[r];
+    for (; e.length >= 2; ) {
+      const n = e[e.length - 1], s = e[e.length - 2];
+      if ((n.x - s.x) * (a.y - s.y) >= (n.y - s.y) * (a.x - s.x)) e.pop();
       else break;
     }
-    o.push(n);
+    e.push(a);
   }
-  o.pop();
+  e.pop();
   const t = [];
-  for (let r = e.length - 1; r >= 0; r--) {
-    const n = e[r];
+  for (let r = o.length - 1; r >= 0; r--) {
+    const a = o[r];
     for (; t.length >= 2; ) {
-      const l = t[t.length - 1], i = t[t.length - 2];
-      if ((l.x - i.x) * (n.y - i.y) >= (l.y - i.y) * (n.x - i.x)) t.pop();
+      const n = t[t.length - 1], s = t[t.length - 2];
+      if ((n.x - s.x) * (a.y - s.y) >= (n.y - s.y) * (a.x - s.x)) t.pop();
       else break;
     }
-    t.push(n);
+    t.push(a);
   }
-  return t.pop(), o.length === 1 && t.length === 1 && o[0].x === t[0].x && o[0].y === t[0].y ? o : o.concat(t);
+  return t.pop(), e.length === 1 && t.length === 1 && e[0].x === t[0].x && e[0].y === t[0].y ? e : e.concat(t);
 }
-var we = z, Pe = $, Ee = B, Re = U, _e = V, Oe = X;
-function De({
-  delayDuration: e = 0,
-  ...o
+v(V, "getHullPresorted");
+var Ee = ve, Re = he, _e = ge, Le = xe, Oe = ye, De = we;
+function Ae({
+  delayDuration: o = 0,
+  ...e
 }) {
-  return /* @__PURE__ */ u(
-    we,
+  return /* @__PURE__ */ c(
+    Ee,
     {
       "data-slot": "tooltip-provider",
-      delayDuration: e,
-      ...o
+      delayDuration: o,
+      ...e
     }
   );
 }
-function ze({
-  ...e
+function Ue({
+  ...o
 }) {
-  return /* @__PURE__ */ u(De, { children: /* @__PURE__ */ u(Pe, { "data-slot": "tooltip", ...e }) });
+  return /* @__PURE__ */ c(Ae, { children: /* @__PURE__ */ c(Re, { "data-slot": "tooltip", ...o }) });
 }
-function $e({
-  ...e
+function Ye({
+  ...o
 }) {
-  return /* @__PURE__ */ u(Ee, { "data-slot": "tooltip-trigger", ...e });
+  return /* @__PURE__ */ c(_e, { "data-slot": "tooltip-trigger", ...o });
 }
-function Be({
-  className: e,
-  sideOffset: o = 0,
+function qe({
+  className: o,
+  sideOffset: e = 0,
   children: t,
   ...r
 }) {
-  return /* @__PURE__ */ u(Re, { children: /* @__PURE__ */ H(
-    _e,
+  return /* @__PURE__ */ c(Le, { children: /* @__PURE__ */ G(
+    Oe,
     {
       "data-slot": "tooltip-content",
-      sideOffset: o,
-      className: ie(
+      sideOffset: e,
+      className: ce(
         "bg-primary text-primary-foreground animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-fit origin-(--radix-tooltip-content-transform-origin) rounded-md px-3 py-1.5 text-xs text-balance",
-        e
+        o
       ),
       ...r,
       children: [
         t,
-        /* @__PURE__ */ u(Oe, { className: "bg-primary fill-primary z-50 size-2.5 translate-y-[calc(-50%_-_2px)] rotate-45 rounded-[2px]" })
+        /* @__PURE__ */ c(De, { className: "bg-primary fill-primary z-50 size-2.5 translate-y-[calc(-50%_-_2px)] rotate-45 rounded-[2px]" })
       ]
     }
   ) });
 }
 export {
-  ze as Tooltip,
-  Be as TooltipContent,
-  De as TooltipProvider,
-  $e as TooltipTrigger
+  Ue as Tooltip,
+  qe as TooltipContent,
+  Ae as TooltipProvider,
+  Ye as TooltipTrigger
 };
 //# sourceMappingURL=tooltip.js.map

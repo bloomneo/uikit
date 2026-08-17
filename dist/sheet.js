@@ -1,30 +1,30 @@
 import { jsx as e, jsxs as n } from "react/jsx-runtime";
-import { R as l, C as d, a as r, X as c, D as u, T as f, b as h, P as m, O as p } from "./index-BsDbbVHU.js";
-import { c as o } from "./utils-CwJPJKOE.js";
-function N({ ...t }) {
+import { D as l, a as i, b as d, X as c, c as u, f, g as h, e as g, d as m } from "./index-tBy_fxjI.js";
+import { c as o } from "./utils-D7gXXjDs.js";
+function S({ ...t }) {
   return /* @__PURE__ */ e(l, { "data-slot": "sheet", ...t });
 }
-function v({
+function N({
   ...t
 }) {
   return /* @__PURE__ */ e(h, { "data-slot": "sheet-trigger", ...t });
 }
-function C({
+function v({
   ...t
 }) {
-  return /* @__PURE__ */ e(r, { "data-slot": "sheet-close", ...t });
+  return /* @__PURE__ */ e(i, { "data-slot": "sheet-close", ...t });
 }
-function g({
+function p({
   ...t
 }) {
-  return /* @__PURE__ */ e(m, { "data-slot": "sheet-portal", ...t });
+  return /* @__PURE__ */ e(g, { "data-slot": "sheet-portal", ...t });
 }
 function b({
   className: t,
   ...a
 }) {
   return /* @__PURE__ */ e(
-    p,
+    m,
     {
       "data-slot": "sheet-overlay",
       className: o(
@@ -39,9 +39,9 @@ function w({
   className: t,
   children: a,
   side: s = "right",
-  ...i
+  ...r
 }) {
-  return /* @__PURE__ */ n(g, { children: [
+  return /* @__PURE__ */ n(p, { children: [
     /* @__PURE__ */ e(b, {}),
     /* @__PURE__ */ n(
       d,
@@ -55,10 +55,10 @@ function w({
           s === "bottom" && "data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 h-auto border-t",
           t
         ),
-        ...i,
+        ...r,
         children: [
           a,
-          /* @__PURE__ */ n(r, { className: "ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none", children: [
+          /* @__PURE__ */ n(i, { className: "ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none", children: [
             /* @__PURE__ */ e(c, { className: "size-4" }),
             /* @__PURE__ */ e("span", { className: "sr-only", children: "Close" })
           ] })
@@ -67,7 +67,7 @@ function w({
     )
   ] });
 }
-function T({ className: t, ...a }) {
+function C({ className: t, ...a }) {
   return /* @__PURE__ */ e(
     "div",
     {
@@ -77,7 +77,7 @@ function T({ className: t, ...a }) {
     }
   );
 }
-function k({ className: t, ...a }) {
+function T({ className: t, ...a }) {
   return /* @__PURE__ */ e(
     "div",
     {
@@ -87,7 +87,7 @@ function k({ className: t, ...a }) {
     }
   );
 }
-function z({
+function k({
   className: t,
   ...a
 }) {
@@ -100,7 +100,7 @@ function z({
     }
   );
 }
-function D({
+function z({
   className: t,
   ...a
 }) {
@@ -114,13 +114,13 @@ function D({
   );
 }
 export {
-  N as Sheet,
-  C as SheetClose,
+  S as Sheet,
+  v as SheetClose,
   w as SheetContent,
-  D as SheetDescription,
-  k as SheetFooter,
-  T as SheetHeader,
-  z as SheetTitle,
-  v as SheetTrigger
+  z as SheetDescription,
+  T as SheetFooter,
+  C as SheetHeader,
+  k as SheetTitle,
+  N as SheetTrigger
 };
 //# sourceMappingURL=sheet.js.map

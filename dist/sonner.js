@@ -1,6 +1,6 @@
 import { jsx as S } from "react/jsx-runtime";
 import * as m from "react";
-import { T as b } from "./index-B6sSWi7l.js";
+import { T as b } from "./index-CzNW0SAH.js";
 var T = (t, s, i, a, n, r, d, u) => {
   let o = document.documentElement, p = ["light", "dark"];
   function c(e) {

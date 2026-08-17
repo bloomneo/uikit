@@ -76,7 +76,7 @@ function T({
     const e = window.matchMedia("(prefers-color-scheme: dark)"), i = (d) => {
       if (!s)
         try {
-          (o ? localStorage.getItem(o) : null) || c((v) => ({
+          o && localStorage.getItem(o) || c((v) => ({
             ...v,
             mode: d.matches ? "dark" : "light"
           }));

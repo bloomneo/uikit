@@ -1,4 +1,4 @@
-import { jsxs as o, jsx as r } from "react/jsx-runtime";
+import { jsx as r, jsxs as o } from "react/jsx-runtime";
 import * as n from "react";
 import { UIKitError as F, warnInDev as w } from "./errors.js";
 import { Dialog as p, DialogContent as C, DialogHeader as g, DialogTitle as y, DialogDescription as x, DialogFooter as b } from "./dialog.js";

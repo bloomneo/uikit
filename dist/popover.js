@@ -1,184 +1,179 @@
-import { jsx as s } from "react/jsx-runtime";
-import * as i from "react";
-import { u as L, c as z, a as P } from "./index-WHakdmwv.js";
-import { u as O, c as G } from "./index-5Bhkapwi.js";
-import { P as H, D as K } from "./index-DKZPUN5w.js";
-import { h as j, R as U, u as V, F as W } from "./Combination-CmNnuUVg.js";
-import { u as Z } from "./index-CXwMLXQo.js";
-import { c as _, R as q, a as x, C as B, A as J } from "./index-BjeYwP6P.js";
-import { P as w } from "./index-DKIoJbzW.js";
-import { P as b } from "./index-CpDnqHCm.js";
-import { c as Q } from "./utils-CwJPJKOE.js";
-var C = "Popover", [E, _o] = z(C, [
+import { jsx as n } from "react/jsx-runtime";
+import * as p from "react";
+import { c as M, b as T, a as m } from "./index-b757E0P6.js";
+import { u as x, c as I } from "./index-DFmzheZp.js";
+import { P as N, D as k } from "./index-DeQNeE2u.js";
+import { h as y, R as $, u as z, F as G } from "./index-BRQPYD2P.js";
+import { u as H } from "./index-BraAqWsy.js";
+import { c as _, R as L, A as b, C as j } from "./index-DR2_SPIM.js";
+import { P as w } from "./index-C7u_Yu0y.js";
+import { P as K } from "./index-rT3N9N4T.js";
+import { c as U } from "./utils-D7gXXjDs.js";
+var V = Object.defineProperty, d = (a, o) => V(a, "name", { value: o, configurable: !0 }), A = "Popover", [E, Ao] = M(A, [
   _
-]), g = _(), [X, u] = E(C), F = (o) => {
+]), C = _(), [Z, l] = E(A), q = /* @__PURE__ */ d((a) => {
   const {
-    __scopePopover: n,
-    children: e,
-    open: a,
-    defaultOpen: t,
-    onOpenChange: r,
-    modal: c = !1
-  } = o, p = g(n), f = i.useRef(null), [v, m] = i.useState(!1), [h, l] = L({
-    prop: a,
-    defaultProp: t ?? !1,
-    onChange: r,
-    caller: C
+    __scopePopover: o,
+    children: s,
+    open: r,
+    defaultOpen: i,
+    onOpenChange: t,
+    modal: e = !1
+  } = a, c = C(o), u = p.useRef(null), [P, f] = p.useState(!1), [R, v] = T({
+    prop: r,
+    defaultProp: i ?? !1,
+    onChange: t,
+    caller: A
   });
-  return /* @__PURE__ */ s(q, { ...p, children: /* @__PURE__ */ s(
-    X,
+  return /* @__PURE__ */ n(L, { ...c, children: /* @__PURE__ */ n(
+    Z,
     {
-      scope: n,
-      contentId: Z(),
-      triggerRef: f,
-      open: h,
-      onOpenChange: l,
-      onOpenToggle: i.useCallback(() => l((R) => !R), [l]),
-      hasCustomAnchor: v,
-      onCustomAnchorAdd: i.useCallback(() => m(!0), []),
-      onCustomAnchorRemove: i.useCallback(() => m(!1), []),
-      modal: c,
-      children: e
+      scope: o,
+      contentId: H(),
+      triggerRef: u,
+      open: R,
+      onOpenChange: v,
+      onOpenToggle: p.useCallback(() => v((g) => !g), [v]),
+      hasCustomAnchor: P,
+      onCustomAnchorAdd: p.useCallback(() => f(!0), []),
+      onCustomAnchorRemove: p.useCallback(() => f(!1), []),
+      modal: e,
+      children: s
     }
   ) });
-};
-F.displayName = C;
-var N = "PopoverAnchor", S = i.forwardRef(
-  (o, n) => {
-    const { __scopePopover: e, ...a } = o, t = u(N, e), r = g(e), { onCustomAnchorAdd: c, onCustomAnchorRemove: p } = t;
-    return i.useEffect(() => (c(), () => p()), [c, p]), /* @__PURE__ */ s(x, { ...r, ...a, ref: n });
-  }
-);
-S.displayName = N;
-var y = "PopoverTrigger", D = i.forwardRef(
-  (o, n) => {
-    const { __scopePopover: e, ...a } = o, t = u(y, e), r = g(e), c = O(n, t.triggerRef), p = /* @__PURE__ */ s(
-      b.button,
+}, "Popover"), B = "PopoverAnchor", J = /* @__PURE__ */ p.forwardRef(
+  /* @__PURE__ */ d(function(o, s) {
+    const { __scopePopover: r, ...i } = o, t = l(B, r), e = C(r), { onCustomAnchorAdd: c, onCustomAnchorRemove: u } = t;
+    return p.useEffect(() => (c(), () => u()), [c, u]), /* @__PURE__ */ n(b, { ...e, ...i, ref: s });
+  }, "PopoverAnchor")
+), Q = "PopoverTrigger", W = /* @__PURE__ */ p.forwardRef(
+  /* @__PURE__ */ d(function(o, s) {
+    const { __scopePopover: r, ...i } = o, t = l(Q, r), e = C(r), c = x(s, t.triggerRef), u = /* @__PURE__ */ n(
+      K.button,
       {
         type: "button",
         "aria-haspopup": "dialog",
         "aria-expanded": t.open,
-        "aria-controls": t.contentId,
-        "data-state": $(t.open),
-        ...a,
+        "aria-controls": t.open ? t.contentId : void 0,
+        "data-state": O(t.open),
+        ...i,
         ref: c,
-        onClick: P(o.onClick, t.onOpenToggle)
+        onClick: m(o.onClick, t.onOpenToggle)
       }
     );
-    return t.hasCustomAnchor ? p : /* @__PURE__ */ s(x, { asChild: !0, ...r, children: p });
-  }
-);
-D.displayName = y;
-var A = "PopoverPortal", [Y, oo] = E(A, {
+    return t.hasCustomAnchor ? u : /* @__PURE__ */ n(b, { asChild: !0, ...e, children: u });
+  }, "PopoverTrigger")
+), F = "PopoverPortal", [X, Y] = E(F, {
   forceMount: void 0
-}), M = (o) => {
-  const { __scopePopover: n, forceMount: e, children: a, container: t } = o, r = u(A, n);
-  return /* @__PURE__ */ s(Y, { scope: n, forceMount: e, children: /* @__PURE__ */ s(w, { present: e || r.open, children: /* @__PURE__ */ s(H, { asChild: !0, container: t, children: a }) }) });
-};
-M.displayName = A;
-var d = "PopoverContent", T = i.forwardRef(
-  (o, n) => {
-    const e = oo(d, o.__scopePopover), { forceMount: a = e.forceMount, ...t } = o, r = u(d, o.__scopePopover);
-    return /* @__PURE__ */ s(w, { present: a || r.open, children: r.modal ? /* @__PURE__ */ s(to, { ...t, ref: n }) : /* @__PURE__ */ s(ro, { ...t, ref: n }) });
-  }
-);
-T.displayName = d;
-var eo = G("PopoverContent.RemoveScroll"), to = i.forwardRef(
-  (o, n) => {
-    const e = u(d, o.__scopePopover), a = i.useRef(null), t = O(n, a), r = i.useRef(!1);
-    return i.useEffect(() => {
-      const c = a.current;
-      if (c) return j(c);
-    }, []), /* @__PURE__ */ s(U, { as: eo, allowPinchZoom: !0, children: /* @__PURE__ */ s(
-      k,
+}), oo = /* @__PURE__ */ d((a) => {
+  const { __scopePopover: o, forceMount: s, children: r, container: i } = a, t = l(F, o);
+  return /* @__PURE__ */ n(X, { scope: o, forceMount: s, children: /* @__PURE__ */ n(w, { present: s || t.open, children: /* @__PURE__ */ n(N, { asChild: !0, container: i, children: r }) }) });
+}, "PopoverPortal"), h = "PopoverContent", eo = /* @__PURE__ */ p.forwardRef(
+  // blank line to reduce diff noise
+  /* @__PURE__ */ d(function(o, s) {
+    const r = Y(h, o.__scopePopover), { forceMount: i = r.forceMount, ...t } = o, e = l(h, o.__scopePopover);
+    return /* @__PURE__ */ n(w, { present: i || e.open, children: e.modal ? /* @__PURE__ */ n(ro, { ...t, ref: s }) : /* @__PURE__ */ n(no, { ...t, ref: s }) });
+  }, "PopoverContent")
+), to = I("PopoverContent.RemoveScroll"), ro = /* @__PURE__ */ p.forwardRef(
+  // blank line to reduce diff noise
+  /* @__PURE__ */ d(function(o, s) {
+    const r = l(h, o.__scopePopover), i = p.useRef(null), t = x(s, i), e = p.useRef(!1);
+    return p.useEffect(() => {
+      const c = i.current;
+      if (c) return y(c);
+    }, []), /* @__PURE__ */ n($, { as: to, allowPinchZoom: !0, children: /* @__PURE__ */ n(
+      S,
       {
         ...o,
         ref: t,
-        trapFocus: e.open,
+        trapFocus: r.open,
         disableOutsidePointerEvents: !0,
-        onCloseAutoFocus: P(o.onCloseAutoFocus, (c) => {
-          c.preventDefault(), r.current || e.triggerRef.current?.focus();
+        onCloseAutoFocus: m(o.onCloseAutoFocus, (c) => {
+          c.preventDefault(), e.current || r.triggerRef.current?.focus();
         }),
-        onPointerDownOutside: P(
+        onPointerDownOutside: m(
           o.onPointerDownOutside,
           (c) => {
-            const p = c.detail.originalEvent, f = p.button === 0 && p.ctrlKey === !0, v = p.button === 2 || f;
-            r.current = v;
+            const u = c.detail.originalEvent, P = u.button === 0 && u.ctrlKey === !0, f = u.button === 2 || P;
+            e.current = f;
           },
           { checkForDefaultPrevented: !1 }
         ),
-        onFocusOutside: P(
+        onFocusOutside: m(
           o.onFocusOutside,
           (c) => c.preventDefault(),
           { checkForDefaultPrevented: !1 }
         )
       }
     ) });
-  }
-), ro = i.forwardRef(
-  (o, n) => {
-    const e = u(d, o.__scopePopover), a = i.useRef(!1), t = i.useRef(!1);
-    return /* @__PURE__ */ s(
-      k,
+  }, "PopoverContentModal")
+), no = /* @__PURE__ */ p.forwardRef(
+  // blank line to reduce diff noise
+  /* @__PURE__ */ d(function(o, s) {
+    const r = l(h, o.__scopePopover), i = p.useRef(!1), t = p.useRef(!1);
+    return /* @__PURE__ */ n(
+      S,
       {
         ...o,
-        ref: n,
+        ref: s,
         trapFocus: !1,
         disableOutsidePointerEvents: !1,
-        onCloseAutoFocus: (r) => {
-          o.onCloseAutoFocus?.(r), r.defaultPrevented || (a.current || e.triggerRef.current?.focus(), r.preventDefault()), a.current = !1, t.current = !1;
+        onCloseAutoFocus: (e) => {
+          o.onCloseAutoFocus?.(e), e.defaultPrevented || (i.current || r.triggerRef.current?.focus(), e.preventDefault()), i.current = !1, t.current = !1;
         },
-        onInteractOutside: (r) => {
-          o.onInteractOutside?.(r), r.defaultPrevented || (a.current = !0, r.detail.originalEvent.type === "pointerdown" && (t.current = !0));
-          const c = r.target;
-          e.triggerRef.current?.contains(c) && r.preventDefault(), r.detail.originalEvent.type === "focusin" && t.current && r.preventDefault();
+        onInteractOutside: (e) => {
+          o.onInteractOutside?.(e), e.defaultPrevented || (i.current = !0, e.detail.originalEvent.type === "pointerdown" && (t.current = !0));
+          const c = e.target;
+          r.triggerRef.current?.contains(c) && e.preventDefault(), e.detail.originalEvent.type === "focusin" && t.current && e.preventDefault();
         }
       }
     );
-  }
-), k = i.forwardRef(
-  (o, n) => {
+  }, "PopoverContentNonModal")
+), S = /* @__PURE__ */ p.forwardRef(
+  // blank line to reduce diff noise
+  /* @__PURE__ */ d(function(o, s) {
     const {
-      __scopePopover: e,
-      trapFocus: a,
+      __scopePopover: r,
+      trapFocus: i,
       onOpenAutoFocus: t,
-      onCloseAutoFocus: r,
+      onCloseAutoFocus: e,
       disableOutsidePointerEvents: c,
-      onEscapeKeyDown: p,
-      onPointerDownOutside: f,
-      onFocusOutside: v,
-      onInteractOutside: m,
-      ...h
-    } = o, l = u(d, e), R = g(e);
-    return V(), /* @__PURE__ */ s(
-      W,
+      onEscapeKeyDown: u,
+      onPointerDownOutside: P,
+      onFocusOutside: f,
+      onInteractOutside: R,
+      ...v
+    } = o, g = l(h, r), D = C(r);
+    return z(), /* @__PURE__ */ n(
+      G,
       {
         asChild: !0,
         loop: !0,
-        trapped: a,
+        trapped: i,
         onMountAutoFocus: t,
-        onUnmountAutoFocus: r,
-        children: /* @__PURE__ */ s(
-          K,
+        onUnmountAutoFocus: e,
+        children: /* @__PURE__ */ n(
+          k,
           {
             asChild: !0,
             disableOutsidePointerEvents: c,
-            onInteractOutside: m,
-            onEscapeKeyDown: p,
-            onPointerDownOutside: f,
-            onFocusOutside: v,
-            onDismiss: () => l.onOpenChange(!1),
-            children: /* @__PURE__ */ s(
-              B,
+            onInteractOutside: R,
+            onEscapeKeyDown: u,
+            onPointerDownOutside: P,
+            onFocusOutside: f,
+            onDismiss: () => g.onOpenChange(!1),
+            deferPointerDownOutside: !0,
+            children: /* @__PURE__ */ n(
+              j,
               {
-                "data-state": $(l.open),
+                "data-state": O(g.open),
                 role: "dialog",
-                id: l.contentId,
-                ...R,
-                ...h,
-                ref: n,
+                id: g.contentId,
+                ...D,
+                ...v,
+                ref: s,
                 style: {
-                  ...h.style,
+                  ...v.style,
                   "--radix-popover-content-transform-origin": "var(--radix-popper-transform-origin)",
                   "--radix-popover-content-available-width": "var(--radix-popper-available-width)",
                   "--radix-popover-content-available-height": "var(--radix-popper-available-height)",
@@ -191,72 +186,52 @@ var eo = G("PopoverContent.RemoveScroll"), to = i.forwardRef(
         )
       }
     );
-  }
-), I = "PopoverClose", no = i.forwardRef(
-  (o, n) => {
-    const { __scopePopover: e, ...a } = o, t = u(I, e);
-    return /* @__PURE__ */ s(
-      b.button,
-      {
-        type: "button",
-        ...a,
-        ref: n,
-        onClick: P(o.onClick, () => t.onOpenChange(!1))
-      }
-    );
-  }
+  }, "PopoverContentImpl")
 );
-no.displayName = I;
-var ao = "PopoverArrow", so = i.forwardRef(
-  (o, n) => {
-    const { __scopePopover: e, ...a } = o, t = g(e);
-    return /* @__PURE__ */ s(J, { ...t, ...a, ref: n });
-  }
-);
-so.displayName = ao;
-function $(o) {
-  return o ? "open" : "closed";
+function O(a) {
+  return a ? "open" : "closed";
 }
-var co = F, io = S, po = D, uo = M, lo = T;
-function xo({
-  ...o
-}) {
-  return /* @__PURE__ */ s(co, { "data-slot": "popover", ...o });
-}
-function wo({
-  ...o
-}) {
-  return /* @__PURE__ */ s(po, { "data-slot": "popover-trigger", ...o });
-}
-function bo({
-  className: o,
-  align: n = "center",
-  sideOffset: e = 4,
+d(O, "getState");
+var ao = q, so = J, co = W, io = oo, po = eo;
+function Oo({
   ...a
 }) {
-  return /* @__PURE__ */ s(uo, { children: /* @__PURE__ */ s(
-    lo,
+  return /* @__PURE__ */ n(ao, { "data-slot": "popover", ...a });
+}
+function xo({
+  ...a
+}) {
+  return /* @__PURE__ */ n(co, { "data-slot": "popover-trigger", ...a });
+}
+function _o({
+  className: a,
+  align: o = "center",
+  sideOffset: s = 4,
+  ...r
+}) {
+  return /* @__PURE__ */ n(io, { children: /* @__PURE__ */ n(
+    po,
     {
       "data-slot": "popover-content",
-      align: n,
-      sideOffset: e,
-      className: Q(
+      align: o,
+      sideOffset: s,
+      className: U(
         "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-72 origin-(--radix-popover-content-transform-origin) rounded-md border p-4 shadow-md outline-hidden",
-        o
+        a
       ),
-      ...a
+      ...r
     }
   ) });
 }
-function Eo({
-  ...o
+function bo({
+  ...a
 }) {
-  return /* @__PURE__ */ s(io, { "data-slot": "popover-anchor", ...o });
+  return /* @__PURE__ */ n(so, { "data-slot": "popover-anchor", ...a });
 }
 export {
-  xo as Popover,
-  Eo as PopoverAnchor,
-  bo as PopoverContent,
-  wo as PopoverTrigger
+  Oo as Popover,
+  bo as PopoverAnchor,
+  _o as PopoverContent,
+  xo as PopoverTrigger
 };
 //# sourceMappingURL=popover.js.map
