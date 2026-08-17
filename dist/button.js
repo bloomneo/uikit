@@ -1,10 +1,10 @@
-import { jsx as s } from "react/jsx-runtime";
+import { jsx as a } from "react/jsx-runtime";
 import * as n from "react";
 import { S as d } from "./index-DFmzheZp.js";
 import { c } from "./index-CNax7gLk.js";
 import { c as u } from "./utils-D7gXXjDs.js";
 const v = c(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  "inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
   {
     variants: {
       variant: {
@@ -27,13 +27,13 @@ const v = c(
       size: "default"
     }
   }
-), g = n.forwardRef(({ className: e, variant: r, size: t, asChild: o = !1, ...a }, i) => /* @__PURE__ */ s(
+), g = n.forwardRef(({ className: e, variant: r, size: t, asChild: o = !1, ...i }, s) => /* @__PURE__ */ a(
   o ? d : "button",
   {
-    ref: i,
+    ref: s,
     "data-slot": "button",
     className: u(v({ variant: r, size: t, className: e })),
-    ...a
+    ...i
   }
 ));
 g.displayName = "Button";

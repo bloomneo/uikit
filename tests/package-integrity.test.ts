@@ -206,3 +206,32 @@ describe('components reference UIKit token names, not shadcn ones', () => {
     expect(bad).toEqual([]);
   });
 });
+
+describe('interactive surfaces show a pointer cursor', () => {
+  /*
+   * Tailwind v4's Preflight sets `button { cursor: default }` — a change from
+   * v3 — so every clickable surface needs `cursor-pointer` explicitly. shadcn's
+   * sources predate that and additionally mark menu items `cursor-default`
+   * (a desktop-menu convention). Copied verbatim, the result was that buttons,
+   * tabs, dropdown items and select options all showed an arrow, and only real
+   * <a href> elements showed a hand.
+   */
+  const files = walk(join(ROOT, 'src/components/ui')).filter((f) => f.endsWith('.tsx'));
+
+  it('found components to scan (guards a vacuous pass)', () => {
+    expect(files.length).toBeGreaterThan(20);
+  });
+
+  it('no component ships cursor-default', () => {
+    const offenders = files
+      .filter((f) => readFileSync(f, 'utf8').includes('cursor-default'))
+      .map((f) => f.replace(ROOT + '/', ''));
+    expect(offenders).toEqual([]);
+  });
+
+  for (const name of ['button', 'tabs', 'dropdown-menu', 'select']) {
+    it(`${name} declares cursor-pointer`, () => {
+      expect(readFileSync(join(ROOT, `src/components/ui/${name}.tsx`), 'utf8')).toContain('cursor-pointer');
+    });
+  }
+});

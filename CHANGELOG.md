@@ -2,6 +2,31 @@
 
 All notable changes to UIKit will be documented in this file.
 
+## [4.1.4] - 2026-08-17
+
+### Fixed — nothing clickable showed a pointer cursor
+
+Buttons, tabs, dropdown items and select options all rendered with the default
+arrow. Only real `<a href>` elements showed a hand, so the entire component
+library felt inert on hover.
+
+Two causes, both from adopting shadcn source without reconciling it:
+
+- **Tailwind v4's Preflight sets `button { cursor: default }`** — a change from
+  v3. Every clickable surface now needs `cursor-pointer` explicitly, and
+  shadcn's sources predate that.
+- **Menu and list items were marked `cursor-default` on purpose** — a desktop
+  application convention that reads as broken on the web, where a clickable
+  row is expected to say so.
+
+`cursor-pointer` added to `Button` and `TabsTrigger`; the eight
+`cursor-default` declarations across `dropdown-menu`, `select` and `command`
+replaced. Disabled states are unaffected — those already carry
+`disabled:pointer-events-none`.
+
+Guarded by a test asserting no component ships `cursor-default`, verified by
+reintroducing one.
+
 ## [4.1.3] - 2026-08-17
 
 ### Fixed — every toast rendered with a transparent background
