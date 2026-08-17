@@ -273,3 +273,62 @@ describe('token hygiene (4.1)', () => {
     expect(spread.size).toBeGreaterThanOrEqual(4);
   });
 });
+
+
+describe('a consumer needs no @source of its own', () => {
+  /*
+   * The failure this prevents: Tailwind only emits a utility it can SEE in
+   * scanned source, and it never scans node_modules. UIKit's components carry
+   * their own classes (`bg-muted` on TabsList, `bg-popover` on DropdownMenu),
+   * so a consuming app got NONE of them — 22 were missing in a freshly
+   * scaffolded Bloom app. Nothing errored. The visible symptom was a tab strip
+   * with no pill behind it, which reads as a design mistake rather than a
+   * missing stylesheet.
+   *
+   * Telling every consumer to add `@source` themselves is a rule that lives
+   * only in documentation. `dist/theme.css` carries it instead, and `@source`
+   * resolves relative to the file containing it — so importing the theme is
+   * enough. This test compiles a consumer that never mentions @source.
+   */
+  let out = '';
+
+  beforeAll(() => {
+    const dir = mkdtempSync(join(resolve(__dirname, '..'), '.consumer-src-'));
+    writeFileSync(join(dir, 'App.tsx'), `export default () => <div className="bg-background">x</div>;`);
+    // `source(none)` disables Tailwind's automatic content detection, so the
+    // ONLY inputs are the explicit @source directives below. Without it this
+    // fixture passes even when the fix is removed: it lives inside the uikit
+    // repo, and auto-detection scans the working directory — which contains
+    // dist/*.js. The test then proves nothing. Verified by deleting the
+    // @source line from theme.css and watching this go red.
+    writeFileSync(
+      join(dir, 'index.css'),
+      `@import "tailwindcss" source(none);\n@import "@bloomneo/uikit/theme";\n@source "${join(dir, 'App.tsx')}";\n`,
+    );
+    execFileSync('npx', ['@tailwindcss/cli', '-i', join(dir, 'index.css'), '-o', join(dir, 'out.css')], {
+      cwd: resolve(__dirname, '..'),
+      stdio: 'pipe',
+    });
+    out = readFileSync(join(dir, 'out.css'), 'utf8');
+    rmSync(dir, { recursive: true, force: true });
+  }, 120_000);
+
+  it('theme.css ships an @source directive', () => {
+    expect(readFileSync(join(ROOT, 'dist/theme.css'), 'utf8')).toMatch(/^@source\s/m);
+  });
+
+  it('compiled something (guards a vacuous pass)', () => {
+    expect(out.length).toBeGreaterThan(5_000);
+  });
+
+  // Classes UIKit writes internally and a consuming app would never type.
+  for (const cls of ['bg-muted', 'bg-popover', 'bg-destructive', 'bg-success']) {
+    it(`emits .${cls} for the components, unprompted`, () => {
+      expect(out).toContain(`.${cls}`);
+    });
+  }
+
+  it('still blocks the raw palette', () => {
+    expect(out).not.toContain('.bg-blue-600');
+  });
+});

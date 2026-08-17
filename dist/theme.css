@@ -37,6 +37,28 @@
  * here again; edit `_tokens.css`.
  */
 
+/*
+ * Point Tailwind at UIKit's own compiled components.
+ *
+ * Tailwind only emits a utility it can SEE in scanned source, and it never
+ * scans node_modules. UIKit's components carry their own classes — `bg-muted`
+ * on TabsList, `bg-popover` on DropdownMenu, `bg-destructive` on the
+ * destructive button — so without this every one of those utilities was
+ * missing from a consumer's CSS and the components rendered partly unstyled.
+ *
+ * 22 classes were absent in a freshly scaffolded app. Nothing errored; the CSS
+ * simply did not exist, and the visible symptom was a tab strip with no pill
+ * behind it. Asking every consumer to add `@source` themselves is a rule that
+ * lives only in documentation, which is the failure mode this library exists
+ * to avoid — so it ships here instead.
+ *
+ * `@source` resolves relative to the file containing it. In the published
+ * package that is `dist/theme.css`, so `./*.js` is the component bundle
+ * sitting beside it. In this repo the same line resolves to `src/styles/`,
+ * which holds no JS and is therefore a harmless no-op.
+ */
+@source "./*.js";
+
 @theme {
   --color-*: initial;
 }

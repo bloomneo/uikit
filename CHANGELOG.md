@@ -2,6 +2,41 @@
 
 All notable changes to UIKit will be documented in this file.
 
+## [4.1.2] - 2026-08-17
+
+### Fixed — consuming apps got none of UIKit's own utility classes
+
+The most consequential bug found so far, and it was invisible.
+
+Tailwind only emits a utility it can **see** in scanned source, and it never
+scans `node_modules`. UIKit's components carry their own classes — `bg-muted`
+on `TabsList`, `bg-popover` on `DropdownMenu`, `bg-destructive` on the
+destructive button — so unless the consuming app happened to write the same
+class somewhere in its own source, that CSS was never generated.
+
+A freshly scaffolded Bloom app was missing **22 of them**. Nothing errored, no
+warning appeared, and the visible symptom was a tab strip with no pill behind
+it — which reads as a design mistake, not a missing stylesheet. It was reported
+as "the padding looks off".
+
+`dist/theme.css` now carries its own `@source` directive. `@source` resolves
+relative to the file that contains it, so importing the theme — which every
+consumer already does — is sufficient. Nothing to add, nothing to know:
+
+```css
+@import "tailwindcss";
+@import "@bloomneo/uikit/theme";   /* now brings its own @source */
+```
+
+The alternative was documenting "also add `@source .../node_modules/@bloomneo/uikit/dist`",
+which is exactly the kind of rule this library exists to make unnecessary.
+
+Guarded by a test that compiles a consumer with `source(none)`, so automatic
+content detection cannot mask the result. The first version of that test passed
+with the fix removed — the fixture sits inside this repo and Tailwind was
+auto-scanning `dist/` — so it was rewritten until it failed for the right
+reason.
+
 ## [4.1.1] - 2026-08-17
 
 A file-by-file audit before publishing. Everything here was already shipped and
