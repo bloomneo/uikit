@@ -2,6 +2,60 @@
 
 All notable changes to UIKit will be documented in this file.
 
+## [4.1.0] - 2026-08-17
+
+Cleanup pass over what 4.0 left behind. 4.0's component surface was correct;
+its **asset payload** was not — I audited the exports and never weighed the
+tarball.
+
+Unpacked size **5.9 MB → 3.2 MB**.
+
+### Removed — 3.4 MB of fonts for themes that no longer exist
+
+`dist/fonts` was 56% of the published package: Montserrat, Playfair Display,
+Caveat, Crimson Text, DM Serif Display, Libre Baskerville, Poppins, Rubik,
+Source Serif Pro, Space Grotesk, Work Sans.
+
+Every one served `elegant`/`metro`/`studio`/`vivid`, which 4.0 deleted. `base`
+uses the system stack, so `@bloomneo/uikit/styles/fonts` was loading typefaces
+for themes that no longer existed. The subpath, `src/fonts/`,
+`src/styles/fonts.css` and the `build:fonts` step are all gone.
+
+If a custom theme needs a webfont, load it in your own app.
+
+### Fixed — `_tokens.css` contained every token twice
+
+`uikit bundle` APPENDS a theme section rather than replacing the previous one,
+so the file carried two complete copies — 42 tokens declared four times each
+(light + dark, twice over). The copies had silently drifted: `success` and
+`warning` disagreed, and later-wins meant the first copy had quietly stopped
+mattering. Anyone editing it would have changed nothing.
+
+Deduplicated, keeping the values that were actually in effect, so this is
+visually a no-op. **20 KB → 8 KB**; `dist/theme.css` **21 KB → 10 KB**.
+
+### Changed — the chart ramp is five hues, not one hue in five tints
+
+`--color-chart1..5` were `#0EA5E9 #38BDF8 #7DD3FC #BAE6FD #E0F2FE` — the same
+sky blue five times. Unreadable in a donut or a stacked bar, which a demo made
+obvious immediately. Now sky / teal / violet / amber / rose, with brighter
+equivalents in dark mode.
+
+The only visual change in this release. If you depended on the tints, override
+the five tokens in your own theme.
+
+### Removed — 18 `--voila-*` tokens and 3 helper classes
+
+Gradients, shadows and font stacks naming typefaces this release stops
+shipping. Zero of the 30 components referenced them, and they appear in no
+agent-facing doc.
+
+### Added — four hygiene guards
+
+Each verified by reintroducing the bug and watching it fail: no duplicated
+token block, no font bundle, no `--voila-*`, and a hue-spread check on the
+chart ramp so a monochrome one cannot come back.
+
 ## [4.0.0] - 2026-08-17
 
 Breaking. UIKit becomes a **library**: components and design tokens. It no

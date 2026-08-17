@@ -8,10 +8,6 @@ const UIKitShowcase: React.FC = () => {
 
   const themeDescriptions = {
     base: 'Clean default configuration showcasing the base system with Inter typography (default)',
-    elegant: 'Fresh sky blue theme with clean design',
-    metro: 'Dark teal theme with bright yellow accents',
-    studio: 'Sophisticated neutral theme with golden accents',
-    vivid: 'Premium cursive theme with sophisticated typography for luxury brands'
   };
 
   return (

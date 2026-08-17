@@ -20,9 +20,9 @@
  * v4 resolves `--color-*: initial` against the LAST import of the framework,
  * so a reset placed before a nested framework import is silently undone.
  *
- * Fonts are intentionally NOT imported here. They live in a separate bundle
- * (`@bloomneo/uikit/styles/fonts`) so projects with custom themes don't pay
- * for @font-face declarations and woff files they will never use.
+ * No fonts ship with this package (4.1 removed the bundle — its 11 families
+ * served only the themes 4.0 deleted). `base` uses the system stack; load your
+ * own webfont in your app if a custom theme needs one.
  *
  * ── Maintenance ───────────────────────────────────────────────────────────
  * This file is a thin wrapper. Every token lives in `_tokens.css`, which

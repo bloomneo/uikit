@@ -36,8 +36,7 @@ but agents should always use the flat import above when generating code.
 **Required setup:**
 
 ```ts
-import '@bloomneo/uikit/styles';                  // core (no fonts)
-import '@bloomneo/uikit/styles/fonts';            // optional, only if your theme uses built-in fonts
+import '@bloomneo/uikit/styles';                  // the themed palette
 
 import {
   ThemeProvider,
@@ -428,8 +427,6 @@ For a scaffolded app that already has this wired, use
 ```tsx
 import { Button, ThemeProvider, useTheme } from '@bloomneo/uikit';
 import '@bloomneo/uikit/styles';
-// Optional — only if your custom theme declares bundled font families:
-// import '@bloomneo/uikit/styles/fonts';
 
 // Setup (in main.tsx)
 <ThemeProvider theme="base" mode="light">

@@ -13,7 +13,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { execFileSync } from 'node:child_process';
-import { mkdtempSync, writeFileSync, readFileSync, rmSync, readdirSync } from 'node:fs';
+import { mkdtempSync, writeFileSync, readFileSync, rmSync, readdirSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 
@@ -214,5 +214,62 @@ describe('theme.css stays a wrapper over _tokens.css (single source of truth)', 
     const names = [...new Set([...tokens.matchAll(/^\s*(--color-[a-z0-9-]+):/gm)].map((m) => m[1]))];
     expect(names.length).toBeGreaterThan(20);
     expect(names.filter((n) => !themeDist.includes(`${n}:`))).toEqual([]);
+  });
+});
+
+describe('token hygiene (4.1)', () => {
+  const tokens = readFileSync(join(ROOT, 'src/styles/_tokens.css'), 'utf8');
+  const pkg = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8'));
+
+  it('declares each token once per block, and has exactly one of each block', () => {
+    // A token legitimately appears twice overall: once in `@theme` (light) and
+    // once in `.theme-base.dark`. What must never recur is a whole DUPLICATED
+    // SECTION — `uikit bundle` used to APPEND a fresh theme block instead of
+    // replacing the old one, so this file carried every token four times and
+    // the copies silently disagreed on `success` and `warning`. Later-wins made
+    // that invisible until someone edited the copy that had stopped mattering.
+    const blocks = [...tokens.matchAll(/(@theme|\.theme-base\.dark)\s*\{([\s\S]*?)\n\}/g)];
+    const kinds = blocks.map((b) => b[1]);
+    expect(kinds.filter((k) => k === '@theme')).toHaveLength(1);
+    expect(kinds.filter((k) => k === '.theme-base.dark')).toHaveLength(1);
+
+    for (const [, kind, body] of blocks) {
+      const counts = new Map<string, number>();
+      for (const m of body.matchAll(/^\s*(--color-[a-z0-9-]+):/gm)) {
+        counts.set(m[1], (counts.get(m[1]) ?? 0) + 1);
+      }
+      const dupes = [...counts].filter(([, n]) => n > 1).map(([k, n]) => `${kind} ${k} x${n}`);
+      expect(dupes).toEqual([]);
+    }
+  });
+
+  it('ships no font bundle for themes that no longer exist', () => {
+    // 4.0 deleted elegant/metro/studio/vivid but kept 3.4 MB of their
+    // typefaces — 56% of the published package. `base` uses system fonts.
+    expect(existsSync(join(ROOT, 'src/fonts'))).toBe(false);
+    expect(existsSync(join(ROOT, 'src/styles/fonts.css'))).toBe(false);
+    expect(Object.keys(pkg.exports)).not.toContain('./styles/fonts');
+  });
+
+  it('carries no --voila-* tokens (no component ever read them)', () => {
+    expect(tokens).not.toMatch(/--voila-/);
+  });
+
+  it('the chart ramp is five distinguishable hues, not one hue in five tints', () => {
+    // A monochrome ramp is unreadable in a donut or a stacked bar. Compare hue
+    // angles: five shades of one blue collapse to ~the same angle.
+    const hue = (hex: string) => {
+      const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
+      const max = Math.max(r, g, b), min = Math.min(r, g, b), d = max - min;
+      if (d === 0) return 0;
+      const h = max === r ? ((g - b) / d) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
+      return (h * 60 + 360) % 360;
+    };
+    const ramp = [...tokens.matchAll(/--color-chart([1-5]):\s*(#[0-9A-Fa-f]{6})/g)]
+      .slice(0, 5)
+      .map((m) => hue(m[2]));
+    expect(ramp).toHaveLength(5);
+    const spread = new Set(ramp.map((h) => Math.round(h / 30)));
+    expect(spread.size).toBeGreaterThanOrEqual(4);
   });
 });

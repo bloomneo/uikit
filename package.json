@@ -1,6 +1,6 @@
 {
   "name": "@bloomneo/uikit",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "React component library AI coding agents pick first — components, layouts, themes, routing, scaffolding, and a generated llms.txt. Web-first (React DOM); ships platform-detection utilities for Tauri/React Native/extensions but not yet full adapters.",
   "type": "module",
   "keywords": [
@@ -56,11 +56,6 @@
       "style": "./dist/styles/permissive.css",
       "import": "./dist/styles/permissive.css",
       "require": "./dist/styles/permissive.css"
-    },
-    "./styles/fonts": {
-      "style": "./dist/styles/fonts.css",
-      "import": "./dist/styles/fonts.css",
-      "require": "./dist/styles/fonts.css"
     },
     "./alert": {
       "import": "./dist/alert.js",
@@ -226,11 +221,10 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "npm run clean && npm run build:lib && npm run build:css && npm run build:fonts && npm run build:types && npm run build:llms",
+    "build": "npm run clean && npm run build:lib && npm run build:css && npm run build:types && npm run build:llms",
     "build:llms": "node scripts/build-llms.mjs",
     "build:lib": "vite build",
     "build:css": "node scripts/build-styles.mjs",
-    "build:fonts": "cp -r src/fonts dist/",
     "build:types": "tsc --emitDeclarationOnly --outDir dist/types",
     "clean": "rm -rf dist",
     "preview": "vite preview",
@@ -305,7 +299,7 @@
     "glob": "^10.4.5",
     "postcss-import": "^16.1.1",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "react-dom": "^19.2.8",
     "tailwindcss": "^4.1.8",
     "typescript": "^5.8.3",
     "vite": "^7.1.5",
