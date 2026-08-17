@@ -1,0 +1,26 @@
+/*
+ * @bloomneo/uikit/styles/strict — the themed palette, and nothing else.
+ *
+ * `--color-*: initial` clears Tailwind's built-in palette, so `bg-blue-600`
+ * and `text-gray-900` compile to nothing while `bg-primary`,
+ * `text-muted-foreground` and the rest of the semantic tokens work normally.
+ *
+ * Why this exists: a design system that is merely *documented* gets bypassed.
+ * One production app accumulated 1,547 hardcoded palette classes against 196
+ * semantic ones — not from carelessness, but because both were equally
+ * available and the raw palette needed no lookup. Removing the alternative is
+ * the only version of this rule that holds.
+ *
+ * Cost: ~12 KB less CSS. Requirement: restyle via tokens, not raw colours.
+ *
+ * The reset must sit between the framework import and the tokens — Tailwind
+ * resolves it against the last `@import "tailwindcss"` it sees.
+ */
+
+@import "tailwindcss";
+
+@theme {
+  --color-*: initial;
+}
+
+@import "./_tokens.css";

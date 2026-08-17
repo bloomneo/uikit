@@ -185,6 +185,35 @@ Switch between 5 professional themes instantly or generate custom themes with pe
 
 **Note**: Instead of hardcoded colors like `bg-white` or `text-black`, use semantic color classes like `bg-background`, `text-foreground`, `border-border`. These automatically adapt to your selected theme and work perfectly in both light and dark modes.
 
+### Strict mode — make the theme impossible to bypass
+
+`@bloomneo/uikit/styles` ships the semantic tokens **alongside** Tailwind's
+default palette, so `bg-primary` and `bg-blue-600` both work. That's
+convenient, and it's why design systems drift: one production app accumulated
+**1,547 hardcoded palette classes against 196 semantic ones** — not from
+carelessness, but because both were equally available and the raw palette
+needed no lookup.
+
+Import the strict sheet instead and the alternative simply stops existing:
+
+```ts
+import "@bloomneo/uikit/styles/strict";   // instead of "@bloomneo/uikit/styles"
+```
+
+| Class | `/styles` | `/styles/strict` |
+|---|:--:|:--:|
+| `bg-primary`, `text-muted-foreground`, `bg-card` | ✅ | ✅ |
+| `bg-blue-600`, `text-gray-900`, `border-red-400` | ✅ | 🚫 compiles to nothing |
+
+An agent writing `bg-blue-600` gets an element with no background — visible
+immediately, in the browser, without a reviewer noticing. That's a far lower
+bar than "import our component library": the model only has to use the one
+class that exists.
+
+Costs ~12 KB less CSS. **Recommended for new apps.** Existing apps should stay
+on `/styles` until their hardcoded colours are migrated — switching early
+unstyles every one of them.
+
 ### 5 Professional Themes
 
 | Theme       | Style                | Font Family      | Best For              |

@@ -2,6 +2,58 @@
 
 All notable changes to UIKit will be documented in this file.
 
+## [2.2.0] - 2026-08-17
+
+### Added — `@bloomneo/uikit/styles/strict`
+
+A second stylesheet entry that removes Tailwind's default palette, leaving
+only the theme's semantic tokens.
+
+```ts
+import "@bloomneo/uikit/styles/strict";
+```
+
+`bg-primary` works; `bg-blue-600` compiles to nothing.
+
+**Why.** The theme system was the library's headline feature and the least
+used part of it. One production app accumulated **1,547 hardcoded palette
+classes against 196 semantic ones**; another 209 against 74. Not carelessness
+— both were equally available, and the raw palette needed no lookup. A rule
+that lives only in documentation gets bypassed at exactly the rate the
+codebase grows.
+
+Removing the alternative is the only version of the rule that holds, and the
+bar it sets is low: the model doesn't have to learn a component library, it
+just has to use the one class that exists. A mistake shows up immediately as
+an unstyled element rather than surviving review.
+
+**Not a breaking change.** `@bloomneo/uikit/styles` is unchanged and still
+ships the full palette, so existing apps upgrade without losing styles.
+Strict is recommended for new apps; existing ones should migrate their
+hardcoded colours first.
+
+Costs ~12 KB less CSS (126.6 KB → 120.1 KB minified).
+
+### Changed — stylesheet internals split
+
+`src/styles/globals.css` is now a thin entry; the tokens live in
+`src/styles/_tokens.css` and `strict.css` composes them differently.
+
+This split is load-bearing, not cosmetic. Tailwind v4 resolves
+`--color-*: initial` against the **last** `@import "tailwindcss"` it sees, so
+a reset placed before a nested framework import is silently undone — the first
+attempt at this feature looked correct, built without error, and did nothing
+at all. Splitting the import out is what makes the strict entry possible.
+
+### Added — tests that compile real CSS
+
+28 assertions run the actual Tailwind CLI against both entries and inspect the
+output, because "this class produces no CSS" is invisible in review and the
+near-miss above proved a source-level check would have passed. Includes a
+guard against an empty-output false pass.
+
+Suite: 82 → 110 passing.
+
 ## [2.1.5] - 2026-04-21
 
 ### Removed
