@@ -16,7 +16,7 @@ const x = N(
         clean: "",
         subtle: "bg-muted/10",
         brand: "bg-primary/5",
-        contrast: "bg-zinc-900"
+        contrast: "bg-contrast"
       }
     },
     defaultVariants: {

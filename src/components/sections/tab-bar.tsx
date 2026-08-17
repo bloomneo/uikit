@@ -27,7 +27,7 @@ const tabBarVariants = cva(
         clean: 'border-border',
         subtle: 'border-muted bg-muted/10',
         brand: 'border-primary/20 bg-primary/5',
-        contrast: 'border-zinc-700 bg-zinc-900 text-zinc-100'
+        contrast: 'border-contrast-border bg-contrast text-contrast-foreground'
       },
       variant: {
         default: '',

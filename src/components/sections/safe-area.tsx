@@ -26,7 +26,7 @@ const safeAreaVariants = cva(
         clean: '',
         subtle: 'bg-muted/5',
         brand: 'bg-primary/5',
-        contrast: 'bg-zinc-900'
+        contrast: 'bg-contrast'
       }
     },
     defaultVariants: {

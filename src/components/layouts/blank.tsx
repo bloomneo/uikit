@@ -26,7 +26,7 @@ const blankVariants = cva(
         clean: 'bg-background',
         subtle: 'bg-muted/20',
         brand: 'bg-primary/5',
-        contrast: 'bg-zinc-400'
+        contrast: 'bg-contrast-muted'
       }
     },
     defaultVariants: {
@@ -93,7 +93,7 @@ const titleVariants = cva(
         clean: 'text-foreground',
         subtle: 'text-foreground',
         brand: 'text-foreground',
-        contrast: 'text-zinc-100'
+        contrast: 'text-contrast-foreground'
       }
     },
     defaultVariants: {
@@ -121,7 +121,7 @@ const subtitleVariants = cva(
         clean: 'text-muted-foreground',
         subtle: 'text-muted-foreground',
         brand: 'text-muted-foreground',
-        contrast: 'text-zinc-300'
+        contrast: 'text-contrast-muted-foreground'
       }
     },
     defaultVariants: {
@@ -142,7 +142,7 @@ const footerVariants = cva(
         clean: 'text-muted-foreground',
         subtle: 'text-muted-foreground',
         brand: 'text-muted-foreground', 
-        contrast: 'text-zinc-400'
+        contrast: 'text-contrast-muted-foreground'
       }
     },
     defaultVariants: {
@@ -227,7 +227,7 @@ export { BlankLayout };
  * Empty scheme for complete custom control:
  * <BlankLayout scheme="empty">
  *   <div className="min-h-screen flex">
- *     <div className="w-1/2 bg-blue-600">Custom left side</div>
+ *     <div className="w-1/2 bg-primary">Custom left side</div>
  *     <div className="w-1/2 bg-white">Custom right side</div>
  *   </div>
  * </BlankLayout>

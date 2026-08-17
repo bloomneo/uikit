@@ -237,7 +237,7 @@ function oe({
     /* @__PURE__ */ t("div", { className: "flex items-center gap-4", children: [
       /* @__PURE__ */ e("div", { className: y(
         "w-10 h-10 rounded-full flex items-center justify-center",
-        a ? "bg-green-100 text-green-600" : "bg-orange-100 text-orange-600"
+        a ? "bg-success/10 text-success" : "bg-warning/10 text-warning"
       ), children: a ? /* @__PURE__ */ e(ie, { className: "w-5 h-5" }) : /* @__PURE__ */ e(q, { className: "w-5 h-5" }) }),
       /* @__PURE__ */ t("div", { children: [
         /* @__PURE__ */ t("h3", { className: "font-semibold text-foreground", children: [
@@ -250,7 +250,7 @@ function oe({
     c || /* @__PURE__ */ t(P, { variant: a ? "default" : "secondary", className: "flex items-center gap-2", children: [
       /* @__PURE__ */ e("div", { className: y(
         "w-2 h-2 rounded-full",
-        a ? "bg-green-500" : "bg-orange-500"
+        a ? "bg-success" : "bg-warning"
       ) }),
       a ? r : n
     ] })

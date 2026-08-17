@@ -10,7 +10,7 @@ const p = c(
         clean: "",
         subtle: "bg-muted/5",
         brand: "bg-primary/5",
-        contrast: "bg-zinc-900"
+        contrast: "bg-contrast"
       }
     },
     defaultVariants: {
@@ -22,16 +22,16 @@ const p = c(
   tone: r = "clean",
   useMargin: n = !1,
   className: o,
-  children: i
-}, s) => {
+  children: s
+}, i) => {
   const t = {}, e = n ? "margin" : "padding";
   return a.includes("top") && (t[`${e}Top`] = "env(safe-area-inset-top)"), a.includes("bottom") && (t[`${e}Bottom`] = "env(safe-area-inset-bottom)"), a.includes("left") && (t[`${e}Left`] = "env(safe-area-inset-left)"), a.includes("right") && (t[`${e}Right`] = "env(safe-area-inset-right)"), /* @__PURE__ */ f(
     "div",
     {
-      ref: s,
+      ref: i,
       className: m(p({ tone: r }), o),
       style: t,
-      children: i
+      children: s
     }
   );
 });

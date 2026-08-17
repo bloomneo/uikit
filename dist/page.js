@@ -19,31 +19,31 @@ const N = V({
         clean: "bg-background text-foreground",
         subtle: "bg-background text-foreground",
         brand: "bg-background text-foreground",
-        contrast: "bg-zinc-900 text-zinc-100"
+        contrast: "bg-contrast text-contrast-foreground"
       }
     },
     defaultVariants: {
       tone: "clean"
     }
   }
-), z = y(({
+), L = y(({
   scheme: o = "default",
-  tone: n = "clean",
+  tone: r = "clean",
   size: i = "xl",
   className: s,
   children: p
-}, m) => /* @__PURE__ */ e(N.Provider, { value: { scheme: o, tone: n, size: i }, children: /* @__PURE__ */ e(
+}, m) => /* @__PURE__ */ e(N.Provider, { value: { scheme: o, tone: r, size: i }, children: /* @__PURE__ */ e(
   "div",
   {
     ref: m,
-    className: b(Y({ tone: n }), s),
+    className: b(Y({ tone: r }), s),
     children: p
   }
 ) }));
-z.displayName = "PageLayout";
-const L = y(({
+L.displayName = "PageLayout";
+const F = y(({
   tone: o,
-  size: n,
+  size: r,
   position: i = "sticky",
   navigation: s = [],
   currentPath: p = "",
@@ -59,7 +59,7 @@ const L = y(({
     {
       ref: d,
       tone: o || u,
-      size: n || g,
+      size: r || g,
       position: i,
       className: c,
       children: [
@@ -77,10 +77,10 @@ const L = y(({
     }
   );
 });
-L.displayName = "PageHeader";
-const F = y(({
+F.displayName = "PageHeader";
+const H = y(({
   tone: o,
-  size: n,
+  size: r,
   sidebar: i = "none",
   navigation: s = [],
   sidebarContent: p,
@@ -93,25 +93,25 @@ const F = y(({
   className: u,
   children: g
 }, a) => {
-  const { scheme: T, tone: S, size: h } = C(), k = i !== "none" ? i : T === "sidebar" ? "left" : "none", j = (r) => {
-    c ? c(r) : t && t(r, {
-      key: r,
-      label: r,
-      href: r
+  const { scheme: z, tone: S, size: h } = C(), k = i !== "none" ? i : z === "sidebar" ? "left" : "none", j = (n) => {
+    c ? c(n) : t && t(n, {
+      key: n,
+      label: n,
+      href: n
     });
-  }, w = () => l.length === 0 ? null : /* @__PURE__ */ e("div", { className: "mb-6", children: /* @__PURE__ */ e(K, { children: /* @__PURE__ */ e(M, { children: l.map((r, P) => /* @__PURE__ */ x(R.Fragment, { children: [
-    /* @__PURE__ */ e(Q, { children: r.href ? /* @__PURE__ */ e(
+  }, w = () => l.length === 0 ? null : /* @__PURE__ */ e("div", { className: "mb-6", children: /* @__PURE__ */ e(K, { children: /* @__PURE__ */ e(M, { children: l.map((n, P) => /* @__PURE__ */ x(R.Fragment, { children: [
+    /* @__PURE__ */ e(Q, { children: n.href ? /* @__PURE__ */ e(
       U,
       {
         asChild: !!(c || t),
         ...c || t ? {
           onClick: (B) => {
-            B.preventDefault(), j(r.href);
+            B.preventDefault(), j(n.href);
           }
-        } : { href: r.href },
-        children: c || t ? /* @__PURE__ */ e("button", { type: "button", children: r.label }) : r.label
+        } : { href: n.href },
+        children: c || t ? /* @__PURE__ */ e("button", { type: "button", children: n.label }) : n.label
       }
-    ) : /* @__PURE__ */ e(W, { children: r.label }) }),
+    ) : /* @__PURE__ */ e(W, { children: n.label }) }),
     P < l.length - 1 && /* @__PURE__ */ e(X, {})
   ] }, P)) }) }) }), v = () => d ? /* @__PURE__ */ e("h1", { className: "text-2xl sm:text-3xl font-bold text-foreground mb-4", children: d }) : null;
   return k === "none" ? /* @__PURE__ */ e(
@@ -121,11 +121,11 @@ const F = y(({
       className: b("flex-1", u),
       children: /* @__PURE__ */ x("div", { className: b(
         "mx-auto",
-        (n || h) === "sm" && "max-w-2xl px-4 py-6",
-        (n || h) === "md" && "max-w-4xl px-4 sm:px-6 py-8",
-        (n || h) === "lg" && "max-w-6xl px-4 sm:px-6 lg:px-8 py-8",
-        (n || h) === "xl" && "max-w-7xl px-4 sm:px-6 lg:px-8 py-8",
-        (n || h) === "full" && "max-w-full px-4 sm:px-6 lg:px-8 py-8"
+        (r || h) === "sm" && "max-w-2xl px-4 py-6",
+        (r || h) === "md" && "max-w-4xl px-4 sm:px-6 py-8",
+        (r || h) === "lg" && "max-w-6xl px-4 sm:px-6 lg:px-8 py-8",
+        (r || h) === "xl" && "max-w-7xl px-4 sm:px-6 lg:px-8 py-8",
+        (r || h) === "full" && "max-w-full px-4 sm:px-6 lg:px-8 py-8"
       ), children: [
         (d || l.length > 0) && /* @__PURE__ */ x("div", { className: "mb-8", children: [
           w(),
@@ -144,7 +144,7 @@ const F = y(({
       onNavigate: t,
       sidebarPosition: f,
       tone: o || S,
-      size: n || h,
+      size: r || h,
       children: [
         (d || l.length > 0) && /* @__PURE__ */ x("div", { className: "mb-8", children: [
           w(),
@@ -155,10 +155,10 @@ const F = y(({
     }
   ) });
 });
-F.displayName = "PageContent";
-const H = y(({
+H.displayName = "PageContent";
+const T = y(({
   tone: o,
-  size: n,
+  size: r,
   position: i = "relative",
   navigation: s = [],
   currentPath: p = "",
@@ -173,7 +173,7 @@ const H = y(({
     {
       ref: c,
       tone: o || (d === "brand" ? "subtle" : d),
-      size: n || u,
+      size: r || u,
       position: i,
       className: f,
       children: l || /* @__PURE__ */ x(I, { children: [
@@ -193,21 +193,21 @@ const H = y(({
     }
   );
 });
-H.displayName = "PageFooter";
+T.displayName = "PageFooter";
 const C = () => {
   const o = D(N);
   if (!o)
     throw new Error("usePage must be used within a PageLayout component");
   return o;
-}, le = Object.assign(z, {
-  Header: L,
-  Content: F,
-  Footer: H
+}, le = Object.assign(L, {
+  Header: F,
+  Content: H,
+  Footer: T
 });
 export {
-  F as PageContent,
-  H as PageFooter,
-  L as PageHeader,
+  H as PageContent,
+  T as PageFooter,
+  F as PageHeader,
   le as PageLayout,
   C as usePage
 };

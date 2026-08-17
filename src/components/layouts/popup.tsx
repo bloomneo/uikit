@@ -30,7 +30,7 @@ const popupVariants = cva(
         clean: 'bg-background border-border',
         subtle: 'bg-muted/30 border-border/50',
         brand: 'bg-primary/5 border-primary/20',
-        contrast: 'bg-zinc-900 border-zinc-700 text-zinc-100'
+        contrast: 'bg-contrast border-contrast-border text-contrast-foreground'
       },
       size: {
         sm: 'w-72 max-h-80',      // 288px × 320px - Ultra compact
@@ -126,7 +126,7 @@ const footerVariants = cva(
         clean: 'border-border',
         subtle: 'border-border/50',
         brand: 'border-primary/20',
-        contrast: 'border-zinc-700'
+        contrast: 'border-contrast-border'
       },
       size: {
         sm: 'p-2',
@@ -154,7 +154,7 @@ const buttonVariants = cva(
         clean: 'text-muted-foreground hover:text-foreground hover:bg-muted',
         subtle: 'text-muted-foreground hover:text-foreground hover:bg-background/50',
         brand: 'text-primary/80 hover:text-primary hover:bg-primary/10',
-        contrast: 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800'
+        contrast: 'text-contrast-muted-foreground hover:text-contrast-foreground hover:bg-contrast'
       }
     },
     defaultVariants: {
@@ -181,7 +181,7 @@ const titleVariants = cva(
         clean: 'text-foreground',
         subtle: 'text-foreground',
         brand: 'text-foreground',
-        contrast: 'text-zinc-100'
+        contrast: 'text-contrast-foreground'
       }
     },
     defaultVariants: {
@@ -209,7 +209,7 @@ const subtitleVariants = cva(
         clean: 'text-muted-foreground',
         subtle: 'text-muted-foreground',
         brand: 'text-muted-foreground',
-        contrast: 'text-zinc-400'
+        contrast: 'text-contrast-muted-foreground'
       }
     },
     defaultVariants: {
@@ -359,7 +359,7 @@ const PopupLayoutComponent = forwardRef<HTMLDivElement, PopupLayoutProps>(({
           {showDivider && <Separator className={cn(
             tone === 'subtle' && 'bg-border/50',
             tone === 'brand' && 'bg-primary/20',
-            tone === 'contrast' && 'bg-zinc-700'
+            tone === 'contrast' && 'bg-contrast-muted'
           )} />}
         </>
       )}
@@ -380,7 +380,7 @@ const PopupLayoutComponent = forwardRef<HTMLDivElement, PopupLayoutProps>(({
           <Separator className={cn(
             tone === 'subtle' && 'bg-border/50',
             tone === 'brand' && 'bg-primary/20',
-            tone === 'contrast' && 'bg-zinc-700'
+            tone === 'contrast' && 'bg-contrast-muted'
           )} />
           <div className={cn(footerVariants({ tone, size }))}>
             {footer}

@@ -52,7 +52,7 @@ const pageVariants = cva(
         clean: 'bg-background text-foreground',
         subtle: 'bg-background text-foreground',
         brand: 'bg-background text-foreground',
-        contrast: 'bg-zinc-900 text-zinc-100'
+        contrast: 'bg-contrast text-contrast-foreground'
       }
     },
     defaultVariants: {

@@ -412,7 +412,7 @@ function StatusBanner({
           <div className="flex items-center gap-4">
             <div className={cn(
               "w-10 h-10 rounded-full flex items-center justify-center",
-              active ? "bg-green-100 text-green-600" : "bg-orange-100 text-orange-600"
+              active ? "bg-success/10 text-success" : "bg-warning/10 text-warning"
             )}>
               {active ? (
                 <CheckCircle className="w-5 h-5" />
@@ -433,7 +433,7 @@ function StatusBanner({
             <Badge variant={active ? 'default' : 'secondary'} className="flex items-center gap-2">
               <div className={cn(
                 "w-2 h-2 rounded-full",
-                active ? "bg-green-500" : "bg-orange-500"
+                active ? "bg-success" : "bg-warning"
               )} />
               {active ? activeLabel : inactiveLabel}
             </Badge>

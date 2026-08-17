@@ -1,8 +1,8 @@
 import { jsx as a } from "react/jsx-runtime";
 import { forwardRef as i } from "react";
-import { c as l } from "./index-Bke1qZdk.js";
+import { c as m } from "./index-Bke1qZdk.js";
 import { c as t } from "./utils-CwJPJKOE.js";
-const p = l(
+const p = m(
   "",
   {
     variants: {
@@ -18,7 +18,7 @@ const p = l(
         clean: "bg-background",
         subtle: "bg-muted/20",
         brand: "bg-primary/5",
-        contrast: "bg-zinc-400"
+        contrast: "bg-contrast-muted"
       }
     },
     defaultVariants: {
@@ -33,7 +33,7 @@ const p = l(
       }
     ]
   }
-), d = l(
+), d = m(
   "",
   {
     variants: {
@@ -65,15 +65,15 @@ const p = l(
       }
     ]
   }
-), m = i(({
+), l = i(({
   scheme: e = "simple",
   tone: c = "clean",
   size: o = "lg",
   className: s,
-  children: n
-}, r) => e === "empty" ? /* @__PURE__ */ a("div", { ref: r, className: t(s), children: n }) : /* @__PURE__ */ a("div", { ref: r, className: t(p({ scheme: e, tone: c }), s), children: /* @__PURE__ */ a("div", { className: t(d({ scheme: e, size: o })), children: n }) }));
-m.displayName = "BlankLayout";
-const b = m;
+  children: r
+}, n) => e === "empty" ? /* @__PURE__ */ a("div", { ref: n, className: t(s), children: r }) : /* @__PURE__ */ a("div", { ref: n, className: t(p({ scheme: e, tone: c }), s), children: /* @__PURE__ */ a("div", { className: t(d({ scheme: e, size: o })), children: r }) }));
+l.displayName = "BlankLayout";
+const b = l;
 export {
   b as BlankLayout
 };

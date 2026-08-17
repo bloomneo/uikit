@@ -13,7 +13,7 @@
 
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { execFileSync } from 'node:child_process';
-import { mkdtempSync, writeFileSync, readFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, writeFileSync, readFileSync, rmSync, readdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 
@@ -93,4 +93,38 @@ describe('@bloomneo/uikit/styles (default — strict)', () => {
   it('actually compiled something (guards against an empty-output false pass)', () => {
     expect(compiled.globals.length).toBeGreaterThan(10_000);
   });
+});
+
+describe('uikit does not use the palette it removes', () => {
+  // Shipping the strict sheet while the library's own components were built on
+  // `zinc-*` would have rendered every tone="contrast" surface unstyled —
+  // header, footer, admin sidebar, mobile, popup, blank. That regression was
+  // live in 3.0.0 until this check was written, so it stays.
+  const RAW = new RegExp(
+    String.raw`\b(bg|text|border|ring|from|via|to|fill|stroke|divide|placeholder|accent|caret|outline|shadow|decoration)-` +
+      String.raw`(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-` +
+      String.raw`(50|[1-9]00|950)\b`,
+    'g',
+  );
+
+  const files = (function walk(dir: string, acc: string[] = []): string[] {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      const full = join(dir, entry.name);
+      if (entry.isDirectory()) walk(full, acc);
+      else if (entry.name.endsWith('.tsx') || entry.name.endsWith('.ts')) acc.push(full);
+    }
+    return acc;
+  })(resolve(__dirname, '../src/components'));
+
+  it('finds source files to scan (guards against a vacuous pass)', () => {
+    expect(files.length).toBeGreaterThan(30);
+  });
+
+  for (const file of files) {
+    const rel = file.slice(file.indexOf('src/'));
+    it(`${rel} uses only semantic colour classes`, () => {
+      const hits = [...new Set(readFileSync(file, 'utf8').match(RAW) ?? [])];
+      expect(hits, `${rel} would render unstyled under the default stylesheet: ${hits.join(', ')}`).toEqual([]);
+    });
+  }
 });

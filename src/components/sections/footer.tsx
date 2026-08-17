@@ -34,7 +34,7 @@ const footerVariants = cva(
       clean: 'bg-background/80 backdrop-blur-sm border-border/40 text-foreground',
       subtle: 'bg-muted/50 backdrop-blur-sm border-border/30 text-foreground', 
       brand: 'bg-primary border-primary-foreground/20 text-primary-foreground',
-      contrast: 'bg-zinc-900 border-zinc-700/40 text-zinc-100'
+      contrast: 'bg-contrast border-contrast-border/40 text-contrast-foreground'
     },
       position: {
         sticky: 'sticky bottom-0 z-30',
@@ -181,7 +181,7 @@ const FooterBasic = forwardRef<HTMLDivElement, FooterBasicProps>(({
       case 'brand':
         return cn(baseStyles, isActive ? 'text-primary-foreground' : 'text-primary-foreground/80 hover:text-primary-foreground');
       case 'contrast':
-        return cn(baseStyles, isActive ? 'text-zinc-100' : 'text-zinc-300 hover:text-zinc-100');
+        return cn(baseStyles, isActive ? 'text-contrast-foreground' : 'text-contrast-muted-foreground hover:text-contrast-foreground');
       default:
         return cn(baseStyles, isActive ? 'text-foreground' : 'text-muted-foreground hover:text-foreground');
     }
@@ -234,12 +234,12 @@ const FooterBasic = forwardRef<HTMLDivElement, FooterBasicProps>(({
         <>
           <Separator className={cn(
             tone === 'brand' && 'bg-primary-foreground/20',
-            tone === 'contrast' && 'bg-zinc-700'
+            tone === 'contrast' && 'bg-contrast-muted'
           )} />
           <div className="text-center">
           <p className={cn(
             'text-sm',
-            tone === 'contrast' && 'text-zinc-400',
+            tone === 'contrast' && 'text-contrast-muted-foreground',
             tone === 'brand' && 'text-primary-foreground/80',
             (tone === 'clean' || tone === 'subtle') && 'text-muted-foreground'
           )}>
@@ -335,9 +335,9 @@ const FooterAdvanced = forwardRef<HTMLDivElement, FooterAdvancedProps>(({
         };
       case 'contrast':
         return {
-          heading: 'text-zinc-100',
-          text: 'text-zinc-300',
-          link: 'text-zinc-300 hover:text-zinc-100'
+          heading: 'text-contrast-foreground',
+          text: 'text-contrast-muted-foreground',
+          link: 'text-contrast-muted-foreground hover:text-contrast-foreground'
         };
       default:
         return {
@@ -420,7 +420,7 @@ const FooterAdvanced = forwardRef<HTMLDivElement, FooterAdvancedProps>(({
       <div className="space-y-4">
         <Separator className={cn(
           tone === 'brand' && 'bg-primary-foreground/20',
-          tone === 'contrast' && 'bg-zinc-700'
+          tone === 'contrast' && 'bg-contrast-muted'
         )} />
         
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -509,7 +509,7 @@ const FooterSocial = forwardRef<HTMLDivElement, FooterSocialProps>(({
       case 'brand':
         return 'text-primary-foreground/70 hover:text-primary-foreground hover:bg-primary-foreground/10';
       case 'contrast':
-        return 'text-zinc-300 hover:text-zinc-100 hover:bg-zinc-800/50';
+        return 'text-contrast-muted-foreground hover:text-contrast-foreground hover:bg-contrast/50';
       default:
         return 'text-muted-foreground hover:text-foreground hover:bg-muted';
     }

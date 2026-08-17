@@ -46,7 +46,7 @@ export { BlankLayout };
  * Empty scheme for complete custom control:
  * <BlankLayout scheme="empty">
  *   <div className="min-h-screen flex">
- *     <div className="w-1/2 bg-blue-600">Custom left side</div>
+ *     <div className="w-1/2 bg-primary">Custom left side</div>
  *     <div className="w-1/2 bg-white">Custom right side</div>
  *   </div>
  * </BlankLayout>

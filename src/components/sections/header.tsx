@@ -44,8 +44,8 @@ const headerVariants = cva(
           'text-primary-foreground'
         ],
         contrast: [
-          'bg-zinc-900 border-zinc-700/40',
-          'text-zinc-100'
+          'bg-contrast border-contrast-border/40',
+          'text-contrast-foreground'
         ]
       },
       position: {
@@ -377,7 +377,7 @@ const HeaderNav = forwardRef<HTMLDivElement, HeaderNavProps>(({
                           {subItem.icon && <subItem.icon className="h-4 w-4" />}
                           <span>{subItem.label}</span>
                           {subItem.badge && (
-                            <span className="ml-auto text-xs bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded">
+                            <span className="ml-auto text-xs bg-muted text-muted-foreground px-1.5 py-0.5 rounded">
                               {subItem.badge}
                             </span>
                           )}
@@ -423,7 +423,7 @@ const HeaderNav = forwardRef<HTMLDivElement, HeaderNavProps>(({
                       {item.icon && <item.icon className="h-4 w-4 mr-3 flex-shrink-0" />}
                       <span className="flex-1 text-sm">{item.label}</span>
                       {item.badge && (
-                        <span className="text-xs bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded mr-2">
+                        <span className="text-xs bg-muted text-muted-foreground px-1.5 py-0.5 rounded mr-2">
                           {item.badge}
                         </span>
                       )}
@@ -456,7 +456,7 @@ const HeaderNav = forwardRef<HTMLDivElement, HeaderNavProps>(({
                               {subItem.icon && <subItem.icon className="h-3 w-3 mr-3 flex-shrink-0" />}
                               <span className="flex-1 text-sm">{subItem.label}</span>
                               {subItem.badge && (
-                                <span className="text-xs bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded">
+                                <span className="text-xs bg-muted text-muted-foreground px-1.5 py-0.5 rounded">
                                   {subItem.badge}
                                 </span>
                               )}

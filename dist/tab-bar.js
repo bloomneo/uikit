@@ -1,4 +1,4 @@
-import { jsxs as s, jsx as r } from "react/jsx-runtime";
+import { jsxs as i, jsx as r } from "react/jsx-runtime";
 import * as y from "react";
 import { forwardRef as w, useState as k } from "react";
 import { c as d } from "./index-Bke1qZdk.js";
@@ -12,7 +12,7 @@ const B = d(
         clean: "border-border",
         subtle: "border-muted bg-muted/10",
         brand: "border-primary/20 bg-primary/5",
-        contrast: "border-zinc-700 bg-zinc-900 text-zinc-100"
+        contrast: "border-contrast-border bg-contrast text-contrast-foreground"
       },
       variant: {
         default: "",
@@ -48,20 +48,20 @@ const B = d(
   onTabClick: c,
   tone: p = "clean",
   size: e = "md",
-  variant: i = "default",
+  variant: s = "default",
   showLabels: u = !0,
-  className: x
-}, f) => {
+  className: f
+}, x) => {
   const [b, g] = k(m || l[0]?.key), h = o !== void 0 ? o : b, v = (t) => {
     o === void 0 && g(t), c?.(t);
   };
-  return /* @__PURE__ */ s("div", { ref: f, className: n(B({ tone: p, variant: i }), x), children: [
+  return /* @__PURE__ */ i("div", { ref: x, className: n(B({ tone: p, variant: s }), f), children: [
     /* @__PURE__ */ r("div", { className: n(
       "flex items-center",
-      i === "floating" ? "justify-around px-2 h-14" : "justify-around h-16 px-2"
+      s === "floating" ? "justify-around px-2 h-14" : "justify-around h-16 px-2"
     ), children: l.map((t) => {
       const a = h === t.key;
-      return /* @__PURE__ */ s(
+      return /* @__PURE__ */ i(
         "button",
         {
           onClick: () => v(t.key),
@@ -73,7 +73,7 @@ const B = d(
           "aria-label": t.label,
           "aria-current": a ? "page" : void 0,
           children: [
-            t.icon && /* @__PURE__ */ s("span", { className: n(
+            t.icon && /* @__PURE__ */ i("span", { className: n(
               "relative transition-transform",
               a && "scale-110",
               e === "sm" ? "h-4 w-4" : e === "md" ? "h-5 w-5" : "h-6 w-6"
@@ -100,7 +100,7 @@ const B = d(
         t.key
       );
     }) }),
-    i !== "floating" && /* @__PURE__ */ r("div", { className: "h-safe-bottom", style: { paddingBottom: "env(safe-area-inset-bottom)" } })
+    s !== "floating" && /* @__PURE__ */ r("div", { className: "h-safe-bottom", style: { paddingBottom: "env(safe-area-inset-bottom)" } })
   ] });
 });
 T.displayName = "TabBar";

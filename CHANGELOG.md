@@ -56,6 +56,35 @@ Six exports share a name with a `lucide-react` icon: **Badge, Calendar,
 Command, Container, Sheet, Table**. Importing both unqualified makes
 `<Calendar />` ambiguous. `AGENTS.md` now documents the alias pattern.
 
+### Fixed — uikit's own components no longer use the palette it removes
+
+Twelve component files were built on a hardcoded `zinc-*` scale for
+`tone="contrast"`, plus `green-*`/`orange-*` for status and `gray-*` for muted
+badges — 80 classes in total. Under the new default stylesheet every one of
+them compiled to nothing, so the contrast surface of Header, Footer,
+AdminLayout, MobileLayout, PopupLayout and BlankLayout would have rendered
+unstyled. **This shipped broken in the first cut of 3.0.0 and was caught by a
+follow-up review, not by the build.**
+
+### Added — `contrast` and status token sets
+
+The migration needed tokens that did not exist:
+
+- `--color-contrast`, `-foreground`, `-muted`, `-muted-foreground`, `-border`
+- `--color-success`, `--color-warning` (+ foregrounds)
+
+There was a `destructive` token but never a `success` or `warning`, which is
+why components reached for raw green and orange in the first place. Values are
+identical to the scales they replace, so 3.0 looks the same — but the contrast
+surface is now themeable instead of being zinc regardless of theme.
+
+### Added — a gate so the library can't break its own stylesheet
+
+57 assertions scan every file under `src/components` and fail on any raw
+palette class, with a guard against a vacuous pass if the scan finds no files.
+The failure it prevents is invisible in review: the source looks fine, the
+build succeeds, and the component simply has no colour.
+
 ### Added — tests that compile real CSS
 
 28 assertions run the Tailwind CLI against both entries and inspect the
@@ -116,6 +145,35 @@ This split is load-bearing, not cosmetic. Tailwind v4 resolves
 a reset placed before a nested framework import is silently undone — the first
 attempt at this feature looked correct, built without error, and did nothing
 at all. Splitting the import out is what makes the strict entry possible.
+
+### Fixed — uikit's own components no longer use the palette it removes
+
+Twelve component files were built on a hardcoded `zinc-*` scale for
+`tone="contrast"`, plus `green-*`/`orange-*` for status and `gray-*` for muted
+badges — 80 classes in total. Under the new default stylesheet every one of
+them compiled to nothing, so the contrast surface of Header, Footer,
+AdminLayout, MobileLayout, PopupLayout and BlankLayout would have rendered
+unstyled. **This shipped broken in the first cut of 3.0.0 and was caught by a
+follow-up review, not by the build.**
+
+### Added — `contrast` and status token sets
+
+The migration needed tokens that did not exist:
+
+- `--color-contrast`, `-foreground`, `-muted`, `-muted-foreground`, `-border`
+- `--color-success`, `--color-warning` (+ foregrounds)
+
+There was a `destructive` token but never a `success` or `warning`, which is
+why components reached for raw green and orange in the first place. Values are
+identical to the scales they replace, so 3.0 looks the same — but the contrast
+surface is now themeable instead of being zinc regardless of theme.
+
+### Added — a gate so the library can't break its own stylesheet
+
+57 assertions scan every file under `src/components` and fail on any raw
+palette class, with a guard against a vacuous pass if the scan finds no files.
+The failure it prevents is invisible in review: the source looks fine, the
+build succeeds, and the component simply has no colour.
 
 ### Added — tests that compile real CSS
 

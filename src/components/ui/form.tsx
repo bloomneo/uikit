@@ -85,8 +85,8 @@ const calculatePasswordStrength = (password: string): {
   if (/[^a-zA-Z\d]/.test(password)) score += 15;
   
   if (score < 30) return { score, label: 'Weak', color: 'text-destructive' };
-  if (score < 60) return { score, label: 'Medium', color: 'text-orange-600' };
-  return { score, label: 'Strong', color: 'text-green-600' };
+  if (score < 60) return { score, label: 'Medium', color: 'text-warning' };
+  return { score, label: 'Strong', color: 'text-success' };
 };
 
 // =============================================================================
@@ -382,7 +382,7 @@ const ValidatedInput = forwardRef<HTMLInputElement, ValidatedInputProps>(({
           className={cn(
             'bg-background border-border text-foreground',
             hasError && 'border-destructive focus:border-destructive',
-            hasSuccess && 'border-green-500',
+            hasSuccess && 'border-success',
             (type === 'password' && showPasswordToggle) && 'pr-10',
             className
           )}
@@ -404,7 +404,7 @@ const ValidatedInput = forwardRef<HTMLInputElement, ValidatedInputProps>(({
         {touched && inputValue && !showPasswordToggle && (
           <div className="absolute right-3 top-2.5">
             {isValid ? (
-              <CheckCircle2 className="h-4 w-4 text-green-500" />
+              <CheckCircle2 className="h-4 w-4 text-success" />
             ) : (
               <AlertCircle className="h-4 w-4 text-destructive" />
             )}
@@ -423,8 +423,8 @@ const ValidatedInput = forwardRef<HTMLInputElement, ValidatedInputProps>(({
               className={cn(
                 'h-1.5 rounded-full transition-all duration-300',
                 passwordStrength.score < 30 && 'bg-destructive',
-                passwordStrength.score >= 30 && passwordStrength.score < 60 && 'bg-orange-500',
-                passwordStrength.score >= 60 && 'bg-green-500'
+                passwordStrength.score >= 30 && passwordStrength.score < 60 && 'bg-warning',
+                passwordStrength.score >= 60 && 'bg-success'
               )}
               style={{ width: `${passwordStrength.score}%` }}
             />
@@ -560,7 +560,7 @@ const ValidatedTextarea = forwardRef<HTMLTextAreaElement, ValidatedTextareaProps
         className={cn(
           'bg-background border-border text-foreground',
           hasError && 'border-destructive focus:border-destructive',
-          hasSuccess && 'border-green-500',
+          hasSuccess && 'border-success',
           className
         )}
       />

@@ -63,6 +63,19 @@
   --color-accent-foreground: #0C4A6E;
   --color-destructive: #DC2626;
   --color-destructive-foreground: #FFFFFF;
+  /* Status colours. Previously hardcoded green and orange scales inside
+     components, which the strict sheet removes. Same values, now themeable. */
+  --color-success: #16A34A;
+  --color-success-foreground: #FFFFFF;
+  --color-warning: #EA580C;
+  --color-warning-foreground: #FFFFFF;
+  /* Contrast: the deliberately-inverted surface used by tone="contrast".
+     Fixed across themes, exactly as the zinc scale it replaces was. */
+  --color-contrast: #18181B;
+  --color-contrast-foreground: #F4F4F5;
+  --color-contrast-muted: #3F3F46;
+  --color-contrast-muted-foreground: #A1A1AA;
+  --color-contrast-border: #3F3F46;
   --color-border: #E2E8F0;
   --color-input: #CBD5E1;
   --color-ring: #0EA5E9;
@@ -99,6 +112,19 @@
   --color-accent-foreground: #1F2937;
   --color-destructive: #DC2626;
   --color-destructive-foreground: #FFFFFF;
+  /* Status colours. Previously hardcoded green and orange scales inside
+     components, which the strict sheet removes. Same values, now themeable. */
+  --color-success: #16A34A;
+  --color-success-foreground: #FFFFFF;
+  --color-warning: #EA580C;
+  --color-warning-foreground: #FFFFFF;
+  /* Contrast: the deliberately-inverted surface used by tone="contrast".
+     Fixed across themes, exactly as the zinc scale it replaces was. */
+  --color-contrast: #18181B;
+  --color-contrast-foreground: #F4F4F5;
+  --color-contrast-muted: #3F3F46;
+  --color-contrast-muted-foreground: #A1A1AA;
+  --color-contrast-border: #3F3F46;
   --color-border: #E2E8F0;
   --color-input: #CBD5E1;
   --color-ring: #003285;
@@ -240,6 +266,19 @@
   --color-accent-foreground: #F1F5F9;
   --color-destructive: #EF4444;
   --color-destructive-foreground: #FFFFFF;
+  /* Status colours. Previously hardcoded green and orange scales inside
+     components, which the strict sheet removes. Same values, now themeable. */
+  --color-success: #22C55E;
+  --color-success-foreground: #FFFFFF;
+  --color-warning: #F97316;
+  --color-warning-foreground: #FFFFFF;
+  /* Contrast: the deliberately-inverted surface used by tone="contrast".
+     Fixed across themes, exactly as the zinc scale it replaces was. */
+  --color-contrast: #18181B;
+  --color-contrast-foreground: #F4F4F5;
+  --color-contrast-muted: #3F3F46;
+  --color-contrast-muted-foreground: #A1A1AA;
+  --color-contrast-border: #3F3F46;
   --color-border: #334155;
   --color-input: #475569;
   --color-ring: #38BDF8;
@@ -341,6 +380,19 @@
   --color-accent-foreground: #F8FAFC;
   --color-destructive: #EF4444;
   --color-destructive-foreground: #FFFFFF;
+  /* Status colours. Previously hardcoded green and orange scales inside
+     components, which the strict sheet removes. Same values, now themeable. */
+  --color-success: #22C55E;
+  --color-success-foreground: #FFFFFF;
+  --color-warning: #F97316;
+  --color-warning-foreground: #FFFFFF;
+  /* Contrast: the deliberately-inverted surface used by tone="contrast".
+     Fixed across themes, exactly as the zinc scale it replaces was. */
+  --color-contrast: #18181B;
+  --color-contrast-foreground: #F4F4F5;
+  --color-contrast-muted: #3F3F46;
+  --color-contrast-muted-foreground: #A1A1AA;
+  --color-contrast-border: #3F3F46;
   --color-border: #334155;
   --color-input: #475569;
   --color-ring: #2563EB;
@@ -833,6 +885,19 @@
   --color-accent-foreground: #0C4A6E;
   --color-destructive: #DC2626;
   --color-destructive-foreground: #FFFFFF;
+  /* Status colours. Previously hardcoded green and orange scales inside
+     components, which the strict sheet removes. Same values, now themeable. */
+  --color-success: #22C55E;
+  --color-success-foreground: #FFFFFF;
+  --color-warning: #F97316;
+  --color-warning-foreground: #FFFFFF;
+  /* Contrast: the deliberately-inverted surface used by tone="contrast".
+     Fixed across themes, exactly as the zinc scale it replaces was. */
+  --color-contrast: #18181B;
+  --color-contrast-foreground: #F4F4F5;
+  --color-contrast-muted: #3F3F46;
+  --color-contrast-muted-foreground: #A1A1AA;
+  --color-contrast-border: #3F3F46;
   --color-border: #E2E8F0;
   --color-input: #CBD5E1;
   --color-ring: #0EA5E9;
@@ -869,6 +934,19 @@
   --color-accent-foreground: #1F2937;
   --color-destructive: #DC2626;
   --color-destructive-foreground: #FFFFFF;
+  /* Status colours. Previously hardcoded green and orange scales inside
+     components, which the strict sheet removes. Same values, now themeable. */
+  --color-success: #16A34A;
+  --color-success-foreground: #FFFFFF;
+  --color-warning: #EA580C;
+  --color-warning-foreground: #FFFFFF;
+  /* Contrast: the deliberately-inverted surface used by tone="contrast".
+     Fixed across themes, exactly as the zinc scale it replaces was. */
+  --color-contrast: #18181B;
+  --color-contrast-foreground: #F4F4F5;
+  --color-contrast-muted: #3F3F46;
+  --color-contrast-muted-foreground: #A1A1AA;
+  --color-contrast-border: #3F3F46;
   --color-border: #E2E8F0;
   --color-input: #CBD5E1;
   --color-ring: #003285;
@@ -1010,6 +1088,19 @@
   --color-accent-foreground: #F1F5F9;
   --color-destructive: #EF4444;
   --color-destructive-foreground: #FFFFFF;
+  /* Status colours. Previously hardcoded green and orange scales inside
+     components, which the strict sheet removes. Same values, now themeable. */
+  --color-success: #22C55E;
+  --color-success-foreground: #FFFFFF;
+  --color-warning: #F97316;
+  --color-warning-foreground: #FFFFFF;
+  /* Contrast: the deliberately-inverted surface used by tone="contrast".
+     Fixed across themes, exactly as the zinc scale it replaces was. */
+  --color-contrast: #18181B;
+  --color-contrast-foreground: #F4F4F5;
+  --color-contrast-muted: #3F3F46;
+  --color-contrast-muted-foreground: #A1A1AA;
+  --color-contrast-border: #3F3F46;
   --color-border: #334155;
   --color-input: #475569;
   --color-ring: #38BDF8;
@@ -1111,6 +1202,19 @@
   --color-accent-foreground: #F8FAFC;
   --color-destructive: #EF4444;
   --color-destructive-foreground: #FFFFFF;
+  /* Status colours. Previously hardcoded green and orange scales inside
+     components, which the strict sheet removes. Same values, now themeable. */
+  --color-success: #22C55E;
+  --color-success-foreground: #FFFFFF;
+  --color-warning: #F97316;
+  --color-warning-foreground: #FFFFFF;
+  /* Contrast: the deliberately-inverted surface used by tone="contrast".
+     Fixed across themes, exactly as the zinc scale it replaces was. */
+  --color-contrast: #18181B;
+  --color-contrast-foreground: #F4F4F5;
+  --color-contrast-muted: #3F3F46;
+  --color-contrast-muted-foreground: #A1A1AA;
+  --color-contrast-border: #3F3F46;
   --color-border: #334155;
   --color-input: #475569;
   --color-ring: #2563EB;

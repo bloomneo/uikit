@@ -369,8 +369,8 @@ const AdminSidebar = forwardRef<HTMLElement, AdminSidebarProps>(({
                   "text-xs h-4 px-1 ml-1 flex-shrink-0",
                   finalTone === 'brand' && !isActive && 'bg-primary-foreground/10 text-primary-foreground border-primary-foreground/20',
                   finalTone === 'brand' && isActive && 'bg-primary-foreground/20 text-primary-foreground border-primary-foreground/30',
-                  finalTone === 'contrast' && !isActive && 'bg-zinc-700 text-zinc-300 border-zinc-600',
-                  finalTone === 'contrast' && isActive && 'bg-zinc-600 text-zinc-100 border-zinc-500'
+                  finalTone === 'contrast' && !isActive && 'bg-contrast-muted text-contrast-muted-foreground border-contrast-border',
+                  finalTone === 'contrast' && isActive && 'bg-contrast-muted text-contrast-foreground border-contrast-border'
                 )}
               >
                 {item.badge}
@@ -399,7 +399,7 @@ const AdminSidebar = forwardRef<HTMLElement, AdminSidebarProps>(({
               </TooltipTrigger>
               <TooltipContent 
                 side="right" 
-                className="bg-white text-black border border-gray-200 shadow-md"
+                className="bg-popover text-popover-foreground border border-border shadow-md"
               >
                 <p>{item.label}</p>
               </TooltipContent>
@@ -487,7 +487,7 @@ const AdminSidebar = forwardRef<HTMLElement, AdminSidebarProps>(({
           finalTone === 'clean' && 'bg-background/90 backdrop-blur-sm border-border/40 text-foreground',
           finalTone === 'subtle' && 'bg-muted/90 backdrop-blur-sm border-border/30 text-foreground',
           finalTone === 'brand' && 'bg-primary border-primary-foreground/20 text-primary-foreground',
-          finalTone === 'contrast' && 'bg-zinc-900 border-zinc-700/40 text-zinc-100',
+          finalTone === 'contrast' && 'bg-contrast border-contrast-border/40 text-contrast-foreground',
           className
         )}
       >
@@ -498,7 +498,7 @@ const AdminSidebar = forwardRef<HTMLElement, AdminSidebarProps>(({
             finalTone === 'clean' && 'border-border/40',
             finalTone === 'subtle' && 'border-border/30', 
             finalTone === 'brand' && 'border-primary-foreground/20',
-            finalTone === 'contrast' && 'border-zinc-700/40',
+            finalTone === 'contrast' && 'border-contrast-border/40',
             showLabels ? 'justify-between h-16 px-4' : 'justify-center h-16 px-2'
           )}>
             {showLabels ? (
@@ -507,7 +507,7 @@ const AdminSidebar = forwardRef<HTMLElement, AdminSidebarProps>(({
                   <div className={cn(
                     "flex-shrink-0",
                     finalTone === 'brand' && '[&_*]:text-primary-foreground',
-                    finalTone === 'contrast' && '[&_*]:text-zinc-100'
+                    finalTone === 'contrast' && '[&_*]:text-contrast-foreground'
                   )}>
                     {logo}
                   </div>
@@ -572,7 +572,7 @@ const AdminSidebar = forwardRef<HTMLElement, AdminSidebarProps>(({
                 finalTone === 'clean' && 'bg-border/40',
                 finalTone === 'subtle' && 'bg-border/30', 
                 finalTone === 'brand' && 'bg-primary-foreground/20',
-                finalTone === 'contrast' && 'bg-zinc-700/40'
+                finalTone === 'contrast' && 'bg-contrast-muted/40'
               )} />
               <div className="flex-shrink-0 p-4">
                 {footer}
