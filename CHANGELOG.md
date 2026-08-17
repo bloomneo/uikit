@@ -2,6 +2,48 @@
 
 All notable changes to UIKit will be documented in this file.
 
+## [3.0.1] - 2026-08-17
+
+### Fixed — `@import "@bloomneo/uikit/theme"` could not be resolved
+
+3.0.0's headline feature was unusable. CSS tooling resolves package imports
+via the **`style`** export condition; the exports map declared only `import`
+and `require`, so Tailwind failed outright:
+
+```
+Error: "./theme" is not exported under the condition "style"
+       from package node_modules/@bloomneo/uikit
+```
+
+Every consumer following the upgrade guide hit this on the first build. The
+`style` condition is now declared for `./theme`, `./styles`,
+`./styles/permissive` and `./styles/fonts`.
+
+**How it got through.** The pre-publish test compiled a consumer app but
+imported the theme by *relative path*, which resolves without any exports
+field. It proved the mechanism and never exercised the string a user actually
+writes. The test now uses the package specifier, and was verified to fail when
+the `style` condition is removed.
+
+### Added — `tailwindcss` declared as an optional peer dependency
+
+`@bloomneo/uikit/theme` is imported **into your Tailwind build** and uses v4-only
+syntax (`@theme`, `--color-*: initial`). Tailwind was previously only a
+devDependency, so nothing told you that:
+
+- a Tailwind v3 app cannot parse the theme file at all, and
+- an app with no Tailwind installed had no signal it needed one.
+
+Now declared as `tailwindcss: ^4.0.0`, marked **optional** because apps that
+consume only the prebuilt `@bloomneo/uikit/styles` need no build of their own.
+
+For the record: Tailwind v4 is the stable line (`latest` is 4.3.3; v3 is
+`v3-lts`). uikit builds against 4.1.x, and the palette lockdown is verified
+against 4.3.3 — the version a fresh consumer install actually gets.
+
+If you are on 3.0.0 and saw the resolution error, upgrading to 3.0.1 is the
+whole fix.
+
 ## [3.0.0] - 2026-08-17
 
 **One idea: the theme can no longer be bypassed.** `bg-primary` works,

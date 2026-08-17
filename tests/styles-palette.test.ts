@@ -150,7 +150,11 @@ describe('the lockdown holds in a CONSUMER build (not just uikit\'s own)', () =>
     );
     writeFileSync(
       join(dir, 'index.css'),
-      `@import "tailwindcss";\n@import "${resolve(__dirname, '../src/styles/theme.css')}";\n@source "${join(dir, 'App.tsx')}";\n`,
+      // The PACKAGE SPECIFIER, not a relative path. 3.0.0 shipped with no
+      // `style` export condition, so this exact line failed to resolve for
+      // every consumer — while a relative-path test passed happily. Test the
+      // string a user actually writes.
+      `@import "tailwindcss";\n@import "@bloomneo/uikit/theme";\n@source "${join(dir, 'App.tsx')}";\n`,
     );
     execFileSync('npx', ['@tailwindcss/cli', '-i', join(dir, 'index.css'), '-o', join(dir, 'out.css')], {
       cwd: resolve(__dirname, '..'),

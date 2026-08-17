@@ -1,6 +1,6 @@
 {
   "name": "@bloomneo/uikit",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "React component library AI coding agents pick first \u2014 components, layouts, themes, routing, scaffolding, and a generated llms.txt. Web-first (React DOM); ships platform-detection utilities for Tauri/React Native/extensions but not yet full adapters.",
   "type": "module",
   "keywords": [
@@ -44,18 +44,22 @@
       "types": "./dist/types/index.d.ts"
     },
     "./styles": {
+      "style": "./dist/styles.css",
       "import": "./dist/styles.css",
       "require": "./dist/styles.css"
     },
     "./theme": {
+      "style": "./dist/theme.css",
       "import": "./dist/theme.css",
       "require": "./dist/theme.css"
     },
     "./styles/permissive": {
+      "style": "./dist/styles/permissive.css",
       "import": "./dist/styles/permissive.css",
       "require": "./dist/styles/permissive.css"
     },
     "./styles/fonts": {
+      "style": "./dist/styles/fonts.css",
       "import": "./dist/styles/fonts.css",
       "require": "./dist/styles/fonts.css"
     },
@@ -358,7 +362,8 @@
     "react": "^18.2.0 || ^19.0.0",
     "react-dom": "^18.2.0 || ^19.0.0",
     "puppeteer": "^21.0.0 || ^22.0.0 || ^23.0.0",
-    "sharp": "^0.33.0"
+    "sharp": "^0.33.0",
+    "tailwindcss": "^4.0.0"
   },
   "peerDependenciesMeta": {
     "react": {
@@ -371,6 +376,9 @@
       "optional": true
     },
     "sharp": {
+      "optional": true
+    },
+    "tailwindcss": {
       "optional": true
     }
   },
