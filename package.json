@@ -1,6 +1,6 @@
 {
   "name": "@bloomneo/uikit",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "React component library AI coding agents pick first — 30 typed components and a locked semantic-token palette, with a generated llms.txt. A library, not a framework: your app owns its chrome. Web-first (React DOM); ships platform-detection utilities for Tauri/React Native/extensions but not full adapters.",
   "type": "module",
   "keywords": [
@@ -43,16 +43,19 @@
       "types": "./dist/types/index.d.ts"
     },
     "./styles": {
+      "types": "./dist-css.d.ts",
       "style": "./dist/styles.css",
       "import": "./dist/styles.css",
       "require": "./dist/styles.css"
     },
     "./theme": {
+      "types": "./dist-css.d.ts",
       "style": "./dist/theme.css",
       "import": "./dist/theme.css",
       "require": "./dist/theme.css"
     },
     "./styles/permissive": {
+      "types": "./dist-css.d.ts",
       "style": "./dist/styles/permissive.css",
       "import": "./dist/styles/permissive.css",
       "require": "./dist/styles/permissive.css"
@@ -217,7 +220,8 @@
     "AGENTS.md",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "dist-css.d.ts"
   ],
   "scripts": {
     "dev": "vite",
@@ -225,7 +229,7 @@
     "build:llms": "node scripts/build-llms.mjs",
     "build:lib": "vite build",
     "build:css": "node scripts/build-styles.mjs",
-    "build:types": "tsc --emitDeclarationOnly --outDir dist/types",
+    "build:types": "tsc --emitDeclarationOnly --outDir dist/types && node scripts/fix-dts-aliases.mjs",
     "clean": "rm -rf dist",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
@@ -295,13 +299,11 @@
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.2.0",
-    "autoprefixer": "^10.4.21",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "glob": "^10.4.5",
     "happy-dom": "^20.11.2",
-    "postcss-import": "^16.1.1",
     "react": "^19.1.0",
     "react-dom": "^19.2.8",
     "tailwindcss": "^4.1.8",

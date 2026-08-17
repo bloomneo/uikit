@@ -19,11 +19,21 @@ export interface ApiOptions {
 }
 
 export interface UseApiReturn<T = any> extends ApiResponse<T> {
-  call: (method: string, endpoint: string, data?: any) => Promise<T>;
-  get: (endpoint: string) => Promise<T>;
-  post: (endpoint: string, data?: any) => Promise<T>;
-  put: (endpoint: string, data?: any) => Promise<T>;
-  delete: (endpoint: string) => Promise<T>;
+  /**
+   * Each verb takes an optional per-call type that defaults to the hook's `T`.
+   *
+   * This matters because the two are often different: a list hook is
+   * `useApi<User[]>`, but the POST that creates one returns a single `User`.
+   * Without the per-call parameter, `await users.post('/api/users', …)` was
+   * typed `User[]` and `u.email` did not compile — which is exactly what the
+   * shipped `examples/use-api.tsx` did, so the canonical example never
+   * typechecked for anyone who copied it.
+   */
+  call: <R = T>(method: string, endpoint: string, data?: any) => Promise<R>;
+  get: <R = T>(endpoint: string) => Promise<R>;
+  post: <R = T>(endpoint: string, data?: any) => Promise<R>;
+  put: <R = T>(endpoint: string, data?: any) => Promise<R>;
+  delete: <R = T>(endpoint: string) => Promise<R>;
   reset: () => void;
 }
 
@@ -47,11 +57,11 @@ export function useApi<T = any>(options: ApiOptions = {}): UseApiReturn<T> {
     ...options.headers,
   };
 
-  const call = useCallback(async (
+  const call = useCallback(async <R = T,>(
     method: string,
     endpoint: string,
     data?: any
-  ): Promise<T> => {
+  ): Promise<R> => {
     setLoading(true);
     setError(null);
 
@@ -101,10 +111,10 @@ export function useApi<T = any>(options: ApiOptions = {}): UseApiReturn<T> {
   }, [baseURL, options.timeout]);
 
   // Convenience methods
-  const get = useCallback((endpoint: string) => call('GET', endpoint), [call]);
-  const post = useCallback((endpoint: string, data?: any) => call('POST', endpoint, data), [call]);
-  const put = useCallback((endpoint: string, data?: any) => call('PUT', endpoint, data), [call]);
-  const deleteMethod = useCallback((endpoint: string) => call('DELETE', endpoint), [call]);
+  const get = useCallback(<R = T,>(endpoint: string) => call<R>('GET', endpoint), [call]);
+  const post = useCallback(<R = T,>(endpoint: string, data?: any) => call<R>('POST', endpoint, data), [call]);
+  const put = useCallback(<R = T,>(endpoint: string, data?: any) => call<R>('PUT', endpoint, data), [call]);
+  const deleteMethod = useCallback(<R = T,>(endpoint: string) => call<R>('DELETE', endpoint), [call]);
 
   const reset = useCallback(() => {
     setData(null);

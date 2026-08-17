@@ -221,6 +221,34 @@ export type {
 export { foucScript, foucScriptTag } from './lib/fouc';
 export type { FoucScriptOptions } from './lib/fouc';
 
+/* ---------------------------------------------------------------------------
+ * Platform detection
+ *
+ * These existed in src/lib/platform.ts since 2.x but were never exported, while
+ * the npm description, the agent skill and the docs site all promised them. An
+ * agent following the skill would write `import { isTauri } from
+ * '@bloomneo/uikit'` and get undefined. Exporting them (4.1.1) is the smaller
+ * change than retracting three separate claims.
+ * ------------------------------------------------------------------------- */
+export {
+  detectPlatform,
+  isBrowser,
+  isNative,
+  isTauri,
+  isNode,
+  isSSR,
+  isMobile,
+  isTablet,
+  isDesktop,
+  getDeviceType,
+  getBrowserInfo,
+  getOperatingSystem,
+  getPlatformCapabilities,
+  supportsFeature,
+  PLATFORMS,
+  platform,
+} from './lib/platform';
+
 // Educational error helpers (used by components, also exposed for custom use).
 // Every typed subclass extends UIKitError, so `catch (err) { if (err instanceof UIKitError) ... }`
 // matches every uikit error in one clause.

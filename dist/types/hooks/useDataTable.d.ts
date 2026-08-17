@@ -16,7 +16,7 @@
  *   <Input value={table.search} onChange={(e) => table.setSearch(e.target.value)} />
  *   {table.rows.map((row) => <CustomRow key={row.id} row={row} />)}
  */
-import type { DataTableColumn, DataTableFilterValue, FilterConfig, SortConfig } from '@/components/ui/data-table';
+import type { DataTableColumn, DataTableFilterValue, FilterConfig, SortConfig } from '../components/ui/data-table';
 export interface UseDataTableOptions<T> {
     data: T[];
     columns: DataTableColumn<T>[];

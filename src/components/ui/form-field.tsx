@@ -20,7 +20,7 @@
 import * as React from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { Input } from '@/components/ui/input';
+import { Input } from './input';
 import { warnInDev } from '@/lib/errors';
 
 export interface FormFieldProps {

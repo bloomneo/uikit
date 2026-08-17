@@ -2,6 +2,82 @@
 
 All notable changes to UIKit will be documented in this file.
 
+## [4.1.1] - 2026-08-17
+
+A file-by-file audit before publishing. Everything here was already shipped and
+broken; nothing was caught by the build, by uikit's own typecheck, or by 187
+passing tests — because each failure is only visible from *outside* the package.
+
+### Fixed — build-time `@/` aliases leaked into the published types
+
+The headline bug. `tsc --emitDeclarationOnly` copies import specifiers through
+verbatim, so a `@/` alias used in a **type position** survived into the shipped
+`.d.ts`. Consumers cannot resolve `@/`, so the imported symbol degraded to
+`any` and every type derived from it collapsed:
+
+```tsx
+<PasswordInput onChange={(e) => setPassword(e.target.value)} />
+//                        ^ Parameter 'e' implicitly has an 'any' type
+```
+
+`PasswordInputProps extends Omit<ComponentProps<typeof Input>, 'type'>` became
+`Omit<any, 'type'>`, erasing the entire prop surface. `useDataTable` and
+`CommandDialog` had the same fault. Inside this repo the alias resolves fine,
+so the library's own typecheck stayed green throughout.
+
+Fixed at emit time by `scripts/fix-dts-aliases.mjs`, which rewrites every alias
+to a relative path and exits non-zero if any survive. Most `@/` imports are
+value imports and are erased harmlessly — which is why the few that mattered
+looked identical to the many that did not.
+
+### Fixed — five shipped examples did not typecheck
+
+The examples are the primary agent-facing artefact and llms.txt is generated
+from them, so an agent copying one expects it to compile. Verified by installing
+the tarball into a strict project and running `tsc` over every shipped file.
+
+- **`useApi` verbs are now per-call generic.** A list hook is `useApi<User[]>`,
+  but the POST that creates one returns a single `User`. Without a per-call
+  type, `await users.post('/api/users', …)` was typed `User[]` and `u.email`
+  did not compile — exactly what `examples/use-api.tsx` did. `get`/`post`/`put`/
+  `delete`/`call` now take `<R = T>`. Runtime is unchanged.
+- **CSS subpaths declare types.** `import '@bloomneo/uikit/styles'` raised
+  TS2882 in any strict consumer, including the canonical setup example.
+
+### Fixed — 16 platform helpers existed but were never exported
+
+`src/lib/platform.ts` has shipped `isTauri`, `isNative`, `isBrowser`,
+`detectPlatform`, `isMobile` and eleven more since 2.x. None were exported,
+while the npm description, the agent skill and the docs site all promised them
+— an agent following the skill would write `import { isTauri } from
+'@bloomneo/uikit'` and get `undefined`. Exporting them was the smaller change
+than retracting three claims. Exports **139 → 155**.
+
+`isExtension()` was the exception: it never existed, and only the docs site
+claimed it. That claim is corrected rather than the function invented.
+
+### Removed — dead build configuration
+
+- `tailwind.config.js` — Tailwind **v3** syntax in a v4 project, globbing a
+  `./test-demo/` directory that does not exist. Nothing reads it; v4 is
+  configured through `@theme` in CSS.
+- `postcss.config.js` — `vite.config.ts` sets `css.postcss.plugins: []`, which
+  overrides it entirely. It also named `tailwindcss` as a PostCSS plugin (v4
+  uses `@tailwindcss/postcss`) and `postcss` was never a dependency.
+- `postcss-import` and `autoprefixer`, used only by that dead config.
+- Five tracked `.DS_Store` files, despite `.gitignore` already listing them.
+
+### Added — `tests/package-integrity.test.ts`
+
+Asserts against the **built artefact**, not the source, because that is where
+every bug above lived: no `@/` in any `.d.ts`, every relative type import
+resolves, every `exports` subpath and `bin` entry points at a real file, no
+declared dependency the source never imports, CSS subpaths carry `types`, the
+description does not advertise removed features, and every shipped example
+imports only symbols the package declares.
+
+211 tests. Each new guard was verified by reintroducing the bug it describes.
+
 ## [4.1.0] - 2026-08-17
 
 Cleanup pass over what 4.0 left behind. 4.0's component surface was correct;

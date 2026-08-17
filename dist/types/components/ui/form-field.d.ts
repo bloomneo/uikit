@@ -15,7 +15,7 @@
  *   </FormField>
  */
 import * as React from 'react';
-import { Input } from '@/components/ui/input';
+import { Input } from './input';
 export interface FormFieldProps {
     /** Required label text. */
     label: string;

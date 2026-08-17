@@ -48,6 +48,7 @@ export { formatCurrency, formatNumber, formatDate, timeAgo, formatBytes, Time, }
 export type { FormatCurrencyOptions, FormatNumberOptions, FormatDateOptions, FormatBytesOptions, TimeAgoOptions, TimeProps, Nullable, DateInput, } from './lib/format';
 export { foucScript, foucScriptTag } from './lib/fouc';
 export type { FoucScriptOptions } from './lib/fouc';
+export { detectPlatform, isBrowser, isNative, isTauri, isNode, isSSR, isMobile, isTablet, isDesktop, getDeviceType, getBrowserInfo, getOperatingSystem, getPlatformCapabilities, supportsFeature, PLATFORMS, platform, } from './lib/platform';
 export { UIKitError, DataTableError, FormFieldError, ThemeError, ConfirmError, ToastError, PermissionError, requireProp, requireArrayProp, warnInDev, } from './lib/errors';
 export { ThemeProvider, useTheme, type Theme, type Mode } from './themes/theme-provider';
 export { useApi, useBackendStatus, useLocalStorage, useMediaQuery, useBreakpoint, useActiveBreakpoint, breakpointQuery, BREAKPOINTS, useDataTable, usePagination, } from './hooks';

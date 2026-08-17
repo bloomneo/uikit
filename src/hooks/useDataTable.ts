@@ -24,7 +24,7 @@ import type {
   DataTableFilterValue,
   FilterConfig,
   SortConfig,
-} from '@/components/ui/data-table';
+} from '../components/ui/data-table';
 
 export interface UseDataTableOptions<T> {
   data: T[];

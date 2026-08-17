@@ -1,110 +1,112 @@
-import { c as e } from "./utils-D7gXXjDs.js";
+import { c as r } from "./utils-D7gXXjDs.js";
 import { Button as a } from "./button.js";
-import { Input as n } from "./input.js";
-import { Textarea as i } from "./textarea.js";
-import { Label as s } from "./label.js";
+import { Input as i } from "./input.js";
+import { Textarea as n } from "./textarea.js";
+import { Label as d } from "./label.js";
 import { Checkbox as u } from "./checkbox.js";
 import { RadioGroup as T, RadioGroupItem as C } from "./radio-group.js";
 import { Switch as g } from "./switch.js";
-import { Select as S, SelectContent as b, SelectGroup as c, SelectItem as w, SelectLabel as P, SelectTrigger as h, SelectValue as M } from "./select.js";
-import { Form as v, FormControl as I, FormField as E, FormDescription as B, FormItem as H, FormLabel as y, FormMessage as A } from "./form.js";
-import { Card as L, CardContent as k, CardDescription as R, CardFooter as q, CardHeader as K, CardTitle as N } from "./card.js";
-import { Badge as O } from "./badge.js";
+import { Select as S, SelectContent as b, SelectGroup as c, SelectItem as P, SelectLabel as w, SelectTrigger as M, SelectValue as F } from "./select.js";
+import { Form as v, FormControl as I, FormField as B, FormDescription as y, FormItem as E, FormLabel as A, FormMessage as H } from "./form.js";
+import { Card as R, CardContent as k, CardDescription as G, CardFooter as N, CardHeader as O, CardTitle as q } from "./card.js";
+import { Badge as Q } from "./badge.js";
 import { Alert as V, AlertDescription as j, AlertTitle as z } from "./alert.js";
 import { Tabs as W, TabsContent as X, TabsList as Y, TabsTrigger as Z } from "./tabs.js";
-import { DropdownMenu as $, DropdownMenuCheckboxItem as oo, DropdownMenuContent as ro, DropdownMenuGroup as eo, DropdownMenuItem as to, DropdownMenuLabel as ao, DropdownMenuPortal as mo, DropdownMenuRadioGroup as no, DropdownMenuRadioItem as po, DropdownMenuSeparator as io, DropdownMenuShortcut as so, DropdownMenuSub as lo, DropdownMenuSubContent as uo, DropdownMenuSubTrigger as fo, DropdownMenuTrigger as To } from "./dropdown-menu.js";
-import { Command as xo, CommandDialog as go, CommandEmpty as Do, CommandGroup as So, CommandInput as bo, CommandItem as co, CommandList as wo, CommandSeparator as Po, CommandShortcut as ho } from "./command.js";
-import { Dialog as Fo, DialogContent as vo, DialogDescription as Io, DialogFooter as Eo, DialogHeader as Bo, DialogTitle as Ho, DialogTrigger as yo } from "./dialog.js";
-import { Sheet as Go, SheetClose as Lo, SheetContent as ko, SheetDescription as Ro, SheetFooter as qo, SheetHeader as Ko, SheetTitle as No, SheetTrigger as Qo } from "./sheet.js";
+import { DropdownMenu as $, DropdownMenuCheckboxItem as oo, DropdownMenuContent as eo, DropdownMenuGroup as ro, DropdownMenuItem as to, DropdownMenuLabel as ao, DropdownMenuPortal as mo, DropdownMenuRadioGroup as io, DropdownMenuRadioItem as po, DropdownMenuSeparator as no, DropdownMenuShortcut as so, DropdownMenuSub as lo, DropdownMenuSubContent as uo, DropdownMenuSubTrigger as fo, DropdownMenuTrigger as To } from "./dropdown-menu.js";
+import { Command as xo, CommandDialog as go, CommandEmpty as Do, CommandGroup as So, CommandInput as bo, CommandItem as co, CommandList as Po, CommandSeparator as wo, CommandShortcut as Mo } from "./command.js";
+import { Dialog as ho, DialogContent as vo, DialogDescription as Io, DialogFooter as Bo, DialogHeader as yo, DialogTitle as Eo, DialogTrigger as Ao } from "./dialog.js";
+import { Sheet as Lo, SheetClose as Ro, SheetContent as ko, SheetDescription as Go, SheetFooter as No, SheetHeader as Oo, SheetTitle as qo, SheetTrigger as Ko } from "./sheet.js";
 import { Popover as Uo, PopoverContent as Vo, PopoverTrigger as jo } from "./popover.js";
 import { HoverCard as Jo, HoverCardContent as Wo, HoverCardTrigger as Xo } from "./hover-card.js";
-import { Tooltip as Zo, TooltipContent as _o, TooltipProvider as $o, TooltipTrigger as or } from "./tooltip.js";
-import { Table as er, TableBody as tr, TableCaption as ar, TableCell as mr, TableHead as nr, TableHeader as pr, TableRow as ir } from "./table.js";
-import { DataTable as sr } from "./data-table.js";
-import { Toaster as ur } from "./sonner.js";
-import { EmptyState as Tr } from "./empty-state.js";
-import { PageHeader as xr } from "./page-header.js";
-import { FormField as Dr, PasswordInput as Sr } from "./form-field.js";
-import { ToastProvider as cr, toast as wr, useToast as Pr } from "./toast.js";
-import { ConfirmDialog as Mr, ConfirmProvider as Fr, useConfirm as vr } from "./confirm-dialog.js";
-import { PermissionGate as Er, PermissionProvider as Br, usePermission as Hr } from "./permission-gate.js";
-import { Combobox as Ar } from "./combobox.js";
-import { Time as Lr, formatBytes as kr, formatCurrency as Rr, formatDate as qr, formatNumber as Kr, timeAgo as Nr } from "./format.js";
-import { foucScript as Or, foucScriptTag as Ur } from "./fouc.js";
-import { ConfirmError as jr, DataTableError as zr, FormFieldError as Jr, PermissionError as Wr, ThemeError as Xr, ToastError as Yr, UIKitError as Zr, requireArrayProp as _r, requireProp as $r, warnInDev as oe } from "./errors.js";
-import { ThemeProvider as ee, useTheme as te } from "./theme-provider.js";
-import { B as me, b as ne, u as pe, a as ie, c as de, d as se, e as le, f as ue, g as fe, h as Te } from "./usePagination-B4ZUESJo.js";
+import { Tooltip as Zo, TooltipContent as _o, TooltipProvider as $o, TooltipTrigger as oe } from "./tooltip.js";
+import { Table as re, TableBody as te, TableCaption as ae, TableCell as me, TableHead as ie, TableHeader as pe, TableRow as ne } from "./table.js";
+import { DataTable as de } from "./data-table.js";
+import { Toaster as ue } from "./sonner.js";
+import { EmptyState as Te } from "./empty-state.js";
+import { PageHeader as xe } from "./page-header.js";
+import { FormField as De, PasswordInput as Se } from "./form-field.js";
+import { ToastProvider as ce, toast as Pe, useToast as we } from "./toast.js";
+import { ConfirmDialog as Fe, ConfirmProvider as he, useConfirm as ve } from "./confirm-dialog.js";
+import { PermissionGate as Be, PermissionProvider as ye, usePermission as Ee } from "./permission-gate.js";
+import { Combobox as He } from "./combobox.js";
+import { Time as Re, formatBytes as ke, formatCurrency as Ge, formatDate as Ne, formatNumber as Oe, timeAgo as qe } from "./format.js";
+import { foucScript as Qe, foucScriptTag as Ue } from "./fouc.js";
+import { PLATFORMS as je, detectPlatform as ze, getBrowserInfo as Je, getDeviceType as We, getOperatingSystem as Xe, getPlatformCapabilities as Ye, isBrowser as Ze, isDesktop as _e, isMobile as $e, isNative as or, isNode as er, isSSR as rr, isTablet as tr, isTauri as ar, default as mr, supportsFeature as ir } from "./platform.js";
+import { ConfirmError as nr, DataTableError as sr, FormFieldError as dr, PermissionError as lr, ThemeError as ur, ToastError as fr, UIKitError as Tr, requireArrayProp as Cr, requireProp as xr, warnInDev as gr } from "./errors.js";
+import { ThemeProvider as Sr, useTheme as br } from "./theme-provider.js";
+import { B as Pr, b as wr, u as Mr, a as Fr, c as hr, d as vr, e as Ir, f as Br, g as yr, h as Er } from "./usePagination-B4ZUESJo.js";
 export {
   V as Alert,
   j as AlertDescription,
   z as AlertTitle,
-  me as BREAKPOINTS,
-  O as Badge,
+  Pr as BREAKPOINTS,
+  Q as Badge,
   a as Button,
-  L as Card,
+  R as Card,
   k as CardContent,
-  R as CardDescription,
-  q as CardFooter,
-  K as CardHeader,
-  N as CardTitle,
+  G as CardDescription,
+  N as CardFooter,
+  O as CardHeader,
+  q as CardTitle,
   u as Checkbox,
-  Ar as Combobox,
+  He as Combobox,
   xo as Command,
   go as CommandDialog,
   Do as CommandEmpty,
   So as CommandGroup,
   bo as CommandInput,
   co as CommandItem,
-  wo as CommandList,
-  Po as CommandSeparator,
-  ho as CommandShortcut,
-  Mr as ConfirmDialog,
-  jr as ConfirmError,
-  Fr as ConfirmProvider,
-  sr as DataTable,
-  zr as DataTableError,
-  Fo as Dialog,
+  Po as CommandList,
+  wo as CommandSeparator,
+  Mo as CommandShortcut,
+  Fe as ConfirmDialog,
+  nr as ConfirmError,
+  he as ConfirmProvider,
+  de as DataTable,
+  sr as DataTableError,
+  ho as Dialog,
   vo as DialogContent,
   Io as DialogDescription,
-  Eo as DialogFooter,
-  Bo as DialogHeader,
-  Ho as DialogTitle,
-  yo as DialogTrigger,
+  Bo as DialogFooter,
+  yo as DialogHeader,
+  Eo as DialogTitle,
+  Ao as DialogTrigger,
   $ as DropdownMenu,
   oo as DropdownMenuCheckboxItem,
-  ro as DropdownMenuContent,
-  eo as DropdownMenuGroup,
+  eo as DropdownMenuContent,
+  ro as DropdownMenuGroup,
   to as DropdownMenuItem,
   ao as DropdownMenuLabel,
   mo as DropdownMenuPortal,
-  no as DropdownMenuRadioGroup,
+  io as DropdownMenuRadioGroup,
   po as DropdownMenuRadioItem,
-  io as DropdownMenuSeparator,
+  no as DropdownMenuSeparator,
   so as DropdownMenuShortcut,
   lo as DropdownMenuSub,
   uo as DropdownMenuSubContent,
   fo as DropdownMenuSubTrigger,
   To as DropdownMenuTrigger,
-  Tr as EmptyState,
+  Te as EmptyState,
   v as Form,
   I as FormControl,
-  E as FormController,
-  B as FormDescription,
-  Dr as FormField,
-  Jr as FormFieldError,
-  H as FormItem,
-  y as FormLabel,
-  A as FormMessage,
+  B as FormController,
+  y as FormDescription,
+  De as FormField,
+  dr as FormFieldError,
+  E as FormItem,
+  A as FormLabel,
+  H as FormMessage,
   Jo as HoverCard,
   Wo as HoverCardContent,
   Xo as HoverCardTrigger,
-  n as Input,
-  s as Label,
-  xr as PageHeader,
-  Sr as PasswordInput,
-  Wr as PermissionError,
-  Er as PermissionGate,
-  Br as PermissionProvider,
+  i as Input,
+  d as Label,
+  je as PLATFORMS,
+  xe as PageHeader,
+  Se as PasswordInput,
+  lr as PermissionError,
+  Be as PermissionGate,
+  ye as PermissionProvider,
   Uo as Popover,
   Vo as PopoverContent,
   jo as PopoverTrigger,
@@ -113,66 +115,81 @@ export {
   S as Select,
   b as SelectContent,
   c as SelectGroup,
-  w as SelectItem,
-  P as SelectLabel,
-  h as SelectTrigger,
-  M as SelectValue,
-  Go as Sheet,
-  Lo as SheetClose,
+  P as SelectItem,
+  w as SelectLabel,
+  M as SelectTrigger,
+  F as SelectValue,
+  Lo as Sheet,
+  Ro as SheetClose,
   ko as SheetContent,
-  Ro as SheetDescription,
-  qo as SheetFooter,
-  Ko as SheetHeader,
-  No as SheetTitle,
-  Qo as SheetTrigger,
+  Go as SheetDescription,
+  No as SheetFooter,
+  Oo as SheetHeader,
+  qo as SheetTitle,
+  Ko as SheetTrigger,
   g as Switch,
-  er as Table,
-  tr as TableBody,
-  ar as TableCaption,
-  mr as TableCell,
-  nr as TableHead,
-  pr as TableHeader,
-  ir as TableRow,
+  re as Table,
+  te as TableBody,
+  ae as TableCaption,
+  me as TableCell,
+  ie as TableHead,
+  pe as TableHeader,
+  ne as TableRow,
   W as Tabs,
   X as TabsContent,
   Y as TabsList,
   Z as TabsTrigger,
-  i as Textarea,
-  Xr as ThemeError,
-  ee as ThemeProvider,
-  Lr as Time,
-  Yr as ToastError,
-  cr as ToastProvider,
-  ur as Toaster,
+  n as Textarea,
+  ur as ThemeError,
+  Sr as ThemeProvider,
+  Re as Time,
+  fr as ToastError,
+  ce as ToastProvider,
+  ue as Toaster,
   Zo as Tooltip,
   _o as TooltipContent,
   $o as TooltipProvider,
-  or as TooltipTrigger,
-  Zr as UIKitError,
-  ne as breakpointQuery,
-  e as cn,
-  kr as formatBytes,
-  Rr as formatCurrency,
-  qr as formatDate,
-  Kr as formatNumber,
-  Or as foucScript,
-  Ur as foucScriptTag,
-  _r as requireArrayProp,
-  $r as requireProp,
-  Nr as timeAgo,
-  wr as toast,
-  pe as useActiveBreakpoint,
-  ie as useApi,
-  de as useBackendStatus,
-  se as useBreakpoint,
-  vr as useConfirm,
-  le as useDataTable,
-  ue as useLocalStorage,
-  fe as useMediaQuery,
-  Te as usePagination,
-  Hr as usePermission,
-  te as useTheme,
-  Pr as useToast,
-  oe as warnInDev
+  oe as TooltipTrigger,
+  Tr as UIKitError,
+  wr as breakpointQuery,
+  r as cn,
+  ze as detectPlatform,
+  ke as formatBytes,
+  Ge as formatCurrency,
+  Ne as formatDate,
+  Oe as formatNumber,
+  Qe as foucScript,
+  Ue as foucScriptTag,
+  Je as getBrowserInfo,
+  We as getDeviceType,
+  Xe as getOperatingSystem,
+  Ye as getPlatformCapabilities,
+  Ze as isBrowser,
+  _e as isDesktop,
+  $e as isMobile,
+  or as isNative,
+  er as isNode,
+  rr as isSSR,
+  tr as isTablet,
+  ar as isTauri,
+  mr as platform,
+  Cr as requireArrayProp,
+  xr as requireProp,
+  ir as supportsFeature,
+  qe as timeAgo,
+  Pe as toast,
+  Mr as useActiveBreakpoint,
+  Fr as useApi,
+  hr as useBackendStatus,
+  vr as useBreakpoint,
+  ve as useConfirm,
+  Ir as useDataTable,
+  Br as useLocalStorage,
+  yr as useMediaQuery,
+  Er as usePagination,
+  Ee as usePermission,
+  br as useTheme,
+  we as useToast,
+  gr as warnInDev
 };
 //# sourceMappingURL=index.js.map
