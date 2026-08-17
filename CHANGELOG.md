@@ -4,231 +4,193 @@ All notable changes to UIKit will be documented in this file.
 
 ## [3.0.0] - 2026-08-17
 
-### Breaking — the default stylesheet no longer ships Tailwind's palette
+**One idea: the theme can no longer be bypassed.** `bg-primary` works,
+`bg-blue-600` compiles to nothing. Everything else here follows from that.
 
-`@bloomneo/uikit/styles` now emits **only** the theme's semantic tokens.
-`bg-primary` works; `bg-blue-600`, `text-gray-900` and `border-red-400`
-compile to nothing.
+---
 
-**Why.** The theme system was this library's headline feature and its
-least-used part. One production app accumulated **1,547 hardcoded palette
-classes against 196 semantic ones**; another 209 against 74. Not carelessness
-— both were equally available and the raw palette needed no lookup. A rule
-that lives only in documentation gets bypassed at the rate the codebase grows.
+## Upgrade plan
 
-Removing the alternative is the only version of the rule that holds, and it
-asks very little of an agent: not "adopt our component library", just "use the
-one class that exists". The failure mode is loud — an unstyled element, seen
-immediately — instead of drift nobody notices until the brand stops matching
-itself.
+### 1. Pick the right import — this is the step people get wrong
 
-**Migration.** `@bloomneo/uikit/styles/permissive` is 2.x verbatim:
+A prebuilt stylesheet **cannot** constrain your build. If your app runs its own
+`@import "tailwindcss"`, your Tailwind generates whatever utilities your source
+uses — `bg-blue-600` included — no matter what uikit ships. The lockdown only
+applies when the reset participates in the build that scans your code.
 
-```ts
-import "@bloomneo/uikit/styles/permissive";   // temporary
-```
-
-Switch, then move hardcoded colours to tokens at your own pace. Treat it as a
-migration aid with an end date, not a supported style.
-
-Costs ~6.5 KB less CSS.
-
-### Added — `@bloomneo/uikit/theme` (this is the import most apps need)
+| Your app | Import | 
+|---|---|
+| Runs its own Tailwind (**every Bloom template**) | `@import "@bloomneo/uikit/theme";` in your CSS, after `@import "tailwindcss";` |
+| No build step, wants prebuilt CSS | `import "@bloomneo/uikit/styles";` |
+| Migrating, needs raw colours working today | `import "@bloomneo/uikit/styles/permissive";` |
 
 ```css
-/* your index.css */
+/* index.css — the normal case */
 @import "tailwindcss";
 @import "@bloomneo/uikit/theme";
 ```
 
-**A prebuilt stylesheet cannot constrain your build.** If an app runs its own
-`@import "tailwindcss"` — every Bloom template does — its Tailwind generates
-whatever utilities its source uses, `bg-blue-600` included, no matter what
-uikit ships. The reset only takes effect when it participates in the build that
-scans the app's code, so the tokens are now shipped as **source** for that
-pipeline.
+If you pick wrong, nothing errors — the palette simply still works, and you
+have not actually upgraded. Check with the grep in step 3.
 
-This was caught during pre-publish verification by simulating a real consumer
-build. Without it 3.0 would have shipped a headline promise that was false in
-the only situation it mattered: the lockdown worked inside uikit and nowhere
-else.
+### 2. Decide: migrate now, or defer
 
-`@bloomneo/uikit/styles` remains for apps with no build step.
+**Defer.** Switch to `@bloomneo/uikit/styles/permissive` and everything behaves
+as it did in 2.x. Nothing else in this release requires action. Treat it as a
+migration aid with an end date.
 
-### Changed — stylesheet internals split
+**Migrate.** Continue to step 3.
 
-Tokens live in `src/styles/_tokens.css`; `globals.css` and `permissive.css`
-are thin entries that compose them differently.
+### 3. Find what will break
 
-The split is load-bearing. Tailwind v4 resolves `--color-*: initial` against
-the **last** `@import "tailwindcss"` it sees, so a reset placed before a nested
-framework import is silently undone — the first attempt at this looked
-correct, built without error, and did nothing at all.
+```bash
+grep -rnE '\b(bg|text|border|ring|from|via|to)-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|[1-9]00|950)\b' src/
+```
 
-### Fixed — 9 dead duplicate token declarations
+Every hit renders **unstyled** under the new default. There is no runtime
+error — the element just has no colour, which is how you will notice.
+
+### 4. Replace with tokens
+
+| Was | Use |
+|---|---|
+| `bg-white`, `bg-gray-50` | `bg-background`, `bg-card` |
+| `text-black`, `text-gray-900` | `text-foreground` |
+| `text-gray-500/600` | `text-muted-foreground` |
+| `bg-gray-100` | `bg-muted` |
+| `border-gray-200/300` | `border-border` |
+| `bg-blue-600` (your brand) | `bg-primary` |
+| `text-green-600`, `bg-green-500` | `text-success`, `bg-success` *(new)* |
+| `text-orange-600`, `bg-orange-500` | `text-warning`, `bg-warning` *(new)* |
+| `bg-red-600` | `bg-destructive` |
+| `bg-zinc-900` + `text-zinc-100` (dark bars) | `bg-contrast` + `text-contrast-foreground` *(new)* |
+
+Need a colour with no token? Add one to your theme rather than reaching back
+for the palette — that is the whole point.
+
+### 5. Verify
+
+Recompile and re-run the grep. Zero hits means you are done; the lockdown is
+now enforcing itself.
+
+### Note for Bloom template users
+
+A scaffolded app gets no benefit until its `index.css` imports
+`@bloomneo/uikit/theme`. Until the Bloom CLI ships that change, add the line
+by hand.
+
+---
+
+## Breaking
+
+### The default stylesheet no longer ships Tailwind's palette
+
+`@bloomneo/uikit/styles` emits **only** the theme's semantic tokens.
+`bg-blue-600`, `text-gray-900` and `border-red-400` compile to nothing.
+
+**Why.** The theme system was this library's headline feature and its
+least-used part. One production app accumulated **1,547 hardcoded palette
+classes against 196 semantic ones**; another 209 against 74. Not carelessness —
+both were equally available, and the raw palette needed no lookup. A rule that
+lives only in documentation gets bypassed at the rate the codebase grows.
+
+Removing the alternative is the only version of the rule that holds, and it
+asks very little: not "adopt our component library", just "use the one class
+that exists". The failure is loud — an unstyled element, seen immediately —
+instead of drift nobody notices until the brand stops matching itself.
+
+Escape hatch: `@bloomneo/uikit/styles/permissive` is 2.x verbatim.
+
+---
+
+## Added
+
+### `@bloomneo/uikit/theme` — the import most apps need
+
+The tokens plus the reset, shipped as **source** so they participate in your
+Tailwind build. See step 1 above for why a prebuilt sheet cannot do this job.
+
+Caught during pre-publish verification by compiling a simulated consumer app.
+Without it, 3.0 would have shipped a promise that was true inside uikit and
+false everywhere else.
+
+### `contrast` and status token sets
+
+- `--color-contrast`, `-foreground`, `-muted`, `-muted-foreground`, `-border`
+- `--color-success`, `--color-warning` (+ `-foreground`)
+
+There was a `destructive` token but never a `success` or `warning`, which is
+exactly why components reached for raw green and orange. Values match the
+scales they replace, so 3.0 looks identical — but the contrast surface is now
+themeable instead of being zinc regardless of theme.
+
+### Icon collision guidance
+
+Six exports share a name with a `lucide-react` icon: **Badge, Calendar,
+Command, Container, Sheet, Table**. Importing both unqualified makes
+`<Calendar />` ambiguous. `AGENTS.md` documents the alias pattern.
+
+### Tests that compile real CSS
+
+34 assertions run the Tailwind CLI and inspect the output, because "this class
+produces no CSS" is invisible in review. Six compile a **simulated consumer
+app** — its own `@import "tailwindcss"` plus uikit's theme — the only
+configuration that proves the lockdown reaches real applications. Includes
+guards against empty-output false passes.
+
+Plus 57 assertions that fail if any file under `src/components` uses a raw
+palette class, so the library cannot break its own stylesheet again.
+
+---
+
+## Fixed
+
+### uikit's own components used the palette it removes
+
+Twelve component files were built on a hardcoded `zinc-*` scale for
+`tone="contrast"`, plus `green-*`/`orange-*` for status and `gray-*` for muted
+badges — 80 classes. Under the new default every one compiled to nothing, so
+the contrast surface of Header, Footer, AdminLayout, MobileLayout, PopupLayout
+and BlankLayout rendered unstyled. **This shipped broken in the first cut of
+3.0.0** and was caught by review, not by the build.
+
+### 9 dead duplicate token declarations
 
 The root `@theme` block defined 8 tokens two or three times over
 (`--voila-font-display` 3×, plus six gradient tokens), a side effect of theme
 presets being concatenated. CSS already kept only the last, so the earlier
-declarations were dead weight that made the block misleading to read.
+declarations were dead weight that made the block misleading.
 
-### Added — icon collision guidance
+### Stale version claims + a gate
 
-Six exports share a name with a `lucide-react` icon: **Badge, Calendar,
-Command, Container, Sheet, Table**. Importing both unqualified makes
-`<Calendar />` ambiguous. `AGENTS.md` now documents the alias pattern.
+`AGENTS.md` — the file agents read first — claimed v2.1.4 against a 3.0.0
+package, across a release that changes what the default stylesheet does. The
+skill claimed v2.1.5 and `theming.md` claimed 29 tokens when there are 42.
+`check:docs` now fails when any version claim drifts from `package.json`.
 
-### Fixed — uikit's own components no longer use the palette it removes
+---
 
-Twelve component files were built on a hardcoded `zinc-*` scale for
-`tone="contrast"`, plus `green-*`/`orange-*` for status and `gray-*` for muted
-badges — 80 classes in total. Under the new default stylesheet every one of
-them compiled to nothing, so the contrast surface of Header, Footer,
-AdminLayout, MobileLayout, PopupLayout and BlankLayout would have rendered
-unstyled. **This shipped broken in the first cut of 3.0.0 and was caught by a
-follow-up review, not by the build.**
+## Changed
 
-### Added — `contrast` and status token sets
+### Stylesheet internals split
 
-The migration needed tokens that did not exist:
+Tokens live in `src/styles/_tokens.css`; `globals.css`, `permissive.css` and
+`theme.css` are thin entries composing them differently.
 
-- `--color-contrast`, `-foreground`, `-muted`, `-muted-foreground`, `-border`
-- `--color-success`, `--color-warning` (+ foregrounds)
+The split is load-bearing. Tailwind v4 resolves `--color-*: initial` against
+the **last** `@import "tailwindcss"` it sees, so a reset placed before a nested
+framework import is silently undone — the first attempt looked correct, built
+without error, and did nothing.
 
-There was a `destructive` token but never a `success` or `warning`, which is
-why components reached for raw green and orange in the first place. Values are
-identical to the scales they replace, so 3.0 looks the same — but the contrast
-surface is now themeable instead of being zinc regardless of theme.
+---
 
-### Added — a gate so the library can't break its own stylesheet
-
-57 assertions scan every file under `src/components` and fail on any raw
-palette class, with a guard against a vacuous pass if the scan finds no files.
-The failure it prevents is invisible in review: the source looks fine, the
-build succeeds, and the component simply has no colour.
-
-### Added — tests that compile real CSS
-
-34 assertions run the Tailwind CLI and inspect the output, because "this class
-produces no CSS" is invisible in review and two near-misses proved a
-source-level check would have passed. Six of them compile a **simulated
-consumer app** — its own `@import "tailwindcss"` plus uikit's theme — which is
-the only configuration that proves the lockdown reaches real applications.
-Includes guards against empty-output false passes.
-
-Suite: 82 → 110 passing.
-
-### Not in this release
+## Not in this release
 
 The export-surface cull (68 → ~15) is **deferred, deliberately**. The case for
-it rested on 18% component adoption — but that measurement was taken while the
-raw palette was freely available, which is a confound this release removes.
-Re-measure adoption on 3.0 before cutting anything; the same evidence review
-also showed `DataTable`, `EmptyState` and `ConfirmDialog` were hand-rebuilt in
-every app, which is proven demand, not dead weight.
-
-## [2.2.0] - 2026-08-17
-
-### Added — `@bloomneo/uikit/styles/strict`
-
-A second stylesheet entry that removes Tailwind's default palette, leaving
-only the theme's semantic tokens.
-
-```ts
-import "@bloomneo/uikit/styles/strict";
-```
-
-`bg-primary` works; `bg-blue-600` compiles to nothing.
-
-**Why.** The theme system was the library's headline feature and the least
-used part of it. One production app accumulated **1,547 hardcoded palette
-classes against 196 semantic ones**; another 209 against 74. Not carelessness
-— both were equally available, and the raw palette needed no lookup. A rule
-that lives only in documentation gets bypassed at exactly the rate the
-codebase grows.
-
-Removing the alternative is the only version of the rule that holds, and the
-bar it sets is low: the model doesn't have to learn a component library, it
-just has to use the one class that exists. A mistake shows up immediately as
-an unstyled element rather than surviving review.
-
-**Not a breaking change.** `@bloomneo/uikit/styles` is unchanged and still
-ships the full palette, so existing apps upgrade without losing styles.
-Strict is recommended for new apps; existing ones should migrate their
-hardcoded colours first.
-
-Costs ~12 KB less CSS (126.6 KB → 120.1 KB minified).
-
-### Added — `@bloomneo/uikit/theme` (this is the import most apps need)
-
-```css
-/* your index.css */
-@import "tailwindcss";
-@import "@bloomneo/uikit/theme";
-```
-
-**A prebuilt stylesheet cannot constrain your build.** If an app runs its own
-`@import "tailwindcss"` — every Bloom template does — its Tailwind generates
-whatever utilities its source uses, `bg-blue-600` included, no matter what
-uikit ships. The reset only takes effect when it participates in the build that
-scans the app's code, so the tokens are now shipped as **source** for that
-pipeline.
-
-This was caught during pre-publish verification by simulating a real consumer
-build. Without it 3.0 would have shipped a headline promise that was false in
-the only situation it mattered: the lockdown worked inside uikit and nowhere
-else.
-
-`@bloomneo/uikit/styles` remains for apps with no build step.
-
-### Changed — stylesheet internals split
-
-`src/styles/globals.css` is now a thin entry; the tokens live in
-`src/styles/_tokens.css` and `strict.css` composes them differently.
-
-This split is load-bearing, not cosmetic. Tailwind v4 resolves
-`--color-*: initial` against the **last** `@import "tailwindcss"` it sees, so
-a reset placed before a nested framework import is silently undone — the first
-attempt at this feature looked correct, built without error, and did nothing
-at all. Splitting the import out is what makes the strict entry possible.
-
-### Fixed — uikit's own components no longer use the palette it removes
-
-Twelve component files were built on a hardcoded `zinc-*` scale for
-`tone="contrast"`, plus `green-*`/`orange-*` for status and `gray-*` for muted
-badges — 80 classes in total. Under the new default stylesheet every one of
-them compiled to nothing, so the contrast surface of Header, Footer,
-AdminLayout, MobileLayout, PopupLayout and BlankLayout would have rendered
-unstyled. **This shipped broken in the first cut of 3.0.0 and was caught by a
-follow-up review, not by the build.**
-
-### Added — `contrast` and status token sets
-
-The migration needed tokens that did not exist:
-
-- `--color-contrast`, `-foreground`, `-muted`, `-muted-foreground`, `-border`
-- `--color-success`, `--color-warning` (+ foregrounds)
-
-There was a `destructive` token but never a `success` or `warning`, which is
-why components reached for raw green and orange in the first place. Values are
-identical to the scales they replace, so 3.0 looks the same — but the contrast
-surface is now themeable instead of being zinc regardless of theme.
-
-### Added — a gate so the library can't break its own stylesheet
-
-57 assertions scan every file under `src/components` and fail on any raw
-palette class, with a guard against a vacuous pass if the scan finds no files.
-The failure it prevents is invisible in review: the source looks fine, the
-build succeeds, and the component simply has no colour.
-
-### Added — tests that compile real CSS
-
-28 assertions run the actual Tailwind CLI against both entries and inspect the
-output, because "this class produces no CSS" is invisible in review and the
-near-miss above proved a source-level check would have passed. Includes a
-guard against an empty-output false pass.
-
-Suite: 82 → 110 passing.
+it rested on 18% component adoption — measured while the raw palette was freely
+available, which is a confound this release removes. Re-measure on 3.0 before
+cutting anything; the same review also showed `DataTable`, `EmptyState` and
+`ConfirmDialog` were hand-rebuilt in every app, which is proven demand.
 
 ## [2.1.5] - 2026-04-21
 
