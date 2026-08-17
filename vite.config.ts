@@ -48,6 +48,28 @@ export default defineConfig({
       '@bloomneo/uikit': resolve(__dirname, './src'),
     },
   },
+  test: {
+    // The style tests shell out to the real Tailwind CLI and the surface test
+    // imports the built bundle — both are node-only and jsdom would just slow
+    // them down. Component tests need a DOM, so scope it to those.
+    // happy-dom rather than jsdom: jsdom 27 fails to load under Node 20.17
+    // (a transitive CJS/ESM conflict in @asamuzakjp/css-color).
+    projects: [
+      {
+        extends: true,
+        test: { name: 'node', environment: 'node', include: ['tests/*.test.ts'] },
+      },
+      {
+        extends: true,
+        test: {
+          name: 'dom',
+          environment: 'happy-dom',
+          include: ['tests/components/**/*.test.{ts,tsx}'],
+          setupFiles: ['tests/setup.ts'],
+        },
+      },
+    ],
+  },
   build: {
     lib: {
       entry: {
