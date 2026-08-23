@@ -185,6 +185,52 @@ function applyThemeImmediately(theme: Theme, mode: Mode) {
   // Add new classes immediately
   root.classList.add(mode);
   root.classList.add(`theme-${theme}`);
+
+  warnIfThemeMissing(theme);
+}
+
+/**
+ * Warn when the applied `theme-*` class is not defined by any stylesheet.
+ *
+ * A theme name is restored from storage without validation, deliberately —
+ * UIKit cannot know the themes an app defines. The cost of that freedom is a
+ * silent failure: rename or delete a theme and every previously-stored
+ * preference points at a class that no longer exists. Nothing errors. The app
+ * falls back to UIKit's base tokens and looks subtly, inexplicably wrong — the
+ * wrong accent, the wrong neutrals, and no clue why.
+ *
+ * This changes no behaviour. It only says what happened. Development only.
+ */
+function warnIfThemeMissing(theme: Theme) {
+  if (typeof document === 'undefined') return;
+  if (typeof process !== 'undefined' && process.env?.NODE_ENV === 'production') return;
+
+  const selector = `.theme-${theme}`;
+  let found = false;
+
+  for (const sheet of Array.from(document.styleSheets)) {
+    try {
+      for (const rule of Array.from(sheet.cssRules)) {
+        if ((rule as CSSStyleRule).selectorText?.includes(selector)) { found = true; break; }
+      }
+    } catch {
+      // Cross-origin stylesheet — unreadable, so it may well define the theme.
+      // Assume the best rather than warn on a false positive.
+      found = true;
+    }
+    if (found) break;
+  }
+
+  if (!found) {
+    console.warn(
+      `[@bloomneo/uikit] Theme "${theme}" is applied to <html>, but no stylesheet ` +
+        `defines "${selector}". Every token falls back to the base theme — which ` +
+        `usually shows up as the wrong accent colour, with no error.\n` +
+        `  · Renamed or removed this theme? Clear the stored preference: ` +
+        `localStorage.removeItem('uikit-theme')\n` +
+        `  · Or ignore storage entirely: <ThemeProvider theme="…" forceConfig />`,
+    );
+  }
 }
 
 /**
