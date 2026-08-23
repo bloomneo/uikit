@@ -1,12 +1,12 @@
 ---
 name: bloomneo-uikit
 description: Rules for generating React code with @bloomneo/uikit — components, design tokens, and forms. Applies when the project's package.json has "@bloomneo/uikit" as a dependency, or when the user mentions uikit, bloomneo, or files import from "@bloomneo/uikit". Also triggers for "uikit generate" or any `npx uikit` command.
-version: 4.1.6
+version: 4.1.7
 user-invocable: false
 allowed-tools: Bash(npx uikit *), Bash(pnpm dlx uikit *), Bash(bunx --bun uikit *)
 ---
 
-# @bloomneo/uikit (v4.1.6)
+# @bloomneo/uikit (v4.1.7)
 
 React component library: 30 components and a locked design-token palette.
 Built on Radix + Tailwind + cva. Web-first (React DOM); ships platform-detection
