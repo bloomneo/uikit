@@ -8,6 +8,11 @@ Work in progress on the `next` branch; see `MIGRATION-6.md`.
 
 ### Added
 
+- `@bloomneo/uikit/router`: the page router every Bloom app used to copy.
+  The app passes its `import.meta.glob`; route rules, lazy loading with a
+  Suspense boundary per page, layouts, error boundary (reset on navigation)
+  and 404 live in the package. Warns when two files map to one URL.
+  `react-router-dom` is an optional peer dependency.
 - `AppShell`: the signed-in app frame (collapsible sidebar, header, mobile
   navigation sheet), lifted from Bloom's dashboard template. Router-agnostic:
   pass `currentPath` and a `linkComponent`.

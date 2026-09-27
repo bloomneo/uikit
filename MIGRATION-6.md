@@ -28,4 +28,5 @@ None of these were imported by any of the four production apps (counted
 
 | Added | Replaces |
 |---|---|
+| `@bloomneo/uikit/router`: `PageRouter` (pass the app's `import.meta.glob`), `pathFromFile`, `discoverRoutes`, `RouteLayout` | the ~390-line `src/web/lib/page-router.tsx` copied into every Bloom app |
 | `AppShell` — sidebar (collapsible to an icon rail, remembered per browser), header, mobile navigation in a sheet, active item from `currentPath`, router-agnostic via `linkComponent` | uikit 2.x `PageLayout` / `Header` / `HeaderNav` (removed in 4.0), and the hand-built shells in apps created since |

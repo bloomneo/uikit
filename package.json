@@ -193,7 +193,11 @@
       "import": "./dist/errors.js",
       "types": "./dist/types/lib/errors.d.ts"
     },
-    "./llms.txt": "./dist/llms.txt"
+    "./llms.txt": "./dist/llms.txt",
+    "./router": {
+      "import": "./dist/router.js",
+      "types": "./dist/types/router/index.d.ts"
+    }
   },
   "files": [
     "dist",
@@ -235,6 +239,7 @@
   "peerDependencies": {
     "react": "^18.2.0 || ^19.0.0",
     "react-dom": "^18.2.0 || ^19.0.0",
+    "react-router-dom": ">=6.20.0",
     "tailwindcss": "^4.0.0"
   },
   "peerDependenciesMeta": {
@@ -245,6 +250,9 @@
       "optional": false
     },
     "tailwindcss": {
+      "optional": true
+    },
+    "react-router-dom": {
       "optional": true
     }
   },
@@ -286,6 +294,7 @@
     "happy-dom": "^20.11.2",
     "react": "^19.1.0",
     "react-dom": "^19.2.8",
+    "react-router-dom": "^6.30.6",
     "tailwindcss": "^4.1.8",
     "typescript": "^5.8.3",
     "vite": "^7.1.5",

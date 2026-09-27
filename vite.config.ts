@@ -33,6 +33,9 @@ const getComponentEntries = () => {
   entries['fouc'] = resolve(__dirname, 'src/lib/fouc.ts');
   entries['errors'] = resolve(__dirname, 'src/lib/errors.ts');
 
+  // Page router: its own subpath so the root entry never needs react-router.
+  entries['router'] = resolve(__dirname, 'src/router/index.tsx');
+
   return entries;
 };
 
@@ -82,6 +85,7 @@ export default defineConfig({
         'react',
         'react-dom',
         'react/jsx-runtime',
+        'react-router-dom',
       ],
       output: {
         globals: {

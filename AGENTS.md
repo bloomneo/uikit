@@ -94,6 +94,30 @@ export default function RootLayout({ children }) {
 </head>
 ```
 
+## Page routing (`@bloomneo/uikit/router`)
+
+Bloom apps route by file: `features/<name>/pages/**` become URLs. The router
+lives in the package; the app passes its own glob (Vite resolves
+`import.meta.glob` relative to the file that calls it, so it can't be inside
+a library):
+
+```tsx
+import { BrowserRouter } from 'react-router-dom';
+import { PageRouter } from '@bloomneo/uikit/router';
+
+const pages = import.meta.glob(['./features/*/pages/**/*.{tsx,jsx}', '!**/_*.{tsx,jsx}', '!**/_*/**']);
+
+<BrowserRouter>
+  <PageRouter pages={pages} layouts={layouts} onError={reportError} />
+</BrowserRouter>
+```
+
+- `index.tsx` → the folder's URL; `[id].tsx` → `:id`; `[...path].tsx` → `*`;
+  `features/main/` → `/`; files or folders starting with `_` are not routes.
+- `routeBase={{ billing: '/account' }}` gives a feature another URL prefix.
+- Every page gets a Suspense boundary and the error boundary; a 404 is built in.
+- Needs `react-router-dom` (optional peer dependency).
+
 ## Component decision tree
 
 | Need | Use | Not |
