@@ -187,9 +187,9 @@ console.log(`OK: scanned ${SCAN.length} files, no drift.`);
 
 const pkgVersion = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')).version as string;
 const VERSION_CLAIMS: Array<{ file: string; re: RegExp; label: string }> = [
-  { file: 'AGENTS.md', re: /`@bloomneo\/uikit` v([0-9]+\.[0-9]+\.[0-9]+)/, label: 'AGENTS.md header' },
-  { file: 'skills/bloomneo-uikit/SKILL.md', re: /v([0-9]+\.[0-9]+\.[0-9]+)/, label: 'uikit SKILL.md header' },
-  { file: 'llms.txt', re: /^# @bloomneo\/uikit v([0-9]+\.[0-9]+\.[0-9]+)/m, label: 'llms.txt header (generated)' },
+  { file: 'AGENTS.md', re: /`@bloomneo\/uikit` v([0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z]+(?:\.[0-9A-Za-z]+)*)?)/, label: 'AGENTS.md header' },
+  { file: 'skills/bloomneo-uikit/SKILL.md', re: /v([0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z]+(?:\.[0-9A-Za-z]+)*)?)/, label: 'uikit SKILL.md header' },
+  { file: 'llms.txt', re: /^# @bloomneo\/uikit v([0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z]+(?:\.[0-9A-Za-z]+)*)?)/m, label: 'llms.txt header (generated)' },
 ];
 
 const versionErrors: string[] = [];

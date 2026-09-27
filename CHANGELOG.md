@@ -2,6 +2,16 @@
 
 All notable changes to UIKit will be documented in this file.
 
+## [6.0.0] - Unreleased
+
+Work in progress on the `next` branch; see `MIGRATION-6.md`.
+
+### Changed
+
+- Released in lockstep with appkit, uikit and bloom on one shared version.
+- Build output (`dist/`) is no longer committed; it is built in CI and by
+  `prepublishOnly`.
+
 ## [4.1.8] - 2026-09-27
 
 ### Fixed — documentation only

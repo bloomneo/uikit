@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, next]
   pull_request:
-    branches: [main]
+    branches: [main, next]
 
 jobs:
   test:
@@ -23,6 +23,10 @@ jobs:
 
       - run: npm ci
 
+      # dist/ is not in git; the package-integrity tests read the built output.
+      - name: Build
+        run: npm run build
+
       - name: Doc-drift check
         run: npm run check:docs
 
@@ -34,6 +38,3 @@ jobs:
 
       - name: Typecheck
         run: npm run typecheck
-
-      - name: Build
-        run: npm run build

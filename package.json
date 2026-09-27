@@ -1,6 +1,6 @@
 {
   "name": "@bloomneo/uikit",
-  "version": "4.1.8",
+  "version": "6.0.0-alpha.0",
   "description": "React component library AI coding agents pick first — 30 typed components and a locked semantic-token palette, with a generated llms.txt. A library, not a framework: your app owns its chrome. Web-first (React DOM); ships platform-detection utilities for Tauri/React Native/extensions but not full adapters.",
   "type": "module",
   "keywords": [
@@ -35,7 +35,7 @@
     "./dist/styles.css"
   ],
   "bin": {
-    "uikit": "./bin/uikit.js"
+    "uikit": "bin/uikit.js"
   },
   "exports": {
     ".": {
@@ -220,6 +220,7 @@
     "AGENTS.md",
     "README.md",
     "CHANGELOG.md",
+    "MIGRATION-6.md",
     "LICENSE",
     "dist-css.d.ts"
   ],
@@ -243,7 +244,7 @@
     "check:docs": "npx tsx scripts/check-doc-drift.ts",
     "check:anchors": "npx tsx scripts/check-readme-anchors.ts",
     "deploy": "gh-pages -d docs/dist",
-    "prepublishOnly": "npm run test && npm run build",
+    "prepublishOnly": "npm run build && npm run test",
     "preversion": "npm run build",
     "postversion": "git push && git push --tags"
   },

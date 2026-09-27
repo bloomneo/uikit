@@ -54,3 +54,6 @@ pages/
 
 # npm pack output — regenerate with `npm pack`
 *.tgz
+
+# Build output: produced by `npm run build` (CI and prepublishOnly), not tracked.
+dist/
