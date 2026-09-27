@@ -1,6 +1,6 @@
 # @bloomneo/uikit v6.0.0-alpha.0
 
-React component library AI coding agents pick first — typed components and a locked semantic-token palette, with a generated llms.txt. A library, not a framework: your app owns its chrome. Web-first (React DOM); runs unchanged in Electron and Capacitor builds.
+React components for business apps that AI coding agents use correctly — typed components on a locked semantic-token palette, an app shell, and data hooks for Bloomneo route contracts, with a generated llms.txt. Web-first (React DOM); runs unchanged in Electron and Capacitor builds.
 
 This file is the canonical machine-readable index of @bloomneo/uikit.
 Read it first when generating code that uses this library.
