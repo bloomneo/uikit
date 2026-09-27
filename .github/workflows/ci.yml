@@ -11,7 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
+        # Vite 7 and Tailwind 4 need Node 20.19+ to build and test. The built
+        # library itself still runs on the Node versions in `engines`.
+        node-version: [20.x, 22.x]
     steps:
       - uses: actions/checkout@v4
 
