@@ -30,7 +30,7 @@ const COMPONENTS = [
   // Form primitives
   'Button', 'Input', 'Textarea', 'Label', 'Checkbox',
   // Form wrappers
-  'FormField', 'FormController',   // FormController = legacy alias
+  'FormField',
   'PasswordInput',
   // Select family
   'Combobox',
@@ -53,13 +53,10 @@ const COMPONENTS = [
 
 const HOOKS = [
   'useApi',
-  'useBackendStatus',
-  'useLocalStorage',
   'useMediaQuery',
   'useBreakpoint',
   'useActiveBreakpoint',
   'useDataTable',
-  'usePagination',
   'useTheme',
   'useToast',
   'useConfirm',

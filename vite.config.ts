@@ -29,7 +29,6 @@ const getComponentEntries = () => {
 
   // Utils and Lib
   entries['utils'] = resolve(__dirname, 'src/lib/utils.ts');
-  entries['platform'] = resolve(__dirname, 'src/lib/platform.ts');
   entries['format'] = resolve(__dirname, 'src/lib/format.ts');
   entries['fouc'] = resolve(__dirname, 'src/lib/fouc.ts');
   entries['errors'] = resolve(__dirname, 'src/lib/errors.ts');

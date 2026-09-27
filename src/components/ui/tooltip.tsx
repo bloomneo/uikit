@@ -8,7 +8,7 @@
  * @file src/components/ui/tooltip.tsx
  *
  * @llm-rule WHEN: Short text hint on hover (icon button label, truncated text explanation)
- * @llm-rule AVOID: Using for rich/interactive content — use <HoverCard> or <Popover> instead
+ * @llm-rule AVOID: Using for rich/interactive content — use <Popover> instead
  * @llm-rule NOTE: Nesting: Tooltip > TooltipTrigger + TooltipContent. Props on content: `side`, `align`, `sideOffset`
  * @llm-rule NOTE: Each Tooltip self-wraps with TooltipProvider — no need to add one manually
  * @llm-rule NOTE: `delayDuration` on TooltipProvider controls hover delay (default: 0ms)

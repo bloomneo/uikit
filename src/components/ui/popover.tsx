@@ -8,7 +8,7 @@
  * @file src/components/ui/popover.tsx
  *
  * @llm-rule WHEN: Interactive floating content triggered by click (color picker, date picker wrapper, filter panel)
- * @llm-rule AVOID: Using for hover hints — use <Tooltip>. For hover previews — use <HoverCard>. For centered modals — use <Dialog>
+ * @llm-rule AVOID: Using for hover hints — use <Tooltip>. For centered modals — use <Dialog>
  * @llm-rule NOTE: Controlled: `open` + `onOpenChange`. Trigger-based: wrap in <PopoverTrigger>
  * @llm-rule NOTE: Nesting: Popover > PopoverTrigger + PopoverContent. Props on content: `side`, `align`, `sideOffset`
  * @llm-rule NOTE: Radix wrapper — props pass through to @radix-ui/react-popover

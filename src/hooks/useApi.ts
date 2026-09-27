@@ -134,27 +134,3 @@ export function useApi<T = any>(options: ApiOptions = {}): UseApiReturn<T> {
     reset,
   };
 }
-
-/**
- * Hook for checking backend connectivity
- */
-export function useBackendStatus() {
-  const { data, loading, error, get } = useApi<{ status: string; timestamp: string }>();
-
-  const checkStatus = useCallback(async () => {
-    try {
-      await get('/health');
-      return true;
-    } catch {
-      return false;
-    }
-  }, [get]);
-
-  return {
-    isConnected: data?.status === 'ok',
-    loading,
-    error,
-    checkStatus,
-    lastCheck: data?.timestamp,
-  };
-}

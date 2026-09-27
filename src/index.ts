@@ -30,22 +30,6 @@ export {
   SelectGroup,
   SelectLabel,
 } from './components/ui/select';
-export {
-  Form,
-  FormControl,
-  FormDescription,
-  // @llm-rule AVOID: Do not reach for `FormController` in new code — it is a
-  //   legacy alias for react-hook-form's `<FormField>` controller, kept only
-  //   so existing react-hook-form consumers can migrate without a rename.
-  //   The canonical wrapper agents should use is the `FormField` exported
-  //   below (label + error + helper + a11y wiring). Its source file
-  //   `src/components/ui/form.tsx` header reiterates this rule, and
-  //   AGENTS.md rule "Never do #2" bans its use in new code.
-  FormField as FormController,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from './components/ui/form';
 
 // UI Components - Display & Layout
 export {
@@ -78,17 +62,6 @@ export {
   DropdownMenuCheckboxItem,
   DropdownMenuShortcut,
 } from './components/ui/dropdown-menu';
-export {
-  Command,
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-  CommandShortcut,
-} from './components/ui/command';
 
 // UI Components - Overlay & Modal
 export {
@@ -111,11 +84,6 @@ export {
   SheetClose,
 } from './components/ui/sheet';
 export { Popover, PopoverContent, PopoverTrigger } from './components/ui/popover';
-export {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from './components/ui/hover-card';
 export {
   Tooltip,
   TooltipContent,
@@ -221,33 +189,6 @@ export type {
 export { foucScript, foucScriptTag } from './lib/fouc';
 export type { FoucScriptOptions } from './lib/fouc';
 
-/* ---------------------------------------------------------------------------
- * Platform detection
- *
- * These existed in src/lib/platform.ts since 2.x but were never exported, while
- * the npm description, the agent skill and the docs site all promised them. An
- * agent following the skill would write `import { isTauri } from
- * '@bloomneo/uikit'` and get undefined. Exporting them (4.1.1) is the smaller
- * change than retracting three separate claims.
- * ------------------------------------------------------------------------- */
-export {
-  detectPlatform,
-  isBrowser,
-  isNative,
-  isTauri,
-  isNode,
-  isSSR,
-  isMobile,
-  isTablet,
-  isDesktop,
-  getDeviceType,
-  getBrowserInfo,
-  getOperatingSystem,
-  getPlatformCapabilities,
-  supportsFeature,
-  PLATFORMS,
-  platform,
-} from './lib/platform';
 
 // Educational error helpers (used by components, also exposed for custom use).
 // Every typed subclass extends UIKitError, so `catch (err) { if (err instanceof UIKitError) ... }`
@@ -271,26 +212,19 @@ export { ThemeProvider, useTheme, type Theme, type Mode } from './themes/theme-p
 // Hooks
 export {
   useApi,
-  useBackendStatus,
-  useLocalStorage,
   useMediaQuery,
   useBreakpoint,
   useActiveBreakpoint,
   breakpointQuery,
   BREAKPOINTS,
   useDataTable,
-  usePagination,
 } from './hooks';
 export type {
   ApiResponse,
   ApiOptions,
   UseApiReturn,
-  UseLocalStorageReturn,
   Breakpoint,
   BreakpointDirection,
   UseDataTableOptions,
   UseDataTableReturn,
-  UsePaginationOptions,
-  UsePaginationReturn,
-  PaginationPage,
 } from './hooks';

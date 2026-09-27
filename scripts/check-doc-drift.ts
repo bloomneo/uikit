@@ -59,6 +59,22 @@ const REMOVED_IN_4: string[] = [
   'Collapsible', 'DetailPage', 'Menubar', 'Motion', 'Pagination', 'Progress',
   'Separator', 'Skeleton', 'Slider', 'Toggle', 'useMobileLayout',
 ];
+// Removed in 6.0: unused by every production app (import count 2026-09-26),
+// or a second way to do something another export already does.
+const REMOVED_IN_6: string[] = [
+  'FormController', 'FormItem', 'FormLabel', 'FormMessage', 'FormControl', 'FormDescription',
+  'HoverCard', 'HoverCardContent', 'HoverCardTrigger',
+  'useLocalStorage', 'useBackendStatus', 'usePagination',
+  'detectPlatform', 'isTauri', 'isNative', 'getPlatformCapabilities',
+];
+for (const name of REMOVED_IN_6) {
+  BANNED.push({
+    pattern: new RegExp(String.raw`<` + name + String.raw`[\s/>]|\b` + name + String.raw`\b\s*[,}]\s*from|\b` + name + String.raw`\(`),
+    now: `removed in 6.0 — see MIGRATION-6.md`,
+    raw: true,
+  });
+}
+
 for (const name of REMOVED_IN_4) {
   BANNED.push({
     pattern: new RegExp(String.raw`<` + name + String.raw`[\s/>]|\b` + name + String.raw`\b\s*[,}]\s*from`),

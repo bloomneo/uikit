@@ -12,14 +12,6 @@ import type {
   ForwardRefExoticComponent,
   RefAttributes,
 } from 'react';
-import type {
-  FieldValues,
-  FieldPath,
-  UseFormReturn,
-  SubmitHandler,
-  SubmitErrorHandler,
-} from 'react-hook-form';
-import type { ZodSchema } from 'zod';
 
 
 /**
@@ -160,111 +152,6 @@ export interface RowAction<TRow = unknown> {
 }
 
 /**
- * Enhanced Form Types
- * @llm-usage React Hook Form + Zod validation system
- */
-
-/**
- * Enhanced Form props with Zod validation
- */
-export interface EnhancedFormProps<T extends FieldValues = FieldValues> {
-  /** REQUIRED: Zod schema for validation */
-  schema: ZodSchema<T>;
-  /** OPTIONAL: Default values */
-  defaultValues?: Partial<T>;
-  /** REQUIRED: Form submission handler */
-  onSubmit: (data: T) => void | Promise<void>;
-  /** OPTIONAL: Error handler — receives react-hook-form's FieldErrors */
-  onError?: (errors: import('react-hook-form').FieldErrors<T>) => void;
-  /** OPTIONAL: Loading state */
-  loading?: boolean;
-  /** OPTIONAL: Form mode */
-  mode?: 'onChange' | 'onBlur' | 'onSubmit' | 'onTouched' | 'all';
-  /** OPTIONAL: Revalidate mode */
-  reValidateMode?: 'onChange' | 'onBlur' | 'onSubmit';
-  /** OPTIONAL: Auto-save functionality */
-  autoSave?: {
-    enabled: boolean;
-    debounceMs?: number;
-    onSave?: (data: Partial<T>) => void;
-  };
-  /** OPTIONAL: Form layout */
-  layout?: 'vertical' | 'horizontal' | 'inline';
-  /** OPTIONAL: Form size */
-  size?: 'sm' | 'md' | 'lg';
-  /** OPTIONAL: Additional CSS classes */
-  className?: string;
-  /** REQUIRED: Form content */
-  children: React.ReactNode;
-}
-
-/**
- * Form field props
- */
-export interface FormFieldProps<T extends FieldValues = FieldValues> {
-  /** REQUIRED: Field name */
-  name: FieldPath<T>;
-  /** OPTIONAL: Field label */
-  label?: string;
-  /** OPTIONAL: Field description */
-  description?: string;
-  /** OPTIONAL: Field is required */
-  required?: boolean;
-  /** OPTIONAL: Field variant */
-  variant?: 'default' | 'inline' | 'stacked';
-  /** OPTIONAL: Additional CSS classes */
-  className?: string;
-  /** REQUIRED: Field content */
-  children: React.ReactNode;
-}
-
-/**
- * Input field props
- */
-export interface InputFieldProps<T extends FieldValues = FieldValues> {
-  /** REQUIRED: Field name */
-  name: FieldPath<T>;
-  /** OPTIONAL: Input type */
-  type?: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'search';
-  /** OPTIONAL: Placeholder text */
-  placeholder?: string;
-  /** OPTIONAL: Input is disabled */
-  disabled?: boolean;
-  /** OPTIONAL: Input is readonly */
-  readOnly?: boolean;
-  /** OPTIONAL: Show password toggle (for password type) */
-  showPasswordToggle?: boolean;
-  /** OPTIONAL: Input prefix icon */
-  prefixIcon?: React.ComponentType<{ className?: string }>;
-  /** OPTIONAL: Input suffix icon */
-  suffixIcon?: React.ComponentType<{ className?: string }>;
-  /** OPTIONAL: Additional props */
-  inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
-}
-
-/**
- * Select field props
- */
-export interface SelectFieldProps<T extends FieldValues = FieldValues> {
-  /** REQUIRED: Field name */
-  name: FieldPath<T>;
-  /** OPTIONAL: Placeholder text */
-  placeholder?: string;
-  /** REQUIRED: Select options */
-  options: Array<{ label: string; value: string | number; disabled?: boolean }>;
-  /** OPTIONAL: Select is disabled */
-  disabled?: boolean;
-  /** OPTIONAL: Allow clearing selection */
-  clearable?: boolean;
-}
-
-
-/**
- * Platform detection types
- */
-export type Platform = 'web' | 'native' | 'tauri' | 'unknown';
-
-/**
  * Legacy theme config interface for backward compatibility
  */
 export interface ThemeConfig {
@@ -288,13 +175,3 @@ export type {
   ForwardRefExoticComponent,
   RefAttributes,
 } from 'react';
-
-export type {
-  FieldValues,
-  FieldPath,
-  UseFormReturn,
-  SubmitHandler,
-  SubmitErrorHandler,
-} from 'react-hook-form';
-
-export type { ZodSchema } from 'zod';

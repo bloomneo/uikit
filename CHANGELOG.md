@@ -6,6 +6,15 @@ All notable changes to UIKit will be documented in this file.
 
 Work in progress on the `next` branch; see `MIGRATION-6.md`.
 
+### Removed
+
+- The react-hook-form + Zod `Form` wrapper and its `FormController` alias
+  (a second way next to `FormField`), `HoverCard`, the public `Command*`
+  exports, platform detection, `useLocalStorage`, `useBackendStatus`,
+  `usePagination`, and the `uikit` CLI. Dependencies dropped:
+  `react-hook-form`, `@hookform/resolvers`, `zod`,
+  `@radix-ui/react-hover-card`, `next-themes`, `commander`.
+
 ### Changed
 
 - Released in lockstep with appkit, uikit and bloom on one shared version.

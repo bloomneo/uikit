@@ -32,17 +32,16 @@
 ## Never do
 
 1. Never deep-import as primary: `@bloomneo/uikit/button` is only for tree-shaking optimization.
-2. Never use `<FormController>` for new code — it is a legacy alias for react-hook-form's FormField.
-3. Never hardcode colors — not hex, and not Tailwind palette classes like
+2. Never hardcode colors — not hex, and not Tailwind palette classes like
    `bg-blue-600` or `text-gray-900`. They compile to nothing under the default
    stylesheet. Use semantic classes: `bg-primary`, `text-muted-foreground`,
    `bg-card`, `border-border`.
-4. Never create custom toast UI — use `ToastProvider` + `toast.*`.
-5. Never manage Dialog/Sheet/Confirm open state with a custom boolean when a provider hook exists.
-6. Never skip `ThemeProvider` — components depend on CSS variables it sets.
-7. Never use `onChange` on `<Select>` or `<Combobox>` — both use `onValueChange(newValue)` in 2.0+. `onChange(e)` is reserved for native input wrappers (Input, Textarea, PasswordInput).
-8. Never render `<ToastProvider>` or `<ConfirmProvider>` more than once in the component tree.
-9. Never pass `undefined` to the `DataTable` `data` prop — use `[]` for empty or loading states.
+3. Never create custom toast UI — use `ToastProvider` + `toast.*`.
+4. Never manage Dialog/Sheet/Confirm open state with a custom boolean when a provider hook exists.
+5. Never skip `ThemeProvider` — components depend on CSS variables it sets.
+6. Never use `onChange` on `<Select>` or `<Combobox>` — both use `onValueChange(newValue)` in 2.0+. `onChange(e)` is reserved for native input wrappers (Input, Textarea, PasswordInput).
+7. Never render `<ToastProvider>` or `<ConfirmProvider>` more than once in the component tree.
+8. Never pass `undefined` to the `DataTable` `data` prop — use `[]` for empty or loading states.
 
 ## Required setup (every app)
 
@@ -102,7 +101,6 @@ export default function RootLayout({ children }) {
 | Centered modal | `Dialog` | — |
 | Slide-in panel | `Sheet` with `side` prop | No `Drawer` component exists — use `Sheet side="right"` |
 | Text-only hint on hover | `Tooltip` | — |
-| Rich preview on hover | `HoverCard` | — |
 | Interactive content, click-triggered | `Popover` | — |
 | Static option list in a form | `Select` | — |
 | Searchable/clearable select | `Combobox` | — |
@@ -113,8 +111,7 @@ export default function RootLayout({ children }) {
 | Raw HTML table for custom layouts | `Table` | `DataTable` |
 | No data exists | `EmptyState` | a loading placeholder |
 | Data is loading | `<div className="h-N animate-pulse rounded-md bg-muted" />` | `EmptyState` |
-| Label + error + a11y input wrapper | `FormField` | `FormController` |
-| react-hook-form controller (legacy) | `FormController` (only with `useForm`) | — |
+| Label + error + a11y input wrapper | `FormField` | a hand-rolled label |
 
 ## Prop conventions
 
@@ -168,5 +165,5 @@ import { Table as TableIcon } from 'lucide-react';
 
 These components require `"use client"` at the top of the file in Next.js App Router:
 
-Dialog, Sheet, Popover, Tooltip, HoverCard, DropdownMenu, ConfirmDialog,
+Dialog, Sheet, Popover, Tooltip, DropdownMenu, ConfirmDialog,
 Toast / ToastProvider, Command / CommandDialog, Combobox, Tabs, ThemeProvider.

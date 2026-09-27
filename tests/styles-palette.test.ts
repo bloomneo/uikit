@@ -336,7 +336,9 @@ describe('a consumer needs no @source of its own', () => {
   });
 
   // Classes UIKit writes internally and a consuming app would never type.
-  for (const cls of ['bg-muted', 'bg-popover', 'bg-destructive', 'bg-success']) {
+  // (bg-success left this list in 6.0 with the react-hook-form wrapper, whose
+  // password meter was its only internal use. Apps still get it: see above.)
+  for (const cls of ['bg-muted', 'bg-popover', 'bg-destructive']) {
     it(`emits .${cls} for the components, unprompted`, () => {
       expect(out).toContain(`.${cls}`);
     });

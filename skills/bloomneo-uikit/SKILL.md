@@ -9,9 +9,8 @@ allowed-tools: Bash(npx uikit *), Bash(pnpm dlx uikit *), Bash(bunx --bun uikit 
 # @bloomneo/uikit (v6.0.0-alpha.0)
 
 React component library: 30 components and a locked design-token palette.
-Built on Radix + Tailwind + cva. Web-first (React DOM); ships platform-detection
-helpers (`isTauri()`, `isNative()`, etc.) but not full native/Tauri/extension
-component adapters.
+Built on Radix + Tailwind + cva. Web-first (React DOM); runs unchanged inside
+Electron and Capacitor builds of the same web app.
 
 **UIKit ships no layouts and does not scaffold apps** (both removed in 4.0).
 App chrome is your app's — write a layout route that renders pages through an
@@ -202,7 +201,6 @@ const ok = await confirm({ title: 'Sure?', tone: 'destructive' });
 | Yes/No confirmation | `useConfirm()` |
 | Centered modal | `Dialog` |
 | Slide-in panel | `Sheet side="right"` |
-| Hover preview (rich) | `HoverCard` |
 | Hover hint (text) | `Tooltip` |
 | Click popover | `Popover` |
 | Transient notification | `toast.success()` / `toast.error()` |
@@ -236,13 +234,12 @@ Substitute `pnpm dlx uikit` or `bunx --bun uikit` based on the project's `packag
 - `useConfirm()` — promise-based confirmation
 - `useMediaQuery()`, `useBreakpoint()`, `useActiveBreakpoint()` — responsive
 - `useApi()` — data fetching
-- `useLocalStorage()` — persistent state
 - `formatCurrency()`, `formatNumber()`, `formatDate()`, `timeAgo()`, `formatBytes()`
 
 ## Client-only components
 
 In Next.js App Router, add `"use client"` to files that use:
-Dialog, Sheet, Popover, Tooltip, HoverCard, DropdownMenu, ConfirmDialog, Toast / ToastProvider, Command / CommandDialog, Combobox, Tabs, Accordion, Collapsible, Calendar, ThemeProvider.
+Dialog, Sheet, Popover, Tooltip, DropdownMenu, ConfirmDialog, Toast / ToastProvider, Combobox, Tabs, ThemeProvider.
 
 ## Workflow
 

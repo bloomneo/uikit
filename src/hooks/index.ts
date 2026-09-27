@@ -3,11 +3,8 @@
  * @package @bloomneo/uikit
  */
 
-export { useApi, useBackendStatus } from './useApi';
+export { useApi } from './useApi';
 export type { ApiResponse, ApiOptions, UseApiReturn } from './useApi';
-
-export { useLocalStorage } from './useStorage';
-export type { UseLocalStorageReturn } from './useStorage';
 
 export { useMediaQuery } from './useMediaQuery';
 export {
@@ -20,10 +17,3 @@ export type { Breakpoint, BreakpointDirection } from './useBreakpoint';
 
 export { useDataTable } from './useDataTable';
 export type { UseDataTableOptions, UseDataTableReturn } from './useDataTable';
-
-export { usePagination } from './usePagination';
-export type {
-  UsePaginationOptions,
-  UsePaginationReturn,
-  PaginationPage,
-} from './usePagination';

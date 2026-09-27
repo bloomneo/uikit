@@ -124,15 +124,14 @@ Build complete interfaces with our three-tier component system - from individual
 | **Form & Input**       | Button, Input, Textarea, Label, Checkbox, RadioGroup, Switch, Select, Combobox, **Form, FormField** |
 | **App primitives** ⭐  | **DataTable, PageHeader, EmptyState, ConfirmDialog, ConfirmProvider, ToastProvider, PermissionGate** |
 | **Display**            | Card, Badge, Alert, Tabs, Table                                            |
-| **Navigation & menu**  | DropdownMenu, Command                                                      |
-| **Overlay & modal**    | Dialog, Sheet, Popover, HoverCard, Tooltip                                 |
+| **Navigation & menu**  | DropdownMenu                                                               |
+| **Overlay & modal**    | Dialog, Sheet, Popover, Tooltip                                            |
 | **Feedback**           | Toast, Toaster (Sonner)                                                    |
 
 ### Hooks & utilities
 
 `useConfirm` · `useToast` · `useTheme` · `useMediaQuery` · `useBreakpoint` ·
-`useActiveBreakpoint` · `useDataTable` (headless) · `usePagination` · `useApi` ·
-`useBackendStatus` · `useLocalStorage` · `usePermission`
+`useActiveBreakpoint` · `useDataTable` (headless) · `useApi` · `usePermission`
 
 `formatCurrency` · `formatNumber` · `formatDate` · `timeAgo` · `formatBytes` ·
 `foucScript` · `foucScriptTag` · `cn`

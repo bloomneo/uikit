@@ -83,7 +83,8 @@ describe('package.json', () => {
   it('every declared bin points at a file that exists', () => {
     // 3.0.x shipped `voila-bundle -> bin/theme-bundler.js`, a file absent from
     // the tarball, so npm linked a binary that could never run.
-    const missing = Object.entries(pkg.bin as Record<string, string>)
+    // uikit ships no CLI since 6.0; the check still guards any future bin.
+    const missing = Object.entries((pkg.bin ?? {}) as Record<string, string>)
       .filter(([, p]) => !existsSync(join(ROOT, p)))
       .map(([n, p]) => `${n} -> ${p}`);
     expect(missing).toEqual([]);
