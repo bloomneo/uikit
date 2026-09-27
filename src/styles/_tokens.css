@@ -2,7 +2,7 @@
  * UIKit design tokens — every @theme variable, theme preset and base layer.
  *
  * Deliberately does NOT import tailwindcss. The entry files
- * (globals.css / strict.css) own that import, because Tailwind v4 resolves
+ * (globals.css / permissive.css) own that import, because Tailwind v4 resolves
  * `--color-*: initial` against the LAST import of the framework — so a reset
  * placed before a nested `@import "tailwindcss"` is silently undone.
  * Splitting the import out is what makes the strict entry possible at all.

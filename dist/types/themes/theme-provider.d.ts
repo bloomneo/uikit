@@ -6,7 +6,7 @@
 import React, { ReactNode } from 'react';
 /**
  * @llm-rule Pre-bundled themes - CSS included in package
- * Simple selection from 8 built-in themes
+ * One built-in theme, `base` (the other presets were removed in 4.0)
  */
 export type Theme = string;
 /**

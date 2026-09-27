@@ -2,6 +2,20 @@
 
 All notable changes to UIKit will be documented in this file.
 
+## [4.1.8] - 2026-09-27
+
+### Fixed — documentation only
+
+- `AGENTS.md` "Always do" rule 2 had two versions of the styles advice merged
+  mid-sentence; it now reads as one rule. The "Never do" list skipped 9.
+- Stale comments: `ThemeProvider` claimed 8 built-in themes (there is one,
+  `base`, since 4.0); `_tokens.css` and the palette test named a `strict.css`
+  that does not exist; the dev playground described the base theme as Inter.
+- `dist/llms.txt` is rebuilt with the current version header (4.1.7 committed
+  the root `llms.txt` but not the `dist/` copy).
+
+No code changes.
+
 ## [4.1.6] - 2026-08-17
 
 ### Fixed — the modal close button kept an arrow cursor

@@ -1,14 +1,14 @@
 /**
- * tests/styles-strict.test.ts
+ * tests/styles-palette.test.ts
  *
- * The strict stylesheet's whole value is that `bg-blue-600` produces nothing.
+ * The default stylesheet's whole value is that `bg-blue-600` produces nothing.
  * That property is invisible in review and easy to break silently — during
  * development the reset was placed one import too early and did nothing at
  * all, while the file still looked correct and the build still passed. The
  * only honest check is to compile Tailwind and inspect the output.
  *
  * Runs the real Tailwind CLI against both entries, so it also guards the
- * split between globals.css / strict.css / _tokens.css.
+ * split between globals.css / theme.css / _tokens.css.
  */
 
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';

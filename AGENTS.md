@@ -1,6 +1,6 @@
 # AGENTS.md — @bloomneo/uikit
 
-> Rules for AI coding agents generating code with `@bloomneo/uikit` v4.1.7.
+> Rules for AI coding agents generating code with `@bloomneo/uikit` v4.1.8.
 > Read this FIRST, then `llms.txt` for per-component snippets.
 
 ## Always do
@@ -13,11 +13,11 @@
      actually applies the palette lockdown.
    - No build, prebuilt CSS only? `import '@bloomneo/uikit/styles'` at entry.
    - Migrating a 2.x app? `@bloomneo/uikit/styles/permissive` keeps raw
-     palette classes working temporarily. It ships the
-   semantic tokens ONLY — Tailwind's default palette is removed in 3.0, so
-   `bg-blue-600` produces no CSS. Use `bg-primary`, `bg-card`,
-   `text-muted-foreground`. (Migrating a 2.x app? `@bloomneo/uikit/styles/permissive`
-   restores the old behaviour temporarily.)
+     palette classes working temporarily.
+
+   Both default entries ship the semantic tokens ONLY — Tailwind's default
+   palette is removed, so `bg-blue-600` produces no CSS. Use `bg-primary`,
+   `bg-card`, `text-muted-foreground`.
 3. Wrap the app root in `ThemeProvider` > `ToastProvider` > `ConfirmProvider` (in that order).
 4. Add the FOUC-prevention script via `foucScript()` in the `<head>` of `index.html`.
 5. Pass `data` as `[]` while loading — never pass `undefined` to `DataTable`.
@@ -42,7 +42,7 @@
 6. Never skip `ThemeProvider` — components depend on CSS variables it sets.
 7. Never use `onChange` on `<Select>` or `<Combobox>` — both use `onValueChange(newValue)` in 2.0+. `onChange(e)` is reserved for native input wrappers (Input, Textarea, PasswordInput).
 8. Never render `<ToastProvider>` or `<ConfirmProvider>` more than once in the component tree.
-10. Never pass `undefined` to the `DataTable` `data` prop — use `[]` for empty or loading states.
+9. Never pass `undefined` to the `DataTable` `data` prop — use `[]` for empty or loading states.
 
 ## Required setup (every app)
 

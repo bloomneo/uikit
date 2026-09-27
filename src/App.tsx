@@ -7,7 +7,7 @@ const UIKitShowcase: React.FC = () => {
   const { theme, mode, setTheme, setMode, availableThemes, toggleMode } = useTheme();
 
   const themeDescriptions = {
-    base: 'Clean default configuration showcasing the base system with Inter typography (default)',
+    base: 'Clean default configuration showcasing the base system with the system font stack (default)',
   };
 
   return (
