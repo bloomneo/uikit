@@ -35,6 +35,8 @@ const getComponentEntries = () => {
 
   // Page router: its own subpath so the root entry never needs react-router.
   entries['router'] = resolve(__dirname, 'src/router/index.tsx');
+  // Contract data hooks: own subpath, no router or bloom dependency.
+  entries['data'] = resolve(__dirname, 'src/data/index.ts');
 
   return entries;
 };

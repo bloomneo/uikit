@@ -118,6 +118,26 @@ const pages = import.meta.glob(['./features/*/pages/**/*.{tsx,jsx}', '!**/_*.{ts
 - Every page gets a Suspense boundary and the error boundary; a 404 is built in.
 - Needs `react-router-dom` (optional peer dependency).
 
+## Data from route contracts (`@bloomneo/uikit/data`)
+
+When a route has a contract (`defineRoute` from `@bloomneo/bloom`), read and
+write it with these hooks instead of `useEffect` + fetch or `useApi`:
+
+```tsx
+import { createClient } from '@bloomneo/bloom';
+import { useQuery, useMutation } from '@bloomneo/uikit/data';
+
+const api = createClient({ baseUrl: import.meta.env.VITE_API_URL, getToken });
+
+const { data, loading, error, refetch } = useQuery(api, listInvoices, { query: { page } });
+const save = useMutation(api, createInvoice);
+await save.mutate({ body: { total } });
+```
+
+- `data` is typed from the contract's `response` schema.
+- `useQuery` refetches when `input` changes by value; `{ enabled: false }` waits.
+- Only the latest request writes state, so a slow earlier answer can't win.
+
 ## Component decision tree
 
 | Need | Use | Not |

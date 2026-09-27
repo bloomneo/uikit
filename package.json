@@ -197,6 +197,10 @@
     "./router": {
       "import": "./dist/router.js",
       "types": "./dist/types/router/index.d.ts"
+    },
+    "./data": {
+      "import": "./dist/data.js",
+      "types": "./dist/types/data/index.d.ts"
     }
   },
   "files": [

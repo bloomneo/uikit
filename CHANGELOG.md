@@ -8,6 +8,10 @@ Work in progress on the `next` branch; see `MIGRATION-6.md`.
 
 ### Added
 
+- `@bloomneo/uikit/data`: `useQuery` / `useMutation` for route contracts,
+  typed from the contract's response schema, taking bloom's `createClient()`
+  (read structurally — no dependency on bloom). Refetch on input change by
+  value; only the latest request writes state.
 - `@bloomneo/uikit/router`: the page router every Bloom app used to copy.
   The app passes its `import.meta.glob`; route rules, lazy loading with a
   Suspense boundary per page, layouts, error boundary (reset on navigation)
