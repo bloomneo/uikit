@@ -66,6 +66,8 @@ const REMOVED_IN_6: string[] = [
   'HoverCard', 'HoverCardContent', 'HoverCardTrigger',
   'useLocalStorage', 'useBackendStatus', 'usePagination',
   'detectPlatform', 'isTauri', 'isNative', 'getPlatformCapabilities',
+  'isBrowser', 'isNode', 'isSSR', 'isMobile', 'isTablet', 'isDesktop',
+  'getDeviceType', 'getBrowserInfo', 'getOperatingSystem', 'supportsFeature',
 ];
 for (const name of REMOVED_IN_6) {
   BANNED.push({

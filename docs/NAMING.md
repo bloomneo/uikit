@@ -69,7 +69,7 @@ PascalCase components; Node uses camelCase entry classes).
   value is the error itself, not a boolean flag.
 
 **Forbidden:**
-- Tuple-return hooks in NEW code (existing `useLocalStorage` is grandfathered)
+- Tuple-return hooks
 - Non-pure hooks that write to DOM at render time (must be in useEffect)
 
 ---
@@ -81,9 +81,9 @@ Every form-input component follows one of these shapes:
 | Pattern | Applies to | Example |
 |---|---|---|
 | `value` + `onChange(ChangeEvent)` | Native HTML input wrappers | `Input`, `Textarea`, `PasswordInput` |
-| `value` + `onValueChange(string)` | Single-value pickers (Radix + custom) | `Select`, `Combobox`, `Slider`, `Tabs`, `Accordion` |
-| `checked` + `onCheckedChange(boolean)` | Boolean toggles | `Checkbox`, `Switch`, `Toggle` |
-| `open` + `onOpenChange(boolean)` | Overlays | `Dialog`, `Sheet`, `Popover`, `HoverCard` |
+| `value` + `onValueChange(string)` | Single-value pickers (Radix + custom) | `Select`, `Combobox`, `Tabs`, `RadioGroup` |
+| `checked` + `onCheckedChange(boolean)` | Boolean toggles | `Checkbox`, `Switch` |
+| `open` + `onOpenChange(boolean)` | Overlays | `Dialog`, `Sheet`, `Popover` |
 
 **The split is strictly along data shape, not along Radix-vs-custom:**
 
@@ -208,7 +208,6 @@ When an agent needs to pick a component, this tree resolves the choice:
 ### Overlay with a "close" affordance?
 - **Full-height side drawer** → `Sheet`
 - **Centred modal with a form inside** → `Dialog`
-- **Content triggered on hover, no interaction** → `HoverCard`
 - **Short text bubble on hover** → `Tooltip`
 - **Interactive content anchored to a trigger** → `Popover`
 - **List of actions from a ⋯ / ▼ button** → `DropdownMenu`
@@ -227,13 +226,12 @@ When an agent needs to pick a component, this tree resolves the choice:
 - **Single-value select** → `Select` (short, static list) or `Combobox` (searchable, 10+ options). Both use `onValueChange(string | undefined)` — unified in 2.0.0.
 - **Multi-line** → `Textarea`
 - **Boolean** → `Checkbox` or `Switch`
-- **Range** → `Slider`
 
 ### Data display?
 - **Rows with sort/filter/paginate/actions** → `DataTable`
 - **Just a table with no features** → `Table` primitives
 - **Statistic card** → `Card` + `CardContent`
-- **Loading placeholder** → `Skeleton`
+- **Loading placeholder** → `<div className="h-40 animate-pulse rounded-md bg-muted" />` (no Skeleton component)
 
 ### Role-based UI?
 - **Gate a subtree** → `PermissionGate when="admin">…</PermissionGate>`

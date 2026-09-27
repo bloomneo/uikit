@@ -32,7 +32,7 @@ export type Mode = 'light' | 'dark';
  */
 /**
  * Theme id. `base` is the only bundled theme; any other string is a custom
- * theme you generated with `uikit generate theme <name>`, which is why this
+ * theme class your app defines in CSS (`.theme-<name>`), which is why this
  * is not a closed union.
  */
 export type Theme = 'base' | (string & {});

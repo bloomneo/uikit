@@ -8,11 +8,12 @@ globs: ["**/*.tsx", "**/*.ts", "**/*.jsx"]
 ## Import
 - Always: `import { X } from '@bloomneo/uikit'`
 - Never deep-import: `@bloomneo/uikit/button` is for tree-shaking only
+- Subpath-only entries (import by subpath): `@bloomneo/uikit/router` (PageRouter), `@bloomneo/uikit/data` (useQuery, useMutation)
 - Types: `import { type DataTableColumn } from '@bloomneo/uikit'`
 
 ## Required setup (main.tsx)
-- `import '@bloomneo/uikit/styles'` -- core CSS (no fonts)
-- `import '@bloomneo/uikit/styles/fonts'` -- optional, only if theme uses built-in fonts
+- App runs its own Tailwind: `@import "@bloomneo/uikit/theme";` after `@import "tailwindcss";` in its CSS
+- No Tailwind build: `import '@bloomneo/uikit/styles'` at entry
 - Wrap app: `<ThemeProvider theme="base" mode="light"><ToastProvider /><ConfirmProvider><App /></ConfirmProvider></ThemeProvider>`
 - FOUC prevention: drop `foucScript()` from `@bloomneo/uikit/fouc` into `index.html` `<head>`
 
@@ -25,13 +26,11 @@ globs: ["**/*.tsx", "**/*.ts", "**/*.jsx"]
 - Empty lists: use `<EmptyState>`, not ad-hoc placeholder divs
 - Page titles with breadcrumbs/actions: use `<PageHeader>`
 
-## Layouts (pick one per route)
-- Dashboard/SaaS: `<AdminLayout>` with `.Header`, `.Sidebar`, `.Content`
-- Marketing/landing: `<PageLayout>` with `.Header`, `.Content`, `.Footer`
-- Login/signup: `<AuthLayout scheme="card">`
-- Mobile (Capacitor): `<MobileLayout>`
-- Browser extension: `<PopupLayout>`
-- Custom/blank: `<BlankLayout>`
+## App frame, routing, data
+- Signed-in area: `<AppShell brand nav currentPath linkComponent headerActions>` as a layout route rendering `<Outlet />`; `end: true` on index nav items
+- Other layouts: a layout route in the app; each page owns its `<PageHeader>`. The 4.x layout components do not exist
+- Page routes: `<PageRouter pages={import.meta.glob([...])} layouts={layouts} />` from `@bloomneo/uikit/router`; the glob stays in the app
+- Routes with a bloom contract: `useQuery(api, contract, input)` / `useMutation(api, contract)` from `@bloomneo/uikit/data`, `api` from bloom's `createClient()`
 
 ## Prop patterns
 - Button variants: `default | destructive | outline | secondary | ghost | link`
@@ -39,7 +38,7 @@ globs: ["**/*.tsx", "**/*.ts", "**/*.jsx"]
 - DataTable columns: `{ id, header, accessorKey, sortable?, cell? }`
 - FormField: `<FormField label="X" required helper="hint"><Input /></FormField>`
 - Confirm: `const ok = await confirm({ title, description, tone: 'destructive' })`
-- ThemeProvider themes: `base | elegant | metro | studio | vivid`
+- ThemeProvider theme: `base` (the only bundled theme); brand it with token overrides on `.theme-base` / `.theme-base.dark` in CSS
 
 ## Styling
 - Use semantic Tailwind classes: `bg-background`, `text-foreground`, `border-border`
@@ -50,8 +49,8 @@ globs: ["**/*.tsx", "**/*.ts", "**/*.jsx"]
 - `useTheme()` -- get/set theme and mode
 - `useConfirm()` -- promise-based confirmation dialog
 - `useMediaQuery()`, `useBreakpoint()`, `useActiveBreakpoint()` -- responsive
-- `useApi()` -- data fetching
-- `useLocalStorage()` -- persistent state
+- `useApi()` -- data fetching for endpoints without a contract
+- `usePermission()`, `useToast()`, `useDataTable()` (headless table)
 - `formatCurrency()`, `formatNumber()`, `formatDate()`, `timeAgo()`, `formatBytes()`
 
 ## Never do
@@ -61,4 +60,4 @@ globs: ["**/*.tsx", "**/*.ts", "**/*.jsx"]
 - Never skip `ToastProvider` if using `toast()`
 - Never skip `ConfirmProvider` if using `useConfirm()`
 - Never use `<Dialog>` for simple yes/no confirms -- use `useConfirm()`
-- Never create separate CSS files for theming -- use the preset system
+- Never style components with their own colours -- override the theme tokens once

@@ -1,25 +1,25 @@
 # Theming — @bloomneo/uikit
 
-Rules for customizing, switching, and generating themes. Theming is the most common place agents break uikit apps. Read this before editing any color, writing CSS, or running `uikit generate theme`.
+Rules for customizing and switching themes. Theming is the most common place agents break uikit apps. Read this before editing any color or writing CSS.
 
 ## When to do what
 
 | User asks for | Do this |
 |---|---|
 | "Switch to dark mode" | Call `useTheme().setMode('dark')`. No CSS edits. |
-| "Use our brand theme" | Generate it once with `uikit generate theme brand`, then `useTheme().setTheme('brand')`. No CSS edits. |
-| "Match our brand color" | `npx uikit generate theme brand`, edit `primary` in the generated file, `npx uikit bundle`. |
+| "Use our brand theme" / "Match our brand color" | Override the `base` tokens once in the app's CSS (see [Custom theme workflow](#custom-theme-workflow)). Components pick it up; no component edits. |
 | "Make the button blue" | **Don't.** Components take brand color from the theme's `primary`. If they want one-off color, use `variant` — never override via className with raw colors. |
-| "Create a custom theme" | `npx uikit generate theme <name>` → edit → `npx uikit bundle`. |
+| "Create a custom theme" | Same: token overrides on `.theme-base` and `.theme-base.dark`. There is no theme CLI (6.0 removed it). |
 
 ## Built-in themes
 
-`base` is the only bundled theme (4.0 removed `elegant`, `metro`, `studio` and `vivid`). Generate your own with `uikit generate theme <name>`, then switch at runtime with `useTheme().setTheme()`.
+`base` is the only bundled theme (4.0 removed `elegant`, `metro`, `studio` and `vivid`). Brand it by overriding its tokens in CSS; switch light/dark at runtime with `useTheme().setMode()`.
 
-## The 29-variable contract
+## The token contract
 
-Every theme defines the same set of CSS variables. Components consume them via
-semantic Tailwind classes.
+Every theme defines the same set of CSS variables (`--color-*`, declared in
+`@bloomneo/uikit/theme`). Components consume them via semantic Tailwind
+classes.
 
 **In 3.0 raw palette classes are not merely discouraged — they produce no CSS.**
 `@bloomneo/uikit/styles` removes Tailwind's default palette, so `bg-blue-500`
@@ -35,13 +35,13 @@ Core variables (the ones you'll touch when customizing):
 
 | Variable | Class | When to change |
 |---|---|---|
-| `--primary` / `--primary-foreground` | `bg-primary` | Brand color. This is usually the only one to customize. Controls buttons, links, focus rings, active states, charts. |
-| `--background` / `--foreground` | `bg-background` | Page background + primary text. Light mode: near-white bg, dark text. Dark mode: near-black bg, light text. |
-| `--destructive` / `--destructive-foreground` | `bg-destructive` | Error/delete actions. Red family. |
-| `--muted` / `--muted-foreground` | `bg-muted`, `text-muted-foreground` | Secondary text, subtle sections. |
-| `--border`, `--input`, `--ring` | `border-border` | Borders, form inputs, focus rings. |
-| `--chart-1` … `--chart-5` | `var(--chart-1)` | Data visualization. Change if charts clash with brand. |
-| `--sidebar` … `--sidebar-ring` | `bg-sidebar` | Your app shell's sidebar (7 vars). Change only if the sidebar needs distinct styling. |
+| `--color-primary` / `--color-primary-foreground` | `bg-primary` | Brand color. This is usually the only one to customize. Controls buttons, links, focus rings, active states, charts. |
+| `--color-background` / `--color-foreground` | `bg-background` | Page background + primary text. Light mode: near-white bg, dark text. Dark mode: near-black bg, light text. |
+| `--color-destructive` / `--color-destructive-foreground` | `bg-destructive` | Error/delete actions. Red family. |
+| `--color-muted` / `--color-muted-foreground` | `bg-muted`, `text-muted-foreground` | Secondary text, subtle sections. |
+| `--color-border`, `--color-input`, `--color-ring` | `border-border` | Borders, form inputs, focus rings. |
+| `--color-chart1` … `--color-chart5` | `var(--color-chart1)` | Data visualization. Change if charts clash with brand. |
+| `--color-sidebar` … `--color-sidebar-ring` | `bg-sidebar` | `AppShell`'s sidebar (8 vars). The active nav item uses `--color-sidebar-primary`, so set it with `--color-primary`. |
 
 Hierarchy (for choosing the right class):
 - **Backgrounds:** `bg-background` → `bg-card` → `bg-muted` → `bg-accent` (lightest to most-interactive)
@@ -49,35 +49,42 @@ Hierarchy (for choosing the right class):
 
 ## OKLCH primer
 
-Themes use OKLCH color space (`oklch(L C H)`), not hex or HSL. Why: OKLCH is perceptually uniform — equal L values look equally bright regardless of hue. Fixes the classic "my blue primary looks darker than my green one" problem.
+Prefer OKLCH (`oklch(L C H)`) for new values; `base` itself is written in hex, and both work. Why OKLCH: is perceptually uniform — equal L values look equally bright regardless of hue. Fixes the classic "my blue primary looks darker than my green one" problem.
 
 - `L` = Lightness (0–1). `0.5` = mid, `0.7` = light button bg, `0.3` = dark text.
 - `C` = Chroma (saturation). `0` = gray, `0.2+` = vivid.
 - `H` = Hue (0–360°). 0 = red, 120 = green, 240 = blue.
 
-When converting from hex: use an OKLCH converter (e.g. `culori`), don't eyeball it. The generated theme file has comments showing the source hex for each OKLCH value.
+When converting from hex: use an OKLCH converter (e.g. `culori`), don't eyeball it.
 
 ## Custom theme workflow
 
-```bash
-# 1. Generate the theme file
-npx uikit generate theme brand
+In the app's CSS, after the uikit import, override only the tokens you change.
+Light values go on `.theme-base`, dark values on `.theme-base.dark`:
 
-# 2. Edit the generated file
-#    src/themes/presets/theme-brand.js         (standard)
-#    src/web/themes/presets/theme-brand.js     (FBCA layout)
+```css
+/* src/web/index.css (or your app's main stylesheet) */
+@import "tailwindcss";
+@import "@bloomneo/uikit/theme";
 
-# 3. Compile to CSS
-npx uikit bundle
-
-# 4. Watch mode during development
-npx uikit bundle --watch
-
-# 5. Use in app
-useTheme().setTheme('brand');
+.theme-base {
+  --color-primary: oklch(0.55 0.2 290);
+  --color-primary-foreground: oklch(1 0 0);
+  --color-ring: oklch(0.55 0.2 290);
+  --color-sidebar-primary: oklch(0.55 0.2 290);
+}
+.theme-base.dark {
+  --color-primary: oklch(0.75 0.14 290);
+  --color-primary-foreground: oklch(0.2 0.05 290);
+  --color-ring: oklch(0.75 0.14 290);
+  --color-sidebar-primary: oklch(0.75 0.14 290);
+}
 ```
 
-The generated theme file has `light` and `dark` blocks. Edit both. The bundler compiles both into the output CSS.
+Keep `theme="base"` on `ThemeProvider`. Base's typography and cursor rules are
+scoped to `.theme-base`, so overriding it keeps them; a new `.theme-<name>`
+class would have to repeat them, and `ThemeProvider` warns in development when
+the applied `theme-*` class is not defined by any stylesheet.
 
 ## Dark mode rule
 
@@ -106,40 +113,35 @@ Also: **dark mode backgrounds should never be pure `#000000`.** Use `#0A0A0A` or
 // ✅ Semantic muted token
 <p className="text-muted-foreground">Subtitle</p>
 
-// ❌ Writing custom CSS files for theming
+// ❌ Styling one component with its own colour
 // src/styles/brand.css → .my-button { background: #1E40AF; }
-// ✅ Generating a theme preset
-// npx uikit generate theme brand → edit primary → bundle
+// ✅ Overriding the token every component reads
+// .theme-base { --color-primary: #1E40AF; }
 
 // ❌ Raw border color
 <div className="border border-gray-200">…</div>
 // ✅ Theme border
 <div className="border border-border">…</div>
 
-// ❌ Switching theme by editing CSS variables manually
-document.documentElement.style.setProperty('--primary', '#1E40AF');
-// ✅ useTheme hook
-useTheme().setTheme('brand');
+// ❌ Setting tokens from JavaScript at runtime
+document.documentElement.style.setProperty('--color-primary', '#1E40AF');
+// ✅ Token overrides in the stylesheet; useTheme for light/dark
+useTheme().setMode('dark');
 ```
-
-## FBCA projects
-
-In a Feature-Based Component Architecture app (what `@bloomneo/bloom` scaffolds), themes live at `src/web/themes/presets/` instead of `src/themes/presets/`. The CLI detects FBCA automatically — same commands work.
 
 ## Troubleshooting
 
 | Problem | Fix |
 |---|---|
-| Theme changes not showing | Run `npx uikit bundle`, clear browser cache, restart dev server |
+| Theme changes not showing | Put the overrides AFTER `@import "@bloomneo/uikit/theme"`, on `.theme-base` / `.theme-base.dark`, and check the dev-server CSS reloaded |
 | Colors look washed out in dark mode | Lighten `primary` — see dark mode rule above |
-| Chart colors clash with brand | Override `--chart-1` … `--chart-5` in the theme file |
-| Sidebar looks wrong | Sidebar surfaces read `--sidebar*` vars separately — 7 variables; default to `base` if unsure |
+| Chart colors clash with brand | Override `--color-chart1` … `--color-chart5` |
+| Sidebar looks wrong | `AppShell`'s sidebar reads the `--color-sidebar*` tokens separately; override them alongside `--color-primary` |
 | FOUC (flash of default theme) on load | Ensure `<script>{foucScript()}</script>` is in `index.html` `<head>`, not body |
 
 ## Don't do
 
-- Don't write `.css` files for brand colors. The theme preset system exists for exactly this.
+- Don't write per-component CSS for brand colors. Override the tokens once.
 - Don't use Tailwind palette classes (`bg-blue-500`, `text-red-600`). Under the default stylesheet they emit no CSS at all — the element just has no colour.
-- Don't edit compiled CSS in `dist/` — regenerate from the preset instead.
-- Don't mix OKLCH with hex in the same theme file. Pick one (prefer OKLCH — that's what the generator emits).
+- Don't edit compiled CSS in `node_modules/@bloomneo/uikit/dist/` — override tokens in your own CSS.
 - Don't set `primary` to a color with low contrast against white — button text becomes unreadable.

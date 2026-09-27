@@ -5,7 +5,9 @@
 
 ## Always do
 
-1. Import from `@bloomneo/uikit` (flat, canonical).
+1. Import from `@bloomneo/uikit` (flat, canonical). The only exceptions are
+   the two subpath-only entries: `@bloomneo/uikit/router` and
+   `@bloomneo/uikit/data`.
 2. Wire the styles correctly — this is the one that gets missed:
    - App runs its own Tailwind (every Bloom template)? Put
      `@import "@bloomneo/uikit/theme";` after `@import "tailwindcss";` in your
@@ -31,7 +33,7 @@
 
 ## Never do
 
-1. Never deep-import as primary: `@bloomneo/uikit/button` is only for tree-shaking optimization.
+1. Never deep-import as primary: `@bloomneo/uikit/button` is only for tree-shaking optimization. (`/router` and `/data` are not deep imports — they exist only as subpaths.)
 2. Never hardcode colors — not hex, and not Tailwind palette classes like
    `bg-blue-600` or `text-gray-900`. They compile to nothing under the default
    stylesheet. Use semantic classes: `bg-primary`, `text-muted-foreground`,
@@ -94,6 +96,41 @@ export default function RootLayout({ children }) {
 </head>
 ```
 
+## App frame (`AppShell`)
+
+The signed-in part of an app renders inside `AppShell`: a sidebar that
+collapses to an icon rail (remembered per browser), a header, and the same
+navigation in a sheet below `lg`. Use it as the layout route; guard that route,
+not each page.
+
+```tsx
+import { Link, Outlet, useLocation } from 'react-router-dom';
+import { AppShell } from '@bloomneo/uikit';
+
+export function DashboardLayout() {
+  return (
+    <AppShell
+      brand={{ name: 'Acme', href: '/dashboard' }}
+      nav={[
+        { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard, end: true },
+        { href: '/dashboard/users', label: 'Users', icon: Users, section: 'Admin' },
+      ]}
+      currentPath={useLocation().pathname}
+      linkComponent={({ href, ...rest }) => <Link to={href} {...rest} />}
+      headerActions={<UserMenu />}
+      sidebarFooter={(collapsed) => <SignOutButton compact={collapsed} />}
+    >
+      <Outlet />
+    </AppShell>
+  );
+}
+```
+
+- `currentPath` decides the active item; `end: true` for index routes, or
+  `/dashboard` stays active on every child page.
+- `linkComponent` is how it stays router-agnostic; without it, items are `<a>`.
+- Other props: `collapsible` (default true), `storageKey`, `navLabel`, `className`.
+
 ## Page routing (`@bloomneo/uikit/router`)
 
 Bloom apps route by file: `features/<name>/pages/**` become URLs. The router
@@ -115,7 +152,10 @@ const pages = import.meta.glob(['./features/*/pages/**/*.{tsx,jsx}', '!**/_*.{ts
 - `index.tsx` → the folder's URL; `[id].tsx` → `:id`; `[...path].tsx` → `*`;
   `features/main/` → `/`; files or folders starting with `_` are not routes.
 - `routeBase={{ billing: '/account' }}` gives a feature another URL prefix.
+- `layouts` is `RouteLayout[]` — `{ match: (path) => boolean, Layout }`, first
+  match wins, `Layout` renders `<Outlet />` (e.g. the `AppShell` layout above).
 - Every page gets a Suspense boundary and the error boundary; a 404 is built in.
+  Override with `notFound`, `errorElement`, `fallback`; report with `onError`.
 - Needs `react-router-dom` (optional peer dependency).
 
 ## Data from route contracts (`@bloomneo/uikit/data`)
@@ -195,8 +235,8 @@ directly, not a ChangeEvent. Unified in 2.0.0; pre-2.0 Combobox used
 
 ## Icon name collisions with lucide-react
 
-Four uikit components share a name with a `lucide-react` icon:
-**Badge, Command, Sheet, Table.**
+Three uikit components share a name with a `lucide-react` icon:
+**Badge, Sheet, Table.**
 
 Importing both unqualified makes `<Table />` ambiguous, and the icon
 usually wins because it is what most code means. Alias the icon:

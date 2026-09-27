@@ -2,39 +2,79 @@
 
 All notable changes to UIKit will be documented in this file.
 
-## [6.0.0] - Unreleased
+## [6.0.0] - unreleased
 
-Work in progress on the `next` branch; see `MIGRATION-6.md`.
+uikit joins appkit and bloom on one shared version, so it jumps from 4.x to
+6.0.0; there is no uikit 5. Every component the production apps import keeps
+its name and props. Upgrade notes, with a replacement for every removal:
+`MIGRATION-6.md`.
 
 ### Added
 
-- `@bloomneo/uikit/data`: `useQuery` / `useMutation` for route contracts,
-  typed from the contract's response schema, taking bloom's `createClient()`
-  (read structurally — no dependency on bloom). Refetch on input change by
-  value; only the latest request writes state.
-- `@bloomneo/uikit/router`: the page router every Bloom app used to copy.
-  The app passes its `import.meta.glob`; route rules, lazy loading with a
-  Suspense boundary per page, layouts, error boundary (reset on navigation)
-  and 404 live in the package. Warns when two files map to one URL.
-  `react-router-dom` is an optional peer dependency.
-- `AppShell`: the signed-in app frame (collapsible sidebar, header, mobile
-  navigation sheet), lifted from Bloom's dashboard template. Router-agnostic:
-  pass `currentPath` and a `linkComponent`.
+- `AppShell` (root entry and `@bloomneo/uikit/app-shell`; types
+  `AppShellProps`, `AppShellNavItem`, `AppShellLinkProps`): the signed-in app
+  frame, lifted from Bloom's dashboard template. A sidebar that collapses to
+  an icon rail (remembered per browser under `storageKey`), a header with
+  `headerActions`, and the same navigation in a sheet below `lg`. The active
+  item comes from `currentPath` and gets `aria-current="page"`.
+  Router-agnostic: pass a `linkComponent`.
+- `@bloomneo/uikit/router`: `PageRouter`, `pathFromFile`, `discoverRoutes`
+  and types `RouteLayout`, `PageRouterProps`, `PageGlob`, `DiscoveredRoute`.
+  The page router every Bloom app used to copy. The app passes its
+  `import.meta.glob`; route rules (unchanged, including lowercased params),
+  `routeBase`, layout groups, a Suspense boundary per lazy page, an error
+  boundary that resets on navigation, the 404, and a dev warning when two
+  files map to one URL live in the package.
+- `@bloomneo/uikit/data`: `useQuery(client, contract, input?, { enabled? })`
+  and `useMutation(client, contract)`, with types `QueryState`,
+  `QueryOptions`, `MutationState`, `ContractLike`, `ClientLike`, `ResponseOf`.
+  They take bloom's `createClient()` and a route contract; `data` is typed
+  from the contract's response schema. `useQuery` refetches when `input`
+  changes by value and only the latest request writes state. Contracts are
+  read structurally, so uikit has no dependency on bloom.
+- `react-router-dom` (>= 6.20) as an optional peer dependency, needed only by
+  `@bloomneo/uikit/router`.
+- `MIGRATION-6.md`, shipped in the package.
 
 ### Removed
 
-- The react-hook-form + Zod `Form` wrapper and its `FormController` alias
-  (a second way next to `FormField`), `HoverCard`, the public `Command*`
-  exports, platform detection, `useLocalStorage`, `useBackendStatus`,
-  `usePagination`, and the `uikit` CLI. Dependencies dropped:
-  `react-hook-form`, `@hookform/resolvers`, `zod`,
+None of these were imported by any production app (counted 2026-09-26).
+
+- The react-hook-form + Zod `Form` wrapper: `Form`, `FormItem`, `FormLabel`,
+  `FormControl`, `FormDescription`, `FormMessage`, and the `FormController`
+  alias. `FormField` is the one form wrapper.
+- `HoverCard`, `HoverCardContent`, `HoverCardTrigger`.
+- The public `Command*` exports (`Command`, `CommandDialog`, `CommandEmpty`,
+  `CommandGroup`, `CommandInput`, `CommandItem`, `CommandList`,
+  `CommandSeparator`, `CommandShortcut`). `Combobox` still uses cmdk inside.
+- Platform detection: `detectPlatform`, `isBrowser`, `isNative`, `isTauri`,
+  `isNode`, `isSSR`, `isMobile`, `isTablet`, `isDesktop`, `getDeviceType`,
+  `getBrowserInfo`, `getOperatingSystem`, `getPlatformCapabilities`,
+  `supportsFeature`, `PLATFORMS`, `platform`.
+- Hooks `useLocalStorage`, `useBackendStatus`, `usePagination` (root entry
+  and `@bloomneo/uikit/hooks`).
+- Types `EnhancedFormProps`, `InputFieldProps`, `SelectFieldProps`, the
+  react-hook-form generic `FormFieldProps<T>` in `src/types`, `Platform`,
+  `UseLocalStorageReturn`, `UsePaginationOptions`, `UsePaginationReturn`,
+  `PaginationPage`, and the re-exported `FieldValues`, `FieldPath`,
+  `UseFormReturn`, `SubmitHandler`, `SubmitErrorHandler`, `ZodSchema`.
+- Subpath entries `./form`, `./hover-card`, `./command`, `./platform`.
+- The `uikit` CLI (`bin`): `uikit generate` and `uikit bundle`. Custom
+  themes are now plain CSS token overrides; see `MIGRATION-6.md`.
+- Dependencies `react-hook-form`, `@hookform/resolvers`, `zod`,
   `@radix-ui/react-hover-card`, `commander`.
 
 ### Changed
 
-- Released in lockstep with appkit, uikit and bloom on one shared version.
+- Released in lockstep with appkit and bloom on one shared version.
 - Build output (`dist/`) is no longer committed; it is built in CI and by
-  `prepublishOnly`.
+  `prepublishOnly`, which now builds before testing.
+- The package description no longer claims platform-detection utilities.
+- `Tooltip` and `Popover` `@llm-rule` guidance no longer points at `HoverCard`.
+- The drift check bans the removed names in docs, examples and source.
+- Docs: README, `AGENTS.md`, the agent skill, the Cursor rules and the
+  generated `llms.txt` describe `AppShell`, `/router` and `/data`, and no
+  longer describe the CLI, font bundle or theme presets that are gone.
 
 ## [4.1.8] - 2026-09-27
 

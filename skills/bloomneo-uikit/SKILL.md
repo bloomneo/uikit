@@ -1,21 +1,20 @@
 ---
 name: bloomneo-uikit
-description: Rules for generating React code with @bloomneo/uikit — components, design tokens, and forms. Applies when the project's package.json has "@bloomneo/uikit" as a dependency, or when the user mentions uikit, bloomneo, or files import from "@bloomneo/uikit". Also triggers for "uikit generate" or any `npx uikit` command.
+description: Rules for generating React code with @bloomneo/uikit — components, design tokens, forms, the AppShell app frame, the /router page router and the /data contract hooks. Applies when the project's package.json has "@bloomneo/uikit" as a dependency, or when the user mentions uikit, bloomneo, or files import from "@bloomneo/uikit".
 version: 6.0.0-alpha.0
 user-invocable: false
-allowed-tools: Bash(npx uikit *), Bash(pnpm dlx uikit *), Bash(bunx --bun uikit *)
 ---
 
 # @bloomneo/uikit (v6.0.0-alpha.0)
 
-React component library: 30 components and a locked design-token palette.
-Built on Radix + Tailwind + cva. Web-first (React DOM); runs unchanged inside
-Electron and Capacitor builds of the same web app.
+The curated component library for Bloomneo business apps: typed components, a
+locked design-token palette, the `AppShell` app frame, a file-based page router
+(`@bloomneo/uikit/router`) and hooks for route contracts
+(`@bloomneo/uikit/data`). Built on Radix + Tailwind + cva. Web-first (React
+DOM); runs unchanged inside Electron and Capacitor builds of the same web app.
 
-**UIKit ships no layouts and does not scaffold apps** (both removed in 4.0).
-App chrome is your app's — write a layout route that renders pages through an
-`<Outlet />`, and let each page own its `<PageHeader>`. To scaffold a whole
-application, use `@bloomneo/bloom`.
+**UIKit does not scaffold apps** — use `@bloomneo/bloom`. It has no CLI (6.0
+removed it). Upgrading from 4.x: `MIGRATION-6.md` in the package.
 
 > **IMPORTANT:** Read `node_modules/@bloomneo/uikit/llms.txt` for the full component API reference. Read `AGENTS.md` in the project root for do/don't rules. This skill is the fastest way in; those two files are canonical.
 
@@ -25,14 +24,14 @@ These are always enforced. Violating them produces broken apps.
 
 ### Setup
 
-- **Exactly one import path.** `import { X } from '@bloomneo/uikit'`. Never `@bloomneo/uikit/button` in hand-written code (only bundlers use deep imports).
+- **Exactly one import path.** `import { X } from '@bloomneo/uikit'`. Never `@bloomneo/uikit/button` in hand-written code (only bundlers use deep imports). The exceptions are the subpath-only entries `@bloomneo/uikit/router` and `@bloomneo/uikit/data`.
 - **Wire styles by build type.** If the app runs its own Tailwind (every Bloom template), add `@import "@bloomneo/uikit/theme";` after `@import "tailwindcss";` in its CSS — a prebuilt sheet cannot constrain your build, so this is what applies the 3.0 palette lockdown. If there is no build, `import '@bloomneo/uikit/styles'` at entry. Migrating from 2.x? `@bloomneo/uikit/styles/permissive` keeps raw palette classes working.
 - **Exactly one provider tree.** Mount `ThemeProvider` > `ToastProvider` (self-closing, sibling) + `ConfirmProvider` (wraps children). `ToastProvider` and `ConfirmProvider` must each appear exactly once — duplicates fire dev-only `warnInDev` and produce doubled behavior in prod.
 - **FOUC script required.** Inject `<script>{foucScript()}</script>` from `@bloomneo/uikit/fouc` into `index.html` `<head>` or themes flash on load.
 
 ### Controlled props — the #1 agent failure mode
 
-Every stateful component uses a specific value + handler pair. Using the wrong handler = silent failure. The cheat sheet in `llms.txt` ("Controlled prop cheat sheet" section) is canonical. Shortcut:
+Every stateful component uses a specific value + handler pair. Using the wrong handler = silent failure. `AGENTS.md` ("Prop conventions") is canonical. Shortcut:
 
 | Component family | Value prop | Change handler |
 |---|---|---|
@@ -52,37 +51,44 @@ Every stateful component uses a specific value + handler pair. Using the wrong h
 - **Empty lists:** `<EmptyState>` — not ad-hoc placeholder divs.
 - **Password fields:** `<PasswordInput>` — not `<Input type="password">`.
 
-### Layouts — you write them
+### App frame, routing and data
 
-UIKit ships **no layout components** (removed in 4.0). Write a layout route
-that renders its pages through an `<Outlet />`, and let each page own its
-header:
+The signed-in area renders inside `<AppShell>` (sidebar, header, mobile
+sheet), used as a layout route; each page owns its `<PageHeader>`:
 
 ```tsx
-// AdminLayoutRoute.tsx — the shell, once, in the app
-export function AdminLayoutRoute() {
-  return (
-    <div className="flex min-h-screen">
-      <Sidebar />
-      <main className="flex-1 p-6"><Outlet /></main>
-    </div>
-  );
-}
-
-// Any page — owns its header, returns plain content
-export default function UsersPage() {
-  return (
-    <div className="space-y-6">
-      <PageHeader title="Users" actions={<Button>Invite</Button>} />
-      <UsersTable />
-    </div>
-  );
-}
+<AppShell
+  brand={{ name: 'Acme', href: '/dashboard' }}
+  nav={[{ href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard, end: true }]}
+  currentPath={useLocation().pathname}
+  linkComponent={({ href, ...rest }) => <Link to={href} {...rest} />}
+  headerActions={<UserMenu />}
+>
+  <Outlet />
+</AppShell>
 ```
 
-`@bloomneo/bloom` scaffolds this shell. Do not reach for `AdminLayout`,
-`PageLayout`, `AuthLayout`, `MobileLayout`, `PopupLayout` or `BlankLayout` —
-they do not exist.
+Pages are routed by file with `@bloomneo/uikit/router` — the glob stays in the
+app (Vite resolves it relative to the caller):
+
+```tsx
+import { PageRouter } from '@bloomneo/uikit/router';
+const pages = import.meta.glob(['./features/*/pages/**/*.{tsx,jsx}', '!**/_*.{tsx,jsx}', '!**/_*/**']);
+<BrowserRouter><PageRouter pages={pages} layouts={layouts} /></BrowserRouter>
+```
+
+Routes with a bloom contract are read and written with `@bloomneo/uikit/data`:
+
+```tsx
+import { useQuery, useMutation } from '@bloomneo/uikit/data';
+const { data, loading, error, refetch } = useQuery(api, listInvoices, { query: { page } });
+const create = useMutation(api, createInvoice);   // await create.mutate({ body })
+```
+
+`api` is `createClient()` from `@bloomneo/bloom`. Do not copy a page router
+into the app, and do not write `useEffect` + fetch for a route that has a
+contract. The 4.x layout components (`AdminLayout`, `PageLayout`,
+`AuthLayout`, …) do not exist.
 
 ### Styling
 
@@ -90,7 +96,7 @@ they do not exist.
 - **Status and contrast tokens** (3.0): `bg-success` / `bg-warning` (+ `-foreground`) for state, and `bg-contrast` / `text-contrast-foreground` / `text-contrast-muted-foreground` / `border-contrast-border` for deliberately-inverted surfaces such as `tone="contrast"`.
 - **`cn()`** from `@bloomneo/uikit` for conditional classes — not template literal ternaries.
 - **No manual `z-index`** on overlays — Dialog, Sheet, Popover manage their own stacking.
-- **Theme customization** → see [rules/theming.md](./rules/theming.md) for OKLCH, custom theme CLI, dark-mode rules, and FBCA paths.
+- **Theme customization** → see [rules/theming.md](./rules/theming.md) for token overrides, OKLCH and dark-mode rules.
 
 ### DataTable — the other #1 agent failure mode
 
@@ -211,35 +217,20 @@ const ok = await confirm({ title: 'Sure?', tone: 'destructive' });
 | Page header w/ breadcrumbs | `PageHeader` |
 | Role-gated UI | `PermissionGate` |
 
-## CLI
-
-```bash
-npx uikit generate theme <name>      # create a custom theme
-npx uikit generate page <name>       # page component
-npx uikit generate component <name>  # reusable component
-npx uikit generate hook <name>       # custom React hook
-npx uikit generate feature <name>    # feature folder (page + component + hook)
-npx uikit bundle                     # compile custom themes to CSS
-```
-
-`create`, `serve`, `build`, `deploy`, `prerender` and `optimize` were removed in
-4.0 — use `@bloomneo/bloom` to scaffold, and the app's own toolchain for the
-lifecycle.
-
-Substitute `pnpm dlx uikit` or `bunx --bun uikit` based on the project's `packageManager`.
-
 ## Hooks & Utilities
 
 - `useTheme()` — get/set theme and mode
 - `useConfirm()` — promise-based confirmation
 - `useMediaQuery()`, `useBreakpoint()`, `useActiveBreakpoint()` — responsive
-- `useApi()` — data fetching
+- `useApi()` — data fetching for endpoints without a contract
+- `useQuery()`, `useMutation()` from `@bloomneo/uikit/data` — routes with a contract
+- `usePermission()`, `useToast()`, `useDataTable()` (headless table)
 - `formatCurrency()`, `formatNumber()`, `formatDate()`, `timeAgo()`, `formatBytes()`
 
 ## Client-only components
 
 In Next.js App Router, add `"use client"` to files that use:
-Dialog, Sheet, Popover, Tooltip, DropdownMenu, ConfirmDialog, Toast / ToastProvider, Combobox, Tabs, ThemeProvider.
+Dialog, Sheet, Popover, Tooltip, DropdownMenu, ConfirmDialog, Toast / ToastProvider, Combobox, Tabs, AppShell, ThemeProvider.
 
 ## Workflow
 
@@ -253,8 +244,7 @@ Dialog, Sheet, Popover, Tooltip, DropdownMenu, ConfirmDialog, Toast / ToastProvi
 
 - API reference: `node_modules/@bloomneo/uikit/llms.txt` (or `llms.txt` in repo root)
 - Do/don't rules: `AGENTS.md` (repo root)
-- Theming (OKLCH, CLI, dark mode): [rules/theming.md](./rules/theming.md)
-- Cursor rules: `.cursor/rules/uikit.mdc`
+- Theming (token overrides, OKLCH, dark mode): [rules/theming.md](./rules/theming.md)
 - Recipes: `cookbook/` folder
 - Examples: `examples/` folder
 - GitHub: https://github.com/bloomneo/uikit

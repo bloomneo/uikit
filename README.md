@@ -1,19 +1,26 @@
-# Bloomneo UIKit 🎨
+# Bloomneo UIKit
 
 [![npm version](https://img.shields.io/npm/v/@bloomneo/uikit.svg)](https://www.npmjs.com/package/@bloomneo/uikit)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 [![AI Ready](https://img.shields.io/badge/AI-Optimized-purple.svg)](https://github.com/bloomneo/appkit)
 
-> A React component library AI coding agents can use correctly on the first try. 30 components, one token palette, and a generated `llms.txt`.
+> Bloomneo makes business apps safe, consistent and maintainable, however much
+> of the code AI writes. UIKit is its curated component library for business
+> apps.
 
-UIKit is a **library, not a framework**. It ships the components and the design
-tokens; your app owns its own chrome. Tailwind's default palette is removed, so
-the only colours that compile are the semantic ones — which is what keeps a
-generated codebase looking like one product instead of thirty.
+A deliberately small set of typed React components, one locked token palette,
+the signed-in app frame (`AppShell`), file-based page routing
+(`@bloomneo/uikit/router`) and data hooks for route contracts
+(`@bloomneo/uikit/data`), with a generated `llms.txt` that agents read first.
+Tailwind's default palette is removed, so the only colours that compile are the
+semantic ones — which is what keeps a generated codebase looking like one
+product instead of thirty.
 
-For scaffolding a whole application, use
-[`@bloomneo/bloom`](https://www.npmjs.com/package/@bloomneo/bloom).
+UIKit is a **library, not a framework**: it does not scaffold apps. For that,
+use [`@bloomneo/bloom`](https://www.npmjs.com/package/@bloomneo/bloom), which
+wires UIKit and AppKit together. Upgrading from 4.x? Read
+[`MIGRATION-6.md`](./MIGRATION-6.md).
 
 ## For AI coding agents
 
@@ -31,7 +38,14 @@ import { Button, DataTable, FormField, useConfirm, toast } from '@bloomneo/uikit
 ```
 
 Deep imports like `@bloomneo/uikit/button` exist for build-size optimisation
-but agents should always use the flat import above when generating code.
+but agents should always use the flat import above when generating code. The
+two exceptions are entries that exist only as subpaths, so the flat entry never
+pulls in a router:
+
+```ts
+import { PageRouter } from '@bloomneo/uikit/router';       // needs react-router-dom
+import { useQuery, useMutation } from '@bloomneo/uikit/data';
+```
 
 **Required setup:**
 
@@ -69,12 +83,13 @@ theme classes are on `<html>` before React mounts.
 
 - **The palette is the enforcement.** `bg-blue-600` compiles to nothing; `bg-primary` works. A rule that only lives in documentation gets bypassed at the rate the codebase grows — see [The palette is locked to your theme](#the-palette-is-locked-to-your-theme-30).
 - **Dark mode included**, driven by the same tokens.
-- **Custom themes** via `uikit generate theme <name>` + `uikit bundle`.
+- **Custom themes** are a few CSS token overrides — see [Custom themes](#custom-themes).
 
 **🚀 For rapid development**
 
-- **Drop-in app primitives**: `<DataTable>`, `<FormField>`, `<ConfirmDialog>` (promise-based), `<ToastProvider>`, `<EmptyState>`, `<PageHeader>`, `<PermissionGate>` — the things every admin page rebuilds by hand, shipped once.
-- **12 hooks and a formatters module** so pages stay declarative.
+- **Drop-in app primitives**: `<AppShell>`, `<DataTable>`, `<FormField>`, `<ConfirmDialog>` (promise-based), `<ToastProvider>`, `<EmptyState>`, `<PageHeader>`, `<PermissionGate>` — the things every business app rebuilds by hand, shipped once.
+- **Page routing and contract data hooks**: `PageRouter` maps `features/*/pages/**` to URLs; `useQuery` / `useMutation` call bloom route contracts with types taken from the contract.
+- **Hooks and a formatters module** so pages stay declarative.
 
 **🔧 For maintainability**
 
@@ -111,18 +126,16 @@ cd myapp && npm run dev
 
 ## Framework Architecture
 
-**@bloomneo/uikit** is built on **ShadCN components** and **Tailwind CSS v4** with three key additions:
+**@bloomneo/uikit** is built on **ShadCN components** and **Tailwind CSS v4**, curated for business apps: one component per job, plus the app frame, routing and data hooks every app used to rebuild.
 
-## 1. Composite UI System
+## 1. Components
 
-Build complete interfaces with our three-tier component system - from individual form controls to full page layouts. Mix and match components, sections, and layouts to create any interface quickly without starting from scratch.
-
-### Components (30 total)
+### Components
 
 | Category               | Components                                                                 |
 | ---------------------- | -------------------------------------------------------------------------- |
-| **Form & Input**       | Button, Input, Textarea, Label, Checkbox, RadioGroup, Switch, Select, Combobox, **Form, FormField** |
-| **App primitives** ⭐  | **DataTable, PageHeader, EmptyState, ConfirmDialog, ConfirmProvider, ToastProvider, PermissionGate** |
+| **Form & Input**       | Button, Input, Textarea, Label, Checkbox, RadioGroup, Switch, Select, Combobox, **FormField, PasswordInput** |
+| **App primitives** ⭐  | **AppShell, DataTable, PageHeader, EmptyState, ConfirmDialog, ConfirmProvider, ToastProvider, PermissionGate** |
 | **Display**            | Card, Badge, Alert, Tabs, Table                                            |
 | **Navigation & menu**  | DropdownMenu                                                               |
 | **Overlay & modal**    | Dialog, Sheet, Popover, Tooltip                                            |
@@ -134,24 +147,27 @@ Build complete interfaces with our three-tier component system - from individual
 `useActiveBreakpoint` · `useDataTable` (headless) · `useApi` · `usePermission`
 
 `formatCurrency` · `formatNumber` · `formatDate` · `timeAgo` · `formatBytes` ·
-`foucScript` · `foucScriptTag` · `cn`
+`Time` · `foucScript` · `foucScriptTag` · `cn`
 
-### Layouts and sections were removed in 4.0
+### Subpath entries
 
-`AdminLayout`, `PageLayout`, `AuthLayout`, `BlankLayout`, `PopupLayout`,
-`MobileLayout`, `Header`, `Footer`, `Container`, `SafeArea` and `TabBar` are
-gone. Every application built on this library replaced them within weeks: app
-chrome is where product identity lives, and a generic sidebar is the first
-thing anyone rewrites. Shipping it cost maintenance and bought nothing.
+| Entry | Exports |
+|---|---|
+| `@bloomneo/uikit/router` | `PageRouter`, `pathFromFile`, `discoverRoutes`, types `RouteLayout`, `PageRouterProps`, `PageGlob`, `DiscoveredRoute` |
+| `@bloomneo/uikit/data` | `useQuery`, `useMutation`, types `QueryState`, `QueryOptions`, `MutationState`, `ContractLike`, `ClientLike`, `ResponseOf` |
 
-What replaced them is a **layout route** that renders pages through an
-`<Outlet />`, with pages owning their own headers — see
-[Layouts — build your own](#layouts--build-your-own). `@bloomneo/bloom`
-scaffolds that shell for you.
+See [App shell, routing and data](#app-shell-routing-and-data).
+
+### Layouts
+
+UIKit's old layout components were removed in 4.0 and are not coming back. For the
+signed-in part of an app, use `AppShell`; everything else is a layout route in
+your app that renders pages through an `<Outlet />`, with each page owning its
+`<PageHeader>`.
 
 ## 2. Advanced Theming System
 
-One bundled theme (`base`) plus a generator for your own. Built on OKLCH color science with automatic light/dark mode support and semantic color variables that work across all components.
+One bundled theme (`base`), which you brand with a few CSS token overrides. Built on OKLCH color science with automatic light/dark mode support and semantic color variables that work across all components.
 
 **Note**: Instead of hardcoded colors like `bg-white` or `text-black`, use semantic color classes like `bg-background`, `text-foreground`, `border-border`. These automatically adapt to your selected theme and work perfectly in both light and dark modes.
 
@@ -216,36 +232,37 @@ Treat it as a migration aid with an end date.
 
 4.0 removed the `elegant`, `metro`, `studio` and `vivid` presets. They were four
 more palettes to keep consistent and near-zero projects switched to them — the
-generator below covers the real case, which is one brand palette per product.
+real case is one brand palette per product.
 
-### Custom Theme Generation
+### Custom themes
 
-```bash
-# Generate custom theme automatically
-uikit generate theme <name>
+Override the `base` theme's tokens in your own stylesheet, after the uikit
+import. Light values go on `.theme-base`, dark values on `.theme-base.dark`:
 
-# Bundle themes to CSS
-uikit bundle
+```css
+/* your index.css */
+@import "tailwindcss";
+@import "@bloomneo/uikit/theme";
+
+.theme-base {
+  --color-primary: #7c3aed;
+  --color-primary-foreground: #ffffff;
+  --color-ring: #7c3aed;
+  --color-sidebar-primary: #7c3aed;
+}
+.theme-base.dark {
+  --color-primary: #a78bfa;
+  --color-primary-foreground: #1e1b4b;
+  --color-ring: #a78bfa;
+  --color-sidebar-primary: #a78bfa;
+}
 ```
 
-**What Happens Automatically:**
-
-1. **Creates theme preset** with generic values for 29 semantic colors (light + dark modes)
-2. **Compiles globals.css** with optimized CSS variables
-3. **Updates main.tsx** to use your new theme instantly
-4. **Theme visible immediately** - ready to customize for your brand needs
-
-**Development Workflow:**
-
-- **Customize preset**: Modify the generic values in `src/themes/presets/theme-<name>.js` to match your brand
-- **Rebundle**: Run `uikit bundle` to regenerate CSS
-- **See changes instantly**: Theme updates appear immediately in your app
-
-**Best Practices:**
-
-- **Avoid custom CSS files** - work within the preset system for consistency
-- **No separate stylesheets** - keeps theme coherence undisturbed
-- **Easy maintenance** - all theme changes in one centralized file
+Every token is listed in `@bloomneo/uikit/theme` (`--color-background`,
+`--color-card`, `--color-muted`, `--color-border`, `--color-chart1` …
+`--color-chart5`, `--color-sidebar*`, and so on). Components pick the new
+values up through the semantic classes; nothing else changes. (6.0 removed the
+`uikit` CLI that used to generate theme presets.)
 
 ## 3. Project scaffolding — see @bloomneo/bloom
 
@@ -256,26 +273,6 @@ built on the very layout chrome this release deleted.
 
 ```bash
 npx @bloomneo/bloom create myapp
-```
-
-## UIKit CLI Commands
-
-The CLI is theme tooling and per-piece generation. Whole-app scaffolding, dev
-server, build, deploy, prerender and image optimisation were removed in 4.0 —
-your app's own toolchain (Vite, Next) already does those, and `@bloomneo/bloom`
-wires them.
-
-```bash
-# Code generation (into an existing app)
-uikit generate page dashboard         # page component
-uikit generate component button       # reusable component
-uikit generate hook useAuth           # custom React hook
-uikit generate feature blog           # complete feature (page + component + hook)
-
-# Theme management
-uikit generate theme brand            # generate a custom theme
-uikit bundle                          # process themes to CSS
-uikit bundle --watch                  # watch mode for development
 ```
 
 ## Example Codes
@@ -313,7 +310,7 @@ import { Alert, AlertTitle, AlertDescription } from '@bloomneo/uikit';
 </Alert>
 ```
 
-#### Form (with the new FormField + PasswordInput primitives)
+#### Form (FormField + PasswordInput)
 
 ```tsx
 import { Button, FormField, Input, PasswordInput } from '@bloomneo/uikit';
@@ -382,30 +379,54 @@ import { Button, ToastProvider, toast } from '@bloomneo/uikit';
 <Button onClick={() => toast.success('Saved')}>Save</Button>
 ```
 
-### Layouts — build your own
+## App shell, routing and data
 
-UIKit ships **no layout components**. 4.0.0 removed `AdminLayout`, `PageLayout`,
-`AuthLayout`, `BlankLayout` and `PopupLayout` because every real app replaced
-them within weeks: app chrome is where product identity lives, and a generic
-sidebar is the first thing anyone rewrites.
+### AppShell — the signed-in app frame
 
-The pattern that replaced them is a **layout route** that renders its pages
-through an `<Outlet />`, and pages that own their own header:
+A sidebar that collapses to an icon rail (remembered per browser), a header,
+and the same navigation in a sheet on small screens. It is router-agnostic:
+pass the current pathname and your router's link component.
 
 ```tsx
-// AdminLayoutRoute.tsx — the shell, written once, in your app
-export function AdminLayoutRoute() {
+import { Link, Outlet, useLocation } from 'react-router-dom';
+import { LayoutDashboard, Settings, Users } from 'lucide-react';
+import { AppShell, Button } from '@bloomneo/uikit';
+
+export function DashboardLayout() {
   return (
-    <div className="flex min-h-screen">
-      <Sidebar />                {/* yours */}
-      <main className="flex-1 p-6">
-        <Outlet />
-      </main>
-    </div>
+    <AppShell
+      brand={{ name: 'Acme', href: '/dashboard' }}
+      nav={[
+        { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard, end: true },
+        { href: '/dashboard/users', label: 'Users', icon: Users, section: 'Admin' },
+        { href: '/dashboard/settings', label: 'Settings', icon: Settings },
+      ]}
+      currentPath={useLocation().pathname}
+      linkComponent={({ href, ...rest }) => <Link to={href} {...rest} />}
+      headerActions={<Button variant="ghost" size="sm">Sign out</Button>}
+    >
+      <Outlet />
+    </AppShell>
   );
 }
+```
 
-// Any page — owns its header, returns plain content
+| Prop | |
+|---|---|
+| `brand` | `{ name, href?, mark? }` — `mark` defaults to the first letter of `name` |
+| `nav` | `{ href, label, icon?, end?, section? }[]` — `end` for index routes; `section` starts a labelled group |
+| `currentPath` | the current pathname; the matching item gets `aria-current="page"` |
+| `linkComponent` | your router's link, receiving `{ href, className, children, onClick, aria-label, aria-current }`; defaults to `<a>` |
+| `headerActions` | right side of the header |
+| `sidebarFooter` | `(collapsed) => ReactNode`, bottom of the sidebar |
+| `collapsible` | default `true` |
+| `storageKey` | localStorage key for the collapsed state, default `'uikit:sidebar:collapsed'` |
+| `navLabel` | accessible name of the nav landmark, default `'Main'` |
+
+Guard the route that renders `AppShell`, not each page. Pages inside it own
+their header:
+
+```tsx
 import { PageHeader, Button } from '@bloomneo/uikit';
 
 export default function UsersPage() {
@@ -418,8 +439,75 @@ export default function UsersPage() {
 }
 ```
 
-For a scaffolded app that already has this wired, use
-[`@bloomneo/bloom`](https://www.npmjs.com/package/@bloomneo/bloom).
+### Page routing — `@bloomneo/uikit/router`
+
+Files under `features/<name>/pages/` become URLs. The app passes its own
+`import.meta.glob` (Vite resolves globs relative to the calling file, so it
+cannot live in a library); the package owns the rest. Needs `react-router-dom`
+(optional peer dependency, >= 6.20) and a `<BrowserRouter>` above it.
+
+```tsx
+import { BrowserRouter } from 'react-router-dom';
+import { PageRouter, type RouteLayout } from '@bloomneo/uikit/router';
+
+const pages = import.meta.glob(['./features/*/pages/**/*.{tsx,jsx}', '!**/_*.{tsx,jsx}', '!**/_*/**']);
+
+const layouts: RouteLayout[] = [
+  { match: (path) => path.startsWith('/dashboard'), Layout: DashboardLayout },
+];
+
+<BrowserRouter>
+  <PageRouter pages={pages} layouts={layouts} onError={(error) => reportError(error)} />
+</BrowserRouter>
+```
+
+| File | URL |
+|---|---|
+| `features/users/pages/index.tsx` | `/users` |
+| `features/users/pages/[id].tsx` | `/users/:id` |
+| `features/docs/pages/[...path].tsx` | `/docs/*` |
+| `features/main/pages/about.tsx` | `/about` (`main` maps to `/`) |
+| `_helpers.tsx`, `_parts/…` | not routes |
+
+Segments are lowercased, dynamic ones included (`[userId]` → `:userid`).
+`PageRouter` props: `pages` (required), `routeBase` (e.g. `{ billing: '/account' }`),
+`layouts` (first match wins; each `Layout` renders `<Outlet />`), `notFound`,
+`errorElement`, `onError`, `fallback`. Every page gets its own Suspense
+boundary; the error boundary resets on navigation; a 404 is built in; two
+files mapping to one URL log a warning in development. `pathFromFile(file,
+routeBase?)` and `discoverRoutes(pages, routeBase?)` expose the same rules for
+tests and tooling.
+
+### Data from route contracts — `@bloomneo/uikit/data`
+
+For routes declared with `defineRoute` in `@bloomneo/bloom`, these hooks
+replace per-page `useEffect` + fetch. Pass the client from bloom's
+`createClient()`; `data` is typed from the contract's `response` schema.
+
+```tsx
+import { createClient } from '@bloomneo/bloom';
+import { useQuery, useMutation } from '@bloomneo/uikit/data';
+import { listInvoices, createInvoice } from '../contracts';
+
+const api = createClient({ baseUrl: import.meta.env.VITE_API_URL, getToken });
+
+function Invoices({ page }: { page: number }) {
+  const { data, loading, error, refetch } = useQuery(api, listInvoices, { query: { page } });
+  const create = useMutation(api, createInvoice);
+
+  async function add() {
+    await create.mutate({ body: { total: 5 } });   // resolves with the response, rejects on error
+    await refetch();
+  }
+  // …
+}
+```
+
+- `useQuery(client, contract, input?, { enabled? })` → `{ data, error, loading, refetch }`.
+  It refetches when `input` changes by value, waits while `enabled` is false,
+  and only the latest request writes state.
+- `useMutation(client, contract)` → `{ mutate, data, error, loading }`.
+- uikit reads contracts structurally, so it does not depend on bloom.
 
 ### Theme Usage
 
@@ -463,8 +551,8 @@ function ModeToggle() {
 
 - [Naming conventions](docs/NAMING.md) — how exports and props are named, and why
 - [Agent clarity benchmark](docs/AGENT_CLARITY_BENCHMARK.md) — how this package is scored for agent usability
-- [`CHANGELOG.md`](./CHANGELOG.md) — release history, including the 4.0 removals
-- [`CHANGELOG.md`](./CHANGELOG.md) — release notes (see 2.0.0 for the current API; 1.5.0 for the agent-readiness rework)
+- [`MIGRATION-6.md`](./MIGRATION-6.md) — upgrading from 4.x: every removal with its replacement, and what 6.0 adds
+- [`CHANGELOG.md`](./CHANGELOG.md) — release history
 
 ## 📄 License
 
@@ -483,7 +571,7 @@ MIT © [Bloomneo](https://github.com/bloomneo) — See [LICENSE](LICENSE) for de
 ### **🔖 Tags**
 
 `react` `typescript` `uikit` `ai-ready` `shadcn` `tailwind` `themes`
-`components` `layouts` `zero-config` `production-ready`
+`components` `business-apps` `zero-config` `production-ready`
 `agentic-ai` `llm-optimized` `rapid-development` `design-system`
 `developer-experience`
 

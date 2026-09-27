@@ -15,16 +15,21 @@ Deep imports like `@bloomneo/uikit/button` exist for build-size
 optimisation but are NOT the canonical form. When generating code,
 always use the flat `from '@bloomneo/uikit'` import.
 
+Two entries exist ONLY as subpaths (so the flat entry never pulls in a
+router). Import them by subpath:
+
+    import { PageRouter } from '@bloomneo/uikit/router';
+    import { useQuery, useMutation } from '@bloomneo/uikit/data';
+
 ## Required setup (one time per app)
 
-    // 1. Import the core stylesheet ONCE at app entry:
+    // 1. Styles, ONCE. If the app runs its own Tailwind (every Bloom
+    //    template), in its CSS after @import "tailwindcss":
+    @import "@bloomneo/uikit/theme";
+    //    With no Tailwind build of its own, at app entry instead:
     import '@bloomneo/uikit/styles';
 
-    // 2. (Optional) If your theme uses the built-in Elegant / Metro / Studio /
-    //    Vivid fonts, also import the fonts bundle:
-    import '@bloomneo/uikit/styles/fonts';
-
-    // 3. Wrap your app:
+    // 2. Wrap your app:
     import { ThemeProvider, ToastProvider, ConfirmProvider } from '@bloomneo/uikit';
     <ThemeProvider theme="base" mode="light">
       <ToastProvider />
@@ -33,13 +38,73 @@ always use the flat `from '@bloomneo/uikit'` import.
       </ConfirmProvider>
     </ThemeProvider>
 
-    // 4. Add the FOUC inline script to your index.html <head> so themes
+    // 3. Add the FOUC inline script to your index.html <head> so themes
     //    apply before React mounts. See @bloomneo/uikit/fouc → foucScript().
 
 ## Themes
 
-Built-in: base | elegant | metro | studio | vivid
-Switch with `useTheme().setTheme('elegant')`. Custom themes are also allowed.
+Built-in: base (the only bundled theme). Switch light/dark with
+`useTheme().setMode('dark')`. To brand it, override tokens in your own CSS
+after the uikit import: `.theme-base { --color-primary: ... }` for light,
+`.theme-base.dark { ... }` for dark. Tailwind palette classes such as
+`bg-blue-600` compile to nothing; use semantic classes (`bg-primary`).
+
+## App frame, routing and data
+
+### AppShell
+
+The signed-in app frame (root entry). Props: `brand` { name, href?, mark? },
+`nav` { href, label, icon?, end?, section? }[], `currentPath`, `linkComponent`
+(your router link; receives href/className/children/onClick/aria-*),
+`headerActions`, `sidebarFooter(collapsed)`, `collapsible` (default true),
+`storageKey` (default 'uikit:sidebar:collapsed'), `navLabel`, `children`.
+Use `end: true` on index routes. See the AppShell example below.
+
+### Page router
+
+`@bloomneo/uikit/router` exports `PageRouter`, `pathFromFile`, `discoverRoutes`
+and types `RouteLayout`, `PageRouterProps`, `PageGlob`, `DiscoveredRoute`.
+Needs react-router-dom (optional peer) and a <BrowserRouter> above it.
+The glob MUST be written in the app (Vite resolves it relative to the caller):
+
+```tsx
+import { PageRouter, type RouteLayout } from '@bloomneo/uikit/router';
+
+const pages = import.meta.glob(['./features/*/pages/**/*.{tsx,jsx}', '!**/_*.{tsx,jsx}', '!**/_*/**']);
+const layouts: RouteLayout[] = [{ match: (p) => p.startsWith('/dashboard'), Layout: DashboardLayout }];
+
+<BrowserRouter>
+  <PageRouter pages={pages} layouts={layouts} onError={reportError} />
+</BrowserRouter>
+```
+
+File to URL: `features/users/pages/index.tsx` -> /users; `[id].tsx` -> :id
+(segments lowercased, so `[userId]` -> :userid); `[...path].tsx` -> *;
+`features/main/` -> /; files or folders starting with `_` are not routes.
+Other props: `routeBase` ({ billing: '/account' }), `notFound`, `errorElement`,
+`fallback`. Each page gets a Suspense boundary; the error boundary resets on
+navigation; a 404 is built in.
+
+### Contract data hooks
+
+`@bloomneo/uikit/data` exports `useQuery` and `useMutation` for route
+contracts (`defineRoute` in @bloomneo/bloom). Use them instead of
+useEffect + fetch or `useApi` when a route has a contract:
+
+```tsx
+import { createClient } from '@bloomneo/bloom';
+import { useQuery, useMutation } from '@bloomneo/uikit/data';
+
+const api = createClient({ baseUrl: import.meta.env.VITE_API_URL, getToken });
+
+const { data, loading, error, refetch } = useQuery(api, listInvoices, { query: { page } });
+const create = useMutation(api, createInvoice);
+await create.mutate({ body: { total: 5 } });   // resolves with the response, rejects on error
+```
+
+`data` is typed from the contract response schema. `useQuery(client, contract,
+input?, { enabled? })` refetches when input changes by value; only the latest
+request writes state.
 
 ## Examples — one canonical snippet per component
 
@@ -1039,7 +1104,9 @@ export default function SettingsRecipe() {
 
 ## Conventions
 
-- Always import from `@bloomneo/uikit` (single canonical entry).
+- Always import from `@bloomneo/uikit` (single canonical entry), except
+  `@bloomneo/uikit/router` and `@bloomneo/uikit/data`, which are subpath-only.
+- Use `<AppShell>` for the signed-in layout; do not hand-roll a sidebar.
 - Pass `data` as an array (use `[]` while loading, never `undefined`).
 - Every `<DataTable>` column needs a unique `id`.
 - Mount `<ToastProvider />` and `<ConfirmProvider>` once at the app root.
@@ -1049,7 +1116,8 @@ export default function SettingsRecipe() {
 
 ## Full export list
 
-Every named export available from `@bloomneo/uikit`:
+Every named export available from `@bloomneo/uikit` (the /router and
+/data subpaths are listed in their own sections above):
 
 - Alert
 - AlertDescription

@@ -9,6 +9,12 @@
 > Benchmark: [`AGENT_CLARITY_BENCHMARK.md`](./AGENT_CLARITY_BENCHMARK.md) v2
 >
 > Baseline audit: 2026-04-16 (see audit notes in session log).
+>
+> **Historical plan (2026-04).** Some items name components that later
+> releases removed — `HoverCard`, the public `Command*` exports and the
+> react-hook-form `Form` wrapper in 6.0 (see `MIGRATION-6.md`); `Drawer`,
+> `Skeleton` and the layouts never existed or went in 4.0. They are kept as
+> written for the record, not as a description of the current API.
 
 ## Guiding principles
 
