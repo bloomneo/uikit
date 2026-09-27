@@ -1,7 +1,7 @@
 {
   "name": "@bloomneo/uikit",
   "version": "6.0.0-alpha.0",
-  "description": "React component library AI coding agents pick first \u2014 30 typed components and a locked semantic-token palette, with a generated llms.txt. A library, not a framework: your app owns its chrome. Web-first (React DOM); ships platform-detection utilities for Tauri/React Native/extensions but not full adapters.",
+  "description": "React component library AI coding agents pick first — typed components and a locked semantic-token palette, with a generated llms.txt. A library, not a framework: your app owns its chrome. Web-first (React DOM); runs unchanged in Electron and Capacitor builds.",
   "type": "module",
   "keywords": [
     "react",
@@ -260,6 +260,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "lucide-react": "^0.468.0",
+    "next-themes": "^0.4.6",
     "sonner": "^2.0.5",
     "tailwind-merge": "^2.6.0"
   },

@@ -13,7 +13,7 @@ Work in progress on the `next` branch; see `MIGRATION-6.md`.
   exports, platform detection, `useLocalStorage`, `useBackendStatus`,
   `usePagination`, and the `uikit` CLI. Dependencies dropped:
   `react-hook-form`, `@hookform/resolvers`, `zod`,
-  `@radix-ui/react-hover-card`, `next-themes`, `commander`.
+  `@radix-ui/react-hover-card`, `commander`.
 
 ### Changed
 
