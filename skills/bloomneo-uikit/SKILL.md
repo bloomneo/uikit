@@ -197,8 +197,8 @@ const ok = await confirm({ title: 'Sure?', tone: 'destructive' });
 | Dropdown (static short) | `Select` |
 | Dropdown (searchable / 10+ options) | `Combobox` |
 | Action menu from button | `DropdownMenu` |
-| Command palette (Cmd+K) | `CommandDialog` |
 | Yes/No confirmation | `useConfirm()` |
+| Signed-in app layout (sidebar + header) | `AppShell` |
 | Centered modal | `Dialog` |
 | Slide-in panel | `Sheet side="right"` |
 | Hover hint (text) | `Tooltip` |

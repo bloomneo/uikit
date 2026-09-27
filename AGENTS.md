@@ -98,6 +98,7 @@ export default function RootLayout({ children }) {
 
 | Need | Use | Not |
 |---|---|---|
+| Signed-in app layout (sidebar + header) | `AppShell` | a hand-rolled sidebar |
 | Centered modal | `Dialog` | — |
 | Slide-in panel | `Sheet` with `side` prop | No `Drawer` component exists — use `Sheet side="right"` |
 | Text-only hint on hover | `Tooltip` | — |
@@ -166,4 +167,4 @@ import { Table as TableIcon } from 'lucide-react';
 These components require `"use client"` at the top of the file in Next.js App Router:
 
 Dialog, Sheet, Popover, Tooltip, DropdownMenu, ConfirmDialog,
-Toast / ToastProvider, Command / CommandDialog, Combobox, Tabs, ThemeProvider.
+Toast / ToastProvider, Combobox, Tabs, AppShell, ThemeProvider.

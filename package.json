@@ -145,6 +145,10 @@
       "import": "./dist/empty-state.js",
       "types": "./dist/types/components/ui/empty-state.d.ts"
     },
+    "./app-shell": {
+      "import": "./dist/app-shell.js",
+      "types": "./dist/types/components/ui/app-shell.d.ts"
+    },
     "./page-header": {
       "import": "./dist/page-header.js",
       "types": "./dist/types/components/ui/page-header.d.ts"

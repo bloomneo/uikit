@@ -44,7 +44,7 @@ const COMPONENTS = [
   // Overlay
   'Toaster',
   // App primitives
-  'EmptyState', 'PageHeader',
+  'EmptyState', 'PageHeader', 'AppShell',
   // Provider / feedback
   'ThemeProvider', 'ToastProvider', 'ConfirmProvider',
   // Permission / auth-UI

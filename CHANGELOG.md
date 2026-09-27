@@ -6,6 +6,12 @@ All notable changes to UIKit will be documented in this file.
 
 Work in progress on the `next` branch; see `MIGRATION-6.md`.
 
+### Added
+
+- `AppShell`: the signed-in app frame (collapsible sidebar, header, mobile
+  navigation sheet), lifted from Bloom's dashboard template. Router-agnostic:
+  pass `currentPath` and a `linkComponent`.
+
 ### Removed
 
 - The react-hook-form + Zod `Form` wrapper and its `FormController` alias

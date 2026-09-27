@@ -120,6 +120,8 @@ export type { EmptyStateProps } from './components/ui/empty-state';
 
 export { PageHeader } from './components/ui/page-header';
 export type { PageHeaderProps, PageHeaderCrumb } from './components/ui/page-header';
+export { AppShell } from './components/ui/app-shell';
+export type { AppShellProps, AppShellNavItem, AppShellLinkProps } from './components/ui/app-shell';
 
 export { FormField, PasswordInput } from './components/ui/form-field';
 export type { FormFieldProps, PasswordInputProps } from './components/ui/form-field';

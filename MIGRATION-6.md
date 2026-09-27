@@ -26,4 +26,6 @@ None of these were imported by any of the four production apps (counted
 
 ## Added
 
-_None yet._
+| Added | Replaces |
+|---|---|
+| `AppShell` — sidebar (collapsible to an icon rail, remembered per browser), header, mobile navigation in a sheet, active item from `currentPath`, router-agnostic via `linkComponent` | uikit 2.x `PageLayout` / `Header` / `HeaderNav` (removed in 4.0), and the hand-built shells in apps created since |
