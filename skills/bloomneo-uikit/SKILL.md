@@ -1,11 +1,11 @@
 ---
 name: bloomneo-uikit
 description: Rules for generating React code with @bloomneo/uikit — components, design tokens, forms, the AppShell app frame, the /router page router and the /data contract hooks. Applies when the project's package.json has "@bloomneo/uikit" as a dependency, or when the user mentions uikit, bloomneo, or files import from "@bloomneo/uikit".
-version: 6.0.0-rc.1
+version: 6.0.0-rc.2
 user-invocable: false
 ---
 
-# @bloomneo/uikit (v6.0.0-rc.1)
+# @bloomneo/uikit (v6.0.0-rc.2)
 
 The curated component library for Bloomneo business apps: typed components, a
 locked design-token palette, the `AppShell` app frame, a file-based page router

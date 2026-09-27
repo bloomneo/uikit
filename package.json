@@ -1,6 +1,6 @@
 {
   "name": "@bloomneo/uikit",
-  "version": "6.0.0-rc.1",
+  "version": "6.0.0-rc.2",
   "description": "React components for business apps that AI coding agents use correctly — typed components on a locked semantic-token palette, an app shell, and data hooks for Bloomneo route contracts, with a generated llms.txt. Web-first (React DOM); runs unchanged in Electron and Capacitor builds.",
   "type": "module",
   "keywords": [
